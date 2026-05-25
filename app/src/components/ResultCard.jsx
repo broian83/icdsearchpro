@@ -90,7 +90,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
     const char0 = item.code.charAt(0).toUpperCase();
     const titleLower = item.title.toLowerCase();
     const isInjuryCode = ['S', 'T'].includes(char0);
-    const hasInjuryKeyword = titleLower.includes('accident') || titleLower.includes('injury') || titleLower.includes('fracture') || titleLower.includes('burn') || titleLower.includes('poisoning') || titleLower.includes('trauma');
+    const hasInjuryKeyword = /\b(accident|injury|fracture|burn|poisoning|trauma)\b/.test(titleLower);
     return isInjuryCode || hasInjuryKeyword;
   }, [item.code, item.title, searchType]);
 

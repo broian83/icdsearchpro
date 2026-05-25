@@ -32,7 +32,7 @@ export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, d
     const char0 = item.code.charAt(0).toUpperCase();
     const titleLower = item.title.toLowerCase();
     const isInjuryCode = ['S', 'T', 'V', 'W', 'X', 'Y'].includes(char0);
-    const hasInjuryKeyword = titleLower.includes('accident') || titleLower.includes('injury') || titleLower.includes('fracture') || titleLower.includes('burn') || titleLower.includes('poisoning') || titleLower.includes('trauma');
+    const hasInjuryKeyword = /\b(accident|injury|fracture|burn|poisoning|trauma)\b/.test(titleLower);
     
     if (isInjuryCode || hasInjuryKeyword) {
       externalCauseContext = "\nPERHATIAN KHUSUS: Ini adalah kasus Cedera/Fraktur/Kecelakaan/Keracunan. Ingatkan pengguna dengan tegas bahwa WAJIB menambahkan External Cause Code (kode V, W, X, atau Y) untuk menjelaskan penyebab dan tempat kejadian.";
