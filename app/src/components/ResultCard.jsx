@@ -29,7 +29,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
         .select('id')
         .eq('user_id', user.id)
         .eq('code', item.code)
-        .single();
+        .maybeSingle();
       
       if (data) {
         setIsBookmarked(true);
