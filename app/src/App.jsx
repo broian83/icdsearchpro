@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import { Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
@@ -62,10 +63,13 @@ function App() {
   const [daggerAsteriskData, setDaggerAsteriskData] = useState(null);
   const [aliases, setAliases] = useState({});
   
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchType = location.pathname === '/' ? 'icd10' : location.pathname.substring(1).replace(/\/$/, '');
+  
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
-  const [searchType, setSearchType] = useState('icd10'); // 'icd10' or 'icd9'
   const [filterChapter, setFilterChapter] = useState('all');
   const [error, setError] = useState(null);
 
@@ -82,7 +86,11 @@ function App() {
     if (tab === 'locked_bookmark') tab = 'bookmark';
     if (tab === 'locked_history') tab = 'history';
     
-    setSearchType(tab);
+    if (tab === 'icd10') {
+      navigate('/');
+    } else {
+      navigate('/' + tab);
+    }
   };
 
   // Reset filter on tab change
@@ -237,7 +245,7 @@ function App() {
             </button>
             <div 
               className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
-              onClick={() => setSearchType('icd10')}
+              onClick={() => navigate('/')}
               title="Kembali ke Beranda"
             >
               <img 
@@ -279,23 +287,20 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
         
-        {searchType === 'settings' && <SettingsView />}
-        
-        {searchType === 'profile' && <ProfileView />}
-        
-        {searchType === 'help' && <HelpView />}
-
-        {searchType === 'bookmark' && <BookmarkView />}
-
-        {searchType === 'history' && <HistoryView onSearchHistory={(q, type) => {
-          setSearchType(type);
-          setQuery(q);
-        }} />}
-        
-        {searchType === 'case' ? (
-          <CaseConsultation knowledgeText={knowledgeText} />
-        ) : (
-          (searchType === 'icd10' || searchType === 'icd9') && (
+        <Routes>
+          <Route path="/settings" element={<SettingsView />} />
+          <Route path="/profile" element={<ProfileView />} />
+          <Route path="/help" element={<HelpView />} />
+          <Route path="/bookmark" element={<BookmarkView />} />
+          <Route path="/history" element={
+            <HistoryView onSearchHistory={(q, type) => {
+              navigate(type === 'icd10' ? '/' : '/' + type);
+              setQuery(q);
+            }} />
+          } />
+          <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} />} />
+          
+          <Route path="/" element={
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               {/* Search Bar & Filter */}
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -430,8 +435,147 @@ function App() {
                 ))}
               </div>
             </div>
-          )
-        )}
+          } />
+          
+          <Route path="/icd9" element={
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* Search Bar & Filter */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-8">
+                <div className="relative group flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#00B4A4]">
+                    <Search className="w-6 h-6" />
+                  </div>
+                  <input
+                    type="text"
+                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 placeholder:text-slate-400"
+                    placeholder={`Cari kode, deskripsi, atau diagnosa...`}
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    disabled={loading}
+                  />
+                  {query && !loading && (
+                    <button
+                      onClick={() => {
+                        setQuery('');
+                        setDebouncedQuery('');
+                      }}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"
+                      title="Hapus pencarian"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  )}
+                  {loading && (
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00B4A4]">
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                    </div>
+                  )}
+                  {activeAlias && (
+                    <div className="absolute -bottom-7 left-4 text-xs text-[#00B4A4] flex items-center gap-1 font-bold bg-[#00B4A4]/10 px-2 py-1 rounded-md shadow-sm border border-[#00B4A4]/20 animate-in fade-in slide-in-from-top-1">
+                      <Brain className="w-3 h-3" />
+                      Smart Alias: {activeAlias.key} → {activeAlias.value}
+                    </div>
+                  )}
+                </div>
+
+                {/* Filter Dropdown */}
+                <div className="w-full sm:w-64 shrink-0 relative h-14 sm:h-16">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                    <Filter className="w-5 h-5" />
+                  </div>
+                  <select 
+                    value={filterChapter}
+                    onChange={(e) => setFilterChapter(e.target.value)}
+                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-sm text-slate-700 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 truncate font-medium cursor-pointer"
+                  >
+                    {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
+                      <option key={c.id} value={c.id}>{c.label}</option>
+                    ))}
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Searches */}
+              {!query && !loading && recentSearches.length > 0 && (
+                <div className="mb-8 flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5 mr-2">
+                    <Clock className="w-4 h-4" /> Riwayat:
+                  </span>
+                  {recentSearches.map((s, idx) => (
+                    <div key={idx} className="flex items-center bg-white shadow-sm border border-slate-200 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
+                      <button
+                        onClick={() => setQuery(s)}
+                        className="px-3 py-1.5 text-slate-600 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
+                      >
+                        {s}
+                      </button>
+                      <div className="w-[1px] h-4 bg-slate-200 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
+                      <button
+                        onClick={() => {
+                          setRecentSearches(prev => {
+                            const newHistory = prev.filter(item => item !== s);
+                            localStorage.setItem('icd_recent_searches', JSON.stringify(newHistory));
+                            return newHistory;
+                          });
+                        }}
+                        className="px-2 py-1.5 text-slate-400 hover:text-red-500 transition-colors hover:bg-red-50"
+                        title="Hapus dari riwayat"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                  {recentSearches.length > 1 && (
+                    <button
+                      onClick={() => {
+                        setRecentSearches([]);
+                        localStorage.removeItem('icd_recent_searches');
+                      }}
+                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
+                    >
+                      Hapus Semua
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {error && (
+                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-xl flex items-start gap-3 border border-red-100">
+                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm font-medium">{error}</p>
+                </div>
+              )}
+
+              {/* Results */}
+              {!loading && debouncedQuery && searchResults.length === 0 && (
+                <div className="text-center py-16 text-slate-500">
+                  <Search className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+                  <p className="text-lg font-medium text-slate-600">Tidak ada hasil pencarian statis ditemukan.</p>
+                  <p className="text-sm mt-1">Coba gunakan kata kunci lain.</p>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {searchResults.map(({ item, matches }, index) => (
+                  <ResultCard 
+                    key={item.code + index}
+                    item={item}
+                    matches={matches}
+                    searchType={searchType}
+                    knowledgeText={knowledgeText}
+                    daggerAsteriskData={daggerAsteriskData}
+                    onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
+                  />
+                ))}
+              </div>
+            </div>
+          } />
+          
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
       </main>
 
