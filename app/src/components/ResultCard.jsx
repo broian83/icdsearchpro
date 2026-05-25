@@ -4,22 +4,77 @@ import ReactMarkdown from 'react-markdown';
 import { Highlight } from '../utils/Highlight';
 import { getGroqDetailSuggestion } from '../utils/ai';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabase';
 
-export function ResultCard({ item, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth }) {
-  const { isLoggedIn } = useAuth();
+export function ResultCard({ item, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, initialBookmarked = false }) {
+  const { isLoggedIn, user } = useAuth();
   const [aiResponse, setAiResponse] = useState('');
   const [isAILoading, setIsAILoading] = useState(false);
   const [isAIExpanded, setIsAIExpanded] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+  const [bookmarkId, setBookmarkId] = useState(null);
 
-  const handleBookmarkToggle = (e) => {
+  useEffect(() => {
+    // Cek apakah item ini sudah ada di bookmark saat komponen dimuat
+    if (isLoggedIn && user && !initialBookmarked) {
+      checkIfBookmarked();
+    }
+  }, [isLoggedIn, user]);
+
+  const checkIfBookmarked = async () => {
+    try {
+      const { data } = await supabase
+        .from('bookmarks')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('code', item.code)
+        .single();
+      
+      if (data) {
+        setIsBookmarked(true);
+        setBookmarkId(data.id);
+      }
+    } catch (err) {
+      // Not found or error
+    }
+  };
+
+  const handleBookmarkToggle = async (e) => {
     e.stopPropagation();
     if (!isLoggedIn) {
       if (onRequireAuth) onRequireAuth();
       return;
     }
-    setIsBookmarked(!isBookmarked);
+
+    try {
+      if (isBookmarked) {
+        // Hapus bookmark
+        if (bookmarkId) {
+          await supabase.from('bookmarks').delete().eq('id', bookmarkId);
+        } else {
+          // Fallback delete by code if ID not known
+          await supabase.from('bookmarks').delete().eq('user_id', user.id).eq('code', item.code);
+        }
+        setIsBookmarked(false);
+        setBookmarkId(null);
+      } else {
+        // Tambah bookmark
+        const { data, error } = await supabase.from('bookmarks').insert({
+          user_id: user.id,
+          code: item.code,
+          title: item.title,
+          desc: item.desc || null,
+          search_type: searchType
+        }).select('id').single();
+
+        if (error) throw error;
+        setIsBookmarked(true);
+        setBookmarkId(data.id);
+      }
+    } catch (err) {
+      console.error('Error toggling bookmark:', err);
+    }
   };
 
   const handleCopyCode = (e) => {

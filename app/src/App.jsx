@@ -7,7 +7,10 @@ import { Sidebar } from './components/Sidebar';
 import { AuthModal } from './components/AuthModal';
 import { SettingsView } from './components/SettingsView';
 import { HelpView } from './components/HelpView';
+import { BookmarkView } from './components/BookmarkView';
+import { HistoryView } from './components/HistoryView';
 import { useAuth } from './context/AuthContext';
+import { supabase } from './lib/supabase';
 
 const icd10Chapters = [
   { id: 'all', label: 'Semua Kategori (ICD-10)' },
@@ -48,7 +51,7 @@ const icd9Chapters = [
 ];
 
 function App() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [authModalConfig, setAuthModalConfig] = useState({ isOpen: false, message: '' });
 
@@ -110,6 +113,20 @@ function App() {
 
   // Save to recent searches when debounced query changes
   useEffect(() => {
+    const saveToSupabase = async (queryText) => {
+      if (isLoggedIn && user) {
+        try {
+          await supabase.from('search_history').insert({
+            user_id: user.id,
+            query: queryText,
+            search_type: searchType
+          });
+        } catch (err) {
+          // ignore
+        }
+      }
+    };
+
     if (debouncedQuery.trim().length >= 3) {
       setRecentSearches(prev => {
         const lowerQuery = debouncedQuery.trim().toLowerCase();
@@ -118,8 +135,9 @@ function App() {
         localStorage.setItem('icd_recent_searches', JSON.stringify(newRecent));
         return newRecent;
       });
+      saveToSupabase(debouncedQuery.trim());
     }
-  }, [debouncedQuery]);
+  }, [debouncedQuery, isLoggedIn, user, searchType]);
 
   // Load data on mount
   useEffect(() => {
@@ -260,7 +278,10 @@ function App() {
 
         {searchType === 'bookmark' && <BookmarkView />}
 
-        {searchType === 'history' && <HistoryView />}
+        {searchType === 'history' && <HistoryView onSearchHistory={(q, type) => {
+          setSearchType(type);
+          setQuery(q);
+        }} />}
         
         {searchType === 'case' ? (
           <CaseConsultation knowledgeText={knowledgeText} />
