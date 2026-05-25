@@ -142,18 +142,18 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
   };
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col gap-4 group relative overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow flex flex-col gap-4 group relative overflow-hidden">
       
       {/* Top Row: Code, Desc, and AI Button */}
       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
         <div className="flex flex-row sm:flex-col items-start gap-3 sm:gap-2 flex-shrink-0">
           <div className="flex items-center gap-2 shrink-0">
-            <span className="inline-block px-3 py-1.5 bg-slate-100 text-slate-700 font-mono font-bold rounded-lg text-lg group-hover:bg-[#00B4A4] group-hover:text-white transition-colors">
+            <span className="inline-block px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-mono font-bold rounded-lg text-lg group-hover:bg-[#00B4A4] group-hover:text-white transition-colors">
               <Highlight text={item.code} matches={matches} property="code" />
             </span>
             <button
               onClick={handleCopyCode}
-              className="p-1.5 text-slate-400 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded-lg transition-colors focus:outline-none"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded-lg transition-colors focus:outline-none"
               title="Salin Kode"
             >
               {isCopied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
@@ -186,11 +186,11 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
           >
             <Star className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : ''}`} />
           </button>
-          <h4 className="text-base sm:text-lg font-semibold text-slate-800 leading-snug pr-2">
+          <h4 className="text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100 leading-snug pr-2">
             <Highlight text={item.title} matches={matches} property="title" />
           </h4>
           {item.desc && (
-            <p className="text-slate-600 mt-1 text-sm line-clamp-2">
+            <p className="text-slate-600 dark:text-slate-300 mt-1 text-sm line-clamp-2">
               <Highlight text={item.desc} matches={matches} property="desc" />
             </p>
           )}
@@ -202,7 +202,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
             className={`w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl text-sm font-semibold transition-all border ${
               isAIExpanded || isAILoading 
                 ? 'bg-[#00B4A4]/10 text-[#00B4A4] border-[#00B4A4]/20' 
-                : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50 hover:text-[#00B4A4]'
+                : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:bg-slate-800/50 hover:text-[#00B4A4]'
             }`}
           >
             {isAILoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
@@ -215,21 +215,21 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
       {isAIExpanded && (
         <div className="mt-2 overflow-hidden rounded-xl border border-[#00B4A4]/30 bg-gradient-to-br from-[#00B4A4]/5 to-[#D6E400]/5 shadow-inner p-4 animate-in fade-in slide-in-from-top-2">
           <div className="flex items-start gap-3">
-            <div className="bg-white p-1.5 rounded-full shadow-sm flex-shrink-0 text-[#00B4A4] mt-0.5">
+            <div className="bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-sm flex-shrink-0 text-[#00B4A4] mt-0.5">
               <Brain className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <h5 className="font-semibold text-slate-800 text-sm flex items-center gap-2">
+              <h5 className="font-semibold text-slate-800 dark:text-slate-100 text-sm flex items-center gap-2">
                 Penjelasan Cerdas AI
                 <span className="text-[9px] uppercase tracking-wider bg-blue-500 text-white px-1.5 py-0.5 rounded-full">Gemini 3.5</span>
               </h5>
               
               {isAILoading ? (
-                <div className="flex items-center gap-2 mt-2 text-slate-500 text-sm">
+                <div className="flex items-center gap-2 mt-2 text-slate-500 dark:text-slate-400 text-sm">
                   <span className="animate-pulse">Menyiapkan panduan koding untuk {item.code}...</span>
                 </div>
               ) : (
-                <div className="text-slate-700 text-sm mt-2 leading-relaxed">
+                <div className="text-slate-700 dark:text-slate-200 text-sm mt-2 leading-relaxed">
                   <ReactMarkdown
                     components={{
                       strong: ({node, ...props}) => <span className="font-bold text-slate-900" {...props} />,

@@ -12,6 +12,12 @@ if (savedScale) {
   document.documentElement.style.fontSize = savedScale;
 }
 
+// Apply Dark Mode preference before React renders
+const isDarkMode = localStorage.getItem('icd_dark_mode');
+if (isDarkMode === '1') {
+  document.documentElement.classList.add('dark');
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

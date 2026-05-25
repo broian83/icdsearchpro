@@ -226,7 +226,7 @@ function App() {
   }, [searchQuery, searchType, fuse10, fuse9, filterChapter]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 font-sans selection:bg-[#00B4A4] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#00B4A4] selection:text-white">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} onSelectTab={handleTabClick} />
       <AuthModal 
         isOpen={authModalConfig.isOpen} 
@@ -234,12 +234,12 @@ function App() {
         message={authModalConfig.message} 
       />
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-40">
+      <header className="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 py-3 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="p-2 -ml-2 text-slate-500 hover:text-[#00B4A4] hover:bg-slate-100 rounded-xl transition-colors focus:outline-none flex items-center justify-center"
+              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4A4] hover:bg-slate-100 dark:bg-slate-700 rounded-xl transition-colors focus:outline-none flex items-center justify-center"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -254,29 +254,29 @@ function App() {
                 className="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0 group-hover:opacity-90 transition-opacity" 
               />
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-800 leading-tight group-hover:text-[#00B4A4] transition-colors">ICD Search Pro</h1>
-                <p className="text-[11px] sm:text-sm text-slate-500 font-medium mt-0.5">
+                <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 leading-tight group-hover:text-[#00B4A4] transition-colors">ICD Search Pro</h1>
+                <p className="text-[11px] sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                   <span className="text-[#00B4A4] font-bold">by PMIK-id</span> <span className="px-1.5 opacity-40">•</span> Smart Clinical Coding Assistant
                 </p>
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 sm:flex bg-slate-100 p-1.5 rounded-xl w-full sm:w-auto gap-1">
+          <div className="grid grid-cols-3 sm:flex bg-slate-100 dark:bg-slate-700 p-1.5 rounded-xl w-full sm:w-auto gap-1">
             <button 
               onClick={() => handleTabClick('icd10')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd10' ? 'bg-white shadow-sm text-[#00B4A4]' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd10' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               ICD-10
             </button>
             <button 
               onClick={() => handleTabClick('icd9')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd9' ? 'bg-white shadow-sm text-[#00B4A4]' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd9' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               ICD-9
             </button>
             <button 
               onClick={() => handleTabClick('case')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${searchType === 'case' ? 'bg-white shadow-sm text-[#00B4A4]' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${searchType === 'case' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               <Brain className="w-4 h-4 shrink-0" /> <span className="hidden sm:inline">Klinik AI</span><span className="sm:hidden">AI</span>
             </button>
@@ -310,7 +310,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 placeholder:text-slate-400"
+                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 placeholder:text-slate-400 dark:text-slate-500"
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -322,7 +322,7 @@ function App() {
                         setQuery('');
                         setDebouncedQuery('');
                       }}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors focus:outline-none"
                       title="Hapus pencarian"
                     >
                       <X className="w-5 h-5" />
@@ -343,19 +343,19 @@ function App() {
 
                 {/* Filter Dropdown */}
                 <div className="w-full sm:w-64 shrink-0 relative h-14 sm:h-16">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
                     <Filter className="w-5 h-5" />
                   </div>
                   <select 
                     value={filterChapter}
                     onChange={(e) => setFilterChapter(e.target.value)}
-                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-sm text-slate-700 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 truncate font-medium cursor-pointer"
+                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-sm text-slate-700 dark:text-slate-200 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 truncate font-medium cursor-pointer"
                   >
                     {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
                       <option key={c.id} value={c.id}>{c.label}</option>
                     ))}
                   </select>
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                   </div>
                 </div>
@@ -364,18 +364,18 @@ function App() {
               {/* Recent Searches */}
               {!query && !loading && recentSearches.length > 0 && (
                 <div className="mb-8 flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5 mr-2">
+                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mr-2">
                     <Clock className="w-4 h-4" /> Riwayat:
                   </span>
                   {recentSearches.map((s, idx) => (
-                    <div key={idx} className="flex items-center bg-white shadow-sm border border-slate-200 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
+                    <div key={idx} className="flex items-center bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
                       <button
                         onClick={() => setQuery(s)}
-                        className="px-3 py-1.5 text-slate-600 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
+                        className="px-3 py-1.5 text-slate-600 dark:text-slate-300 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
                       >
                         {s}
                       </button>
-                      <div className="w-[1px] h-4 bg-slate-200 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
+                      <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
                       <button
                         onClick={() => {
                           setRecentSearches(prev => {
@@ -384,7 +384,7 @@ function App() {
                             return newHistory;
                           });
                         }}
-                        className="px-2 py-1.5 text-slate-400 hover:text-red-500 transition-colors hover:bg-red-50"
+                        className="px-2 py-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors hover:bg-red-50"
                         title="Hapus dari riwayat"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -397,7 +397,7 @@ function App() {
                         setRecentSearches([]);
                         localStorage.removeItem('icd_recent_searches');
                       }}
-                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
+                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 dark:text-slate-500 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
                     >
                       Hapus Semua
                     </button>
@@ -414,9 +414,9 @@ function App() {
 
               {/* Results */}
               {!loading && debouncedQuery && searchResults.length === 0 && (
-                <div className="text-center py-16 text-slate-500">
+                <div className="text-center py-16 text-slate-500 dark:text-slate-400">
                   <Search className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                  <p className="text-lg font-medium text-slate-600">Tidak ada hasil pencarian statis ditemukan.</p>
+                  <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
                   <p className="text-sm mt-1">Coba gunakan kata kunci lain.</p>
                 </div>
               )}
@@ -447,7 +447,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 placeholder:text-slate-400"
+                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 placeholder:text-slate-400 dark:text-slate-500"
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -459,7 +459,7 @@ function App() {
                         setQuery('');
                         setDebouncedQuery('');
                       }}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors focus:outline-none"
                       title="Hapus pencarian"
                     >
                       <X className="w-5 h-5" />
@@ -480,19 +480,19 @@ function App() {
 
                 {/* Filter Dropdown */}
                 <div className="w-full sm:w-64 shrink-0 relative h-14 sm:h-16">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
                     <Filter className="w-5 h-5" />
                   </div>
                   <select 
                     value={filterChapter}
                     onChange={(e) => setFilterChapter(e.target.value)}
-                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white border border-slate-200 outline-none rounded-2xl shadow-sm text-sm text-slate-700 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 truncate font-medium cursor-pointer"
+                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-sm text-slate-700 dark:text-slate-200 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 truncate font-medium cursor-pointer"
                   >
                     {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
                       <option key={c.id} value={c.id}>{c.label}</option>
                     ))}
                   </select>
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                   </div>
                 </div>
@@ -501,18 +501,18 @@ function App() {
               {/* Recent Searches */}
               {!query && !loading && recentSearches.length > 0 && (
                 <div className="mb-8 flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5 mr-2">
+                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mr-2">
                     <Clock className="w-4 h-4" /> Riwayat:
                   </span>
                   {recentSearches.map((s, idx) => (
-                    <div key={idx} className="flex items-center bg-white shadow-sm border border-slate-200 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
+                    <div key={idx} className="flex items-center bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
                       <button
                         onClick={() => setQuery(s)}
-                        className="px-3 py-1.5 text-slate-600 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
+                        className="px-3 py-1.5 text-slate-600 dark:text-slate-300 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
                       >
                         {s}
                       </button>
-                      <div className="w-[1px] h-4 bg-slate-200 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
+                      <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
                       <button
                         onClick={() => {
                           setRecentSearches(prev => {
@@ -521,7 +521,7 @@ function App() {
                             return newHistory;
                           });
                         }}
-                        className="px-2 py-1.5 text-slate-400 hover:text-red-500 transition-colors hover:bg-red-50"
+                        className="px-2 py-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors hover:bg-red-50"
                         title="Hapus dari riwayat"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -534,7 +534,7 @@ function App() {
                         setRecentSearches([]);
                         localStorage.removeItem('icd_recent_searches');
                       }}
-                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
+                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 dark:text-slate-500 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
                     >
                       Hapus Semua
                     </button>
@@ -551,9 +551,9 @@ function App() {
 
               {/* Results */}
               {!loading && debouncedQuery && searchResults.length === 0 && (
-                <div className="text-center py-16 text-slate-500">
+                <div className="text-center py-16 text-slate-500 dark:text-slate-400">
                   <Search className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                  <p className="text-lg font-medium text-slate-600">Tidak ada hasil pencarian statis ditemukan.</p>
+                  <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
                   <p className="text-sm mt-1">Coba gunakan kata kunci lain.</p>
                 </div>
               )}
@@ -580,7 +580,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto py-6 text-center text-slate-500 text-sm font-medium">
+      <footer className="mt-auto py-6 text-center text-slate-500 dark:text-slate-400 text-sm font-medium">
         <p>&copy; {new Date().getFullYear()} PMIK-id. All rights reserved.</p>
       </footer>
     </div>

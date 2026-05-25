@@ -16,12 +16,12 @@ export function AuthModal({ isOpen, onClose, message }) {
       ></div>
       
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#00B4A4] to-[#D6E400]"></div>
         
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors focus:outline-none"
+          className="absolute top-4 right-4 p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-700 rounded-full transition-colors focus:outline-none"
         >
           <X className="w-5 h-5" />
         </button>
@@ -34,8 +34,8 @@ export function AuthModal({ isOpen, onClose, message }) {
             </div>
           </div>
           
-          <h3 className="text-xl font-bold text-slate-800 mb-2">Fitur Terkunci</h3>
-          <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Fitur Terkunci</h3>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
             {message || "Silakan masuk atau buat akun gratis terlebih dahulu untuk mengakses fitur ini."}
           </p>
 
@@ -51,7 +51,7 @@ export function AuthModal({ isOpen, onClose, message }) {
           
           <button
             onClick={onClose}
-            className="w-full py-3 text-slate-500 font-medium hover:bg-slate-50 rounded-xl transition-colors"
+            className="w-full py-3 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-50 dark:bg-slate-800/50 rounded-xl transition-colors"
           >
             Batal
           </button>

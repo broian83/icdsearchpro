@@ -45,7 +45,7 @@ export function BookmarkView() {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-[#00B4A4]">
         <Loader2 className="w-10 h-10 animate-spin mb-4" />
-        <p className="font-medium text-slate-500">Memuat bookmark...</p>
+        <p className="font-medium text-slate-500 dark:text-slate-400">Memuat bookmark...</p>
       </div>
     );
   }
@@ -57,15 +57,15 @@ export function BookmarkView() {
           <Bookmark className="w-6 h-6 fill-yellow-600" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Kode Tersimpan</h2>
-          <p className="text-slate-500 text-sm mt-0.5">Daftar kode ICD yang telah Anda bookmark.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Kode Tersimpan</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">Daftar kode ICD yang telah Anda bookmark.</p>
         </div>
       </div>
 
       {bookmarks.length === 0 ? (
-        <div className="text-center py-16 text-slate-500 bg-white rounded-2xl shadow-sm border border-slate-100">
+        <div className="text-center py-16 text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50">
           <Bookmark className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-          <p className="text-lg font-medium text-slate-600">Belum ada bookmark.</p>
+          <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Belum ada bookmark.</p>
           <p className="text-sm mt-1">Cari kode dan klik ikon bintang untuk menyimpannya di sini.</p>
         </div>
       ) : (

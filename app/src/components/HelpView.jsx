@@ -32,14 +32,14 @@ export function HelpView() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center gap-3 mb-8">
         <div className="p-3 bg-[#00B4A4]/10 rounded-xl text-[#00B4A4]">
           <HelpCircle className="w-6 h-6" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Pusat Bantuan (FAQ)</h2>
-          <p className="text-sm text-slate-500 mt-1">Temukan jawaban atas pertanyaan umum seputar ICD Search Pro.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Pusat Bantuan (FAQ)</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Temukan jawaban atas pertanyaan umum seputar ICD Search Pro.</p>
         </div>
       </div>
 
@@ -48,16 +48,16 @@ export function HelpView() {
           <div 
             key={index} 
             className={`border rounded-xl transition-all duration-200 ${
-              openIndex === index ? 'border-[#00B4A4] shadow-sm bg-slate-50' : 'border-slate-200 hover:border-[#00B4A4]/50'
+              openIndex === index ? 'border-[#00B4A4] shadow-sm bg-slate-50 dark:bg-slate-800/50' : 'border-slate-200 dark:border-slate-700 hover:border-[#00B4A4]/50'
             }`}
           >
             <button
               onClick={() => toggleAccordion(index)}
               className="w-full text-left px-5 py-4 flex items-center justify-between focus:outline-none"
             >
-              <span className="font-semibold text-slate-800 pr-4">{faq.question}</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-100 pr-4">{faq.question}</span>
               <ChevronDown 
-                className={`w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0 ${
+                className={`w-5 h-5 text-slate-400 dark:text-slate-500 transition-transform duration-300 shrink-0 ${
                   openIndex === index ? 'rotate-180 text-[#00B4A4]' : ''
                 }`} 
               />
@@ -67,7 +67,7 @@ export function HelpView() {
                 openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="px-5 pb-5 text-slate-600 text-sm leading-relaxed pt-2">
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed pt-2">
                 {faq.answer}
               </div>
             </div>
