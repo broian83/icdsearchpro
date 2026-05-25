@@ -2,7 +2,7 @@
   base = "app"
   publish = "dist"
   command = "npm run build"
-  functions = "app/netlify/functions"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
