@@ -39,7 +39,9 @@ export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, d
     }
   }
 
-  const systemPrompt = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM).
+  const lang = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_lang') || 'id') : 'id';
+
+  const systemPromptId = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM).
 Tugas Anda adalah memberikan penjelasan spesifik namun SINGKAT untuk KODE yang dipilih oleh pengguna.
 
 Jawablah dengan terstruktur dan padat mengikuti poin-poin ini saja. JANGAN menambahkan salam penutup, pembuka, atau narasi tambahan apa pun di luar poin ini:
@@ -62,6 +64,32 @@ Referensi Umum (Pedoman Koding Penuh):
 ---
 ${knowledgeText}
 ---`;
+
+  const systemPromptEn = `You are a medical assistant expert in INA-CBG coding (ICD-10 and ICD-9-CM).
+Your task is to provide specific but BRIEF explanation for the CODE selected by the user.
+
+Answer concisely and structured following ONLY these points. DO NOT add greetings, closings, or any additional narrative outside these points:
+
+${searchType === 'icd10' ? `1. **Information:** (Brief explanation of the disease/diagnosis)
+2. **Other Names:** (Mention if any, or write "None specifically")
+3. **Related Procedure & ICD-9:** (Mention procedure and its code if any, write "None" if none)
+4. **Dagger/Asterisk:** (Answer yes/no, mention if any based on info below)
+5. **External Cause:** (Mention if external cause code V/W/X/Y is needed, remind user to search for it if mandatory)`
+:
+`1. **Information:** (Brief explanation of the procedure/action)
+2. **Other Names:** (Mention if any, or write "None specifically")
+3. **Related ICD-10:** (Mention ICD-10 diagnosis usually related to this procedure)`}
+
+Additional Context for this code:
+${daggerAsteriskContext ? daggerAsteriskContext : "No special rules for this code."}
+${externalCauseContext ? externalCauseContext : "None."}
+
+General Reference (Full Coding Guidelines):
+---
+${knowledgeText}
+---`;
+
+  const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
   try {
     const response = await fetch(`/api/gemini`, {
@@ -105,7 +133,9 @@ ${knowledgeText}
 export const getGroqCaseConsultation = async (medicalResume, knowledgeText) => {
   // API Key sekarang ditangani dengan aman di backend (Netlify Functions)
 
-  const systemPrompt = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM) tingkat lanjut.
+  const lang = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_lang') || 'id') : 'id';
+
+  const systemPromptId = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM) tingkat lanjut.
 Tugas Anda adalah membaca resume medis (kasus pasien) yang diberikan pengguna, lalu merumuskan kode diagnosis dan tindakan yang tepat berdasarkan aturan koding yang berlaku.
 
 Struktur jawaban WAJIB menggunakan format markdown berikut:
@@ -128,6 +158,31 @@ Referensi Umum (Pedoman Koding Penuh):
 ${knowledgeText}
 ---`;
 
+  const systemPromptEn = `You are an advanced medical assistant expert in INA-CBG coding (ICD-10 and ICD-9-CM).
+Your task is to read the medical resume (patient case) provided by the user, then formulate the correct diagnosis and procedure codes based on applicable coding rules.
+
+Your response MUST use the following markdown structure:
+
+**1. Primary Diagnosis**
+- [ICD-10 Code] - Disease Name (Reason for selection according to MB1-MB5 rules)
+
+**2. Secondary Diagnoses**
+- [ICD-10 Code] - Disease Name (Including comorbidities/underlying conditions)
+- [ICD-10 Code] - External Cause (If injury/accident case)
+
+**3. Procedures/Interventions (ICD-9-CM)**
+- [ICD-9 Code] - Procedure Name
+
+**4. Analysis & Coding Rules Notes**
+- Provide a brief analysis of why these codes were selected based on the medical resume and guidelines.
+
+General Reference (Full Coding Guidelines):
+---
+${knowledgeText}
+---`;
+
+  const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
+
   try {
     const response = await fetch(`/api/gemini`, {
       method: "POST",
@@ -141,7 +196,7 @@ ${knowledgeText}
         contents: [
           {
             role: "user",
-            parts: [{ text: `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }]
+            parts: [{ text: lang === 'en' ? `Please create a coding draft for the following medical resume:\n\n"${medicalResume}"` : `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }]
           }
         ],
         generationConfig: {
