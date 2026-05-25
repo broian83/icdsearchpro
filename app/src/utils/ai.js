@@ -1,4 +1,4 @@
-// Gemini API integration for specific item - v5
+// Gemini API integration for specific item - v6
 
 export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, daggerAsteriskData) => {
   if (!item || !item.code) return null;
@@ -92,7 +92,7 @@ ${knowledgeText}
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
   try {
-    const response = await fetch('/.netlify/functions/gemini', {
+    const response = await fetch('/api/gemini', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -178,7 +178,7 @@ ${knowledgeText}
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
   try {
-    const response = await fetch('/.netlify/functions/gemini', {
+    const response = await fetch('/api/gemini', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
