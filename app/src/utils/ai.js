@@ -91,47 +91,39 @@ ${knowledgeText}
 
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
+  const groqApiKey = import.meta.env.VITE_GROQ_API_KEY;
+
   try {
-    const response = await fetch(`/api/gemini`, {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: systemPrompt }]
-        },
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `Berikan penjelasan untuk: [${item.code}] - ${item.title}` }]
-          }
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Berikan penjelasan untuk: [${item.code}] - ${item.title}` }
         ],
-        generationConfig: {
-          temperature: 0.1
-        }
+        temperature: 0.1,
+        max_tokens: 1024
       })
     });
 
     if (!response.ok) {
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const err = await response.json();
-        throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
-      } else {
-        const text = await response.text();
-        throw new Error(`Gagal menghubungi API (Status ${response.status}). Netlify Function mungkin bermasalah.`);
-      }
+      const err = await response.json();
+      throw new Error(err.error?.message || "Gagal menghubungi AI");
     }
 
     const data = await response.json();
-    if (data.candidates && data.candidates.length > 0) {
-      return data.candidates[0].content.parts[0].text;
+    if (data.choices && data.choices.length > 0) {
+      return data.choices[0].message.content;
     } else {
-      throw new Error("Respons kosong dari Gemini API");
+      throw new Error("Respons kosong dari AI");
     }
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Groq API Error:", error);
     throw error;
   }
 };
@@ -189,47 +181,39 @@ ${knowledgeText}
 
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
+  const groqApiKey = import.meta.env.VITE_GROQ_API_KEY;
+
   try {
-    const response = await fetch(`/api/gemini`, {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: systemPrompt }]
-        },
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: lang === 'en' ? `Please create a coding draft for the following medical resume:\n\n"${medicalResume}"` : `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }]
-          }
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: lang === 'en' ? `Please create a coding draft for the following medical resume:\n\n"${medicalResume}"` : `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }
         ],
-        generationConfig: {
-          temperature: 0.2
-        }
+        temperature: 0.2,
+        max_tokens: 2048
       })
     });
 
     if (!response.ok) {
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const err = await response.json();
-        throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
-      } else {
-        const text = await response.text();
-        throw new Error(`Gagal menghubungi API (Status ${response.status}). Netlify Function mungkin bermasalah.`);
-      }
+      const err = await response.json();
+      throw new Error(err.error?.message || "Gagal menghubungi AI");
     }
 
     const data = await response.json();
-    if (data.candidates && data.candidates.length > 0) {
-      return data.candidates[0].content.parts[0].text;
+    if (data.choices && data.choices.length > 0) {
+      return data.choices[0].message.content;
     } else {
-      throw new Error("Respons kosong dari Gemini API");
+      throw new Error("Respons kosong dari AI");
     }
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Groq API Error:", error);
     throw error;
   }
 };
