@@ -115,6 +115,14 @@ export function Sidebar({ isOpen, onClose, onSelectTab }) {
           >
             <Settings className="w-4 h-4 text-slate-400" /> Pengaturan
           </button>
+          {isLoggedIn && (
+            <button 
+              onClick={() => { onSelectTab('profile'); onClose(); }}
+              className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-lg transition-colors font-medium text-left text-sm"
+            >
+              <User className="w-4 h-4 text-slate-400" /> Profil Saya
+            </button>
+          )}
           <button 
             onClick={() => { onSelectTab('help'); onClose(); }}
             className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-lg transition-colors font-medium text-left text-sm"

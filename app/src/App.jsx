@@ -9,6 +9,7 @@ import { SettingsView } from './components/SettingsView';
 import { HelpView } from './components/HelpView';
 import { BookmarkView } from './components/BookmarkView';
 import { HistoryView } from './components/HistoryView';
+import { ProfileView } from './components/ProfileView';
 import { useAuth } from './context/AuthContext';
 import { supabase } from './lib/supabase';
 
@@ -273,6 +274,8 @@ function App() {
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
         
         {searchType === 'settings' && <SettingsView />}
+        
+        {searchType === 'profile' && <ProfileView />}
         
         {searchType === 'help' && <HelpView />}
 
