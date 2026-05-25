@@ -91,39 +91,35 @@ ${knowledgeText}
 
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
-  const groqApiKey = import.meta.env.VITE_GROQ_API_KEY;
-
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('/.netlify/functions/gemini', {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${groqApiKey}`
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: `Berikan penjelasan untuk: [${item.code}] - ${item.title}` }
-        ],
-        temperature: 0.1,
-        max_tokens: 1024
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: `Berikan penjelasan untuk: [${item.code}] - ${item.title}` }] }],
+        generationConfig: { temperature: 0.1 }
       })
     });
 
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || "Gagal menghubungi AI");
+      const ct = response.headers.get("content-type");
+      if (ct && ct.includes("application/json")) {
+        const err = await response.json();
+        throw new Error(err.error?.message || "Gagal menghubungi AI");
+      } else {
+        throw new Error(`Server error (${response.status}). Pastikan Netlify Function ter-deploy.`);
+      }
     }
 
     const data = await response.json();
-    if (data.choices && data.choices.length > 0) {
-      return data.choices[0].message.content;
+    if (data.candidates && data.candidates.length > 0) {
+      return data.candidates[0].content.parts[0].text;
     } else {
       throw new Error("Respons kosong dari AI");
     }
   } catch (error) {
-    console.error("Groq API Error:", error);
+    console.error("Netlify Function Error:", error);
     throw error;
   }
 };
@@ -181,39 +177,35 @@ ${knowledgeText}
 
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
-  const groqApiKey = import.meta.env.VITE_GROQ_API_KEY;
-
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('/.netlify/functions/gemini', {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${groqApiKey}`
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: lang === 'en' ? `Please create a coding draft for the following medical resume:\n\n"${medicalResume}"` : `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }
-        ],
-        temperature: 0.2,
-        max_tokens: 2048
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: lang === 'en' ? `Please create a coding draft for the following medical resume:\n\n"${medicalResume}"` : `Tolong buatkan draft koding untuk resume medis berikut:\n\n"${medicalResume}"` }] }],
+        generationConfig: { temperature: 0.2 }
       })
     });
 
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || "Gagal menghubungi AI");
+      const ct = response.headers.get("content-type");
+      if (ct && ct.includes("application/json")) {
+        const err = await response.json();
+        throw new Error(err.error?.message || "Gagal menghubungi AI");
+      } else {
+        throw new Error(`Server error (${response.status}). Pastikan Netlify Function ter-deploy.`);
+      }
     }
 
     const data = await response.json();
-    if (data.choices && data.choices.length > 0) {
-      return data.choices[0].message.content;
+    if (data.candidates && data.candidates.length > 0) {
+      return data.candidates[0].content.parts[0].text;
     } else {
       throw new Error("Respons kosong dari AI");
     }
   } catch (error) {
-    console.error("Groq API Error:", error);
+    console.error("Netlify Function Error:", error);
     throw error;
   }
 };
