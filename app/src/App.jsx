@@ -235,16 +235,22 @@ function App() {
             >
               <Menu className="w-6 h-6" />
             </button>
-            <img 
-              src="/PMIK-id%20Logo.png" 
-              alt="PMIK Logo" 
-              className="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0" 
-            />
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-800 leading-tight">ICD Search Pro</h1>
-              <p className="text-[11px] sm:text-sm text-slate-500 font-medium mt-0.5">
-                <span className="text-[#00B4A4] font-bold">by PMIK-id</span> <span className="px-1.5 opacity-40">•</span> Smart Clinical Coding Assistant
-              </p>
+            <div 
+              className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+              onClick={() => setSearchType('icd10')}
+              title="Kembali ke Beranda"
+            >
+              <img 
+                src="/PMIK-id%20Logo.png" 
+                alt="PMIK Logo" 
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0 group-hover:opacity-90 transition-opacity" 
+              />
+              <div>
+                <h1 className="text-xl sm:text-2xl font-bold text-slate-800 leading-tight group-hover:text-[#00B4A4] transition-colors">ICD Search Pro</h1>
+                <p className="text-[11px] sm:text-sm text-slate-500 font-medium mt-0.5">
+                  <span className="text-[#00B4A4] font-bold">by PMIK-id</span> <span className="px-1.5 opacity-40">•</span> Smart Clinical Coding Assistant
+                </p>
+              </div>
             </div>
           </div>
           <div className="grid grid-cols-3 sm:flex bg-slate-100 p-1.5 rounded-xl w-full sm:w-auto gap-1">
