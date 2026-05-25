@@ -1,10 +1,12 @@
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Hanya izinkan metode POST
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const apiKey = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
+  // Gunakan GEMINI_API_KEY (backend only secret)
+  // Fallback ke VITE_GEMINI_API_KEY untuk transisi
+  const apiKey = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY; 
   
   if (!apiKey) {
     return { 
@@ -14,6 +16,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Teruskan request body persis seperti dari frontend ke Google Gemini API
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: {
@@ -27,8 +30,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: response.status,
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     };
