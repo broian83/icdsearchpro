@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Sparkles, Loader2, Brain, AlertTriangle, Link as LinkIcon, Copy, Check, Star } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Highlight } from '../utils/Highlight';
