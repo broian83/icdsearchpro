@@ -1,0 +1,228 @@
+{
+  "bab": [
+    {
+      "nama": "Bab I",
+      "rentang": "A00-B99",
+      "keterangan": "Penyakit infeksius dan parasit",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "A17.0†", "asterisk": "G01*", "keterangan": "Tuberculous meningitis / meningitis pada penyakit lain"},
+        {"dagger": "A17.8†", "asterisk": "G07*", "keterangan": "Tuberculosis of nervous system / abses dan granuloma intrakranial dan intraspinal"},
+        {"dagger": "A18.0†", "asterisk": "M49.0*", "keterangan": "Tuberculosis of bones and joints / tuberculosis of spine"},
+        {"dagger": "A18.0†", "asterisk": "M49.1*", "keterangan": "Tuberculosis of bones and joints / tuberculosis of pelvis and femur"},
+        {"dagger": "A18.0†", "asterisk": "M49.2*", "keterangan": "Tuberculosis of bones and joints / tuberculosis of other and multiple sites"},
+        {"dagger": "A18.0†", "asterisk": "M49.8*", "keterangan": "Tuberculosis of bones and joints / tuberculosis of other bones and joints"},
+        {"dagger": "A18.1†", "asterisk": "K67.0*", "keterangan": "Tuberculosis of genitourinary organs / tuberculous peritonitis"},
+        {"dagger": "A18.1†", "asterisk": "N74.0*", "keterangan": "Tuberculosis of genitourinary organs / inflammatory disease of female pelvic organs"},
+        {"dagger": "A18.1†", "asterisk": "N74.1*", "keterangan": "Tuberculosis of genitourinary organs / inflammatory disease of female pelvic organs"},
+        {"dagger": "A18.1†", "asterisk": "N74.8*", "keterangan": "Tuberculosis of genitourinary organs / inflammatory disease of female pelvic organs"},
+        {"dagger": "A18.2†", "asterisk": "H67.1*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / otitis media in diseases classified elsewhere"},
+        {"dagger": "A18.2†", "asterisk": "J17.0*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / pneumonia in diseases classified elsewhere"},
+        {"dagger": "A18.2†", "asterisk": "J91*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / pleural effusion in conditions classified elsewhere"},
+        {"dagger": "A18.2†", "asterisk": "K23.0*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / oesophageal disorders in diseases classified elsewhere"},
+        {"dagger": "A18.2†", "asterisk": "M49.5*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / tuberculosis of multiple sites"},
+        {"dagger": "A18.3†", "asterisk": "K93.0*", "keterangan": "Tuberculosis of intestines, peritoneum and mesenteric glands / disorders of digestive system in diseases classified elsewhere"},
+        {"dagger": "A18.4†", "asterisk": "K67.3*", "keterangan": "Tuberculosis of intestines, peritoneum and mesenteric glands / peritoneal manifestation"},
+        {"dagger": "A18.4†", "asterisk": "N08.0*", "keterangan": "Tuberculosis of intestines, peritoneum and mesenteric glands / glomerular disorders in infectious diseases"},
+        {"dagger": "A18.5†", "asterisk": "H03.1*", "keterangan": "Tuberculosis of eye / eyelid disorders in diseases classified elsewhere"},
+        {"dagger": "A18.5†", "asterisk": "H19.8*", "keterangan": "Tuberculosis of eye / other disorders of the choroid and retina"},
+        {"dagger": "A18.5†", "asterisk": "H22.0*", "keterangan": "Tuberculosis of eye / disorders of iris and ciliary body in diseases classified elsewhere"},
+        {"dagger": "A18.5†", "asterisk": "H32.8*", "keterangan": "Tuberculosis of eye / chorioretinal disorders in diseases classified elsewhere"},
+        {"dagger": "A18.5†", "asterisk": "H45.1*", "keterangan": "Tuberculosis of eye / retinopathy in diseases classified elsewhere"},
+        {"dagger": "A18.5†", "asterisk": "H58.8*", "keterangan": "Tuberculosis of eye / other eye disorders in diseases classified elsewhere"},
+        {"dagger": "A18.6†", "asterisk": "A17.8*", "keterangan": "Tuberculosis of ear / tuberculosis of nervous system"},
+        {"dagger": "A18.6†", "asterisk": "H67.0*", "keterangan": "Tuberculosis of ear / otitis media in diseases classified elsewhere"},
+        {"dagger": "A18.7†", "asterisk": "E35.1*", "keterangan": "Tuberculosis of adrenal glands / disorders of endocrine glands in diseases classified elsewhere"},
+        {"dagger": "A18.7†", "asterisk": "K93.0*", "keterangan": "Tuberculosis of adrenal glands / disorders of digestive system in diseases classified elsewhere"},
+        {"dagger": "A18.7†", "asterisk": "N08.0*", "keterangan": "Tuberculosis of adrenal glands / glomerular disorders in infectious diseases and parasitic diseases"},
+        {"dagger": "A52.1†", "asterisk": "G22*", "keterangan": "Late syphilis with neurological manifestation / parkinsonism"},
+        {"dagger": "A52.7†", "asterisk": "G99.8*", "keterangan": "Other late syphilis / other specified disorders of nervous system"},
+        {"dagger": "B20†", "asterisk": "G63.0*", "keterangan": "HIV disease with neurological manifestation / polyneuropathy in diseases classified elsewhere"},
+        {"dagger": "B22.7†", "asterisk": "G63.0*", "keterangan": "HIV disease with neurological manifestations / polyneuropathy"},
+        {"dagger": "B37.8†", "asterisk": "H03.1*", "keterangan": "Candidiasis / eyelid disorders in diseases classified elsewhere"},
+        {"dagger": "B56.0†", "asterisk": "M03.0*", "keterangan": "Trypanosomiasis / postinfective and reactive arthropathy"},
+        {"dagger": "B59†", "asterisk": "J17*", "keterangan": "Pneumocystosis / pneumonia in diseases classified elsewhere"}
+      ]
+    },
+    {
+      "nama": "Bab II",
+      "rentang": "C00-D48",
+      "keterangan": "Neoplasms",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "C79.5†", "asterisk": "M90.7*", "keterangan": "Secondary malignant neoplasm of bone / manifestation in disease classified elsewhere"},
+        {"dagger": "C80.9†", "asterisk": "E35.8*", "keterangan": "Malignant neoplasm, primary unspecified / endocrine disorder manifestation"}
+      ]
+    },
+    {
+      "nama": "Bab III",
+      "rentang": "D50-D89",
+      "keterangan": "Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "D63†", "asterisk": "B20*", "keterangan": "Anaemia in chronic diseases classified elsewhere / anemia pada HIV disease"},
+        {"dagger": "D63†", "asterisk": "C00-D48*", "keterangan": "Anaemia in neoplastic disease / anemia pada neoplasma"},
+        {"dagger": "D76.0†", "asterisk": "H22.1*", "keterangan": "Langerhans-cell histiocytosis / manifestasi okular"}
+      ]
+    },
+    {
+      "nama": "Bab IV",
+      "rentang": "E00-E90",
+      "keterangan": "Endocrine, nutritional and metabolic diseases",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "E10†", "asterisk": "G63.2*", "keterangan": "Diabetes mellitus type 1 / diabetic polyneuropathy"},
+        {"dagger": "E11†", "asterisk": "G63.2*", "keterangan": "Diabetes mellitus type 2 / diabetic polyneuropathy"},
+        {"dagger": "E12†", "asterisk": "G63.2*", "keterangan": "Malnutrition-related diabetes / diabetic polyneuropathy"},
+        {"dagger": "E13†", "asterisk": "G63.2*", "keterangan": "Other specified diabetes / diabetic polyneuropathy"},
+        {"dagger": "E14†", "asterisk": "G63.2*", "keterangan": "Unspecified diabetes / diabetic polyneuropathy"},
+        {"dagger": "E10†", "asterisk": "H36.0*", "keterangan": "Diabetes mellitus / diabetic retinopathy"},
+        {"dagger": "E11†", "asterisk": "H36.0*", "keterangan": "Diabetes mellitus type 2 / diabetic retinopathy"},
+        {"dagger": "E10†", "asterisk": "N08.3*", "keterangan": "Diabetes mellitus / glomerular disorders in diseases classified elsewhere"},
+        {"dagger": "E11†", "asterisk": "N08.3*", "keterangan": "Diabetes mellitus type 2 / glomerular disorders in diseases classified elsewhere"}
+      ]
+    },
+    {
+      "nama": "Bab V",
+      "rentang": "F00-F99",
+      "keterangan": "Mental, behavioural and neurodevelopmental disorders",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab VI",
+      "rentang": "G00-G99",
+      "keterangan": "Diseases of the nervous system",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "G02†", "asterisk": "A32.1*", "keterangan": "Meningitis in other infectious and parasitic diseases classified elsewhere / listerial meningitis"},
+        {"dagger": "G05.3†", "asterisk": "C72.9*", "keterangan": "Encephalitis, myelitis and encephalomyelitis in diseases classified elsewhere / neoplasm of unspecified site"},
+        {"dagger": "G22†", "asterisk": "A52.1*", "keterangan": "Parkinsonism in other diseases classified elsewhere / late syphilitic parkinsonism"},
+        {"dagger": "G63.0†", "asterisk": "B20*", "keterangan": "Polyneuropathy in infectious and parasitic diseases classified elsewhere / HIV disease"},
+        {"dagger": "G99.8†", "asterisk": "A52.7*", "keterangan": "Other specified disorders of nervous system in diseases classified elsewhere / late syphilis"}
+      ]
+    },
+    {
+      "nama": "Bab VII",
+      "rentang": "H00-H59",
+      "keterangan": "Diseases of the eye and adnexa",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "H03.1†", "asterisk": "A18.5*", "keterangan": "Eyelid disorders in diseases classified elsewhere / tuberculosis of eye"},
+        {"dagger": "H22.0†", "asterisk": "A18.5*", "keterangan": "Disorders of iris and ciliary body in diseases classified elsewhere / tuberculosis of eye"},
+        {"dagger": "H22.1†", "asterisk": "D76.0*", "keterangan": "Other disorders of iris and ciliary body in diseases classified elsewhere / Langerhans-cell histiocytosis"},
+        {"dagger": "H36.0†", "asterisk": "E10*", "keterangan": "Diabetic retinopathy / diabetes mellitus type 1"},
+        {"dagger": "H36.0†", "asterisk": "E11*", "keterangan": "Diabetic retinopathy / diabetes mellitus type 2"}
+      ]
+    },
+    {
+      "nama": "Bab VIII",
+      "rentang": "H60-H95",
+      "keterangan": "Diseases of the ear and mastoid process",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "H67.0†", "asterisk": "A18.6*", "keterangan": "Otitis media in diseases classified elsewhere / tuberculosis of ear"},
+        {"dagger": "H67.1†", "asterisk": "A18.2*", "keterangan": "Otitis media in diseases classified elsewhere / tuberculosis of intrathoracic lymph nodes"}
+      ]
+    },
+    {
+      "nama": "Bab IX",
+      "rentang": "I00-I99",
+      "keterangan": "Diseases of the circulatory system",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "I79.2†", "asterisk": "E10.5*", "keterangan": "Peripheral angiopathy in diseases classified elsewhere / diabetes mellitus with peripheral circulatory complications"},
+        {"dagger": "I79.2†", "asterisk": "E11.5*", "keterangan": "Peripheral angiopathy in diseases classified elsewhere / type 2 diabetes mellitus with peripheral circulatory complications"}
+      ]
+    },
+    {
+      "nama": "Bab X",
+      "rentang": "J00-J99",
+      "keterangan": "Diseases of the respiratory system",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "J17†", "asterisk": "B59*", "keterangan": "Pneumonia in diseases classified elsewhere / pneumocystosis"},
+        {"dagger": "J17†", "asterisk": "A15.4*", "keterangan": "Pneumonia in diseases classified elsewhere / tuberculosis of respiratory system"}
+      ]
+    },
+    {
+      "nama": "Bab XI",
+      "rentang": "K00-K93",
+      "keterangan": "Diseases of the digestive system",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "K23.0†", "asterisk": "A18.2*", "keterangan": "Disorders of oesophagus in diseases classified elsewhere / tuberculosis of intrathoracic lymph nodes"},
+        {"dagger": "K23.0†", "asterisk": "A18.7*", "keterangan": "Disorders of oesophagus in diseases classified elsewhere / tuberculosis of adrenal glands"},
+        {"dagger": "K67.0†", "asterisk": "A18.1*", "keterangan": "Tuberculous peritonitis"},
+        {"dagger": "K67.3†", "asterisk": "A18.4*", "keterangan": "Tuberculosis of intestines, peritoneum and mesenteric glands / peritoneal manifestation"},
+        {"dagger": "K93.0†", "asterisk": "A18.3*", "keterangan": "Other disorders of digestive system in diseases classified elsewhere / intestinal tuberculosis"}
+      ]
+    },
+    {
+      "nama": "Bab XII",
+      "rentang": "L00-L99",
+      "keterangan": "Diseases of the skin and subcutaneous tissue",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "L14†", "asterisk": "L40.0*", "keterangan": "Bullous disorder in diseases classified elsewhere / psoriasis"}
+      ]
+    },
+    {
+      "nama": "Bab XIII",
+      "rentang": "M00-M99",
+      "keterangan": "Diseases of the musculoskeletal system and connective tissue",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "M03.0†", "asterisk": "B56.0*", "keterangan": "Postinfective and reactive arthropathy / trypanosomiasis"},
+        {"dagger": "M36.0†", "asterisk": "E76.3*", "keterangan": "Systemic disorders of connective tissue in diseases classified elsewhere / mucopolysaccharidosis"},
+        {"dagger": "M49.0†", "asterisk": "A18.0*", "keterangan": "Tuberculosis of spine"},
+        {"dagger": "M49.1†", "asterisk": "A18.0*", "keterangan": "Tuberculosis of pelvis and femur"},
+        {"dagger": "M49.2†", "asterisk": "A18.0*", "keterangan": "Tuberculosis of other and multiple sites"},
+        {"dagger": "M49.5†", "asterisk": "A18.2*", "keterangan": "Tuberculosis of intrathoracic lymph nodes / tuberculosis of multiple sites"}
+      ]
+    },
+    {
+      "nama": "Bab XIV",
+      "rentang": "N00-N99",
+      "keterangan": "Diseases of the genitourinary system",
+      "pasangan_dagger_asterisk": [
+        {"dagger": "N08.0†", "asterisk": "A18.4*", "keterangan": "Glomerular disorders in infectious and parasitic diseases / tuberculosis of intestines, peritoneum and mesenteric glands"},
+        {"dagger": "N08.0†", "asterisk": "A18.7*", "keterangan": "Glomerular disorders in infectious and parasitic diseases / tuberculosis of adrenal glands"},
+        {"dagger": "N08.3†", "asterisk": "E10*", "keterangan": "Glomerular disorders in diabetes mellitus / diabetes mellitus type 1"},
+        {"dagger": "N08.3†", "asterisk": "E11*", "keterangan": "Glomerular disorders in diabetes mellitus / diabetes mellitus type 2"},
+        {"dagger": "N74.0†", "asterisk": "A18.1*", "keterangan": "Female pelvic inflammatory disease in tuberculosis"},
+        {"dagger": "N74.1†", "asterisk": "A18.1*", "keterangan": "Female pelvic inflammatory disease in tuberculosis"},
+        {"dagger": "N74.8†", "asterisk": "A18.1*", "keterangan": "Female pelvic inflammatory disease in tuberculosis"}
+      ]
+    },
+    {
+      "nama": "Bab XV",
+      "rentang": "O00-O99",
+      "keterangan": "Pregnancy, childbirth and the puerperium",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XVI",
+      "rentang": "P00-P96",
+      "keterangan": "Certain conditions originating in the perinatal period",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XVII",
+      "rentang": "Q00-Q99",
+      "keterangan": "Congenital malformations, deformations and chromosomal abnormalities",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XVIII",
+      "rentang": "R00-R99",
+      "keterangan": "Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XIX",
+      "rentang": "S00-T98",
+      "keterangan": "Injury, poisoning and certain other consequences of external causes",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XX",
+      "rentang": "V01-Y98",
+      "keterangan": "External causes of morbidity and mortality",
+      "pasangan_dagger_asterisk": []
+    },
+    {
+      "nama": "Bab XXI",
+      "rentang": "Z00-Z99",
+      "keterangan": "Factors influencing health status and contact with health services",
+      "pasangan_dagger_asterisk": []
+    }
+  ]
+}
