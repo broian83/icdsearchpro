@@ -8,6 +8,8 @@ export function SettingsView() {
   
   // State
   const [aiLang, setAiLang] = useState(() => localStorage.getItem('icd_ai_lang') || 'id');
+  const [uiScale, setUiScale] = useState(() => localStorage.getItem('icd_ui_scale') || '16px');
+  const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
   const [clearStatus, setClearStatus] = useState({ type: null, message: '' });
   const [isClearing, setIsClearing] = useState(false);
 
@@ -139,13 +141,12 @@ export function SettingsView() {
             </div>
           </div>
           <select 
-            value={localStorage.getItem('icd_ui_scale') || '16px'}
+            value={uiScale}
             onChange={(e) => {
               const val = e.target.value;
               localStorage.setItem('icd_ui_scale', val);
               document.documentElement.style.fontSize = val;
-              // Force re-render just to update the select box value visually
-              setAiLang(prev => prev); 
+              setUiScale(val); 
             }}
             className="w-full sm:w-auto px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all cursor-pointer"
           >
@@ -159,7 +160,7 @@ export function SettingsView() {
         {/* Mode Gelap */}
         <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg flex items-center justify-center w-9 h-9 transition-colors ${document.documentElement.classList.contains('dark') ? 'bg-slate-800 text-yellow-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
+            <div className={`p-2 rounded-lg flex items-center justify-center w-9 h-9 transition-colors ${isDarkMode ? 'bg-slate-800 text-yellow-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
               <Moon className="w-5 h-5" />
             </div>
             <div>
@@ -173,11 +174,11 @@ export function SettingsView() {
               const html = document.documentElement;
               const isDark = html.classList.toggle('dark');
               localStorage.setItem('icd_dark_mode', isDark ? '1' : '0');
-              setAiLang(prev => prev); // force render
+              setIsDarkMode(isDark);
             }}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${document.documentElement.classList.contains('dark') ? 'bg-purple-600' : 'bg-slate-200 dark:bg-slate-700'}`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isDarkMode ? 'bg-purple-600' : 'bg-slate-200 dark:bg-slate-700'}`}
           >
-            <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-800 transition-transform ${document.documentElement.classList.contains('dark') ? 'translate-x-6' : 'translate-x-1'}`} />
+            <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-800 transition-transform ${isDarkMode ? 'translate-x-6' : 'translate-x-1'}`} />
           </button>
         </div>
 
