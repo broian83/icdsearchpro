@@ -3,7 +3,7 @@ import { Settings, Moon, Globe } from 'lucide-react';
 
 export function SettingsView() {
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center gap-3 mb-8">
         <div className="p-3 bg-slate-100 rounded-xl text-slate-600">
           <Settings className="w-6 h-6" />

@@ -3,7 +3,7 @@ import { HelpCircle, Book, MessageCircle, FileText } from 'lucide-react';
 
 export function HelpView() {
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center gap-3 mb-8">
         <div className="p-3 bg-[#00B4A4]/10 rounded-xl text-[#00B4A4]">
           <HelpCircle className="w-6 h-6" />
