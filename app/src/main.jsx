@@ -6,6 +6,12 @@ import { AuthProvider } from './context/AuthContext'
 
 import { BrowserRouter } from 'react-router-dom';
 
+// Apply UI Scale preference before React renders
+const savedScale = localStorage.getItem('icd_ui_scale');
+if (savedScale) {
+  document.documentElement.style.fontSize = savedScale;
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

@@ -127,6 +127,35 @@ export function SettingsView() {
           </div>
         </div>
 
+        {/* Pengaturan Ukuran Teks / Skala UI */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white rounded-lg border border-slate-200 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center font-bold text-lg leading-none w-9 h-9">
+              Aa
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-800">Ukuran Tampilan</h4>
+              <p className="text-xs text-slate-500">Sesuaikan ukuran teks dan elemen aplikasi.</p>
+            </div>
+          </div>
+          <select 
+            value={localStorage.getItem('icd_ui_scale') || '16px'}
+            onChange={(e) => {
+              const val = e.target.value;
+              localStorage.setItem('icd_ui_scale', val);
+              document.documentElement.style.fontSize = val;
+              // Force re-render just to update the select box value visually
+              setAiLang(prev => prev); 
+            }}
+            className="w-full sm:w-auto px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all cursor-pointer"
+          >
+            <option value="14px">Kecil</option>
+            <option value="16px">Normal</option>
+            <option value="18px">Besar</option>
+            <option value="20px">Sangat Besar</option>
+          </select>
+        </div>
+
         {/* Mode Gelap - Placeholder for now */}
         <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-100 opacity-60">
           <div className="flex items-center gap-3">
