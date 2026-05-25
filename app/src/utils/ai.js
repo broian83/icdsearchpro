@@ -1,4 +1,4 @@
-// Gemini API integration for specific item - v3
+// Gemini API integration for specific item - v4
 
 export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, daggerAsteriskData) => {
   if (!item || !item.code) return null;
