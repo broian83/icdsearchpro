@@ -114,8 +114,14 @@ ${knowledgeText}
     });
 
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const err = await response.json();
+        throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
+      } else {
+        const text = await response.text();
+        throw new Error(`Gagal menghubungi API (Status ${response.status}). Netlify Function mungkin bermasalah.`);
+      }
     }
 
     const data = await response.json();
@@ -206,8 +212,14 @@ ${knowledgeText}
     });
 
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const err = await response.json();
+        throw new Error(err.error?.message || "Gagal menghubungi Gemini API");
+      } else {
+        const text = await response.text();
+        throw new Error(`Gagal menghubungi API (Status ${response.status}). Netlify Function mungkin bermasalah.`);
+      }
     }
 
     const data = await response.json();
