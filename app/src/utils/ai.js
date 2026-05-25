@@ -3,10 +3,7 @@
 export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, daggerAsteriskData) => {
   if (!item || !item.code) return null;
 
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("API Key Gemini tidak ditemukan di .env");
-  }
+  // API Key sekarang ditangani dengan aman di backend (Netlify Functions)
 
   // Cari relasi dagger/asterisk jika ini ICD-10
   let daggerAsteriskContext = "";
@@ -67,7 +64,7 @@ ${knowledgeText}
 ---`;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`/api/gemini`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -106,10 +103,7 @@ ${knowledgeText}
 };
 
 export const getGroqCaseConsultation = async (medicalResume, knowledgeText) => {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("API Key Gemini tidak ditemukan di .env");
-  }
+  // API Key sekarang ditangani dengan aman di backend (Netlify Functions)
 
   const systemPrompt = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM) tingkat lanjut.
 Tugas Anda adalah membaca resume medis (kasus pasien) yang diberikan pengguna, lalu merumuskan kode diagnosis dan tindakan yang tepat berdasarkan aturan koding yang berlaku.
@@ -135,7 +129,7 @@ ${knowledgeText}
 ---`;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`/api/gemini`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
