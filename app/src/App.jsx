@@ -13,6 +13,7 @@ import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { useAuth } from './context/AuthContext';
 import { supabase } from './lib/supabase';
+import { getCache, setCache } from './utils/db';
 
 const icd10Chapters = [
   { id: 'all', label: 'Semua Kategori (ICD-10)' },
@@ -164,8 +165,38 @@ function App() {
   // Load data on mount
   useEffect(() => {
     const loadData = async () => {
+      let hasCache = false;
+      let cached10 = null;
+      let cached9 = null;
+      
       try {
-        setLoading(true);
+        // 1. Coba memuat dari cache IndexedDB terlebih dahulu
+        cached10 = await getCache('icd10');
+        cached9 = await getCache('icd9');
+        const cachedDA = await getCache('daggerAsterisk');
+        const cachedAliases = await getCache('aliases');
+        const cachedKnowledge = await getCache('knowledge');
+
+        if (cached10 && cached9) {
+          setIcd10Data(cached10);
+          setIcd9Data(cached9);
+          if (cachedKnowledge) setKnowledgeText(cachedKnowledge);
+          if (cachedDA) setDaggerAsteriskData(cachedDA);
+          if (cachedAliases) setAliases(cachedAliases);
+          setLoading(false); // Selesai memuat instan dari cache lokal
+          hasCache = true;
+        }
+      } catch (cacheErr) {
+        console.warn("IndexedDB cache read failed, falling back to network:", cacheErr);
+      }
+
+      try {
+        // Jika belum ada cache, tampilkan loading spinner
+        if (!hasCache) {
+          setLoading(true);
+        }
+
+        // 2. Fetch data terbaru dari server secara senyap
         const [res10, res9, resKnowledge, resDA, resAliases] = await Promise.all([
           fetch('/icd10.json').then(res => res.json()),
           fetch('/icd9.json').then(res => res.json()),
@@ -173,15 +204,33 @@ function App() {
           fetch('/kodedeggerdanasterik.json').then(res => res.json()).catch(() => null),
           fetch('/singkatan.json').then(res => res.json()).catch(() => ({}))
         ]);
-        setIcd10Data(res10);
-        setIcd9Data(res9);
-        setKnowledgeText(resKnowledge);
-        setDaggerAsteriskData(resDA);
-        setAliases(resAliases);
+
+        // Cek apakah ada perubahan data dibanding cache
+        const isDataChanged = !hasCache || 
+          JSON.stringify(res10) !== JSON.stringify(cached10) || 
+          JSON.stringify(res9) !== JSON.stringify(cached9);
+
+        if (isDataChanged) {
+          setIcd10Data(res10);
+          setIcd9Data(res9);
+          setKnowledgeText(resKnowledge);
+          setDaggerAsteriskData(resDA);
+          setAliases(resAliases);
+
+          // Simpan data terbaru ke dalam cache IndexedDB secara asinkron
+          setCache('icd10', res10);
+          setCache('icd9', res9);
+          setCache('knowledge', resKnowledge);
+          if (resDA) setCache('daggerAsterisk', resDA);
+          setCache('aliases', resAliases);
+        }
+
         setError(null);
       } catch (err) {
-        console.error("Error loading data:", err);
-        setError('Gagal memuat data offline. Pastikan Anda sudah mengunduh data saat pertama kali membuka aplikasi.');
+        console.error("Error loading data from network:", err);
+        if (!hasCache) {
+          setError('Gagal memuat data. Silakan hubungkan perangkat Anda ke internet untuk pemuatan pertama.');
+        }
       } finally {
         setLoading(false);
       }

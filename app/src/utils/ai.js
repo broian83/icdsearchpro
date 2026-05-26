@@ -40,19 +40,36 @@ export const getGroqDetailSuggestion = async (item, searchType, knowledgeText, d
   }
 
   const lang = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_lang') || 'id') : 'id';
+  const style = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_style') || 'bpjs') : 'bpjs';
+
+  let styleInstruction = "";
+  if (style === 'bpjs') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION: Focus primarily on BPJS/INA-CBG coding compliance. Emphasize MB1-MB5 rules and billing accuracy."
+      : "\nINSTRUKSI: Berikan fokus utama pada kesesuaian koding BPJS / INA-CBG. Tekankan aturan MB1-MB5 dan ketepatan klaim.";
+  } else if (style === 'academic') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION: Provide detailed medical background, pathophysiology of the disease, and clinical aspects of the condition."
+      : "\nINSTRUKSI: Sediakan penjelasan medis yang mendalam, patofisiologi penyakit, serta aspek klinis dari penyakit ini.";
+  } else if (style === 'concise') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION: Keep your response extremely brief. Provide only the most crucial coding warnings and direct facts."
+      : "\nINSTRUKSI: Jawablah sesingkat mungkin. Sediakan hanya peringatan koding paling krusial dan fakta-fakta langsung.";
+  }
 
   const systemPromptId = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM).
-Tugas Anda adalah memberikan penjelasan spesifik namun SINGKAT untuk KODE yang dipilih oleh pengguna.
+Tugas Anda adalah memberikan penjelasan spesifik untuk KODE yang dipilih oleh pengguna sesuai gaya analisis berikut.
+${styleInstruction}
 
 Jawablah dengan terstruktur dan padat mengikuti poin-poin ini saja. JANGAN menambahkan salam penutup, pembuka, atau narasi tambahan apa pun di luar poin ini:
 
-${searchType === 'icd10' ? `1. **Informasi:** (Penjelasan singkat tentang penyakit/diagnosis tersebut)
+${searchType === 'icd10' ? `1. **Informasi:** (Penjelasan tentang penyakit/diagnosis tersebut sesuai gaya analisis Anda)
 2. **Nama Lain:** (Sebutkan jika ada, atau tulis "Tidak ada spesifik")
 3. **Tindakan & ICD-9 Terkait:** (Sebutkan tindakan dan kodenya jika ada, tulis "Tidak ada" jika tidak ada)
 4. **Dagger/Asterisk:** (Jawab ada/tidak, sebutkan jika ada berdasar info di bawah)
 5. **External Cause:** (Sebutkan apakah butuh external cause code V/W/X/Y, ingatkan user untuk mencarinya jika wajib)`
 :
-`1. **Informasi:** (Penjelasan singkat tentang tindakan/prosedur tersebut)
+`1. **Informasi:** (Penjelasan tentang tindakan/prosedur tersebut sesuai gaya analisis Anda)
 2. **Nama Lain:** (Sebutkan jika ada, atau tulis "Tidak ada spesifik")
 3. **ICD-10 Terkait:** (Sebutkan diagnosis ICD-10 yang biasa terkait dengan tindakan ini)`}
 
@@ -66,17 +83,18 @@ ${knowledgeText}
 ---`;
 
   const systemPromptEn = `You are a medical assistant expert in INA-CBG coding (ICD-10 and ICD-9-CM).
-Your task is to provide specific but BRIEF explanation for the CODE selected by the user.
+Your task is to provide specific explanation for the CODE selected by the user.
+${styleInstruction}
 
 Answer concisely and structured following ONLY these points. DO NOT add greetings, closings, or any additional narrative outside these points:
 
-${searchType === 'icd10' ? `1. **Information:** (Brief explanation of the disease/diagnosis)
+${searchType === 'icd10' ? `1. **Information:** (Explanation of the disease/diagnosis according to your analysis style)
 2. **Other Names:** (Mention if any, or write "None specifically")
 3. **Related Procedure & ICD-9:** (Mention procedure and its code if any, write "None" if none)
 4. **Dagger/Asterisk:** (Answer yes/no, mention if any based on info below)
 5. **External Cause:** (Mention if external cause code V/W/X/Y is needed, remind user to search for it if mandatory)`
 :
-`1. **Information:** (Brief explanation of the procedure/action)
+`1. **Information:** (Explanation of the procedure/action according to your analysis style)
 2. **Other Names:** (Mention if any, or write "None specifically")
 3. **Related ICD-10:** (Mention ICD-10 diagnosis usually related to this procedure)`}
 
@@ -129,9 +147,26 @@ export const getGroqCaseConsultation = async (medicalResume, knowledgeText) => {
   // API Key sekarang ditangani dengan aman di backend (Netlify Functions)
 
   const lang = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_lang') || 'id') : 'id';
+  const style = typeof window !== 'undefined' ? (localStorage.getItem('icd_ai_style') || 'bpjs') : 'bpjs';
+
+  let styleInstruction = "";
+  if (style === 'bpjs') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION FOR STYLE: Focus heavily on INA-CBG / BPJS coding guidelines and optimization. Highlight main diagnosis selection criteria based on MB1-MB5 rules."
+      : "\nINSTRUKSI GAYA ANALISIS: Berikan fokus mendalam pada pedoman koding INA-CBG / BPJS dan optimalisasinya. Tekankan kriteria pemilihan diagnosis utama sesuai aturan MB1-MB5.";
+  } else if (style === 'academic') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION FOR STYLE: Provide detailed medical rationale and clinical justifications for selecting these codes. Briefly explain the clinical links between comorbid conditions and the primary diagnosis."
+      : "\nINSTRUKSI GAYA ANALISIS: Sediakan rasional medis yang mendetail serta justifikasi klinis di balik pemilihan kode-kode ini. Jelaskan secara singkat keterkaitan klinis komorbiditas dengan diagnosis utama.";
+  } else if (style === 'concise') {
+    styleInstruction = lang === 'en'
+      ? "\nINSTRUCTION FOR STYLE: Provide only the essential codes and main coding rules. Keep the rules analysis and notes extremely short and to the point."
+      : "\nINSTRUKSI GAYA ANALISIS: Berikan hanya draf kode esensial dan aturan koding utama. Buat analisis aturan koding dan catatan sesingkat mungkin dan langsung ke intinya.";
+  }
 
   const systemPromptId = `Anda adalah asisten medis ahli koding INA-CBG (ICD-10 dan ICD-9-CM) tingkat lanjut.
-Tugas Anda adalah membaca resume medis (kasus pasien) yang diberikan pengguna, lalu merumuskan kode diagnosis dan tindakan yang tepat berdasarkan aturan koding yang berlaku.
+Tugas Anda adalah membaca resume medis (kasus pasien) yang diberikan pengguna, lalu merumuskan kode diagnosis dan tindakan yang tepat berdasarkan aturan koding yang berlaku dengan gaya analisis berikut.
+${styleInstruction}
 
 Struktur jawaban WAJIB menggunakan format markdown berikut:
 
@@ -146,7 +181,7 @@ Struktur jawaban WAJIB menggunakan format markdown berikut:
 - [Kode ICD-9] - Nama Tindakan
 
 **4. Analisis & Catatan Aturan Koding**
-- Berikan analisis singkat mengapa kode-kode tersebut dipilih berdasarkan resume medis dan pedoman.
+- Berikan analisis koding berdasarkan gaya analisis yang Anda pilih di atas.
 
 Referensi Umum (Pedoman Koding Penuh):
 ---
@@ -154,7 +189,8 @@ ${knowledgeText}
 ---`;
 
   const systemPromptEn = `You are an advanced medical assistant expert in INA-CBG coding (ICD-10 and ICD-9-CM).
-Your task is to read the medical resume (patient case) provided by the user, then formulate the correct diagnosis and procedure codes based on applicable coding rules.
+Your task is to read the medical resume (patient case) provided by the user, then formulate the correct diagnosis and procedure codes based on applicable coding rules with the following analysis style.
+${styleInstruction}
 
 Your response MUST use the following markdown structure:
 
@@ -169,7 +205,7 @@ Your response MUST use the following markdown structure:
 - [ICD-9 Code] - Procedure Name
 
 **4. Analysis & Coding Rules Notes**
-- Provide a brief analysis of why these codes were selected based on the medical resume and guidelines.
+- Provide a brief coding analysis based on the analysis style chosen above.
 
 General Reference (Full Coding Guidelines):
 ---

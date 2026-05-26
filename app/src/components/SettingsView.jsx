@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Settings, Moon, Globe, Trash2, Database, AlertTriangle, CheckCircle2 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase';
+import { Settings, Moon, Globe, Trash2, Database, AlertTriangle, CheckCircle2, Sparkles } from 'lucide-react';
 
 export function SettingsView() {
   const { isLoggedIn, user } = useAuth();
   
   // State
   const [aiLang, setAiLang] = useState(() => localStorage.getItem('icd_ai_lang') || 'id');
+  const [aiStyle, setAiStyle] = useState(() => localStorage.getItem('icd_ai_style') || 'bpjs');
   const [uiScale, setUiScale] = useState(() => localStorage.getItem('icd_ui_scale') || '16px');
   const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
   const [clearStatus, setClearStatus] = useState({ type: null, message: '' });
@@ -18,6 +17,13 @@ export function SettingsView() {
     const lang = e.target.value;
     setAiLang(lang);
     localStorage.setItem('icd_ai_lang', lang);
+  };
+
+  // Handle AI style change
+  const handleStyleChange = (e) => {
+    const style = e.target.value;
+    setAiStyle(style);
+    localStorage.setItem('icd_ai_style', style);
   };
 
   // Handle clear local data
@@ -82,10 +88,32 @@ export function SettingsView() {
           <select 
             value={aiLang}
             onChange={handleLangChange}
-            className="w-full sm:w-auto px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium outline-none focus:border-[#00B4A4] focus:ring-2 focus:ring-[#00B4A4]/20 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium outline-none focus:border-[#00B4A4] focus:ring-2 focus:ring-[#00B4A4]/20 transition-all cursor-pointer text-slate-700 dark:text-slate-200"
           >
             <option value="id">Bahasa Indonesia</option>
             <option value="en">English</option>
+          </select>
+        </div>
+
+        {/* Gaya Analisis AI */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-[#00B4A4]/10 text-[#00B4A4] rounded-lg">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-800 dark:text-slate-100">Gaya Analisis AI</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Menentukan format kedalaman penjelasan koding AI.</p>
+            </div>
+          </div>
+          <select 
+            value={aiStyle}
+            onChange={handleStyleChange}
+            className="w-full sm:w-auto px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium outline-none focus:border-[#00B4A4] focus:ring-2 focus:ring-[#00B4A4]/20 transition-all cursor-pointer text-slate-700 dark:text-slate-200"
+          >
+            <option value="bpjs">Fokus Klaim BPJS (Default)</option>
+            <option value="academic">Akademik & Detail Medis</option>
+            <option value="concise">Ringkas & Langsung</option>
           </select>
         </div>
 
