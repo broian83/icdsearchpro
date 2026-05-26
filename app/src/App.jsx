@@ -55,29 +55,58 @@ const icd9Chapters = [
 ];
 
 const HIGH_FREQUENCY_ICD10 = {
-  'I10': 0.5,
-  'E11': 0.5,
-  'I50': 0.5,
-  'K30': 0.6,
-  'N18': 0.6,
-  'A09': 0.6,
-  'A01': 0.7,
-  'J06': 0.7,
-  'J02': 0.7,
-  'J45': 0.7,
-  'I63': 0.7,
-  'I64': 0.7,
-  'K21': 0.7,
-  'A91': 0.7,
-  'I21': 0.7,
-  'O80': 0.7,
-  'H25': 0.7,
-  'M54': 0.7,
-  'J18': 0.7,
-  'N39': 0.7,
-  'L03': 0.7,
-  'K40': 0.7,
-  'D64': 0.7,
+  // Top 5 most common Indonesian BPJS codes (extreme boost)
+  'J18.9': 0.1, // Pneumonia, unspecified
+  'A09': 0.1,   // Gastroenteritis
+  'A09.9': 0.1,
+  'A09.0': 0.1,
+  'E11.9': 0.1, // Type 2 Diabetes without complications
+  'E11': 0.2,
+  'I64': 0.1,   // Stroke, unspecified
+  'D64.9': 0.1, // Anaemia, unspecified
+  
+  // INA-CBG Indonesia Top 30-50 codes (strong boost)
+  'A90': 0.3,   // Dengue fever
+  'A91': 0.3,   // DHF
+  'A01.0': 0.3, // Typhoid fever
+  'A01': 0.3,
+  'B20': 0.3,   // HIV disease
+  'I10': 0.3,   // Essential hypertension
+  'I21.9': 0.3, // AMI unspecified
+  'I21': 0.3,
+  'I50.0': 0.3, // Congestive heart failure
+  'I50.9': 0.3, // Heart failure, unspecified
+  'I50': 0.3,
+  'J06.9': 0.3, // URTI unspecified
+  'J06': 0.3,
+  'J45.9': 0.3, // Asthma unspecified
+  'J45': 0.3,
+  'K35.8': 0.3, // Acute appendicitis
+  'K35': 0.3,
+  'K80.1': 0.3, // Cholecystitis with gallstone
+  'K80': 0.3,
+  'N18.9': 0.3, // CKD unspecified
+  'N18.5': 0.3, // CKD stage 5
+  'N18': 0.3,
+  'O80': 0.3,   // Normal delivery
+  'O80.9': 0.3,
+  'S72.0': 0.3, // Fracture neck of femur
+  'S72': 0.3,
+  'Z38.0': 0.3, // Newborn, hospital born
+  
+  // Other frequent clinical codes
+  'K30': 0.4,   // Dyspepsia
+  'M54.5': 0.4, // Low back pain
+  'M54': 0.4,
+  'J18.0': 0.4, // Bronchopneumonia
+  'J18': 0.4,
+  'N39.0': 0.4, // UTI
+  'L03.9': 0.4, // Cellulitis
+  'L03': 0.4,
+  'K40.9': 0.4, // Inguinal hernia
+  'K40': 0.4,
+  'D64.8': 0.4, // Other anemias
+  'D64': 0.4
 };
 
 const HIGH_FREQUENCY_ICD9 = {
@@ -151,11 +180,21 @@ const calculateClinicalScore = (res, query, searchType) => {
     const firstChar = code.charAt(0).toUpperCase();
     if (firstChar >= 'A' && firstChar <= 'N') {
       score = score * 0.8;
-    } else if (['T', 'V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
+    } else if (['V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
       const isSupplementaryQuery = /^[ztvywx]/i.test(cleanQuery) || 
-        ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir'].some(w => cleanQuery.includes(w));
+        ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir', 'periksa', 'neonatus', 'bayi baru lahir', 'bbl', 'anc', 'skrining', 'vaksin', 'kunjungan', 'rujukan'].some(w => cleanQuery.includes(w));
       if (!isSupplementaryQuery) {
         score = score * 1.8;
+      }
+    } else if (firstChar === 'T') {
+      const numPart = parseInt(code.substring(1), 10);
+      if (!isNaN(numPart)) {
+        if (numPart >= 90 && numPart <= 98) {
+          const isSupplementaryQuery = /^[t]/i.test(cleanQuery) || cleanQuery.includes('sequelae') || cleanQuery.includes('lanjutan');
+          if (!isSupplementaryQuery) {
+            score = score * 1.8;
+          }
+        }
       }
     }
   }
@@ -535,6 +574,22 @@ function App() {
     setShowSuggestions(false);
   };
 
+  const reportIncorrectOrder = async (code) => {
+    showToast(`Terima kasih! Laporan urutan kode ${code} untuk kueri "${query}" berhasil dikirim.`, 'success', 4000);
+    if (isLoggedIn && user) {
+      try {
+        await supabase.from('ranking_feedback').insert({
+          user_id: user.id,
+          code,
+          query: query,
+          search_type: searchType
+        });
+      } catch (err) {
+        console.warn("Supabase ranking feedback save failed:", err);
+      }
+    }
+  };
+
   // Handle Smart Alias
   const { searchQuery, activeAlias } = useMemo(() => {
     if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
@@ -581,11 +636,27 @@ function App() {
     const primary = [];
     const supplementary = [];
 
+    const cleanQuery = searchQuery.trim().toLowerCase();
+    const isSpecificSupplQuery = 
+      /^[ztvywx]/i.test(cleanQuery) || 
+      ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir', 'periksa', 'neonatus', 'bayi baru lahir', 'bbl', 'anc', 'skrining', 'vaksin', 'kunjungan', 'rujukan'].some(w => cleanQuery.includes(w));
+
     searchResults.forEach(res => {
       const firstChar = res.item.code.charAt(0).toUpperCase();
-      const isSupplChapter = ['T', 'V', 'W', 'X', 'Y', 'Z'].includes(firstChar);
       
-      if (isSupplChapter && res.clinicalScore >= 0.15) {
+      let isSupplChapter = false;
+      if (['V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
+        isSupplChapter = true;
+      } else if (firstChar === 'T') {
+        const numPart = parseInt(res.item.code.substring(1), 10);
+        if (!isNaN(numPart)) {
+          if (numPart >= 90 && numPart <= 98) {
+            isSupplChapter = true;
+          }
+        }
+      }
+      
+      if (isSupplChapter && !isSpecificSupplQuery) {
         supplementary.push(res);
       } else {
         primary.push(res);
@@ -593,7 +664,7 @@ function App() {
     });
 
     return { primaryResults: primary, supplementaryResults: supplementary };
-  }, [searchResults, searchType]);
+  }, [searchResults, searchType, searchQuery]);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#00B4A4] selection:text-white">
@@ -829,6 +900,7 @@ function App() {
                     knowledgeText={knowledgeText}
                     daggerAsteriskData={daggerAsteriskData}
                     onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
+                    onReportIncorrectOrder={reportIncorrectOrder}
                   />
                 ))}
 
@@ -848,6 +920,7 @@ function App() {
                           knowledgeText={knowledgeText}
                           daggerAsteriskData={daggerAsteriskData}
                           onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
+                          onReportIncorrectOrder={reportIncorrectOrder}
                         />
                       ))}
                     </div>
@@ -1016,6 +1089,7 @@ function App() {
                     knowledgeText={knowledgeText}
                     daggerAsteriskData={daggerAsteriskData}
                     onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
+                    onReportIncorrectOrder={reportIncorrectOrder}
                   />
                 ))}
               </div>

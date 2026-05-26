@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useToast } from '../context/ToastContext';
 
-export function ResultCard({ item, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, initialBookmarked = false }) {
+export function ResultCard({ item, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, initialBookmarked = false, onReportIncorrectOrder }) {
   const { isLoggedIn, user } = useAuth();
   const { showToast } = useToast();
   const [aiResponse, setAiResponse] = useState('');
@@ -202,6 +202,19 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
           >
             <Star className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : ''}`} />
           </button>
+          
+          {onReportIncorrectOrder && (
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onReportIncorrectOrder(item.code);
+              }}
+              className="p-2 text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-500 focus:outline-none transition-colors duration-200"
+              title="Laporkan Urutan Salah"
+            >
+              <AlertTriangle className="w-5 h-5" />
+            </button>
+          )}
           
           <button 
             onClick={handleAskAI}
