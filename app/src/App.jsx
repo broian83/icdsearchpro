@@ -585,7 +585,7 @@ function App() {
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
     
     const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z][0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
+      ? /^[A-Z]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
       : /^[0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2;
 
     let results = [];
@@ -617,7 +617,7 @@ function App() {
     const uniqueTerms = [];
     for (const res of scoredResults) {
       let suggestionText = res.item.title;
-      if ((isCodeQuery || aliases[cleanQueryForAlias]) && res.item.code) {
+      if (res.item.code) {
         suggestionText = `${res.item.title} (${res.item.code})`;
       }
       
@@ -699,20 +699,26 @@ function App() {
   const searchResults = useMemo(() => {
     if (!searchQuery) return [];
     
-    const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    let results = fuse.search(searchQuery, { limit: 120 });
-
-    // Strict filtering for specific code and partial code queries (non-umbrella)
     const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z][0-9]/i.test(searchQuery.trim()) 
+      ? /^[A-Z]/i.test(searchQuery.trim()) 
       : /^[0-9]/i.test(searchQuery.trim());
-      
+
+    let results = [];
     if (isCodeQuery && !isUmbrella) {
       const cleanCodeQuery = searchQuery.trim().replace('.', '').toUpperCase();
-      results = results.filter(res => {
-        const cleanItemCode = res.item.code.replace('.', '').toUpperCase();
+      const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
+      const matchedItems = rawData.filter(item => {
+        const cleanItemCode = item.code.replace('.', '').toUpperCase();
         return cleanItemCode.startsWith(cleanCodeQuery);
       });
+      results = matchedItems.map(item => ({
+        item,
+        score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05,
+        matches: []
+      }));
+    } else {
+      const fuse = searchType === 'icd10' ? fuse10 : fuse9;
+      results = fuse.search(searchQuery, { limit: 120 });
     }
 
     if (filterChapter !== 'all') {
@@ -735,7 +741,7 @@ function App() {
     scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
 
     return scoredResults.slice(0, 60);
-  }, [searchQuery, searchType, fuse10, fuse9, filterChapter]);
+  }, [searchQuery, searchType, fuse10, fuse9, filterChapter, icd10Data, icd9Data]);
 
   const { primaryResults, supplementaryResults } = useMemo(() => {
     if (searchType !== 'icd10') {
