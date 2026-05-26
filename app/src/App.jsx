@@ -12,6 +12,7 @@ import { BookmarkView } from './components/BookmarkView';
 import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { useAuth } from './context/AuthContext';
+import { useToast } from './context/ToastContext';
 import { supabase } from './lib/supabase';
 import { getCache, setCache } from './utils/db';
 
@@ -55,6 +56,7 @@ const icd9Chapters = [
 
 function App() {
   const { isLoggedIn, user } = useAuth();
+  const { showToast } = useToast();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [authModalConfig, setAuthModalConfig] = useState({ isOpen: false, message: '' });
 
@@ -82,6 +84,82 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Keyboard Shortcuts untuk Filter Kategori
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Abaikan jika sedang mengetik di input/textarea
+      if (
+        document.activeElement && (
+          document.activeElement.tagName === 'INPUT' ||
+          document.activeElement.tagName === 'TEXTAREA' ||
+          document.activeElement.isContentEditable
+        )
+      ) {
+        return;
+      }
+
+      // Kombinasi Alt + Shift
+      if (e.altKey && e.shiftKey) {
+        const key = e.key.toUpperCase();
+        
+        if (searchType === 'icd10') {
+          const mapping = {
+            'A': { id: 'A|B', label: 'A-B: Infeksi & Parasit' },
+            'C': { id: 'C|D', label: 'C-D: Neoplasma / Darah' },
+            'E': { id: 'E', label: 'E: Endokrin & Metabolik' },
+            'F': { id: 'F', label: 'F: Gangguan Mental' },
+            'G': { id: 'G', label: 'G: Saraf (Nervous)' },
+            'H': { id: 'H', label: 'H: Mata & Telinga' },
+            'I': { id: 'I', label: 'I: Sirkulasi (Kardio)' },
+            'J': { id: 'J', label: 'J: Pernapasan' },
+            'K': { id: 'K', label: 'K: Pencernaan' },
+            'L': { id: 'L', label: 'L: Kulit & Jaringan' },
+            'M': { id: 'M', label: 'M: Otot & Tulang' },
+            'N': { id: 'N', label: 'N: Genitourinari' },
+            'O': { id: 'O', label: 'O: Kehamilan & Melahirkan' },
+            'P': { id: 'P', label: 'P: Perinatal' },
+            'Q': { id: 'Q', label: 'Q: Kelainan Bawaan' },
+            'R': { id: 'R', label: 'R: Gejala & Tanda' },
+            'S': { id: 'S|T', label: 'S-T: Cedera & Keracunan' },
+            'V': { id: 'V|W|X|Y', label: 'V-Y: Penyebab Eksternal (KLL)' },
+            'Z': { id: 'Z', label: 'Z: Faktor Status Kesehatan' },
+            'X': { id: 'all', label: 'Semua Kategori (ICD-10)' }
+          };
+
+          if (mapping[key]) {
+            e.preventDefault();
+            setFilterChapter(mapping[key].id);
+            showToast(`Filter aktif: ${mapping[key].label}`, 'info', 2000);
+          }
+        } else if (searchType === 'icd9') {
+          const mapping = {
+            'O': { id: '00', label: '00: Prosedur Lainnya' },
+            '0': { id: '0', label: '01-09: Saraf & Endokrin' },
+            '1': { id: '1', label: '10-19: Mata & Telinga' },
+            '2': { id: '2', label: '20-29: Hidung & Mulut' },
+            '3': { id: '3', label: '30-39: Napas & Jantung' },
+            '4': { id: '4', label: '40-49: Cerna (Atas)' },
+            '5': { id: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih' },
+            '6': { id: '6', label: '60-69: Kelamin (Pria & Wanita)' },
+            '7': { id: '7', label: '70-79: Kebidanan & Tulang' },
+            '8': { id: '8', label: '80-89: Otot, Kulit, Diagnostik' },
+            '9': { id: '9', label: '90-99: Terapi & Diagnostik Lain' },
+            'X': { id: 'all', label: 'Semua Kategori (ICD-9)' }
+          };
+
+          if (mapping[key]) {
+            e.preventDefault();
+            setFilterChapter(mapping[key].id);
+            showToast(`Filter aktif: ${mapping[key].label}`, 'info', 2000);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchType, showToast]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
