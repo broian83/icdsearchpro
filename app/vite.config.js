@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
         '/api/gemini': {
           target: 'https://generativelanguage.googleapis.com',
           changeOrigin: true,
-          rewrite: (path) => `/v1beta/models/gemini-1.5-flash:generateContent?key=${env.VITE_GEMINI_API_KEY}`
+          rewrite: (path) => `/v1beta/models/gemini-3.5-flash:generateContent?key=${env.VITE_GEMINI_API_KEY}`
         }
       }
     },
@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
         '/api/gemini': {
           target: 'https://generativelanguage.googleapis.com',
           changeOrigin: true,
-          rewrite: (path) => `/v1beta/models/gemini-1.5-flash:generateContent?key=${env.VITE_GEMINI_API_KEY}`
+          rewrite: (path) => `/v1beta/models/gemini-3.5-flash:generateContent?key=${env.VITE_GEMINI_API_KEY}`
         }
       }
     },
