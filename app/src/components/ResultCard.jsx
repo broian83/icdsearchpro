@@ -221,7 +221,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
             <div className="flex-1 min-w-0">
               <h5 className="font-semibold text-slate-800 dark:text-slate-100 text-sm flex items-center gap-2">
                 Penjelasan Cerdas AI
-                <span className="text-[9px] uppercase tracking-wider bg-blue-500 text-white px-1.5 py-0.5 rounded-full">Gemini 3.5</span>
+                <span className="text-[9px] uppercase tracking-wider bg-blue-500 text-white px-1.5 py-0.5 rounded-full">Gemini 1.5</span>
               </h5>
               
               {isAILoading ? (
