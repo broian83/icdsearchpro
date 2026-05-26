@@ -184,15 +184,8 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
             )}
           </div>
         </div>
-        <div className="flex-1 min-w-0 pr-8 relative">
-          <button 
-            onClick={handleBookmarkToggle}
-            className="absolute top-0 right-0 p-1 -mt-1 -mr-1 text-slate-300 hover:text-yellow-400 focus:outline-none transition-colors"
-            title="Simpan Bookmark"
-          >
-            <Star className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : ''}`} />
-          </button>
-          <h4 className="text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100 leading-snug pr-2">
+        <div className="flex-1 min-w-0">
+          <h4 className="text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100 leading-snug">
             <Highlight text={item.title} matches={matches} property="title" />
           </h4>
           {item.desc && (
@@ -201,7 +194,15 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
             </p>
           )}
         </div>
-        <div className="flex-shrink-0 sm:self-center w-full sm:w-auto mt-2 sm:mt-0">
+        <div className="flex-shrink-0 flex items-center gap-2 sm:self-center w-full sm:w-auto mt-2 sm:mt-0 justify-between sm:justify-start">
+          <button 
+            onClick={handleBookmarkToggle}
+            className="p-2 text-slate-300 hover:text-yellow-400 dark:text-slate-600 dark:hover:text-yellow-400 focus:outline-none transition-colors duration-200"
+            title="Simpan Bookmark"
+          >
+            <Star className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+          </button>
+          
           <button 
             onClick={handleAskAI}
             disabled={isAILoading}
