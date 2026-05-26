@@ -92,7 +92,8 @@ ${knowledgeText}
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
   try {
-    const response = await fetch('/api/gemini', {
+    const apiUrl = import.meta.env.DEV ? '/api/gemini' : '/.netlify/functions/gemini';
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -178,7 +179,8 @@ ${knowledgeText}
   const systemPrompt = lang === 'en' ? systemPromptEn : systemPromptId;
 
   try {
-    const response = await fetch('/api/gemini', {
+    const apiUrl = import.meta.env.DEV ? '/api/gemini' : '/.netlify/functions/gemini';
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
