@@ -7,6 +7,7 @@ export function CaseConsultation({ knowledgeText }) {
   const [resume, setResume] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [interimText, setInterimText] = useState('');
