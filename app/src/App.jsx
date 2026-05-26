@@ -583,19 +583,28 @@ function App() {
     const isUmbrellaQuery = !!UMBRELLA_ALIASES[cleanQueryForAlias];
 
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    let results = fuse.search(expandedQuery, { limit: 40 });
-
-    // 2. Strict filtering for suggestions if it is a specific code search
+    
     const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z][0-9]/i.test(expandedQuery.trim()) 
-      : /^[0-9]/i.test(expandedQuery.trim());
-      
+      ? /^[A-Z][0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
+      : /^[0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2;
+
+    let results = [];
     if (isCodeQuery && !isUmbrellaQuery) {
       const cleanCodeQuery = expandedQuery.trim().replace('.', '').toUpperCase();
-      results = results.filter(res => {
-        const cleanItemCode = res.item.code.replace('.', '').toUpperCase();
+      const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
+      
+      const matchedItems = rawData.filter(item => {
+        const cleanItemCode = item.code.replace('.', '').toUpperCase();
         return cleanItemCode.startsWith(cleanCodeQuery);
       });
+
+      results = matchedItems.map(item => ({
+        item,
+        score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05,
+        matches: []
+      }));
+    } else {
+      results = fuse.search(expandedQuery, { limit: 40 });
     }
 
     const scoredResults = results.map(res => {
@@ -618,7 +627,7 @@ function App() {
       }
     }
     return uniqueTerms;
-  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases]);
+  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases, icd10Data, icd9Data]);
 
   const handleSelectSuggestion = (suggestion) => {
     const codeMatch = suggestion.match(/\(([^)]+)\)$/);
