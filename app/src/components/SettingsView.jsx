@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Settings, Moon, Globe, Trash2, Database, AlertTriangle, CheckCircle2, Sparkles } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabase';
 
 export function SettingsView() {
   const { isLoggedIn, user } = useAuth();
