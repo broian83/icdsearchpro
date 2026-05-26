@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, Keyboard } from 'lucide-react';
+import { HelpCircle, ChevronDown, Keyboard, Info } from 'lucide-react';
 
 const faqs = [
   {
