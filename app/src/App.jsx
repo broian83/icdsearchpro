@@ -54,6 +54,115 @@ const icd9Chapters = [
   { id: '9', label: '90-99: Terapi & Diagnostik Lain [Alt+Shift+9]' }
 ];
 
+const HIGH_FREQUENCY_ICD10 = {
+  'I10': 0.5,
+  'E11': 0.5,
+  'I50': 0.5,
+  'K30': 0.6,
+  'N18': 0.6,
+  'A09': 0.6,
+  'A01': 0.7,
+  'J06': 0.7,
+  'J02': 0.7,
+  'J45': 0.7,
+  'I63': 0.7,
+  'I64': 0.7,
+  'K21': 0.7,
+  'A91': 0.7,
+  'I21': 0.7,
+  'O80': 0.7,
+  'H25': 0.7,
+  'M54': 0.7,
+  'J18': 0.7,
+  'N39': 0.7,
+  'L03': 0.7,
+  'K40': 0.7,
+  'D64': 0.7,
+};
+
+const HIGH_FREQUENCY_ICD9 = {
+  '39.95': 0.4,
+  '99.25': 0.5,
+  '93.94': 0.6,
+  '88.72': 0.6,
+  '90.59': 0.7,
+  '87.44': 0.7,
+  '96.71': 0.7,
+  '96.72': 0.7,
+  '88.76': 0.7,
+  '13.71': 0.7,
+  '13.19': 0.7,
+};
+
+const calculateClinicalScore = (res, query, searchType) => {
+  const code = res.item.code || '';
+  const title = res.item.title || '';
+  const desc = res.item.desc || '';
+  const originalScore = res.score !== undefined ? res.score : 0.5;
+  let score = originalScore;
+
+  const cleanQuery = query.trim().toLowerCase();
+  const cleanCode = code.replace('.', '').toLowerCase();
+
+  // 1. Exact Match / Prefix Match Bonus
+  if (cleanQuery === cleanCode || cleanQuery === code.toLowerCase()) {
+    score = score * 0.01;
+  } else if (code.toLowerCase().startsWith(cleanQuery)) {
+    score = score * 0.2;
+  } else if (title.toLowerCase() === cleanQuery || desc.toLowerCase() === cleanQuery) {
+    score = score * 0.3;
+  } else if (title.toLowerCase().includes(cleanQuery) || desc.toLowerCase().includes(cleanQuery)) {
+    score = score * 0.8;
+  }
+
+  // 2. Clinical Frequency Weighting
+  if (searchType === 'icd10') {
+    const mainCode = code.split('.')[0].toUpperCase();
+    if (HIGH_FREQUENCY_ICD10[mainCode]) {
+      score = score * HIGH_FREQUENCY_ICD10[mainCode];
+    }
+    const exactCode = code.toUpperCase();
+    if (HIGH_FREQUENCY_ICD10[exactCode]) {
+      score = score * HIGH_FREQUENCY_ICD10[exactCode];
+    }
+  } else {
+    const exactCode = code;
+    if (HIGH_FREQUENCY_ICD9[exactCode]) {
+      score = score * HIGH_FREQUENCY_ICD9[exactCode];
+    }
+    const mainCode = code.split('.')[0];
+    if (HIGH_FREQUENCY_ICD9[mainCode]) {
+      score = score * HIGH_FREQUENCY_ICD9[mainCode];
+    }
+  }
+
+  // 3. Parent-before-child rule
+  const isParent = searchType === 'icd10' ? code.length === 3 : code.length <= 4 && !code.includes('.');
+  const queryHasDetail = cleanQuery.includes('.') || cleanQuery.replace(/[^0-9]/g, '').length >= 3;
+  
+  if (isParent && !queryHasDetail) {
+    score = score * 0.7;
+  } else if (!isParent && !queryHasDetail) {
+    score = score * 1.3;
+  }
+
+  // 4. Chapter boost
+  if (searchType === 'icd10') {
+    const firstChar = code.charAt(0).toUpperCase();
+    if (firstChar >= 'A' && firstChar <= 'N') {
+      score = score * 0.8;
+    } else if (['T', 'V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
+      const isSupplementaryQuery = /^[ztvywx]/i.test(cleanQuery) || 
+        ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir'].some(w => cleanQuery.includes(w));
+      if (!isSupplementaryQuery) {
+        score = score * 1.8;
+      }
+    }
+  }
+
+  return score;
+};
+
 function App() {
   const { isLoggedIn, user } = useAuth();
   const { showToast } = useToast();
@@ -365,6 +474,7 @@ function App() {
   const fuse10 = useMemo(() => new Fuse(icd10Data, {
     keys: ['code', 'title', 'desc'],
     includeMatches: true,
+    includeScore: true,
     threshold: 0.3,
     ignoreLocation: true,
     useExtendedSearch: true
@@ -373,6 +483,7 @@ function App() {
   const fuse9 = useMemo(() => new Fuse(icd9Data, {
     keys: ['code', 'title', 'desc'],
     includeMatches: true,
+    includeScore: true,
     threshold: 0.3,
     ignoreLocation: true,
     useExtendedSearch: true
@@ -414,7 +525,7 @@ function App() {
     if (!searchQuery) return [];
     
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    let results = fuse.search(searchQuery, { limit: 100 });
+    let results = fuse.search(searchQuery, { limit: 120 });
 
     if (filterChapter !== 'all') {
       const prefixes = filterChapter.split('|');
@@ -428,8 +539,36 @@ function App() {
       });
     }
 
-    return results.slice(0, 50);
+    const scoredResults = results.map(res => {
+      const clinicalScore = calculateClinicalScore(res, searchQuery, searchType);
+      return { ...res, clinicalScore };
+    });
+
+    scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
+
+    return scoredResults.slice(0, 60);
   }, [searchQuery, searchType, fuse10, fuse9, filterChapter]);
+
+  const { primaryResults, supplementaryResults } = useMemo(() => {
+    if (searchType !== 'icd10') {
+      return { primaryResults: searchResults, supplementaryResults: [] };
+    }
+    const primary = [];
+    const supplementary = [];
+
+    searchResults.forEach(res => {
+      const firstChar = res.item.code.charAt(0).toUpperCase();
+      const isSupplChapter = ['T', 'V', 'W', 'X', 'Y', 'Z'].includes(firstChar);
+      
+      if (isSupplChapter && res.clinicalScore >= 0.15) {
+        supplementary.push(res);
+      } else {
+        primary.push(res);
+      }
+    });
+
+    return { primaryResults: primary, supplementaryResults: supplementary };
+  }, [searchResults, searchType]);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#00B4A4] selection:text-white">
@@ -656,7 +795,7 @@ function App() {
               )}
 
               <div className="space-y-4">
-                {searchResults.map(({ item, matches }, index) => (
+                {primaryResults.map(({ item, matches }, index) => (
                   <ResultCard 
                     key={item.code + index}
                     item={item}
@@ -667,6 +806,28 @@ function App() {
                     onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
                   />
                 ))}
+
+                {supplementaryResults.length > 0 && (
+                  <div className="mt-8 pt-6 border-t border-dashed border-slate-200 dark:border-slate-700">
+                    <h3 className="text-sm font-semibold text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2">
+                      <BookOpen className="w-4 h-4 text-[#00B4A4]" />
+                      Kode Penunjang / External / Status (T, V-Z)
+                    </h3>
+                    <div className="space-y-4">
+                      {supplementaryResults.map(({ item, matches }, index) => (
+                        <ResultCard 
+                          key={item.code + index}
+                          item={item}
+                          matches={matches}
+                          searchType={searchType}
+                          knowledgeText={knowledgeText}
+                          daggerAsteriskData={daggerAsteriskData}
+                          onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           } />
@@ -821,7 +982,7 @@ function App() {
               )}
 
               <div className="space-y-4">
-                {searchResults.map(({ item, matches }, index) => (
+                {primaryResults.map(({ item, matches }, index) => (
                   <ResultCard 
                     key={item.code + index}
                     item={item}
