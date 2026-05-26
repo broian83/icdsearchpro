@@ -187,6 +187,7 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestionsQuery, setSuggestionsQuery] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -319,6 +320,20 @@ function App() {
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
     }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  // Debounce suggestions query (150ms) to prevent typing lag
+  useEffect(() => {
+    if (!query) {
+      setSuggestionsQuery('');
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setSuggestionsQuery(query);
+    }, 150);
 
     return () => clearTimeout(timer);
   }, [query]);
@@ -490,11 +505,21 @@ function App() {
   }), [icd9Data]);
 
   const suggestions = useMemo(() => {
-    if (!query || query.trim().length < 2) return [];
+    const trimmed = suggestionsQuery.trim();
+    if (!trimmed || trimmed.length < 2) return [];
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    const results = fuse.search(query.trim(), { limit: 20 });
+    
+    let results = fuse.search(trimmed, { limit: 40 });
+
+    const scoredResults = results.map(res => {
+      const clinicalScore = calculateClinicalScore(res, trimmed, searchType);
+      return { ...res, clinicalScore };
+    });
+
+    scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
+
     const uniqueTerms = [];
-    for (const res of results) {
+    for (const res of scoredResults) {
       const title = res.item.title;
       if (title && !uniqueTerms.includes(title)) {
         uniqueTerms.push(title);
@@ -502,7 +527,7 @@ function App() {
       }
     }
     return uniqueTerms;
-  }, [query, searchType, fuse10, fuse9]);
+  }, [suggestionsQuery, searchType, fuse10, fuse9]);
 
   const handleSelectSuggestion = (suggestion) => {
     setQuery(suggestion);
