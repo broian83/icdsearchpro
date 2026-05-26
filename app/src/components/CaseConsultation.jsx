@@ -7,9 +7,9 @@ export function CaseConsultation({ knowledgeText }) {
   const [resume, setResume] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [interimText, setInterimText] = useState('');
   const recognitionRef = useRef(null);
 
   const toggleListening = () => {
@@ -24,26 +24,40 @@ export function CaseConsultation({ knowledgeText }) {
         recognitionRef.current.stop();
       }
       setIsListening(false);
+      setInterimText('');
     } else {
       const recognition = new SpeechRecognition();
       recognition.lang = 'id-ID';
       recognition.continuous = true;
-      recognition.interimResults = false;
+      recognition.interimResults = true;
 
       recognition.onstart = () => setIsListening(true);
       
       recognition.onresult = (event) => {
         let finalTranscript = '';
+        let currentInterim = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
-           finalTranscript += event.results[i][0].transcript;
+           const transcript = event.results[i][0].transcript;
+           if (event.results[i].isFinal) {
+             finalTranscript += transcript;
+           } else {
+             currentInterim += transcript;
+           }
         }
         if (finalTranscript) {
           setResume(prev => prev + (prev ? ' ' : '') + finalTranscript);
         }
+        setInterimText(currentInterim);
       };
 
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
+      recognition.onerror = () => {
+        setIsListening(false);
+        setInterimText('');
+      };
+      recognition.onend = () => {
+        setIsListening(false);
+        setInterimText('');
+      };
 
       recognitionRef.current = recognition;
       recognition.start();
@@ -110,8 +124,11 @@ export function CaseConsultation({ knowledgeText }) {
         <form onSubmit={handleSubmit} className="mb-6">
           <div className="relative">
             <textarea
-              value={resume}
-              onChange={(e) => setResume(e.target.value)}
+              value={resume + (interimText ? (resume ? ' ' : '') + interimText : '')}
+              onChange={(e) => {
+                setResume(e.target.value);
+                setInterimText('');
+              }}
               placeholder="Contoh: Pasien datang pasca KLL menabrak pohon. Terdapat fraktur femur dextra terbuka. Riwayat DM tipe 2 tidak terkontrol. Dilakukan tindakan ORIF..."
               className="w-full min-h-[160px] p-4 pb-14 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 focus:shadow-[0_0_20px_rgba(0,180,164,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
               disabled={isLoading}
