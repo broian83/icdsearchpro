@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Sparkles, Loader2, Brain, AlertTriangle, Link as LinkIcon, Copy, Check, Star } from 'lucide-react';
+import { Sparkles, Loader2, Brain, AlertTriangle, Link as LinkIcon, Copy, Check, Star, ThumbsDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Highlight } from '../utils/Highlight';
 import { getGroqDetailSuggestion } from '../utils/ai';
@@ -168,17 +168,17 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
           {/* Badges Column under Code (Desktop) / Next to Code (Mobile) */}
           <div className="flex flex-wrap sm:flex-col gap-1.5 w-full mt-0 sm:mt-1 self-center sm:self-start">
             {requiresExternalCause && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-orange-100 text-orange-700 text-[10px] font-bold rounded-md whitespace-nowrap">
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-400 border border-orange-200 dark:border-orange-900/50 text-[10px] font-bold rounded-md whitespace-nowrap">
                 <AlertTriangle className="w-3 h-3" /> External Code
               </span>
             )}
             {hasDaggerAsterisk && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 text-[10px] font-bold rounded-md whitespace-nowrap">
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400 border border-purple-200 dark:border-purple-900/50 text-[10px] font-bold rounded-md whitespace-nowrap">
                 <LinkIcon className="w-3 h-3" /> Dagger/Asterisk
               </span>
             )}
             {isSymptom && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-100 text-yellow-700 text-[10px] font-bold rounded-md whitespace-nowrap" title="Berdasarkan Rule MB1, keluhan tidak boleh jadi diagnosis utama jika penyakit aslinya diketahui.">
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-50 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-900/50 text-[10px] font-bold rounded-md whitespace-nowrap" title="Berdasarkan Rule MB1, keluhan tidak boleh jadi diagnosis utama jika penyakit aslinya diketahui.">
                 <AlertTriangle className="w-3 h-3" /> Gejala
               </span>
             )}
@@ -210,9 +210,9 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
                 onReportIncorrectOrder(item.code);
               }}
               className="p-2 text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-500 focus:outline-none transition-colors duration-200"
-              title="Laporkan Urutan Salah"
+              title="Urutan pencarian kurang pas? Klik untuk melaporkan"
             >
-              <AlertTriangle className="w-5 h-5" />
+              <ThumbsDown className="w-4.5 h-4.5" />
             </button>
           )}
           

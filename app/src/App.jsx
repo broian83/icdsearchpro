@@ -199,6 +199,22 @@ const calculateClinicalScore = (res, query, searchType) => {
     }
   }
 
+  // 5. Query words matching penalty (Fuzzy match false-positive mitigation)
+  const queryWords = cleanQuery.split(/\s+/).filter(w => w.length > 2);
+  if (queryWords.length > 0) {
+    const itemText = (code + ' ' + title + ' ' + desc).toLowerCase();
+    let matchCount = 0;
+    queryWords.forEach(word => {
+      if (itemText.includes(word)) {
+        matchCount++;
+      }
+    });
+    if (matchCount < queryWords.length) {
+      const missingRatio = (queryWords.length - matchCount) / queryWords.length;
+      score = score * (1 + missingRatio * 8.0);
+    }
+  }
+
   return score;
 };
 
