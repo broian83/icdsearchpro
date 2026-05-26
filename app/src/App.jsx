@@ -562,12 +562,44 @@ function App() {
   const suggestions = useMemo(() => {
     const trimmed = suggestionsQuery.trim();
     if (!trimmed || trimmed.length < 2) return [];
+
+    // 1. Expand Alias (Umbrella or Specific)
+    const cleanQueryForAlias = trimmed.toUpperCase();
+    const UMBRELLA_ALIASES = {
+      'DM': 'Diabetes mellitus',
+      'GEA': 'Gastroenteritis',
+      'DBD': 'Dengue haemorrhagic fever',
+      'DHF': 'Dengue haemorrhagic fever',
+      'ISK': 'Urinary tract infection',
+      'UTI': 'Urinary tract infection',
+      'TB': 'Tuberculosis',
+      'TBC': 'Tuberculosis',
+      'PJK': 'Coronary heart disease',
+      'PPOK': 'Chronic obstructive pulmonary disease',
+      'COPD': 'Chronic obstructive pulmonary disease',
+    };
+
+    const expandedQuery = UMBRELLA_ALIASES[cleanQueryForAlias] || aliases[cleanQueryForAlias] || trimmed;
+    const isUmbrellaQuery = !!UMBRELLA_ALIASES[cleanQueryForAlias];
+
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    
-    let results = fuse.search(trimmed, { limit: 40 });
+    let results = fuse.search(expandedQuery, { limit: 40 });
+
+    // 2. Strict filtering for suggestions if it is a specific code search
+    const isCodeQuery = searchType === 'icd10' 
+      ? /^[A-Z][0-9]/i.test(expandedQuery.trim()) 
+      : /^[0-9]/i.test(expandedQuery.trim());
+      
+    if (isCodeQuery && !isUmbrellaQuery) {
+      const cleanCodeQuery = expandedQuery.trim().replace('.', '').toUpperCase();
+      results = results.filter(res => {
+        const cleanItemCode = res.item.code.replace('.', '').toUpperCase();
+        return cleanItemCode.startsWith(cleanCodeQuery);
+      });
+    }
 
     const scoredResults = results.map(res => {
-      const clinicalScore = calculateClinicalScore(res, trimmed, searchType);
+      const clinicalScore = calculateClinicalScore(res, expandedQuery, searchType);
       return { ...res, clinicalScore };
     });
 
@@ -575,18 +607,29 @@ function App() {
 
     const uniqueTerms = [];
     for (const res of scoredResults) {
-      const title = res.item.title;
-      if (title && !uniqueTerms.includes(title)) {
-        uniqueTerms.push(title);
+      let suggestionText = res.item.title;
+      if ((isCodeQuery || aliases[cleanQueryForAlias]) && res.item.code) {
+        suggestionText = `${res.item.title} (${res.item.code})`;
+      }
+      
+      if (suggestionText && !uniqueTerms.includes(suggestionText)) {
+        uniqueTerms.push(suggestionText);
         if (uniqueTerms.length >= 6) break;
       }
     }
     return uniqueTerms;
-  }, [suggestionsQuery, searchType, fuse10, fuse9]);
+  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases]);
 
   const handleSelectSuggestion = (suggestion) => {
-    setQuery(suggestion);
-    setDebouncedQuery(suggestion);
+    const codeMatch = suggestion.match(/\(([^)]+)\)$/);
+    if (codeMatch && codeMatch[1]) {
+      const code = codeMatch[1];
+      setQuery(code);
+      setDebouncedQuery(code);
+    } else {
+      setQuery(suggestion);
+      setDebouncedQuery(suggestion);
+    }
     setShowSuggestions(false);
   };
 
@@ -607,13 +650,40 @@ function App() {
   };
 
   // Handle Smart Alias
-  const { searchQuery, activeAlias } = useMemo(() => {
-    if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
+  const { searchQuery, activeAlias, isUmbrella } = useMemo(() => {
+    if (!debouncedQuery) return { searchQuery: '', activeAlias: null, isUmbrella: false };
     const cleanQuery = debouncedQuery.trim().toUpperCase();
-    if (aliases[cleanQuery]) {
-      return { searchQuery: aliases[cleanQuery], activeAlias: { key: cleanQuery, value: aliases[cleanQuery] } };
+
+    const UMBRELLA_ALIASES = {
+      'DM': { target: 'Diabetes mellitus', label: 'E10-E14 (Diabetes Mellitus)' },
+      'GEA': { target: 'Gastroenteritis', label: 'A09 / K52 (Gastroenteritis Akut)' },
+      'DBD': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Demam Berdarah Dengue)' },
+      'DHF': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Dengue Haemorrhagic Fever)' },
+      'ISK': { target: 'Urinary tract infection', label: 'N39.0 (Infeksi Saluran Kemih)' },
+      'UTI': { target: 'Urinary tract infection', label: 'N39.0 (Urinary Tract Infection)' },
+      'TB': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
+      'TBC': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
+      'PJK': { target: 'Coronary heart disease', label: 'I20-I25 (Penyakit Jantung Koroner)' },
+      'PPOK': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Penyakit Paru Obstruktif Kronis)' },
+      'COPD': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Chronic Obstructive Pulmonary Disease)' },
+    };
+
+    if (UMBRELLA_ALIASES[cleanQuery]) {
+      return { 
+        searchQuery: UMBRELLA_ALIASES[cleanQuery].target, 
+        activeAlias: { key: cleanQuery, value: UMBRELLA_ALIASES[cleanQuery].label }, 
+        isUmbrella: true 
+      };
     }
-    return { searchQuery: debouncedQuery, activeAlias: null };
+
+    if (aliases[cleanQuery]) {
+      return { 
+        searchQuery: aliases[cleanQuery], 
+        activeAlias: { key: cleanQuery, value: aliases[cleanQuery] }, 
+        isUmbrella: false 
+      };
+    }
+    return { searchQuery: debouncedQuery, activeAlias: null, isUmbrella: false };
   }, [debouncedQuery, aliases]);
 
   // Handle Search
@@ -622,6 +692,19 @@ function App() {
     
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
     let results = fuse.search(searchQuery, { limit: 120 });
+
+    // Strict filtering for specific code and partial code queries (non-umbrella)
+    const isCodeQuery = searchType === 'icd10' 
+      ? /^[A-Z][0-9]/i.test(searchQuery.trim()) 
+      : /^[0-9]/i.test(searchQuery.trim());
+      
+    if (isCodeQuery && !isUmbrella) {
+      const cleanCodeQuery = searchQuery.trim().replace('.', '').toUpperCase();
+      results = results.filter(res => {
+        const cleanItemCode = res.item.code.replace('.', '').toUpperCase();
+        return cleanItemCode.startsWith(cleanCodeQuery);
+      });
+    }
 
     if (filterChapter !== 'all') {
       const prefixes = filterChapter.split('|');
