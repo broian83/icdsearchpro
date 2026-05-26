@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Send, Loader2, FileText, AlertCircle, RefreshCcw, Clock, Trash2, Copy, Check } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Send, Loader2, FileText, AlertCircle, RefreshCcw, Clock, Trash2, Copy, Check, Mic, MicOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { getGroqCaseConsultation } from '../utils/ai';
 
@@ -9,6 +9,46 @@ export function CaseConsultation({ knowledgeText }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef(null);
+
+  const toggleListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setError("Browser Anda tidak mendukung fitur Dikte Suara. Silakan gunakan Google Chrome, Edge, atau Safari terbaru.");
+      return;
+    }
+
+    if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'id-ID';
+      recognition.continuous = true;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => setIsListening(true);
+      
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+           finalTranscript += event.results[i][0].transcript;
+        }
+        if (finalTranscript) {
+          setResume(prev => prev + (prev ? ' ' : '') + finalTranscript);
+        }
+      };
+
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    }
+  };
 
   const [caseHistory, setCaseHistory] = useState(() => {
     try {
@@ -73,9 +113,30 @@ export function CaseConsultation({ knowledgeText }) {
               value={resume}
               onChange={(e) => setResume(e.target.value)}
               placeholder="Contoh: Pasien datang pasca KLL menabrak pohon. Terdapat fraktur femur dextra terbuka. Riwayat DM tipe 2 tidak terkontrol. Dilakukan tindakan ORIF..."
-              className="w-full min-h-[160px] p-4 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 focus:shadow-[0_0_20px_rgba(0,180,164,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
+              className="w-full min-h-[160px] p-4 pb-14 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 focus:shadow-[0_0_20px_rgba(0,180,164,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
               disabled={isLoading}
             />
+            
+            <button
+              type="button"
+              onClick={toggleListening}
+              className={`absolute bottom-4 right-4 p-2.5 rounded-xl flex items-center gap-2 font-medium text-sm transition-all duration-300 shadow-sm ${
+                isListening 
+                  ? 'bg-red-500 text-white shadow-red-500/30 animate-pulse hover:bg-red-600' 
+                  : 'bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 hover:text-[#00B4A4] hover:bg-slate-50'
+              }`}
+              title="Dikte Suara (Voice to Text)"
+            >
+              {isListening ? (
+                <>
+                  <MicOff className="w-4 h-4" /> Berhenti
+                </>
+              ) : (
+                <>
+                  <Mic className="w-4 h-4" /> Dikte
+                </>
+              )}
+            </button>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-3 mt-4">
