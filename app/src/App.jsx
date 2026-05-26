@@ -101,7 +101,7 @@ function App() {
 
       // Kombinasi Alt + Shift
       if (e.altKey && e.shiftKey) {
-        const key = e.key === ' ' ? 'SPACE' : e.key.toUpperCase();
+        const key = e.key.toUpperCase();
         
         if (searchType === 'icd10') {
           const mapping = {
@@ -124,7 +124,7 @@ function App() {
             'S': { id: 'S|T', label: 'S-T: Cedera & Keracunan' },
             'V': { id: 'V|W|X|Y', label: 'V-Y: Penyebab Eksternal (KLL)' },
             'Z': { id: 'Z', label: 'Z: Faktor Status Kesehatan' },
-            'SPACE': { id: 'all', label: 'Semua Kategori (ICD-10)' }
+            'X': { id: 'all', label: 'Semua Kategori (ICD-10)' }
           };
 
           if (mapping[key]) {
@@ -145,7 +145,7 @@ function App() {
             '7': { id: '7', label: '70-79: Kebidanan & Tulang' },
             '8': { id: '8', label: '80-89: Otot, Kulit, Diagnostik' },
             '9': { id: '9', label: '90-99: Terapi & Diagnostik Lain' },
-            'SPACE': { id: 'all', label: 'Semua Kategori (ICD-9)' }
+            'X': { id: 'all', label: 'Semua Kategori (ICD-9)' }
           };
 
           if (mapping[key]) {

@@ -98,7 +98,7 @@ export function HelpView() {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-slate-600 dark:text-slate-300">Reset / Semua Kategori</span>
-                <kbd className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-mono font-bold text-xs">Alt + Shift + Space</kbd>
+                <kbd className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-mono font-bold text-xs">Alt + Shift + X</kbd>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate-600 dark:text-slate-300">Infeksi & Parasit (A-B)</span>
@@ -140,7 +140,7 @@ export function HelpView() {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-slate-600 dark:text-slate-300">Reset / Semua Prosedur</span>
-                <kbd className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-mono font-bold text-xs">Alt + Shift + Space</kbd>
+                <kbd className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-mono font-bold text-xs">Alt + Shift + X</kbd>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate-600 dark:text-slate-300">00: Prosedur Lainnya</span>
