@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, FileText, AlertCircle, RefreshCcw, Clock, Trash2, Copy, Check, Mic, MicOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { getGroqCaseConsultation } from '../utils/ai';
+import { useToast } from '../context/ToastContext';
 
 export function CaseConsultation({ knowledgeText }) {
   const [resume, setResume] = useState('');
@@ -12,11 +13,14 @@ export function CaseConsultation({ knowledgeText }) {
   const [isListening, setIsListening] = useState(false);
   const [interimText, setInterimText] = useState('');
   const recognitionRef = useRef(null);
+  const { showToast } = useToast();
 
   const toggleListening = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      setError("Browser Anda tidak mendukung fitur Dikte Suara. Silakan gunakan Google Chrome, Edge, atau Safari terbaru.");
+      const msg = "Browser Anda tidak mendukung fitur Dikte Suara. Silakan gunakan Google Chrome, Edge, atau Safari terbaru.";
+      setError(msg);
+      showToast(msg, 'error');
       return;
     }
 
@@ -26,13 +30,17 @@ export function CaseConsultation({ knowledgeText }) {
       }
       setIsListening(false);
       setInterimText('');
+      showToast('Dikte suara dihentikan', 'info');
     } else {
       const recognition = new SpeechRecognition();
       recognition.lang = 'id-ID';
       recognition.continuous = true;
       recognition.interimResults = true;
 
-      recognition.onstart = () => setIsListening(true);
+      recognition.onstart = () => {
+        setIsListening(true);
+        showToast('Mulai mendengarkan suara...', 'info');
+      };
       
       recognition.onresult = (event) => {
         let finalTranscript = '';
@@ -51,9 +59,10 @@ export function CaseConsultation({ knowledgeText }) {
         setInterimText(currentInterim);
       };
 
-      recognition.onerror = () => {
+      recognition.onerror = (err) => {
         setIsListening(false);
         setInterimText('');
+        showToast('Terjadi kesalahan dikte suara: ' + (err.error || ''), 'error');
       };
       recognition.onend = () => {
         setIsListening(false);
@@ -211,6 +220,7 @@ export function CaseConsultation({ knowledgeText }) {
                 onClick={() => {
                   navigator.clipboard.writeText(aiResponse);
                   setIsCopied(true);
+                  showToast('Hasil analisis disalin ke clipboard!', 'success');
                   setTimeout(() => setIsCopied(false), 2000);
                 }}
                 className="p-2 text-slate-400 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded-lg transition-colors flex items-center gap-1.5"

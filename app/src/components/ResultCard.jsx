@@ -5,9 +5,11 @@ import { Highlight } from '../utils/Highlight';
 import { getGroqDetailSuggestion } from '../utils/ai';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { useToast } from '../context/ToastContext';
 
 export function ResultCard({ item, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, initialBookmarked = false }) {
   const { isLoggedIn, user } = useAuth();
+  const { showToast } = useToast();
   const [aiResponse, setAiResponse] = useState('');
   const [isAILoading, setIsAILoading] = useState(false);
   const [isAIExpanded, setIsAIExpanded] = useState(false);
@@ -58,6 +60,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
         }
         setIsBookmarked(false);
         setBookmarkId(null);
+        showToast('Berhasil dihapus dari bookmark', 'info');
       } else {
         // Tambah bookmark
         const { data, error } = await supabase.from('bookmarks').insert({
@@ -71,9 +74,11 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
         if (error) throw error;
         setIsBookmarked(true);
         setBookmarkId(data.id);
+        showToast('Berhasil disimpan ke bookmark', 'success');
       }
     } catch (err) {
       console.error('Error toggling bookmark:', err);
+      showToast('Gagal mengubah bookmark: ' + err.message, 'error');
     }
   };
 
@@ -81,6 +86,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
     e.stopPropagation();
     navigator.clipboard.writeText(item.code);
     setIsCopied(true);
+    showToast(`Kode ${item.code} disalin!`, 'success', 2000);
     setTimeout(() => setIsCopied(false), 2000);
   };
 
