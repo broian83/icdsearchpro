@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Loader2, FileText, AlertCircle, RefreshCcw, Clock, Trash2 } from 'lucide-react';
+import { Send, Loader2, FileText, AlertCircle, RefreshCcw, Clock, Trash2, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { getGroqCaseConsultation } from '../utils/ai';
 
@@ -8,6 +8,7 @@ export function CaseConsultation({ knowledgeText }) {
   const [aiResponse, setAiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const [caseHistory, setCaseHistory] = useState(() => {
     try {
@@ -72,7 +73,7 @@ export function CaseConsultation({ knowledgeText }) {
               value={resume}
               onChange={(e) => setResume(e.target.value)}
               placeholder="Contoh: Pasien datang pasca KLL menabrak pohon. Terdapat fraktur femur dextra terbuka. Riwayat DM tipe 2 tidak terkontrol. Dilakukan tindakan ORIF..."
-              className="w-full min-h-[160px] p-4 bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/10 outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
+              className="w-full min-h-[160px] p-4 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 focus:shadow-[0_0_20px_rgba(0,180,164,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
               disabled={isLoading}
             />
           </div>
@@ -81,7 +82,7 @@ export function CaseConsultation({ knowledgeText }) {
             <button
               type="submit"
               disabled={isLoading || !resume.trim()}
-              className="w-full sm:flex-1 bg-[#00B4A4] hover:bg-[#009B8D] text-white px-6 py-3 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full sm:flex-1 bg-[#00B4A4] hover:bg-[#009B8D] hover:shadow-lg hover:-translate-y-0.5 active:scale-95 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
             >
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
               {isLoading ? 'Menganalisis Kasus...' : 'Analisis & Kodingkan'}
@@ -92,7 +93,7 @@ export function CaseConsultation({ knowledgeText }) {
                 type="button"
                 onClick={handleClear}
                 disabled={isLoading}
-                className="w-full sm:w-auto px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 active:scale-95 text-slate-600 dark:text-slate-300 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 <RefreshCcw className="w-5 h-5" />
                 Reset
@@ -108,12 +109,38 @@ export function CaseConsultation({ knowledgeText }) {
           </div>
         )}
 
+        {isLoading && !aiResponse && (
+          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-800 border border-slate-100 dark:border-slate-700/50 p-6 rounded-2xl shadow-sm animate-in fade-in">
+            <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-1/3 mb-6"></div>
+            <div className="space-y-3">
+              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-full"></div>
+              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-5/6"></div>
+              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-4/5"></div>
+              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-3/4 mt-4"></div>
+            </div>
+          </div>
+        )}
+
         {aiResponse && (
-          <div className="bg-gradient-to-br from-slate-50 to-white border border-[#00B4A4]/20 p-6 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
-            <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100 mb-4 pb-3 border-b border-slate-100 dark:border-slate-700/50 flex items-center justify-between">
-              Hasil Analisis Koding
-              <span className="text-[10px] uppercase tracking-wider bg-[#00B4A4] text-white px-2 py-1 rounded-md">AI Generated</span>
-            </h3>
+          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/80 dark:to-slate-800 border border-[#00B4A4]/20 p-6 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700/50">
+              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                Hasil Analisis Koding
+                <span className="text-[10px] uppercase tracking-wider bg-[#00B4A4] text-white px-2 py-1 rounded-md">AI Generated</span>
+              </h3>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(aiResponse);
+                  setIsCopied(true);
+                  setTimeout(() => setIsCopied(false), 2000);
+                }}
+                className="p-2 text-slate-400 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded-lg transition-colors flex items-center gap-1.5"
+                title="Salin Hasil"
+              >
+                {isCopied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                <span className="text-xs font-medium hidden sm:inline">{isCopied ? 'Tersalin!' : 'Salin'}</span>
+              </button>
+            </div>
             <div className="prose prose-slate prose-headings:text-[#00B4A4] max-w-none prose-p:leading-relaxed prose-li:my-1">
               <ReactMarkdown
                 components={{
@@ -153,10 +180,10 @@ export function CaseConsultation({ knowledgeText }) {
                     setAiResponse(item.response);
                     setError(null);
                   }}
-                  className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-[#00B4A4] hover:shadow-sm transition-all bg-slate-50 dark:bg-slate-800/50 group focus:outline-none"
+                  className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-[#00B4A4] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 bg-white/50 dark:bg-slate-800/50 group focus:outline-none"
                 >
                   <div className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.date}</div>
-                  <div className="text-sm text-slate-700 dark:text-slate-200 line-clamp-2 group-hover:text-[#00B4A4] font-medium">
+                  <div className="text-sm text-slate-700 dark:text-slate-200 line-clamp-2 group-hover:text-[#00B4A4] font-medium transition-colors">
                     {item.resume}
                   </div>
                 </button>

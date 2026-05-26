@@ -142,7 +142,7 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow flex flex-col gap-4 group relative overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-0.5 border border-slate-100 dark:border-slate-700/50 transition-all duration-300 flex flex-col gap-4 group relative overflow-hidden">
       
       {/* Top Row: Code, Desc, and AI Button */}
       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
@@ -199,10 +199,10 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
           <button 
             onClick={handleAskAI}
             disabled={isAILoading}
-            className={`w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl text-sm font-semibold transition-all border ${
+            className={`w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl text-sm font-semibold transition-all active:scale-95 border ${
               isAIExpanded || isAILoading 
-                ? 'bg-[#00B4A4]/10 text-[#00B4A4] border-[#00B4A4]/20' 
-                : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:bg-slate-800/50 hover:text-[#00B4A4]'
+                ? 'bg-[#00B4A4]/10 text-[#00B4A4] border-[#00B4A4]/20 shadow-inner' 
+                : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:bg-slate-800/50 hover:text-[#00B4A4] hover:border-[#00B4A4]/30'
             }`}
           >
             {isAILoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
@@ -225,8 +225,11 @@ export function ResultCard({ item, matches, searchType, knowledgeText, daggerAst
               </h5>
               
               {isAILoading ? (
-                <div className="flex items-center gap-2 mt-2 text-slate-500 dark:text-slate-400 text-sm">
-                  <span className="animate-pulse">Menyiapkan panduan koding untuk {item.code}...</span>
+                <div className="mt-3 space-y-2">
+                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-3/4"></div>
+                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-full"></div>
+                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-5/6"></div>
+                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-1/2 mt-4"></div>
                 </div>
               ) : (
                 <div className="text-slate-700 dark:text-slate-200 text-sm mt-2 leading-relaxed">

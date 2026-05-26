@@ -72,6 +72,19 @@ function App() {
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [filterChapter, setFilterChapter] = useState('all');
   const [error, setError] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleTabClick = (tab) => {
     if (['case', 'bookmark', 'history', 'locked_bookmark', 'locked_history'].includes(tab) && !isLoggedIn) {
@@ -234,12 +247,12 @@ function App() {
         message={authModalConfig.message} 
       />
       {/* Header */}
-      <header className="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40">
+      <header className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 transition-all duration-300">
         <div className="max-w-5xl mx-auto px-4 py-3 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4A4] hover:bg-slate-100 dark:bg-slate-700 rounded-xl transition-colors focus:outline-none flex items-center justify-center"
+              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4A4] hover:bg-slate-100 dark:bg-slate-700 rounded-xl transition-all active:scale-95 focus:outline-none flex items-center justify-center"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -261,22 +274,22 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 sm:flex bg-slate-100 dark:bg-slate-700 p-1.5 rounded-xl w-full sm:w-auto gap-1">
+          <div className="grid grid-cols-3 sm:flex bg-slate-100/80 dark:bg-slate-700/80 p-1.5 rounded-xl w-full sm:w-auto gap-1 backdrop-blur-sm">
             <button 
               onClick={() => handleTabClick('icd10')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd10' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 text-center ${searchType === 'icd10' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               ICD-10
             </button>
             <button 
               onClick={() => handleTabClick('icd9')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all text-center ${searchType === 'icd9' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 text-center ${searchType === 'icd9' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               ICD-9
             </button>
             <button 
               onClick={() => handleTabClick('case')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${searchType === 'case' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
+              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1.5 ${searchType === 'case' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
             >
               <Brain className="w-4 h-4 shrink-0" /> <span className="hidden sm:inline">Klinik AI</span><span className="sm:hidden">AI</span>
             </button>
@@ -310,7 +323,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 placeholder:text-slate-400 dark:text-slate-500"
+                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 hover:shadow-md placeholder:text-slate-400 dark:text-slate-500"
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -447,7 +460,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 placeholder:text-slate-400 dark:text-slate-500"
+                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 hover:shadow-md placeholder:text-slate-400 dark:text-slate-500"
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -578,6 +591,15 @@ function App() {
         </Routes>
 
       </main>
+
+      {/* Floating Action Button - Scroll to Top */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 p-3 bg-[#00B4A4] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#009B8D] transition-all duration-300 active:scale-95 z-50 flex items-center justify-center ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        aria-label="Scroll to top"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path></svg>
+      </button>
 
       {/* Footer */}
       <footer className="mt-auto py-6 text-center text-slate-500 dark:text-slate-400 text-sm font-medium">
