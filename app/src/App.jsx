@@ -17,41 +17,41 @@ import { supabase } from './lib/supabase';
 import { getCache, setCache } from './utils/db';
 
 const icd10Chapters = [
-  { id: 'all', label: 'Semua Kategori (ICD-10)' },
-  { id: 'A|B', label: 'A-B: Infeksi & Parasit' },
-  { id: 'C|D', label: 'C-D: Neoplasma / Darah' },
-  { id: 'E', label: 'E: Endokrin & Metabolik' },
-  { id: 'F', label: 'F: Gangguan Mental' },
-  { id: 'G', label: 'G: Saraf (Nervous)' },
-  { id: 'H', label: 'H: Mata & Telinga' },
-  { id: 'I', label: 'I: Sirkulasi (Kardio)' },
-  { id: 'J', label: 'J: Pernapasan' },
-  { id: 'K', label: 'K: Pencernaan' },
-  { id: 'L', label: 'L: Kulit & Jaringan' },
-  { id: 'M', label: 'M: Otot & Tulang' },
-  { id: 'N', label: 'N: Genitourinari' },
-  { id: 'O', label: 'O: Kehamilan & Melahirkan' },
-  { id: 'P', label: 'P: Perinatal' },
-  { id: 'Q', label: 'Q: Kelainan Bawaan' },
-  { id: 'R', label: 'R: Gejala & Tanda' },
-  { id: 'S|T', label: 'S-T: Cedera & Keracunan' },
-  { id: 'V|W|X|Y', label: 'V-Y: Penyebab Eksternal (KLL)' },
-  { id: 'Z', label: 'Z: Faktor Status Kesehatan' }
+  { id: 'all', label: 'Semua Kategori (ICD-10) [Alt+Shift+X]' },
+  { id: 'A|B', label: 'A-B: Infeksi & Parasit [Alt+Shift+A]' },
+  { id: 'C|D', label: 'C-D: Neoplasma / Darah [Alt+Shift+C]' },
+  { id: 'E', label: 'E: Endokrin & Metabolik [Alt+Shift+E]' },
+  { id: 'F', label: 'F: Gangguan Mental [Alt+Shift+F]' },
+  { id: 'G', label: 'G: Saraf (Nervous) [Alt+Shift+G]' },
+  { id: 'H', label: 'H: Mata & Telinga [Alt+Shift+H]' },
+  { id: 'I', label: 'I: Sirkulasi (Kardio) [Alt+Shift+I]' },
+  { id: 'J', label: 'J: Pernapasan [Alt+Shift+J]' },
+  { id: 'K', label: 'K: Pencernaan [Alt+Shift+K]' },
+  { id: 'L', label: 'L: Kulit & Jaringan [Alt+Shift+L]' },
+  { id: 'M', label: 'M: Otot & Tulang [Alt+Shift+M]' },
+  { id: 'N', label: 'N: Genitourinari [Alt+Shift+N]' },
+  { id: 'O', label: 'O: Kehamilan & Melahirkan [Alt+Shift+O]' },
+  { id: 'P', label: 'P: Perinatal [Alt+Shift+P]' },
+  { id: 'Q', label: 'Q: Kelainan Bawaan [Alt+Shift+Q]' },
+  { id: 'R', label: 'R: Gejala & Tanda [Alt+Shift+R]' },
+  { id: 'S|T', label: 'S-T: Cedera & Keracunan [Alt+Shift+S]' },
+  { id: 'V|W|X|Y', label: 'V-Y: Penyebab Eksternal (KLL) [Alt+Shift+V]' },
+  { id: 'Z', label: 'Z: Faktor Status Kesehatan [Alt+Shift+Z]' }
 ];
 
 const icd9Chapters = [
-  { id: 'all', label: 'Semua Kategori (ICD-9)' },
-  { id: '00', label: '00: Prosedur Lainnya' },
-  { id: '0', label: '01-09: Saraf & Endokrin' },
-  { id: '1', label: '10-19: Mata & Telinga' },
-  { id: '2', label: '20-29: Hidung & Mulut' },
-  { id: '3', label: '30-39: Napas & Jantung' },
-  { id: '4', label: '40-49: Cerna (Atas)' },
-  { id: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih' },
-  { id: '6', label: '60-69: Kelamin (Pria & Wanita)' },
-  { id: '7', label: '70-79: Kebidanan & Tulang' },
-  { id: '8', label: '80-89: Otot, Kulit, Diagnostik' },
-  { id: '9', label: '90-99: Terapi & Diagnostik Lain' }
+  { id: 'all', label: 'Semua Kategori (ICD-9) [Alt+Shift+X]' },
+  { id: '00', label: '00: Prosedur Lainnya [Alt+Shift+O]' },
+  { id: '0', label: '01-09: Saraf & Endokrin [Alt+Shift+0]' },
+  { id: '1', label: '10-19: Mata & Telinga [Alt+Shift+1]' },
+  { id: '2', label: '20-29: Hidung & Mulut [Alt+Shift+2]' },
+  { id: '3', label: '30-39: Napas & Jantung [Alt+Shift+3]' },
+  { id: '4', label: '40-49: Cerna (Atas) [Alt+Shift+4]' },
+  { id: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih [Alt+Shift+5]' },
+  { id: '6', label: '60-69: Kelamin (Pria & Wanita) [Alt+Shift+6]' },
+  { id: '7', label: '70-79: Kebidanan & Tulang [Alt+Shift+7]' },
+  { id: '8', label: '80-89: Otot, Kulit, Diagnostik [Alt+Shift+8]' },
+  { id: '9', label: '90-99: Terapi & Diagnostik Lain [Alt+Shift+9]' }
 ];
 
 function App() {
@@ -76,6 +76,8 @@ function App() {
   const [filterChapter, setFilterChapter] = useState('all');
   const [error, setError] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -376,6 +378,27 @@ function App() {
     useExtendedSearch: true
   }), [icd9Data]);
 
+  const suggestions = useMemo(() => {
+    if (!query || query.trim().length < 2) return [];
+    const fuse = searchType === 'icd10' ? fuse10 : fuse9;
+    const results = fuse.search(query.trim(), { limit: 20 });
+    const uniqueTerms = [];
+    for (const res of results) {
+      const title = res.item.title;
+      if (title && !uniqueTerms.includes(title)) {
+        uniqueTerms.push(title);
+        if (uniqueTerms.length >= 6) break;
+      }
+    }
+    return uniqueTerms;
+  }, [query, searchType, fuse10, fuse9]);
+
+  const handleSelectSuggestion = (suggestion) => {
+    setQuery(suggestion);
+    setDebouncedQuery(suggestion);
+    setShowSuggestions(false);
+  };
+
   // Handle Smart Alias
   const { searchQuery, activeAlias } = useMemo(() => {
     if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
@@ -497,6 +520,16 @@ function App() {
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => {
+                      setIsFocused(true);
+                      setShowSuggestions(true);
+                    }}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setIsFocused(false);
+                        setShowSuggestions(false);
+                      }, 200);
+                    }}
                     disabled={loading}
                   />
                   {query && !loading && (
@@ -520,6 +553,24 @@ function App() {
                     <div className="absolute -bottom-7 left-4 text-xs text-[#00B4A4] flex items-center gap-1 font-bold bg-[#00B4A4]/10 px-2 py-1 rounded-md shadow-sm border border-[#00B4A4]/20 animate-in fade-in slide-in-from-top-1">
                       <Brain className="w-3 h-3" />
                       Smart Alias: {activeAlias.key} → {activeAlias.value}
+                    </div>
+                  )}
+                  {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50 transition-all duration-200 animate-in fade-in slide-in-from-top-2">
+                      {suggestions.map((suggestion, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                          }}
+                          onClick={() => handleSelectSuggestion(suggestion)}
+                          className="w-full px-5 py-3.5 text-left hover:bg-[#00B4A4]/5 dark:hover:bg-[#00B4A4]/10 transition-colors flex items-center gap-3 text-sm sm:text-base font-medium text-slate-700 dark:text-slate-200 cursor-pointer"
+                        >
+                          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 shrink-0" />
+                          <span className="truncate">{suggestion}</span>
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -634,6 +685,16 @@ function App() {
                     placeholder={`Cari kode, deskripsi, atau diagnosa...`}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => {
+                      setIsFocused(true);
+                      setShowSuggestions(true);
+                    }}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setIsFocused(false);
+                        setShowSuggestions(false);
+                      }, 200);
+                    }}
                     disabled={loading}
                   />
                   {query && !loading && (
@@ -657,6 +718,24 @@ function App() {
                     <div className="absolute -bottom-7 left-4 text-xs text-[#00B4A4] flex items-center gap-1 font-bold bg-[#00B4A4]/10 px-2 py-1 rounded-md shadow-sm border border-[#00B4A4]/20 animate-in fade-in slide-in-from-top-1">
                       <Brain className="w-3 h-3" />
                       Smart Alias: {activeAlias.key} → {activeAlias.value}
+                    </div>
+                  )}
+                  {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50 transition-all duration-200 animate-in fade-in slide-in-from-top-2">
+                      {suggestions.map((suggestion, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                          }}
+                          onClick={() => handleSelectSuggestion(suggestion)}
+                          className="w-full px-5 py-3.5 text-left hover:bg-[#00B4A4]/5 dark:hover:bg-[#00B4A4]/10 transition-colors flex items-center gap-3 text-sm sm:text-base font-medium text-slate-700 dark:text-slate-200 cursor-pointer"
+                        >
+                          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 shrink-0" />
+                          <span className="truncate">{suggestion}</span>
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
