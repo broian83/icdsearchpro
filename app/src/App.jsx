@@ -162,6 +162,45 @@ function App() {
     }
   }, [debouncedQuery, isLoggedIn, user, searchType]);
 
+  const fetchDynamicAliases = async () => {
+    let combined = {};
+    
+    // 1. Ambil dari LocalStorage (offline/local fallback)
+    try {
+      const localCustom = JSON.parse(localStorage.getItem('icd_custom_abbreviations')) || {};
+      Object.assign(combined, localCustom);
+    } catch (e) {
+      console.warn("Failed to parse custom local abbreviations:", e);
+    }
+    
+    // 2. Ambil dari Supabase (publik + milik user)
+    try {
+      const { data, error } = await supabase
+        .from('custom_abbreviations')
+        .select('keyword, expansion');
+        
+      if (!error && data) {
+        data.forEach(item => {
+          combined[item.keyword.toUpperCase()] = item.expansion;
+        });
+      }
+    } catch (err) {
+      console.log("Supabase custom abbreviations table fetch failed (might not exist yet):", err);
+    }
+    
+    return combined;
+  };
+
+  const reloadAliases = async () => {
+    try {
+      const resAliases = await fetch('/singkatan.json').then(res => res.json()).catch(() => ({}));
+      const dynamic = await fetchDynamicAliases();
+      setAliases({ ...resAliases, ...dynamic });
+    } catch (e) {
+      console.warn("Failed to reload aliases:", e);
+    }
+  };
+
   // Load data on mount
   useEffect(() => {
     const loadData = async () => {
@@ -210,19 +249,23 @@ function App() {
           JSON.stringify(res10) !== JSON.stringify(cached10) || 
           JSON.stringify(res9) !== JSON.stringify(cached9);
 
-        if (isDataChanged) {
+        // Ambil singkatan kustom dinamis
+        const dynamicAliases = await fetchDynamicAliases();
+        const finalAliases = { ...resAliases, ...dynamicAliases };
+
+        if (isDataChanged || JSON.stringify(finalAliases) !== JSON.stringify(aliases)) {
           setIcd10Data(res10);
           setIcd9Data(res9);
           setKnowledgeText(resKnowledge);
           setDaggerAsteriskData(resDA);
-          setAliases(resAliases);
+          setAliases(finalAliases);
 
           // Simpan data terbaru ke dalam cache IndexedDB secara asinkron
           setCache('icd10', res10);
           setCache('icd9', res9);
           setCache('knowledge', resKnowledge);
           if (resDA) setCache('daggerAsterisk', resDA);
-          setCache('aliases', resAliases);
+          setCache('aliases', finalAliases);
         }
 
         setError(null);
@@ -236,7 +279,7 @@ function App() {
       }
     };
     loadData();
-  }, []);
+  }, [isLoggedIn, user]);
 
   // Initialize Fuse instances
   const fuse10 = useMemo(() => new Fuse(icd10Data, {
@@ -350,7 +393,7 @@ function App() {
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
         
         <Routes>
-          <Route path="/settings" element={<SettingsView />} />
+          <Route path="/settings" element={<SettingsView onAliasesUpdated={reloadAliases} />} />
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/help" element={<HelpView />} />
           <Route path="/bookmark" element={<BookmarkView />} />
