@@ -209,7 +209,6 @@ function App() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile drawer
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
-    // Default expanded di desktop
     return window.innerWidth >= 1024;
   });
   
@@ -384,7 +383,6 @@ function App() {
     if (tab === 'locked_bookmark') tab = 'bookmark';
     if (tab === 'locked_history') tab = 'history';
     
-    // Tutup panel detail saat berpindah tab non-pencarian
     if (!['icd10', 'icd9'].includes(tab)) {
       setSelectedCodeDetail(null);
     }
@@ -406,7 +404,6 @@ function App() {
       const saved = localStorage.getItem('icd_recent_searches');
       if (!saved) return [];
       const parsed = JSON.parse(saved);
-      // Migrasi format lama array string ke objek
       return parsed.map(item => typeof item === 'object' ? item : { query: item, type: 'icd10' });
     } catch {
       return [];
@@ -468,7 +465,6 @@ function App() {
 
   const handleSelectDetail = (sub) => {
     setSelectedCodeDetail(sub);
-    // Tambahkan atau perbarui riwayat pencarian terakhir dengan kode ini
     if (query.trim()) {
       setRecentSearches(prev => {
         const currentQuery = query.trim();
@@ -1018,30 +1014,32 @@ function App() {
                 {user?.user_metadata?.avatar_url ? (
                   <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                  <span className="font-extrabold text-sm text-slate-500 dark:text-slate-450">
+                    {user?.user_metadata?.full_name?.charAt(0).toUpperCase() || 'B'}
+                  </span>
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <h4 className="text-xs font-bold text-slate-850 dark:text-slate-100 truncate">{user?.user_metadata?.full_name || 'Rekan PMIK'}</h4>
+                <h4 className="text-xs font-bold text-slate-855 dark:text-slate-100 truncate">{user?.user_metadata?.full_name || 'Rekan PMIK'}</h4>
                 <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate">{user?.email}</p>
               </div>
             </div>
             <div className="space-y-1">
               <button 
                 onClick={() => { handleTabClick('profile'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <User className="w-3.5 h-3.5" /> Profil Saya
               </button>
               <button 
                 onClick={() => { handleTabClick('bookmark'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <Star className="w-3.5 h-3.5" /> Bookmark Saya
               </button>
               <button 
                 onClick={() => { handleTabClick('history'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <Cloud className="w-3.5 h-3.5" /> Histori Cloud
               </button>
@@ -1055,11 +1053,11 @@ function App() {
           </div>
         ) : (
           <div className="p-2 text-center">
-            <h4 className="text-sm font-bold text-slate-850 dark:text-slate-100 mb-1">Masuk ke ICD Search</h4>
+            <h4 className="text-sm font-bold text-slate-855 dark:text-slate-100 mb-1">Masuk ke ICD Search</h4>
             <p className="text-[10px] text-slate-450 dark:text-slate-500 mb-3.5">Sinkronisasikan bookmark Anda di cloud dan akses asisten koding AI.</p>
             <button
               onClick={() => { loginWithGoogle(); setIsProfileDropdownOpen(false); }}
-              className="w-full bg-[#2AA79B] hover:bg-[#208f84] text-white py-2 px-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="w-full bg-[#2AA79B] hover:bg-[#208f84] text-white py-2.5 px-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
             >
               Masuk / Daftar
             </button>
@@ -1079,7 +1077,7 @@ function App() {
           <span className="inline-block px-2.5 py-1 bg-[#2AA79B] text-white font-mono font-bold rounded-lg text-sm sm:text-base mb-2 shadow-sm">
             {sub.code}
           </span>
-          <h3 className="text-lg font-bold text-slate-850 dark:text-slate-100 leading-snug">
+          <h3 className="text-lg font-bold text-slate-855 dark:text-slate-100 leading-snug">
             {sub.title}
           </h3>
           {sub.desc && (
@@ -1141,8 +1139,97 @@ function App() {
     );
   };
 
+  // Nama chapter medis lengkap & jelas untuk chip filter cepat di homepage
+  const quickFiltersICD10 = [
+    { id: 'A|B', label: 'Infeksi (A-B)' },
+    { id: 'C|D', label: 'Neoplasma (C-D)' },
+    { id: 'E', label: 'Endokrin / Gizi (E)' },
+    { id: 'G', label: 'Penyakit Saraf (G)' },
+    { id: 'I', label: 'Kardiovaskular (I)' },
+    { id: 'J', label: 'Pernapasan (J)' },
+    { id: 'K', label: 'Pencernaan (K)' },
+    { id: 'S|T', label: 'Cedera / Racun (S-T)' }
+  ];
+
+  const quickFiltersICD9 = [
+    { id: '00', label: 'Prosedur Lain (00)' },
+    { id: '0', label: 'Bedah Saraf (01-09)' },
+    { id: '3', label: 'Jantung / Napas (30-39)' },
+    { id: '5', label: 'Cerna / Kemih (50-59)' },
+    { id: '7', label: 'Kebidanan / Obgyn (70-79)' },
+    { id: '8', label: 'Otot / Kulit (80-89)' }
+  ];
+
+  const renderHeaderRight = (isFloating) => {
+    return (
+      <div className={`flex items-center gap-3 relative ${isFloating ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 shadow-md' : ''}`}>
+        
+        {/* Toggle ICD-10 / ICD-9 */}
+        <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg text-[11px] font-bold mr-1">
+          <button 
+            onClick={() => handleTabClick('icd10')}
+            className={`px-2.5 py-1.5 rounded-md transition-all cursor-pointer ${
+              searchType === 'icd10' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm font-extrabold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+            }`}
+          >
+            ICD-10
+          </button>
+          <button 
+            onClick={() => handleTabClick('icd9')}
+            className={`px-2.5 py-1.5 rounded-md transition-all cursor-pointer ${
+              searchType === 'icd9' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm font-extrabold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+            }`}
+          >
+            ICD-9
+          </button>
+        </div>
+
+        {/* Mode Malam */}
+        <button
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          className="p-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+          title="Ganti Tema"
+        >
+          {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </button>
+
+        {/* Apps Drawer Toggle */}
+        <button
+          id="apps-drawer-toggle"
+          onClick={() => setIsAppsDrawerOpen(!isAppsDrawerOpen)}
+          className={`p-2 rounded-xl transition-all cursor-pointer ${
+            isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
+          }`}
+          title="Menu Aplikasi"
+        >
+          <Grid className="w-5 h-5" />
+        </button>
+
+        {/* Apps Drawer Panel */}
+        {renderAppsDrawer()}
+
+        {/* Profile Avatar */}
+        <button
+          id="profile-dropdown-toggle"
+          onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+          className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors font-extrabold text-xs text-slate-600 dark:text-slate-300"
+          title="Akun Saya"
+        >
+          {isLoggedIn && user?.user_metadata?.avatar_url ? (
+            <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+          ) : (
+            <span>{user?.user_metadata?.full_name?.charAt(0).toUpperCase() || 'B'}</span>
+          )}
+        </button>
+
+        {/* Profile Dropdown Panel */}
+        {renderProfileDropdown()}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
+    <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-850 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
       
       {/* Sidebar Kiri */}
       <Sidebar 
@@ -1178,11 +1265,18 @@ function App() {
 
       {/* Kontainer Konten Utama */}
       <div 
-        className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ${
+        className={`flex-1 flex flex-col min-h-screen transition-all duration-300 relative ${
           isSidebarExpanded ? 'lg:pl-[280px]' : 'lg:pl-[72px]'
         }`}
       >
         
+        {/* Header Kanan Atas Melayang Absolut di Homepage */}
+        {!hasResults && isSearchMode && (
+          <div className="absolute top-4 right-6 z-40 hidden md:block">
+            {renderHeaderRight(true)}
+          </div>
+        )}
+
         {/* Render sticky header jika ada pencarian (hasResults === true) ATAU jika bukan halaman pencarian */}
         {(hasResults || !isSearchMode) ? (
           <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 sticky top-0 z-40 transition-all duration-300">
@@ -1198,7 +1292,7 @@ function App() {
                       setIsSidebarExpanded(!isSidebarExpanded);
                     }
                   }}
-                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
+                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
                 >
                   <Menu className="w-5 h-5" />
                 </button>
@@ -1208,8 +1302,10 @@ function App() {
                     className="flex items-center gap-2 cursor-pointer hidden lg:flex"
                     onClick={() => handleTabClick('new_search')}
                   >
-                    <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain shrink-0" />
-                    <span className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
+                    <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                      <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
+                    </div>
+                    <span className="font-black text-xs text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
                   </div>
                 )}
               </div>
@@ -1222,7 +1318,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-sm transition-all focus:bg-white dark:focus:bg-slate-850 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-650 dark:text-slate-100"
+                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-xs transition-all focus:bg-white dark:focus:bg-slate-850 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-655 dark:text-slate-100"
                     placeholder="Cari kode atau diagnosa..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -1232,7 +1328,7 @@ function App() {
                   {query && (
                     <button
                       onClick={() => { setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 hover:text-slate-650 dark:hover:text-slate-350 focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 hover:text-slate-655 dark:hover:text-slate-350 focus:outline-none"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -1243,9 +1339,9 @@ function App() {
                         <button
                           key={idx}
                           type="button"
-                          onMouseDown={(e) => e.preventDefault()}
+                          onMouseDown={(e) => { e.preventDefault(); }}
                           onClick={() => handleSelectSuggestion(suggestion)}
-                          className="w-full px-4 py-2.5 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-750 dark:text-slate-200 cursor-pointer"
+                          className="w-full px-4 py-2.5 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-755 dark:text-slate-200 cursor-pointer"
                         >
                           <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                           <span className="truncate">{suggestion}</span>
@@ -1257,71 +1353,8 @@ function App() {
               )}
 
               {/* Kanan: Navigasi, Toggle, Apps Drawer, Profil */}
-              <div className="flex items-center gap-2 sm:gap-3 relative">
-                
-                {/* Tab switchers di header jika ada hasResults */}
-                {isSearchMode && (
-                  <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg text-xs font-semibold mr-1">
-                    <button 
-                      onClick={() => handleTabClick('icd10')}
-                      className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
-                        searchType === 'icd10' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
-                      }`}
-                    >
-                      ICD-10
-                    </button>
-                    <button 
-                      onClick={() => handleTabClick('icd9')}
-                      className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
-                        searchType === 'icd9' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
-                      }`}
-                    >
-                      ICD-9
-                    </button>
-                  </div>
-                )}
+              {renderHeaderRight(false)}
 
-                {/* Theme Toggle */}
-                <button
-                  onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                  className="p-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
-                  title="Ganti Tema"
-                >
-                  {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-                </button>
-
-                {/* Apps Drawer Toggle */}
-                <button
-                  id="apps-drawer-toggle"
-                  onClick={() => setIsAppsDrawerOpen(!isAppsDrawerOpen)}
-                  className={`p-2 rounded-xl transition-all cursor-pointer ${
-                    isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
-                  }`}
-                  title="Menu Aplikasi"
-                >
-                  <Grid className="w-5 h-5" />
-                </button>
-
-                {/* Apps Drawer Panel */}
-                {renderAppsDrawer()}
-
-                {/* Profile Toggle */}
-                <button
-                  id="profile-dropdown-toggle"
-                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                  className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors"
-                  title="Akun Saya"
-                >
-                  {isLoggedIn && user?.user_metadata?.avatar_url ? (
-                    <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-                  ) : (
-                    <User className="w-4 h-4 text-slate-400" />
-                  )}
-                </button>
-
-                {/* Profile Dropdown Panel */}
-                {renderProfileDropdown()}
-              </div>
             </div>
           </header>
         ) : null}
@@ -1351,24 +1384,32 @@ function App() {
                 element={
                   !hasResults ? (
                     // HOMEPAGE TERPUSAT (GOOGLE PATTERN)
-                    <div className="flex flex-col items-center justify-center min-h-[72vh] px-4 animate-in fade-in duration-500">
+                    <div className="flex flex-col items-center justify-center min-h-[72vh] px-4 animate-in fade-in duration-500 relative">
                       
+                      {/* Mobile Header Right (hanya muncul saat mobile di beranda) */}
+                      <div className="md:hidden absolute top-0 right-0 z-40 pr-2 pt-1">
+                        {renderHeaderRight(true)}
+                      </div>
+
                       {/* Brand Logo & Personal Greeting */}
-                      <div className="flex flex-col items-center mb-8 text-center">
-                        <div className="relative mb-4 group">
+                      <div className="flex flex-col items-center mb-8 text-center mt-8 md:mt-0">
+                        <div className="relative mb-6 group">
                           <div className="absolute -inset-1.5 bg-gradient-to-r from-[#2AA79B] to-[#D6E400] rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                          <img 
-                            src="/PMIK-id%20Logo.png" 
-                            alt="PMIK Logo" 
-                            className="relative w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105" 
-                          />
+                          {/* Bingkai bulat keping emblem premium untuk logo PMIK-id agar tampak rapi di dark mode */}
+                          <div className="relative rounded-3xl bg-white dark:bg-white p-3 shadow-md border border-slate-150 dark:border-slate-800 flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28">
+                            <img 
+                              src="/PMIK-id%20Logo.png" 
+                              alt="PMIK Logo" 
+                              className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0 transition-transform duration-350 hover:scale-105" 
+                            />
+                          </div>
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
-                        <p className="text-[#2AA79B] font-bold text-xs sm:text-sm mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
+                        <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
+                        <p className="text-[#2AA79B] font-extrabold text-[10px] sm:text-xs mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
                         
-                        <h3 className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-6 font-semibold">
+                        <h3 className="text-sm sm:text-base text-slate-600 dark:text-slate-350 mt-6 font-semibold">
                           {isLoggedIn 
-                            ? `Halo ${user?.user_metadata?.full_name || 'Rekan PMIK'}, mau cari kode apa?` 
+                            ? `Halo ${user?.user_metadata?.full_name || 'Bro Ian'}, mau cari kode apa?` 
                             : 'Halo Rekan PMIK, mau cari kode apa?'}
                         </h3>
                       </div>
@@ -1391,7 +1432,7 @@ function App() {
                         {query && !loading && (
                           <button
                             onClick={() => { setQuery(''); setDebouncedQuery(''); }}
-                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus:outline-none"
+                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-450 dark:text-slate-500 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none"
                           >
                             <X className="w-5 h-5" />
                           </button>
@@ -1409,9 +1450,9 @@ function App() {
                                 type="button"
                                 onMouseDown={(e) => { e.preventDefault(); }}
                                 onClick={() => handleSelectSuggestion(suggestion)}
-                                className="w-full px-6 py-4 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-3.5 text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
+                                className="w-full px-6 py-4 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-3.5 text-sm sm:text-base font-semibold text-slate-750 dark:text-slate-200 cursor-pointer"
                               >
-                                <Search className="w-4 h-4 text-slate-400 dark:text-slate-550 shrink-0" />
+                                <Search className="w-4 h-4 text-slate-450 dark:text-slate-550 shrink-0" />
                                 <span className="truncate">{suggestion}</span>
                               </button>
                             ))}
@@ -1419,20 +1460,22 @@ function App() {
                         )}
                       </div>
 
-                      {/* Info & Chapter quick toggles */}
-                      <div className="mt-8 flex flex-wrap justify-center gap-2 max-w-xl px-4">
-                        <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block w-full text-center mb-1">
+                      {/* Filter Kategori Cepat dengan Label Medis Lengkap */}
+                      <div className="mt-8 flex flex-col items-center gap-3 max-w-2xl px-4">
+                        <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block w-full text-center">
                           Filter Kategori Cepat:
                         </span>
-                        {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).slice(1, 6).map((c) => (
-                          <button
-                            key={c.id}
-                            onClick={() => { setFilterChapter(c.id); showToast(`Filter aktif: ${c.label.split('[')[0]}`, 'info'); }}
-                            className="px-3 py-1.5 bg-slate-100 hover:bg-[#2AA79B]/10 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-xs font-semibold text-slate-650 dark:text-slate-350 rounded-xl transition-all cursor-pointer hover:scale-[1.03]"
-                          >
-                            {c.label.split(':')[0]}
-                          </button>
-                        ))}
+                        <div className="flex flex-wrap justify-center gap-2">
+                          {(searchType === 'icd10' ? quickFiltersICD10 : quickFiltersICD9).map((c) => (
+                            <button
+                              key={c.id}
+                              onClick={() => { setFilterChapter(c.id); showToast(`Filter aktif: ${c.label}`, 'info'); }}
+                              className="px-3.5 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#2AA79B]/50 hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 text-xs font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:scale-[1.03] shadow-sm"
+                            >
+                              {c.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
                     </div>
@@ -1515,7 +1558,7 @@ function App() {
                           <select
                             value={filterChapter}
                             onChange={(e) => setFilterChapter(e.target.value)}
-                            className="block w-full h-full appearance-none pl-3 pr-8 bg-slate-50 dark:bg-slate-800 border border-slate-250 dark:border-slate-750 outline-none rounded-xl text-xs text-slate-755 dark:text-slate-200 transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 truncate font-semibold cursor-pointer"
+                            className="block w-full h-full appearance-none pl-3 pr-8 bg-slate-50 dark:bg-slate-800 border border-slate-250 dark:border-slate-755 outline-none rounded-xl text-xs text-slate-755 dark:text-slate-200 transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 truncate font-semibold cursor-pointer"
                           >
                             {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
                               <option key={c.id} value={c.id}>{c.label.split('[')[0]}</option>
@@ -1613,7 +1656,6 @@ function App() {
                               onClick={() => setSelectedCodeDetail(null)}
                             />
                             
-                            {/* Bottom Sheet container dengan gestur penutup swipe down (drag bar) */}
                             <div 
                               className="relative bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[2.5rem] p-6 pb-8 shadow-2xl z-10 max-h-[80vh] overflow-y-auto animate-in slide-in-from-bottom-20 duration-300"
                             >
@@ -1625,7 +1667,7 @@ function App() {
                               
                               <button 
                                 onClick={() => setSelectedCodeDetail(null)}
-                                className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-650 dark:hover:text-slate-250 rounded-full transition-colors focus:outline-none"
+                                className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-655 dark:hover:text-slate-250 rounded-full transition-colors focus:outline-none"
                               >
                                 <X className="w-5 h-5" />
                               </button>
@@ -1662,38 +1704,40 @@ function App() {
         </footer>
       </div>
 
-      {/* Modal Tentang App (Premium 9-grid menu item) */}
+      {/* Modal Tentang App */}
       {isAboutOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsAboutOpen(false)} />
           <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 rounded-3xl p-6 shadow-2xl z-10 text-center animate-in zoom-in-95 duration-200">
             <button 
               onClick={() => setIsAboutOpen(false)}
-              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-250 rounded-lg hover:bg-slate-105 transition-colors focus:outline-none"
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-650 dark:hover:text-slate-250 rounded-lg hover:bg-slate-105 transition-colors focus:outline-none"
             >
               <X className="w-4.5 h-4.5" />
             </button>
             
-            <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-20 h-20 mx-auto object-contain mb-4" />
-            <h3 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">ICD Search Pro</h3>
+            <div className="rounded-2xl bg-white p-2 border border-slate-150 shadow-sm flex items-center justify-center w-20 h-20 mx-auto mb-4">
+              <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
+            </div>
+            <h3 className="text-xl font-extrabold text-slate-850 dark:text-slate-100">ICD Search Pro</h3>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
             
             <p className="text-slate-550 dark:text-slate-400 text-xs sm:text-sm mt-4 leading-relaxed">
               Aplikasi pendukung koding medis pintar (smart coding assistant) yang dikembangkan khusus untuk profesional PMIK (Perekam Medis dan Informasi Kesehatan) di Indonesia. Membantu mempercepat koding diagnosis (ICD-10) dan tindakan (ICD-9-CM) dengan akurasi klinis tinggi sesuai aturan BPJS Kesehatan.
             </p>
             
-            <div className="mt-6 border-t border-slate-100 dark:border-slate-850 pt-4 flex flex-col gap-2">
+            <div className="mt-6 border-t border-slate-150 dark:border-slate-800 pt-4 flex flex-col gap-2">
               <a 
                 href="https://pmik.id" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full py-2 bg-[#2AA79B] hover:bg-[#208f84] text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1"
+                className="w-full py-2.5 bg-[#2AA79B] hover:bg-[#208f84] text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1 cursor-pointer"
               >
                 Kunjungi Website PMIK-id <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <button 
                 onClick={() => setIsAboutOpen(false)}
-                className="w-full py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-350 hover:bg-slate-200 rounded-xl text-xs font-bold transition-colors"
+                className="w-full py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
               >
                 Selesai
               </button>
