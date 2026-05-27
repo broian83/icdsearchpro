@@ -1658,6 +1658,7 @@ function App() {
                               src="/icdsearchpro_transparan.png" 
                               alt="PMIK Logo" 
                               className="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105 relative z-10 drop-shadow-lg" 
+                              fetchpriority="high"
                             />
                         </div>
                         <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Pro</h1>
