@@ -1630,22 +1630,26 @@ function App() {
           {/* Warning Profil Belum Lengkap */}
           {isProfileIncomplete && location.pathname !== '/profile' && !hideProfileWarning && (
             <div className="mb-6 flex justify-center w-full relative z-0">
-              <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800/50 rounded-full py-1.5 px-4 flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm text-sm">
-                <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
-                <span className="font-medium text-amber-800 dark:text-amber-400">Profil Anda Belum Lengkap</span>
-                <span className="text-amber-300 dark:text-amber-700/50">|</span>
-                <button 
-                  onClick={() => navigate('/profile')}
-                  className="text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-bold transition-colors"
-                >
-                  Lengkapi Profil
-                </button>
-                <button 
-                  onClick={() => setHideProfileWarning(true)}
-                  className="ml-1 p-0.5 rounded-full hover:bg-amber-200/50 dark:hover:bg-amber-800/50 text-amber-500 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-300 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+              <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800/50 rounded-2xl sm:rounded-full py-2 px-4 flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 gap-y-1 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm text-xs sm:text-sm">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span className="font-medium text-amber-800 dark:text-amber-400 whitespace-nowrap">Profil Anda Belum Lengkap</span>
+                </div>
+                <span className="hidden sm:inline text-amber-300 dark:text-amber-700/50">|</span>
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => navigate('/profile')}
+                    className="text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-bold transition-colors whitespace-nowrap"
+                  >
+                    Lengkapi Profil
+                  </button>
+                  <button 
+                    onClick={() => setHideProfileWarning(true)}
+                    className="p-1 rounded-full hover:bg-amber-200/50 dark:hover:bg-amber-800/50 text-amber-500 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-300 transition-colors shrink-0"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           )}
