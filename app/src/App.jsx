@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-import Fuse from 'fuse.js';
+
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
@@ -21,189 +21,10 @@ import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
 import { supabase } from './lib/supabase';
 import { getCache, setCache } from './utils/db';
-
-const icd10Chapters = [
-  { id: 'all', label: 'Semua Kategori (ICD-10) [Alt+Shift+X]' },
-  { id: 'A|B', label: 'A-B: Infeksi & Parasit [Alt+Shift+A]' },
-  { id: 'C|D', label: 'C-D: Neoplasma / Darah [Alt+Shift+C]' },
-  { id: 'E', label: 'E: Endokrin & Metabolik [Alt+Shift+E]' },
-  { id: 'F', label: 'F: Gangguan Mental [Alt+Shift+F]' },
-  { id: 'G', label: 'G: Saraf (Nervous) [Alt+Shift+G]' },
-  { id: 'H', label: 'H: Mata & Telinga [Alt+Shift+H]' },
-  { id: 'I', label: 'I: Sirkulasi (Kardio) [Alt+Shift+I]' },
-  { id: 'J', label: 'J: Pernapasan [Alt+Shift+J]' },
-  { id: 'K', label: 'K: Pencernaan [Alt+Shift+K]' },
-  { id: 'L', label: 'L: Kulit & Jaringan [Alt+Shift+L]' },
-  { id: 'M', label: 'M: Otot & Tulang [Alt+Shift+M]' },
-  { id: 'N', label: 'N: Genitourinari [Alt+Shift+N]' },
-  { id: 'O', label: 'O: Kehamilan & Melahirkan [Alt+Shift+O]' },
-  { id: 'P', label: 'P: Perinatal [Alt+Shift+P]' },
-  { id: 'Q', label: 'Q: Kelainan Bawaan [Alt+Shift+Q]' },
-  { id: 'R', label: 'R: Gejala & Tanda [Alt+Shift+R]' },
-  { id: 'S|T', label: 'S-T: Cedera & Keracunan [Alt+Shift+S]' },
-  { id: 'V|W|X|Y', label: 'V-Y: Penyebab Eksternal (KLL) [Alt+Shift+V]' },
-  { id: 'Z', label: 'Z: Faktor Status Kesehatan [Alt+Shift+Z]' }
-];
-
-const icd9Chapters = [
-  { id: 'all', label: 'Semua Kategori (ICD-9) [Alt+Shift+X]' },
-  { id: '00', label: '00: Prosedur Lainnya [Alt+Shift+O]' },
-  { id: '0', label: '01-09: Saraf & Endokrin [Alt+Shift+0]' },
-  { id: '1', label: '10-19: Mata & Telinga [Alt+Shift+1]' },
-  { id: '2', label: '20-29: Hidung & Mulut [Alt+Shift+2]' },
-  { id: '3', label: '30-39: Napas & Jantung [Alt+Shift+3]' },
-  { id: '4', label: '40-49: Cerna (Atas) [Alt+Shift+4]' },
-  { id: '5', base: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih [Alt+Shift+5]' },
-  { id: '6', label: '60-69: Kelamin (Pria & Wanita) [Alt+Shift+6]' },
-  { id: '7', label: '70-79: Kebidanan & Tulang [Alt+Shift+7]' },
-  { id: '8', label: '80-89: Otot, Kulit, Diagnostik [Alt+Shift+8]' },
-  { id: '9', label: '90-99: Terapi & Diagnostik Lain [Alt+Shift+9]' }
-];
-
-const HIGH_FREQUENCY_ICD10 = {
-  'J18.9': 0.001, 
-  'I10': 0.001,
-  'E11.9': 0.001, 
-  'E11': 0.002,   
-  'I64': 0.001,   
-  'K35.8': 0.001, 
-  'K35': 0.001,
-  'O82': 0.001,   
-  'N18.5': 0.001, 
-  'A09': 0.001,
-  'A09.9': 0.001,
-  'A09.0': 0.001,
-  'J06.9': 0.001, 
-  'T30': 0.001,
-  
-  'D64.9': 0.01, 
-  'A90': 0.01,   
-  'A91': 0.01,   
-  'A01.0': 0.01, 
-  'A01': 0.01,
-  'B20': 0.01,   
-  'I21.9': 0.01, 
-  'I21': 0.01,
-  'I50.0': 0.01, 
-  'I50.9': 0.01, 
-  'I50': 0.01,
-  'J45.9': 0.01, 
-  'J45': 0.01,
-  'K80.20': 0.01, 
-  'K80.2': 0.01,
-  'K80': 0.01,
-  'N18.9': 0.01, 
-  'N18': 0.01,
-  'O80': 0.01,   
-  'O80.9': 0.01,
-  'S72.0': 0.01, 
-  'S72': 0.01,
-  'Z38.0': 0.01, 
-  'T14': 0.01,
-  'T31': 0.01,
-};
-
-const HIGH_FREQUENCY_ICD9 = {
-  '39.95': 0.001,
-  '74.1': 0.001,
-  
-  '79.3': 0.01, 
-  '78.6': 0.01, 
-  '47.09': 0.01,
-  '99.25': 0.01,
-  '93.94': 0.01,
-  '88.72': 0.01,
-  '90.59': 0.01,
-  '87.44': 0.01,
-  '96.71': 0.01,
-  '96.72': 0.01,
-  '88.76': 0.01,
-  '13.71': 0.01,
-  '13.19': 0.01,
-};
-
-const calculateClinicalScore = (res, query, searchType) => {
-  const code = res.item.code || '';
-  const title = res.item.title || '';
-  const desc = res.item.desc || '';
-  const originalScore = res.score !== undefined ? res.score : 0.5;
-  let score = originalScore;
-
-  const cleanQuery = query.trim().toLowerCase();
-  const cleanCode = code.replace('.', '').toLowerCase();
-
-  const queryWords = cleanQuery.split(/\s+/).filter(w => w.length > 2);
-  const itemText = (code + ' ' + title + ' ' + desc).toLowerCase();
-  let matchCount = 0;
-  queryWords.forEach(word => {
-    if (itemText.includes(word)) {
-      matchCount++;
-    }
-  });
-
-  const exactWordMatch = queryWords.length > 0 && matchCount === queryWords.length;
-
-  if (cleanQuery === cleanCode || cleanQuery === code.toLowerCase()) {
-    score = score * 0.001;
-  } else if (code.toLowerCase().startsWith(cleanQuery)) {
-    score = score * 0.05;
-  } else if (title.toLowerCase() === cleanQuery || desc.toLowerCase() === cleanQuery) {
-    score = score * 0.1;
-  } else if (title.toLowerCase().includes(cleanQuery) || desc.toLowerCase().includes(cleanQuery)) {
-    score = score * 0.5;
-  }
-
-  if (exactWordMatch || queryWords.length === 0) {
-    if (searchType === 'icd10') {
-      const mainCode = code.split('.')[0].toUpperCase();
-      if (HIGH_FREQUENCY_ICD10[mainCode]) {
-        score = score * HIGH_FREQUENCY_ICD10[mainCode];
-      }
-      const exactCode = code.toUpperCase();
-      if (HIGH_FREQUENCY_ICD10[exactCode]) {
-        score = score * HIGH_FREQUENCY_ICD10[exactCode];
-      }
-    } else {
-      const exactCode = code;
-      if (HIGH_FREQUENCY_ICD9[exactCode]) {
-        score = score * HIGH_FREQUENCY_ICD9[exactCode];
-      }
-      const mainCode = code.split('.')[0];
-      if (HIGH_FREQUENCY_ICD9[mainCode]) {
-        score = score * HIGH_FREQUENCY_ICD9[mainCode];
-      }
-    }
-  }
-
-  const isParent = searchType === 'icd10' ? code.length === 3 : code.length <= 4 && !code.includes('.');
-  const queryHasDetail = cleanQuery.includes('.') || cleanQuery.replace(/[^0-9]/g, '').length >= 3;
-  
-  if (isParent && !queryHasDetail) {
-    score = score * 0.5;
-  } else if (!isParent && !queryHasDetail) {
-    score = score * 1.5;
-  }
-
-  if (searchType === 'icd10') {
-    const firstChar = code.charAt(0).toUpperCase();
-    if (firstChar >= 'A' && firstChar <= 'N') {
-      score = score * 0.8;
-    } else if (['V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
-      const isSupplementaryQuery = /^[ztvywx]/i.test(cleanQuery) || 
-        ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir', 'periksa', 'neonatus', 'bayi baru lahir', 'bbl', 'anc', 'skrining', 'vaksin', 'kunjungan', 'rujukan'].some(w => cleanQuery.includes(w));
-      if (!isSupplementaryQuery) {
-        score = score * 1.8;
-      }
-    }
-  }
-
-  if (queryWords.length > 0 && matchCount < queryWords.length) {
-    const missingRatio = (queryWords.length - matchCount) / queryWords.length;
-    score = score * (1 + missingRatio * 20.0);
-  }
-
-  return score;
-};
+import { icd10Chapters, icd9Chapters, HIGH_FREQUENCY_ICD10, HIGH_FREQUENCY_ICD9, ICD10_UMBRELLA, ICD9_UMBRELLA } from './constants/icdConstants';
+import { calculateClinicalScore } from './utils/scoring';
+import { useICDData } from './hooks/useICDData';
+import { useICDSearch } from './hooks/useICDSearch';
 
 function App() {
   const { isLoggedIn, user, profile, isAdmin, loginWithGoogle, logout } = useAuth();
@@ -227,12 +48,6 @@ function App() {
 
   const [authModalConfig, setAuthModalConfig] = useState({ isOpen: false, message: '' });
 
-  const [icd10Data, setIcd10Data] = useState([]);
-  const [icd9Data, setIcd9Data] = useState([]);
-  const [knowledgeText, setKnowledgeText] = useState('');
-  const [daggerAsteriskData, setDaggerAsteriskData] = useState(null);
-  const [aliases, setAliases] = useState({});
-  const [crossrefData, setCrossrefData] = useState({});
   const [dismissedCrossrefs, setDismissedCrossrefs] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('icd_dismissed_crossrefs')) || {};
@@ -244,7 +59,10 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const searchType = useMemo(() => {
+  
+  const { icd10Data, icd9Data, knowledgeText, daggerAsteriskData, aliases, crossrefData, loading: isDataLoading, error: dataError } = useICDData(isLoggedIn, user);
+  const loading = isDataLoading;
+const searchType = useMemo(() => {
     const path = location.pathname.substring(1).replace(/\/$/, '');
     if (path === 'icd10') return 'icd10';
     if (path === 'icd9') return 'icd9';
@@ -259,7 +77,6 @@ function App() {
 
   const isProfileIncomplete = isLoggedIn && profile && (!profile.whatsapp_number || !profile.profession || !profile.institution);
   
-  const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState(''); // Teks real-time yang diketik user
   const [query, setQuery] = useState(''); // Teks pencarian yang SUDAH dikonfirmasi (Enter / klik suggestion / klik CTA)
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -270,7 +87,10 @@ function App() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionsQuery, setSuggestionsQuery] = useState('');
 
-  // Voice Search States
+  
+  const { searchResults: _rawSearchResults, isSearching, searchError, searchQuery, activeAlias } = useICDSearch(debouncedQuery, searchType, filterChapter, aliases);
+  const searchResults = _rawSearchResults;
+// Voice Search States
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = React.useRef(null);
 
@@ -598,103 +418,14 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      let cached10, cached9;
-      let hasCache = false;
-      
-      try {
-        const [c10, c9, cK, cDA, cA] = await Promise.all([
-          getCache('icd10'),
-          getCache('icd9'),
-          getCache('knowledge'),
-          getCache('daggerAsterisk'),
-          getCache('aliases')
-        ]);
 
-        if (c10 && c9) {
-          cached10 = c10;
-          cached9 = c9;
-          setIcd10Data(c10);
-          setIcd9Data(c9);
-          if (cK) setKnowledgeText(cK);
-          if (cDA) setDaggerAsteriskData(cDA);
-          if (cA) setAliases(cA);
-          setLoading(false);
-          hasCache = true;
-        }
-      } catch (err) {
-        console.warn("Cache retrieval failed:", err);
-      }
+  // [HOOK useICDData dipanggil di atas]
 
-      try {
-        if (!hasCache) {
-          setLoading(true);
-        }
-
-        const [res10, res9, resKnowledge, resDA, resAliases, resCrossref] = await Promise.all([
-          fetch('/icd10.json').then(res => res.json()),
-          fetch('/icd9.json').then(res => res.json()),
-          fetch('/knowledge.md').then(res => res.text()),
-          fetch('/kodedeggerdanasterik.json').then(res => res.json()).catch(() => null),
-          fetch('/singkatan.json').then(res => res.json()).catch(() => ({})),
-          fetch('/crossref.json').then(res => res.json()).catch(() => ({}))
-        ]);
-
-        setCrossrefData(resCrossref || {});
-
-        const isDataChanged = !hasCache || 
-          JSON.stringify(res10) !== JSON.stringify(cached10) || 
-          JSON.stringify(res9) !== JSON.stringify(cached9);
-
-        const dynamicAliases = await fetchDynamicAliases();
-        const finalAliases = { ...resAliases, ...dynamicAliases };
-
-        if (isDataChanged || JSON.stringify(finalAliases) !== JSON.stringify(aliases)) {
-          setIcd10Data(res10);
-          setIcd9Data(res9);
-          setKnowledgeText(resKnowledge);
-          setDaggerAsteriskData(resDA);
-          setAliases(finalAliases);
-
-          setCache('icd10', res10);
-          setCache('icd9', res9);
-          setCache('knowledge', resKnowledge);
-          if (resDA) setCache('daggerAsterisk', resDA);
-          setCache('aliases', finalAliases);
-        }
-
-        setError(null);
-      } catch (err) {
-        console.error("Error loading data from network:", err);
-        if (!hasCache) {
-          setError('Gagal memuat data. Silakan hubungkan perangkat Anda ke internet untuk pemuatan pertama.');
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, [isLoggedIn, user]);
 
   // Initialize Fuse instances
-  const fuse10 = useMemo(() => new Fuse(icd10Data, {
-    keys: ['code', 'title', 'desc'],
-    includeMatches: true,
-    includeScore: true,
-    threshold: 0.3,
-    ignoreLocation: true,
-    useExtendedSearch: true
-  }), [icd10Data]);
+  
 
-  const fuse9 = useMemo(() => new Fuse(icd9Data, {
-    keys: ['code', 'title', 'desc'],
-    includeMatches: true,
-    includeScore: true,
-    threshold: 0.3,
-    ignoreLocation: true,
-    useExtendedSearch: true
-  }), [icd9Data]);
+  
 
   const ICD10_UMBRELLA = useMemo(() => ({
     'DM': { target: 'Diabetes mellitus', label: 'E10-E14 (Diabetes Mellitus)' },
@@ -743,102 +474,10 @@ function App() {
   }), []);
 
   const suggestions = useMemo(() => {
-    let trimmed = suggestionsQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!trimmed || trimmed.length < 2) return [];
-
-    const cleanQueryForAlias = trimmed.toUpperCase();
-
-    if (searchType === 'all') {
-      const expandedQuery10 = ICD10_UMBRELLA[cleanQueryForAlias] ? ICD10_UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
-      const isCodeQuery10 = /^[A-Z]$|^[A-Z][0-9]/i.test(expandedQuery10.trim()) && expandedQuery10.trim().length >= 2;
-      let results10 = [];
-      if (isCodeQuery10) {
-        const cleanCodeQuery = expandedQuery10.trim().replace('.', '').toUpperCase();
-        const matchedItems = icd10Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery));
-        results10 = matchedItems.map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
-      } else {
-        results10 = fuse10.search(expandedQuery10, { limit: 20 });
-      }
-      const scoredResults10 = results10.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, expandedQuery10, 'icd10'), type: 'icd10' }));
-
-      const expandedQuery9 = ICD9_UMBRELLA[cleanQueryForAlias] ? ICD9_UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
-      const isCodeQuery9 = /^[0-9]/i.test(expandedQuery9.trim()) && expandedQuery9.trim().length >= 2;
-      let results9 = [];
-      if (isCodeQuery9) {
-        const cleanCodeQuery = expandedQuery9.trim().replace('.', '').toUpperCase();
-        const matchedItems = icd9Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery));
-        results9 = matchedItems.map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
-      } else {
-        results9 = fuse9.search(expandedQuery9, { limit: 20 });
-      }
-      const scoredResults9 = results9.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, expandedQuery9, 'icd9'), type: 'icd9' }));
-
-      const combined = [...scoredResults10, ...scoredResults9];
-      combined.sort((a, b) => a.clinicalScore - b.clinicalScore);
-
-      const uniqueTerms = [];
-      for (const res of combined) {
-        let suggestionText = res.item.title;
-        if (res.item.code) {
-          suggestionText = `${res.item.title} (${res.item.code})`;
-        }
-        
-        if (suggestionText && !uniqueTerms.includes(suggestionText)) {
-          uniqueTerms.push(suggestionText);
-          if (uniqueTerms.length >= 6) break;
-        }
-      }
-      return uniqueTerms;
-    }
-
-    const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
-    const expandedQuery = UMBRELLA[cleanQueryForAlias] ? UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
-    const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-    
-    const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z]$|^[A-Z][0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
-      : /^[0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2;
-
-    let results = [];
-    if (isCodeQuery) {
-      const cleanCodeQuery = expandedQuery.trim().replace('.', '').toUpperCase();
-      const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
-      
-      const matchedItems = rawData.filter(item => {
-        const cleanItemCode = item.code.replace('.', '').toUpperCase();
-        return cleanItemCode.startsWith(cleanCodeQuery);
-      });
-
-      results = matchedItems.map(item => ({
-        item,
-        score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05,
-        matches: []
-      }));
-    } else {
-      results = fuse.search(expandedQuery, { limit: 40 });
-    }
-
-    const scoredResults = results.map(res => {
-      const clinicalScore = calculateClinicalScore(res, expandedQuery, searchType);
-      return { ...res, clinicalScore };
-    });
-
-    scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
-
-    const uniqueTerms = [];
-    for (const res of scoredResults) {
-      let suggestionText = res.item.title;
-      if (res.item.code) {
-        suggestionText = `${res.item.title} (${res.item.code})`;
-      }
-      
-      if (suggestionText && !uniqueTerms.includes(suggestionText)) {
-        uniqueTerms.push(suggestionText);
-        if (uniqueTerms.length >= 6) break;
-      }
-    }
-    return uniqueTerms;
-  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases, icd10Data, icd9Data, ICD10_UMBRELLA, ICD9_UMBRELLA]);
+    // Saran autocomplete sementara dimatikan karena pencarian Supabase utama 
+    // sudah cukup cepat dan tidak membebani database dengan request per ketukan.
+    return [];
+  }, [suggestionsQuery]);
 
   const handleSelectSuggestion = (suggestion) => {
     const codeMatch = suggestion.match(/\(([^)]+)\)$/);
@@ -872,130 +511,14 @@ function App() {
   };
 
   // Handle Smart Alias
-  const { searchQuery, activeAlias } = useMemo(() => {
-    if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
-    const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
-    
-    if (searchType === 'all') {
-      const alias10 = ICD10_UMBRELLA[cleanQuery];
-      const alias9 = ICD9_UMBRELLA[cleanQuery];
-      if (alias10 && alias9) {
-        return {
-          searchQuery: debouncedQuery,
-          activeAlias: { key: cleanQuery, value: `${alias10.label} & ${alias9.label}` }
-        };
-      }
-      if (alias10) {
-        return {
-          searchQuery: alias10.target,
-          activeAlias: { key: cleanQuery, value: alias10.label }
-        };
-      }
-      if (alias9) {
-        return {
-          searchQuery: alias9.target,
-          activeAlias: { key: cleanQuery, value: alias9.label }
-        };
-      }
-    }
 
-    const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
+  // searchQuery dan activeAlias ditangani oleh useICDSearch
 
-    if (UMBRELLA[cleanQuery]) {
-      return { 
-        searchQuery: UMBRELLA[cleanQuery].target, 
-        activeAlias: { key: cleanQuery, value: UMBRELLA[cleanQuery].label }
-      };
-    }
-
-    if (aliases[cleanQuery]) {
-      return { 
-        searchQuery: aliases[cleanQuery], 
-        activeAlias: { key: cleanQuery, value: aliases[cleanQuery] }
-      };
-    }
-    return { searchQuery: debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim(), activeAlias: null };
-  }, [debouncedQuery, aliases, searchType, ICD10_UMBRELLA, ICD9_UMBRELLA]);
 
   // Handle Search
-  const searchResults = useMemo(() => {
-    if (!searchQuery) return [];
-    
-    if (searchType === 'all') {
-      const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
-      
-      const q10 = ICD10_UMBRELLA[cleanQuery] ? ICD10_UMBRELLA[cleanQuery].target : (aliases[cleanQuery] || debouncedQuery.trim());
-      const q9 = ICD9_UMBRELLA[cleanQuery] ? ICD9_UMBRELLA[cleanQuery].target : (aliases[cleanQuery] || debouncedQuery.trim());
 
-      const isCodeQuery10 = /^[A-Z]$|^[A-Z][0-9]/i.test(q10);
-      let results10 = [];
-      if (isCodeQuery10) {
-        const cleanCodeQuery = q10.replace('.', '').toUpperCase();
-        results10 = icd10Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery))
-          .map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
-      } else {
-        results10 = fuse10.search(q10, { limit: 60 });
-      }
-      const scoredResults10 = results10.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, q10, 'icd10'), type: 'icd10' }));
+  // searchResults dikelola oleh useICDSearch
 
-      const isCodeQuery9 = /^[0-9]/i.test(q9);
-      let results9 = [];
-      if (isCodeQuery9) {
-        const cleanCodeQuery = q9.replace('.', '').toUpperCase();
-        results9 = icd9Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery))
-          .map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
-      } else {
-        results9 = fuse9.search(q9, { limit: 60 });
-      }
-      const scoredResults9 = results9.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, q9, 'icd9'), type: 'icd9' }));
-
-      const combined = [...scoredResults10, ...scoredResults9];
-      combined.sort((a, b) => a.clinicalScore - b.clinicalScore);
-      return combined.slice(0, 60);
-    }
-    
-    const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z]$|^[A-Z][0-9]/i.test(searchQuery.trim()) 
-      : /^[0-9]/i.test(searchQuery.trim());
-
-    let results = [];
-    if (isCodeQuery) {
-      const cleanCodeQuery = searchQuery.trim().replace('.', '').toUpperCase();
-      const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
-      const matchedItems = rawData.filter(item => {
-        const cleanItemCode = item.code.replace('.', '').toUpperCase();
-        return cleanItemCode.startsWith(cleanCodeQuery);
-      });
-      results = matchedItems.map(item => ({
-        item,
-        score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05,
-        matches: []
-      }));
-    } else {
-      const fuse = searchType === 'icd10' ? fuse10 : fuse9;
-      results = fuse.search(searchQuery, { limit: 120 });
-    }
-
-    if (filterChapter !== 'all') {
-      const prefixes = filterChapter.split('|');
-      results = results.filter(res => {
-        const char0 = searchType === 'icd10' ? res.item.code.charAt(0).toUpperCase() : res.item.code.charAt(0);
-        if (searchType === 'icd9') {
-           if (filterChapter === '00') return res.item.code.startsWith('00');
-           if (filterChapter === '0') return res.item.code.startsWith('0') && !res.item.code.startsWith('00');
-        }
-        return prefixes.includes(char0);
-      });
-    }
-
-    const scoredResults = results.map(res => {
-      const clinicalScore = calculateClinicalScore(res, searchQuery, searchType);
-      return { ...res, clinicalScore, type: searchType };
-    });
-
-    scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
-    return scoredResults.slice(0, 60);
-  }, [searchQuery, searchType, fuse10, fuse9, filterChapter, icd10Data, icd9Data]);
 
   // Group Category helper
   const getCategoryCode = (code, type) => {
@@ -1054,8 +577,8 @@ function App() {
       const currentType = res.type || (searchType === 'all' ? 'icd10' : searchType);
       const catCode = getCategoryCode(code, currentType);
       const groupKey = `${currentType}_${catCode}`;
-      
       const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+      
 
       if (!groups[groupKey]) {
         const catItem = rawData.find(item => item.code === catCode);
@@ -1096,8 +619,8 @@ function App() {
       const currentType = res.type || (searchType === 'all' ? 'icd10' : searchType);
       const catCode = getCategoryCode(code, currentType);
       const groupKey = `${currentType}_${catCode}`;
-      
       const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+      
 
       if (!groups[groupKey]) {
         const catItem = rawData.find(item => item.code === catCode);
@@ -1871,8 +1394,17 @@ function App() {
                         </div>
                       )}
 
+                      {/* Searching state */}
+                      {isSearching && debouncedQuery && (
+                        <div className="text-center py-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm">
+                          <Loader2 className="w-12 h-12 mx-auto mb-4 text-emerald-500 animate-spin" />
+                          <p className="text-base font-bold text-slate-600 dark:text-slate-300">Menjelajahi Database ICD...</p>
+                          <p className="text-xs text-slate-400 mt-1.5">Mencari kecocokan terbaik untuk "{debouncedQuery}"</p>
+                        </div>
+                      )}
+
                       {/* Not found state */}
-                      {!loading && debouncedQuery && searchResults.length === 0 && (
+                      {!loading && !isSearching && debouncedQuery && searchResults.length === 0 && (
                         <div className="text-center py-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm">
                           <Search className="w-12 h-12 mx-auto mb-4 text-slate-350 dark:text-slate-600 animate-pulse" />
                           <p className="text-base font-bold text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
@@ -1999,7 +1531,7 @@ function App() {
               </div>
               <input
                 type="text"
-                className="block w-full h-14 pl-14 pr-16 bg-[#e3e6eb] dark:bg-slate-800 border-0 outline-none rounded-full shadow-sm text-base transition-all focus:bg-white dark:focus:bg-slate-850 focus:ring-2 focus:ring-slate-300 dark:focus:ring-slate-600 hover:bg-[#d8dce2] dark:hover:bg-slate-750 text-slate-800 dark:text-slate-100 placeholder-slate-500"
+                className="block w-full h-14 pl-14 pr-16 bg-[#e3e6eb] dark:bg-slate-800 border-0 outline-none rounded-full shadow-sm text-base transition-all focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-slate-300 dark:focus:ring-slate-600 hover:bg-[#d8dce2] dark:hover:bg-slate-750 text-slate-800 dark:text-slate-100 placeholder-slate-500"
                 placeholder="Tanyakan apa saja..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -2056,7 +1588,7 @@ function App() {
         {/* Floating Action Button - Scroll to Top */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-6 right-6 p-3 bg-[#2AA79B] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#208f84] transition-all duration-300 active:scale-95 z-40 flex items-center justify-center cursor-pointer ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+          className={`fixed bottom-24 right-6 p-3 bg-[#2AA79B] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#208f84] transition-all duration-300 active:scale-95 z-40 flex items-center justify-center cursor-pointer ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
           aria-label="Scroll to top"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path></svg>
