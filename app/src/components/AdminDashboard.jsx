@@ -172,12 +172,13 @@ export function AdminDashboard() {
   const [suggestionsPage, setSuggestionsPage] = useState(1);
   const [suggestionsTotal, setSuggestionsTotal] = useState(0);
   const [actionLoading, setActionLoading] = useState(null);
+  const [feedbacksPage, setFeedbacksPage] = useState(1);
+  const [feedbacksTotal, setFeedbacksTotal] = useState(0);
 
   const fetchDashboardData = useCallback(async () => {
     try {
       const { data: profiles } = await supabase.from('profiles').select('*');
       const { data: searches } = await supabase.from('search_history').select('query, created_at');
-      const { data: fbs } = await supabase.from('ranking_feedback').select('*').order('created_at', { ascending: false }).limit(100);
       const { data: settings } = await supabase.from('settings').select('value').eq('key', 'GEMINI_API_KEY').single();
 
       if (profiles) {
@@ -200,10 +201,22 @@ export function AdminDashboard() {
           if (q) queryCount[q] = (queryCount[q] || 0) + 1;
         });
         const top = Object.entries(queryCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
-        setStats({ totalUsers: profiles?.length || 0, totalSearches: searches.length, topCodes: top, totalFeedbacks: fbs?.length || 0 });
+        setStats(prev => ({ ...prev, totalUsers: profiles?.length || 0, totalSearches: searches.length, topCodes: top }));
       }
       if (settings) setApiKey(settings.value);
-      if (fbs) setFeedbacks(fbs);
+
+      // Fetch Rating Hasil Pencarian - PAGE 1 INITIAL
+      const { data: fbs, count: fbsCount } = await supabase
+        .from('ranking_feedback')
+        .select('*', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(0, 9);
+      if (fbs) {
+        setFeedbacks(fbs);
+        setFeedbacksTotal(fbsCount || 0);
+        setFeedbacksPage(1);
+        setStats(prev => ({ ...prev, totalFeedbacks: fbsCount || 0 }));
+      }
 
       // Fetch user suggestions (Kotak Saran) - PAGE 1 INITIAL
       const { data: suggestions, count } = await supabase
@@ -227,6 +240,26 @@ export function AdminDashboard() {
       fetchDashboardData().finally(() => setLoading(false));
     }
   }, [isAdmin, fetchDashboardData]);
+
+  const fetchFeedbacksPage = async (page) => {
+    try {
+      const limit = 10;
+      const from = (page - 1) * limit;
+      const to = from + limit - 1;
+      const { data: fbs, count } = await supabase
+        .from('ranking_feedback')
+        .select('*', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(from, to);
+      if (fbs) {
+        setFeedbacks(fbs);
+        setFeedbacksTotal(count || 0);
+        setFeedbacksPage(page);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchSuggestionsPage = async (page) => {
     try {
@@ -693,22 +726,49 @@ export function AdminDashboard() {
                     <Star className="w-3.5 h-3.5 text-amber-500" />
                   </div>
                   Rating Hasil Pencarian
-                  <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{feedbacks.length}</span>
+                  <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{feedbacksTotal}</span>
                 </h3>
-                <div className="space-y-3">
-                  {feedbacks.map((fb) => (
-                    <div key={fb.id} className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex items-center gap-4">
-                      <div className="flex gap-0.5 shrink-0">
-                        {[1, 2, 3, 4, 5].map(s => (
-                          <Star key={s} className={`w-3.5 h-3.5 ${s <= fb.score ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'}`} />
-                        ))}
+                <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                    {feedbacks.map((fb) => (
+                      <div key={fb.id} className="p-4 flex items-center gap-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                        <div className="flex gap-0.5 shrink-0">
+                          {[1, 2, 3, 4, 5].map(s => (
+                            <Star key={s} className={`w-3.5 h-3.5 ${s <= fb.score ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'}`} />
+                          ))}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate block">{fb.query || '-'}</span>
+                        </div>
+                        <span className="text-xs text-slate-400 shrink-0">{new Date(fb.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric'})}</span>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate block">{fb.query || '-'}</span>
+                    ))}
+                  </div>
+
+                  {/* Pagination Controls */}
+                  {feedbacksTotal > 10 && (
+                    <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/20">
+                      <span className="text-xs text-slate-500 font-medium">
+                        Menampilkan {(feedbacksPage - 1) * 10 + 1} - {Math.min(feedbacksPage * 10, feedbacksTotal)} dari {feedbacksTotal} rating
+                      </span>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => fetchFeedbacksPage(feedbacksPage - 1)}
+                          disabled={feedbacksPage === 1}
+                          className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button 
+                          onClick={() => fetchFeedbacksPage(feedbacksPage + 1)}
+                          disabled={feedbacksPage * 10 >= feedbacksTotal}
+                          className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
                       </div>
-                      <span className="text-xs text-slate-400 shrink-0">{new Date(fb.created_at).toLocaleDateString('id-ID')}</span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             )}
