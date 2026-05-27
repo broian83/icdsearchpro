@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus, Menu } from 'lucide-react';
+import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus, Menu, ChevronLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export function Sidebar({ 
@@ -78,30 +78,50 @@ export function Sidebar({
 
   const renderContent = (isMobileOrExpanded) => {
     return (
-      <div className="flex flex-col h-full bg-[#f0f4f9] dark:bg-[#131722] border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300">
+      <div 
+        className={`flex flex-col h-full bg-[#f0f4f9] dark:bg-[#131722] border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300 ${!isMobileOrExpanded ? 'cursor-ew-resize' : ''}`}
+        onClick={() => {
+          if (!isMobileOrExpanded && window.innerWidth >= 1024) {
+            onToggleExpand();
+          }
+        }}
+      >
         
         {/* Header / Hamburger */}
         <div className={`pt-4 px-3 pb-2 flex items-center ${isMobileOrExpanded ? 'justify-between' : 'justify-center'}`}>
-          <button
-            onClick={() => {
-              if (window.innerWidth < 1024) {
-                onClose();
-              } else {
-                onToggleExpand();
-              }
-            }}
-            className={`p-2.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${isMobileOrExpanded ? 'ml-1' : ''}`}
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-
-          {window.innerWidth < 1024 && (
-            <button 
-              onClick={onClose}
-              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+          {isMobileOrExpanded ? (
+            <>
+              {/* Icon Tutup Sidebar (Kiri) */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (window.innerWidth < 1024) {
+                    onClose();
+                  } else {
+                    onToggleExpand();
+                  }
+                }}
+                className="p-2.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ml-1"
+                title="Tutup menu"
+              >
+                {window.innerWidth < 1024 ? <X className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+              </button>
+              
+              {/* Logo (Kanan) */}
+              <div className="flex items-center gap-2 pr-2">
+                <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                  <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-6 h-6 object-contain" />
+                </div>
+                <span className="font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight hidden sm:block">ICD Search Pro</span>
+              </div>
+            </>
+          ) : (
+            /* Logo Tunggal Saat Tertutup (Tengah) */
+            <div className="p-1 rounded-xl transition-all flex items-center justify-center shrink-0">
+              <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
+              </div>
+            </div>
           )}
         </div>
 
@@ -116,7 +136,7 @@ export function Sidebar({
             </button>
           ) : (
             <button
-              onClick={() => handleTabClick('new_search')}
+              onClick={(e) => { e.stopPropagation(); handleTabClick('new_search'); }}
               className="mx-auto w-11 h-11 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center shadow-sm transition-all cursor-pointer border border-slate-200/50 dark:border-transparent"
               title="Pencarian Baru"
             >
