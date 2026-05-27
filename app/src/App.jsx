@@ -1656,7 +1656,7 @@ function App() {
                           {/* Bingkai bulat keping emblem premium untuk logo PMIK-id agar tampak rapi di dark mode */}
                           <div className="relative rounded-3xl bg-white dark:bg-white p-3 shadow-md border border-slate-150 dark:border-slate-800 flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28">
                             <img 
-                              src="/PMIK-id%20Logo.png" 
+                              src="/icdsearchpro_transparan.png" 
                               alt="PMIK Logo" 
                               className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0 transition-transform duration-350 hover:scale-105" 
                             />
@@ -2029,7 +2029,7 @@ function App() {
             </button>
             
             <div className="rounded-2xl bg-white p-2 border border-slate-150 shadow-sm flex items-center justify-center w-20 h-20 mx-auto mb-4">
-              <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
+              <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-14 h-14 object-contain" />
             </div>
             <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Search Pro</h3>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>

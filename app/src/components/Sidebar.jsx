@@ -114,7 +114,7 @@ export function Sidebar({
                   onClick={(e) => { e.stopPropagation(); handleTabClick('new_search'); }}
                   title="Kembali ke Beranda"
                 >
-                  <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain" />
+                  <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-8 h-8 object-contain" />
                 </div>
               </div>
             </>
@@ -126,7 +126,7 @@ export function Sidebar({
                 onClick={(e) => { e.stopPropagation(); handleTabClick('new_search'); }}
                 title="Kembali ke Beranda"
               >
-                <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain" />
+                <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-8 h-8 object-contain" />
               </div>
             </div>
           )}
