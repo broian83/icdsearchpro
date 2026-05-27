@@ -4,8 +4,14 @@ import ReactMarkdown from 'react-markdown';
 import { getGroqCaseConsultation } from '../utils/ai';
 import { useToast } from '../context/ToastContext';
 
-export function CaseConsultation({ knowledgeText }) {
-  const [resume, setResume] = useState('');
+export function CaseConsultation({ knowledgeText, initialResume = '' }) {
+  const [resume, setResume] = useState(initialResume);
+
+  useEffect(() => {
+    if (initialResume) {
+      setResume(initialResume);
+    }
+  }, [initialResume]);
   const [aiResponse, setAiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);

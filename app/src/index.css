@@ -46,3 +46,13 @@ body {
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
+
+/* Sembunyikan scrollbar untuk elemen scroll horizontal */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+

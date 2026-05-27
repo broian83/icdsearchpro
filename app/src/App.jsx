@@ -51,7 +51,7 @@ const icd9Chapters = [
   { id: '2', label: '20-29: Hidung & Mulut [Alt+Shift+2]' },
   { id: '3', label: '30-39: Napas & Jantung [Alt+Shift+3]' },
   { id: '4', label: '40-49: Cerna (Atas) [Alt+Shift+4]' },
-  { id: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih [Alt+Shift+5]' },
+  { id: '5', base: '5', label: '50-59: Cerna (Bawah) & Sal. Kemih [Alt+Shift+5]' },
   { id: '6', label: '60-69: Kelamin (Pria & Wanita) [Alt+Shift+6]' },
   { id: '7', label: '70-79: Kebidanan & Tulang [Alt+Shift+7]' },
   { id: '8', label: '80-89: Otot, Kulit, Diagnostik [Alt+Shift+8]' },
@@ -245,6 +245,7 @@ function App() {
   
   const searchType = useMemo(() => {
     const path = location.pathname.substring(1).replace(/\/$/, '');
+    if (path === 'icd10') return 'icd10';
     if (path === 'icd9') return 'icd9';
     if (path === 'case') return 'case';
     if (path === 'profile') return 'profile';
@@ -252,7 +253,7 @@ function App() {
     if (path === 'bookmark') return 'bookmark';
     if (path === 'history') return 'history';
     if (path === 'settings') return 'settings';
-    return 'icd10';
+    return 'all'; // Default path `/` memetakan ke 'all' (Semua)
   }, [location.pathname]);
   
   const [loading, setLoading] = useState(true);
@@ -383,11 +384,11 @@ function App() {
     if (tab === 'locked_bookmark') tab = 'bookmark';
     if (tab === 'locked_history') tab = 'history';
     
-    if (!['icd10', 'icd9'].includes(tab)) {
+    if (!['all', 'icd10', 'icd9'].includes(tab)) {
       setSelectedCodeDetail(null);
     }
 
-    if (tab === 'icd10') {
+    if (tab === 'all') {
       navigate('/');
     } else {
       navigate('/' + tab);
@@ -661,10 +662,52 @@ function App() {
     if (!trimmed || trimmed.length < 2) return [];
 
     const cleanQueryForAlias = trimmed.toUpperCase();
+
+    if (searchType === 'all') {
+      const expandedQuery10 = ICD10_UMBRELLA[cleanQueryForAlias] ? ICD10_UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
+      const isCodeQuery10 = /^[A-Z]$|^[A-Z][0-9]/i.test(expandedQuery10.trim()) && expandedQuery10.trim().length >= 2;
+      let results10 = [];
+      if (isCodeQuery10) {
+        const cleanCodeQuery = expandedQuery10.trim().replace('.', '').toUpperCase();
+        const matchedItems = icd10Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery));
+        results10 = matchedItems.map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
+      } else {
+        results10 = fuse10.search(expandedQuery10, { limit: 20 });
+      }
+      const scoredResults10 = results10.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, expandedQuery10, 'icd10'), type: 'icd10' }));
+
+      const expandedQuery9 = ICD9_UMBRELLA[cleanQueryForAlias] ? ICD9_UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
+      const isCodeQuery9 = /^[0-9]/i.test(expandedQuery9.trim()) && expandedQuery9.trim().length >= 2;
+      let results9 = [];
+      if (isCodeQuery9) {
+        const cleanCodeQuery = expandedQuery9.trim().replace('.', '').toUpperCase();
+        const matchedItems = icd9Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery));
+        results9 = matchedItems.map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
+      } else {
+        results9 = fuse9.search(expandedQuery9, { limit: 20 });
+      }
+      const scoredResults9 = results9.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, expandedQuery9, 'icd9'), type: 'icd9' }));
+
+      const combined = [...scoredResults10, ...scoredResults9];
+      combined.sort((a, b) => a.clinicalScore - b.clinicalScore);
+
+      const uniqueTerms = [];
+      for (const res of combined) {
+        let suggestionText = res.item.title;
+        if (res.item.code) {
+          suggestionText = `${res.item.title} (${res.item.code})`;
+        }
+        
+        if (suggestionText && !uniqueTerms.includes(suggestionText)) {
+          uniqueTerms.push(suggestionText);
+          if (uniqueTerms.length >= 6) break;
+        }
+      }
+      return uniqueTerms;
+    }
+
     const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
-
     const expandedQuery = UMBRELLA[cleanQueryForAlias] ? UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
-
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
     
     const isCodeQuery = searchType === 'icd10' 
@@ -745,6 +788,30 @@ function App() {
   const { searchQuery, activeAlias } = useMemo(() => {
     if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
     const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
+    
+    if (searchType === 'all') {
+      const alias10 = ICD10_UMBRELLA[cleanQuery];
+      const alias9 = ICD9_UMBRELLA[cleanQuery];
+      if (alias10 && alias9) {
+        return {
+          searchQuery: debouncedQuery,
+          activeAlias: { key: cleanQuery, value: `${alias10.label} & ${alias9.label}` }
+        };
+      }
+      if (alias10) {
+        return {
+          searchQuery: alias10.target,
+          activeAlias: { key: cleanQuery, value: alias10.label }
+        };
+      }
+      if (alias9) {
+        return {
+          searchQuery: alias9.target,
+          activeAlias: { key: cleanQuery, value: alias9.label }
+        };
+      }
+    }
+
     const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
 
     if (UMBRELLA[cleanQuery]) {
@@ -766,6 +833,39 @@ function App() {
   // Handle Search
   const searchResults = useMemo(() => {
     if (!searchQuery) return [];
+    
+    if (searchType === 'all') {
+      const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
+      
+      const q10 = ICD10_UMBRELLA[cleanQuery] ? ICD10_UMBRELLA[cleanQuery].target : (aliases[cleanQuery] || debouncedQuery.trim());
+      const q9 = ICD9_UMBRELLA[cleanQuery] ? ICD9_UMBRELLA[cleanQuery].target : (aliases[cleanQuery] || debouncedQuery.trim());
+
+      const isCodeQuery10 = /^[A-Z]$|^[A-Z][0-9]/i.test(q10);
+      let results10 = [];
+      if (isCodeQuery10) {
+        const cleanCodeQuery = q10.replace('.', '').toUpperCase();
+        results10 = icd10Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery))
+          .map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
+      } else {
+        results10 = fuse10.search(q10, { limit: 60 });
+      }
+      const scoredResults10 = results10.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, q10, 'icd10'), type: 'icd10' }));
+
+      const isCodeQuery9 = /^[0-9]/i.test(q9);
+      let results9 = [];
+      if (isCodeQuery9) {
+        const cleanCodeQuery = q9.replace('.', '').toUpperCase();
+        results9 = icd9Data.filter(item => item.code.replace('.', '').toUpperCase().startsWith(cleanCodeQuery))
+          .map(item => ({ item, score: item.code.replace('.', '').toUpperCase() === cleanCodeQuery ? 0.001 : 0.05, matches: [] }));
+      } else {
+        results9 = fuse9.search(q9, { limit: 60 });
+      }
+      const scoredResults9 = results9.map(res => ({ ...res, clinicalScore: calculateClinicalScore(res, q9, 'icd9'), type: 'icd9' }));
+
+      const combined = [...scoredResults10, ...scoredResults9];
+      combined.sort((a, b) => a.clinicalScore - b.clinicalScore);
+      return combined.slice(0, 60);
+    }
     
     const isCodeQuery = searchType === 'icd10' 
       ? /^[A-Z]$|^[A-Z][0-9]/i.test(searchQuery.trim()) 
@@ -803,7 +903,7 @@ function App() {
 
     const scoredResults = results.map(res => {
       const clinicalScore = calculateClinicalScore(res, searchQuery, searchType);
-      return { ...res, clinicalScore };
+      return { ...res, clinicalScore, type: searchType };
     });
 
     scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
@@ -821,7 +921,7 @@ function App() {
   };
 
   const { primaryResults, supplementaryResults } = useMemo(() => {
-    if (searchType !== 'icd10') {
+    if (searchType === 'icd9') {
       return { primaryResults: searchResults, supplementaryResults: [] };
     }
     const primary = [];
@@ -832,6 +932,11 @@ function App() {
       ['kontrol', 'imunisasi', 'kecelakaan', 'tabrak', 'racun', 'jatuh', 'kontrasepsi', 'lahir', 'periksa', 'neonatus', 'bayi baru lahir', 'bbl', 'anc', 'skrining', 'vaksin', 'kunjungan', 'rujukan'].some(w => cleanQuery.includes(w));
 
     searchResults.forEach(res => {
+      if (res.type === 'icd9') {
+        primary.push(res);
+        return;
+      }
+
       const firstChar = res.item.code.charAt(0).toUpperCase();
       let isSupplChapter = false;
       if (['V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
@@ -855,33 +960,40 @@ function App() {
 
   // Group Category Memos
   const primaryGroups = useMemo(() => {
-    const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
     const groups = {};
 
     primaryResults.forEach(res => {
       const code = res.item.code;
-      const catCode = getCategoryCode(code, searchType);
+      const currentType = res.type || (searchType === 'all' ? 'icd10' : searchType);
+      const catCode = getCategoryCode(code, currentType);
+      const groupKey = `${currentType}_${catCode}`;
       
-      if (!groups[catCode]) {
+      const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+
+      if (!groups[groupKey]) {
         const catItem = rawData.find(item => item.code === catCode);
-        groups[catCode] = {
+        groups[groupKey] = {
           categoryCode: catCode,
           categoryItem: catItem || { code: catCode, title: 'Kategori ' + catCode, desc: '' },
           matchedCodes: [],
           matchedMatches: {},
           bestScore: res.clinicalScore,
-          allSubcodes: []
+          allSubcodes: [],
+          type: currentType
         };
       }
-      groups[catCode].matchedCodes.push(code);
-      groups[catCode].matchedMatches[code] = res.matches || [];
-      if (res.clinicalScore < groups[catCode].bestScore) {
-        groups[catCode].bestScore = res.clinicalScore;
+      groups[groupKey].matchedCodes.push(code);
+      groups[groupKey].matchedMatches[code] = res.matches || [];
+      if (res.clinicalScore < groups[groupKey].bestScore) {
+        groups[groupKey].bestScore = res.clinicalScore;
       }
     });
 
-    Object.keys(groups).forEach(catCode => {
-      groups[catCode].allSubcodes = rawData.filter(item => 
+    Object.keys(groups).forEach(groupKey => {
+      const currentType = groups[groupKey].type;
+      const catCode = groups[groupKey].categoryCode;
+      const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+      groups[groupKey].allSubcodes = rawData.filter(item => 
         item.code === catCode || item.code.startsWith(catCode + '.')
       );
     });
@@ -890,33 +1002,40 @@ function App() {
   }, [primaryResults, searchType, icd10Data, icd9Data]);
 
   const supplementaryGroups = useMemo(() => {
-    const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
     const groups = {};
 
     supplementaryResults.forEach(res => {
       const code = res.item.code;
-      const catCode = getCategoryCode(code, searchType);
+      const currentType = res.type || (searchType === 'all' ? 'icd10' : searchType);
+      const catCode = getCategoryCode(code, currentType);
+      const groupKey = `${currentType}_${catCode}`;
       
-      if (!groups[catCode]) {
+      const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+
+      if (!groups[groupKey]) {
         const catItem = rawData.find(item => item.code === catCode);
-        groups[catCode] = {
+        groups[groupKey] = {
           categoryCode: catCode,
           categoryItem: catItem || { code: catCode, title: 'Kategori ' + catCode, desc: '' },
           matchedCodes: [],
           matchedMatches: {},
           bestScore: res.clinicalScore,
-          allSubcodes: []
+          allSubcodes: [],
+          type: currentType
         };
       }
-      groups[catCode].matchedCodes.push(code);
-      groups[catCode].matchedMatches[code] = res.matches || [];
-      if (res.clinicalScore < groups[catCode].bestScore) {
-        groups[catCode].bestScore = res.clinicalScore;
+      groups[groupKey].matchedCodes.push(code);
+      groups[groupKey].matchedMatches[code] = res.matches || [];
+      if (res.clinicalScore < groups[groupKey].bestScore) {
+        groups[groupKey].bestScore = res.clinicalScore;
       }
     });
 
-    Object.keys(groups).forEach(catCode => {
-      groups[catCode].allSubcodes = rawData.filter(item => 
+    Object.keys(groups).forEach(groupKey => {
+      const currentType = groups[groupKey].type;
+      const catCode = groups[groupKey].categoryCode;
+      const rawData = currentType === 'icd10' ? icd10Data : icd9Data;
+      groups[groupKey].allSubcodes = rawData.filter(item => 
         item.code === catCode || item.code.startsWith(catCode + '.')
       );
     });
@@ -986,7 +1105,7 @@ function App() {
             <button
               key={idx}
               onClick={() => { menu.action(); setIsAppsDrawerOpen(false); }}
-              className="flex flex-col items-center justify-center p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] dark:hover:text-[#2AA79B] transition-all cursor-pointer group"
+              className="flex flex-col items-center justify-center p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-655 dark:text-slate-300 hover:text-[#2AA79B] dark:hover:text-[#2AA79B] transition-all cursor-pointer group"
             >
               <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-850 dark:group-hover:bg-[#2AA79B]/10 text-slate-500 dark:text-slate-400 group-hover:text-[#2AA79B] group-hover:bg-[#2AA79B]/5 transition-colors">
                 {menu.icon}
@@ -1014,7 +1133,7 @@ function App() {
                 {user?.user_metadata?.avatar_url ? (
                   <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="font-extrabold text-sm text-slate-500 dark:text-slate-450">
+                  <span className="font-extrabold text-sm text-slate-555 dark:text-slate-455">
                     {user?.user_metadata?.full_name?.charAt(0).toUpperCase() || 'B'}
                   </span>
                 )}
@@ -1027,40 +1146,68 @@ function App() {
             <div className="space-y-1">
               <button 
                 onClick={() => { handleTabClick('profile'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <User className="w-3.5 h-3.5" /> Profil Saya
+                <User className="w-3.5 h-3.5 text-slate-400" /> Profil Saya
               </button>
               <button 
                 onClick={() => { handleTabClick('bookmark'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Star className="w-3.5 h-3.5" /> Bookmark Saya
+                <Star className="w-3.5 h-3.5 text-slate-400" /> Bookmark Saya
               </button>
               <button 
                 onClick={() => { handleTabClick('history'); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Cloud className="w-3.5 h-3.5" /> Histori Cloud
+                <Cloud className="w-3.5 h-3.5 text-slate-400" /> Histori Cloud
               </button>
               <button 
+                onClick={() => { handleTabClick('settings'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Settings className="w-3.5 h-3.5 text-slate-400" /> Setelan
+              </button>
+              <button 
+                onClick={() => { handleTabClick('help'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-slate-400" /> Bantuan & FAQ
+              </button>
+              <div className="border-t border-slate-100 dark:border-slate-800/60 my-1"></div>
+              <button 
                 onClick={() => { logout(); setIsProfileDropdownOpen(false); }}
-                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors flex items-center gap-2 mt-1 cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors flex items-center gap-2 cursor-pointer animate-pulse-subtle"
               >
                 <LogOut className="w-3.5 h-3.5" /> Keluar Akun
               </button>
             </div>
           </div>
         ) : (
-          <div className="p-2 text-center">
-            <h4 className="text-sm font-bold text-slate-855 dark:text-slate-100 mb-1">Masuk ke ICD Search</h4>
-            <p className="text-[10px] text-slate-450 dark:text-slate-500 mb-3.5">Sinkronisasikan bookmark Anda di cloud dan akses asisten koding AI.</p>
+          <div className="p-1">
+            <h4 className="text-sm font-bold text-slate-855 dark:text-slate-100 mb-1 px-1">Masuk ke ICD Search</h4>
+            <p className="text-[10px] text-slate-455 dark:text-slate-500 mb-3 px-1">Sinkronisasikan bookmark Anda di cloud dan akses asisten koding AI.</p>
             <button
               onClick={() => { loginWithGoogle(); setIsProfileDropdownOpen(false); }}
-              className="w-full bg-[#2AA79B] hover:bg-[#208f84] text-white py-2.5 px-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="w-full bg-[#2AA79B] hover:bg-[#208f84] text-white py-2 px-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer mb-3"
             >
               Masuk / Daftar
             </button>
+            <div className="border-t border-slate-100 dark:border-slate-800/60 my-2"></div>
+            <div className="space-y-1">
+              <button 
+                onClick={() => { handleTabClick('settings'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Settings className="w-3.5 h-3.5 text-slate-400" /> Setelan
+              </button>
+              <button 
+                onClick={() => { handleTabClick('help'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-slate-400" /> Bantuan & FAQ
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -1081,7 +1228,7 @@ function App() {
             {sub.title}
           </h3>
           {sub.desc && (
-            <p className="text-slate-500 dark:text-slate-450 mt-1.5 text-xs sm:text-sm italic bg-slate-50 dark:bg-slate-850 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-500 dark:text-slate-455 mt-1.5 text-xs sm:text-sm italic bg-slate-50 dark:bg-slate-850 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
               Deskripsi: {sub.desc}
             </p>
           )}
@@ -1198,7 +1345,7 @@ function App() {
           id="apps-drawer-toggle"
           onClick={() => setIsAppsDrawerOpen(!isAppsDrawerOpen)}
           className={`p-2 rounded-xl transition-all cursor-pointer ${
-            isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
+            isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800'
           }`}
           title="Menu Aplikasi"
         >
@@ -1212,7 +1359,7 @@ function App() {
         <button
           id="profile-dropdown-toggle"
           onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-          className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors font-extrabold text-xs text-slate-600 dark:text-slate-300"
+          className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors font-extrabold text-xs text-slate-655 dark:text-slate-300"
           title="Akun Saya"
         >
           {isLoggedIn && user?.user_metadata?.avatar_url ? (
@@ -1224,6 +1371,89 @@ function App() {
 
         {/* Profile Dropdown Panel */}
         {renderProfileDropdown()}
+      </div>
+    );
+  }  // Google Search filter tab horizontal bar
+  const renderTabFilterBar = () => {
+    if (!hasResults && isSearchMode) return null;
+
+    const tabs = [
+      { id: 'all', label: 'Semua', action: () => { handleTabClick('all'); } },
+      { id: 'icd10', label: 'ICD-10', action: () => { handleTabClick('icd10'); } },
+      { id: 'icd9', label: 'ICD-9', action: () => { handleTabClick('icd9'); } },
+      { id: 'case', label: 'Klinik AI', action: () => { handleTabClick('case'); } },
+      { id: 'history', label: 'Ekspor', action: () => { handleTabClick('history'); } }
+    ];
+
+    const getActiveTabId = () => {
+      if (searchType === 'case') return 'case';
+      if (searchType === 'history') return 'history';
+      if (searchType === 'icd9') return 'icd9';
+      if (searchType === 'icd10') return 'icd10';
+      if (searchType === 'all') return 'all';
+      return '';
+    };
+
+    const activeTabId = getActiveTabId();
+
+    return (
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200/60 dark:border-slate-850 sticky top-[68px] z-30 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-6 text-xs sm:text-sm overflow-x-auto scrollbar-none h-12">
+            {tabs.map((tab) => {
+              const isActive = tab.id === activeTabId;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={tab.action}
+                  className={`relative h-full px-1 flex items-center justify-center font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    isActive 
+                      ? 'text-[#2AA79B] font-black' 
+                      : 'text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-slate-200'
+                  }`}
+                >
+                  {tab.label}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2AA79B] rounded-full animate-in fade-in" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Sub-Filter Row (Hanya muncul jika tab aktif adalah icd10 atau icd9 DAN hasResults === true) */}
+          {hasResults && ['icd10', 'icd9'].includes(searchType) && (
+            <div className="pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800/40 pt-2 animate-in fade-in duration-200">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Kategori:</span>
+                <span className="px-2 py-0.5 text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded">
+                  {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).find(c => c.id === filterChapter)?.label.split('[')[0]}
+                </span>
+                {activeAlias && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#2AA79B]/10 text-[#2AA79B] border border-[#2AA79B]/20 text-[11px] font-bold rounded">
+                    <Brain className="w-3 h-3" />
+                    Alias: {activeAlias.key} → {activeAlias.value}
+                  </span>
+                )}
+              </div>
+              
+              <div className="relative w-full sm:w-60 h-8 shrink-0">
+                <select
+                  value={filterChapter}
+                  onChange={(e) => setFilterChapter(e.target.value)}
+                  className="block w-full h-full appearance-none pl-3 pr-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-lg text-xs text-slate-700 dark:text-slate-300 transition-all focus:border-[#2AA79B] focus:ring-2 focus:ring-[#2AA79B]/10 truncate font-semibold cursor-pointer"
+                >
+                  {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
+                    <option key={c.id} value={c.id}>{c.label.split('[')[0]}</option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   };
@@ -1318,7 +1548,7 @@ function App() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-xs transition-all focus:bg-white dark:focus:bg-slate-850 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-655 dark:text-slate-100"
+                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-xs transition-all focus:bg-white dark:focus:bg-slate-855 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-655 dark:text-slate-100"
                     placeholder="Cari kode atau diagnosa..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -1328,7 +1558,7 @@ function App() {
                   {query && (
                     <button
                       onClick={() => { setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 hover:text-slate-655 dark:hover:text-slate-350 focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-455 hover:text-slate-655 dark:hover:text-slate-350 focus:outline-none"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -1359,6 +1589,9 @@ function App() {
           </header>
         ) : null}
 
+        {/* Tab horizontal bar Google filter di bawah header kompak */}
+        {renderTabFilterBar()}
+
         {/* Area Konten Utama */}
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
           
@@ -1370,14 +1603,14 @@ function App() {
             <Route path="/bookmark" element={<BookmarkView />} />
             <Route path="/history" element={
               <HistoryView onSearchHistory={(q, type) => {
-                navigate(type === 'icd10' ? '/' : '/' + type);
+                navigate(type === 'icd10' ? '/icd10' : type === 'icd9' ? '/icd9' : '/');
                 setQuery(q);
               }} />
             } />
-            <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} />} />
+            <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} initialResume={query} />} />
             
-            {/* Rute ICD-10 & ICD-9 */}
-            {['/', '/icd9'].map((path) => (
+            {/* Rute Pencarian: Semua, ICD-10 & ICD-9 */}
+            {['/', '/icd10', '/icd9'].map((path) => (
               <Route 
                 key={path}
                 path={path} 
@@ -1407,7 +1640,7 @@ function App() {
                         <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
                         <p className="text-[#2AA79B] font-extrabold text-[10px] sm:text-xs mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
                         
-                        <h3 className="text-sm sm:text-base text-slate-600 dark:text-slate-350 mt-6 font-semibold">
+                        <h3 className="text-sm sm:text-base text-slate-655 dark:text-slate-350 mt-6 font-semibold">
                           {isLoggedIn 
                             ? `Halo ${user?.user_metadata?.full_name || 'Bro Ian'}, mau cari kode apa?` 
                             : 'Halo Rekan PMIK, mau cari kode apa?'}
@@ -1432,7 +1665,7 @@ function App() {
                         {query && !loading && (
                           <button
                             onClick={() => { setQuery(''); setDebouncedQuery(''); }}
-                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-450 dark:text-slate-500 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none"
+                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none"
                           >
                             <X className="w-5 h-5" />
                           </button>
@@ -1492,7 +1725,7 @@ function App() {
                               <BookOpen className="w-5 h-5" />
                             </div>
                             <div>
-                              <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
+                              <h4 className="font-bold text-slate-855 dark:text-slate-100 text-sm">
                                 Rujukan Silang Medis (Cross-Reference)
                               </h4>
                               <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
@@ -1537,38 +1770,6 @@ function App() {
                           </button>
                         </div>
                       )}
-
-                      {/* Header filter jika query aktif */}
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-white dark:bg-slate-900 p-4 border border-slate-200/60 dark:border-slate-800 rounded-2xl">
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="text-xs font-bold text-slate-450 dark:text-slate-500 mr-1.5 uppercase tracking-wider">Bab Aktif:</span>
-                          <span className="px-2.5 py-1 text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg">
-                            {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).find(c => c.id === filterChapter)?.label.split('[')[0]}
-                          </span>
-                          {activeAlias && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#2AA79B]/10 text-[#2AA79B] border border-[#2AA79B]/20 text-xs font-bold rounded-lg">
-                              <Brain className="w-3 h-3" />
-                              Alias: {activeAlias.key} → {activeAlias.value}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Filter select di hasil */}
-                        <div className="relative w-full sm:w-60 h-10 shrink-0">
-                          <select
-                            value={filterChapter}
-                            onChange={(e) => setFilterChapter(e.target.value)}
-                            className="block w-full h-full appearance-none pl-3 pr-8 bg-slate-50 dark:bg-slate-800 border border-slate-250 dark:border-slate-755 outline-none rounded-xl text-xs text-slate-755 dark:text-slate-200 transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 truncate font-semibold cursor-pointer"
-                          >
-                            {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
-                              <option key={c.id} value={c.id}>{c.label.split('[')[0]}</option>
-                            ))}
-                          </select>
-                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                            <ChevronDown className="w-4 h-4" />
-                          </div>
-                        </div>
-                      </div>
 
                       {/* Not found state */}
                       {!loading && debouncedQuery && searchResults.length === 0 && (
@@ -1630,7 +1831,7 @@ function App() {
                         {/* Kanan: Detail Panel (Knowledge Panel) Desktop */}
                         {selectedCodeDetail && (
                           <aside 
-                            className="hidden lg:block lg:col-span-5 xl:col-span-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 rounded-3xl shadow-sm sticky top-[84px] max-h-[calc(100vh-110px)] overflow-y-auto"
+                            className="hidden lg:block lg:col-span-5 xl:col-span-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 rounded-3xl shadow-sm sticky top-[132px] max-h-[calc(100vh-160px)] overflow-y-auto"
                           >
                             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
                               <h3 className="font-bold text-sm uppercase tracking-wider text-slate-450 dark:text-slate-500 flex items-center gap-1.5">
@@ -1638,7 +1839,7 @@ function App() {
                               </h3>
                               <button 
                                 onClick={() => setSelectedCodeDetail(null)}
-                                className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-250 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                                className="p-1 text-slate-400 hover:text-slate-650 dark:hover:text-slate-250 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                                 title="Tutup detail panel"
                               >
                                 <X className="w-4 h-4" />
@@ -1667,7 +1868,7 @@ function App() {
                               
                               <button 
                                 onClick={() => setSelectedCodeDetail(null)}
-                                className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-655 dark:hover:text-slate-250 rounded-full transition-colors focus:outline-none"
+                                className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 text-slate-450 hover:text-slate-655 dark:hover:text-slate-250 rounded-full transition-colors focus:outline-none"
                               >
                                 <X className="w-5 h-5" />
                               </button>
@@ -1719,7 +1920,7 @@ function App() {
             <div className="rounded-2xl bg-white p-2 border border-slate-150 shadow-sm flex items-center justify-center w-20 h-20 mx-auto mb-4">
               <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
             </div>
-            <h3 className="text-xl font-extrabold text-slate-850 dark:text-slate-100">ICD Search Pro</h3>
+            <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Search Pro</h3>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
             
             <p className="text-slate-550 dark:text-slate-400 text-xs sm:text-sm mt-4 leading-relaxed">
