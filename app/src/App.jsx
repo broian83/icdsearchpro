@@ -1610,39 +1610,41 @@ function App() {
       >
         
         {/* Header Kanan Atas Melayang (Desktop/Tablet) HANYA DI HOMEPAGE */}
-        {!hasResults && isSearchMode && (
+        {location.pathname !== '/admin' && !hasResults && isSearchMode && (
           <div className="fixed top-4 right-6 z-40 hidden lg:block">
             {renderHeaderRight(true)}
           </div>
         )}
 
-        {/* Mobile Header (Hanya muncul di layar kecil < 1024px) */}
-        <div className="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 transition-all duration-300 px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-            
+        {/* Mobile Header (Hanya muncul di layar kecil < 1024px, TIDAK di /admin) */}
+        {location.pathname !== '/admin' && (
+          <div className="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 transition-all duration-300 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+              
 
-          </div>
+            </div>
 
-          {/* Kanan: Navigasi, Toggle, Profil dsb (mode non-floating) */}
-          <div className="flex items-center">
-            {renderHeaderRight(false)}
+            {/* Kanan: Navigasi, Toggle, Profil dsb (mode non-floating) */}
+            <div className="flex items-center">
+              {renderHeaderRight(false)}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Tab horizontal bar Google filter di bawah header kompak */}
-        {renderTabFilterBar()}
+        {location.pathname !== '/admin' && renderTabFilterBar()}
 
         {/* Area Konten Utama */}
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
+        <main className={`flex-1 w-full ${location.pathname === '/admin' ? '' : 'max-w-7xl mx-auto px-4 py-6'}`}>
           
           {/* Warning Profil Belum Lengkap */}
-          {isProfileIncomplete && location.pathname !== '/profile' && !hideProfileWarning && (
+          {isProfileIncomplete && location.pathname !== '/profile' && location.pathname !== '/admin' && !hideProfileWarning && (
             <div className="mb-6 flex justify-center w-full relative z-0">
               <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800/50 rounded-2xl sm:rounded-full py-2 px-4 flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 gap-y-1 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm text-xs sm:text-sm">
                 <div className="flex items-center gap-2">
