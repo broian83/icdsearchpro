@@ -7,7 +7,7 @@ import {
   Save, Activity, RefreshCw, TrendingUp, Search, Building2,
   Stethoscope, Star, AlertTriangle, CheckCircle, Eye, EyeOff,
   ChevronRight, Zap, Shield, ArrowUpRight, Hash, Home, LogOut,
-  Lightbulb, Bug, Heart, HelpCircle
+  Lightbulb, Bug, Heart, HelpCircle, ChevronLeft, Trash2, Check, X
 } from 'lucide-react';
 
 // ─── Komponen Stat Card ────────────────────────────────────────────────────────
@@ -169,6 +169,9 @@ export function AdminDashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [userSuggestions, setUserSuggestions] = useState([]);
   const [demographics, setDemographics] = useState({ institutions: [], professions: [] });
+  const [suggestionsPage, setSuggestionsPage] = useState(1);
+  const [suggestionsTotal, setSuggestionsTotal] = useState(0);
+  const [actionLoading, setActionLoading] = useState(null);
 
   const fetchDashboardData = useCallback(async () => {
     try {
@@ -202,13 +205,17 @@ export function AdminDashboard() {
       if (settings) setApiKey(settings.value);
       if (fbs) setFeedbacks(fbs);
 
-      // Fetch user suggestions (Kotak Saran)
-      const { data: suggestions } = await supabase
+      // Fetch user suggestions (Kotak Saran) - PAGE 1 INITIAL
+      const { data: suggestions, count } = await supabase
         .from('user_feedbacks')
-        .select('*, profiles(full_name, institution, profession)')
+        .select('*, profiles(full_name, institution, profession)', { count: 'exact' })
         .order('created_at', { ascending: false })
-        .limit(100);
-      if (suggestions) setUserSuggestions(suggestions);
+        .range(0, 9);
+      if (suggestions) {
+        setUserSuggestions(suggestions);
+        setSuggestionsTotal(count || 0);
+        setSuggestionsPage(1);
+      }
     } catch (err) {
       console.error('Admin fetch error:', err);
     }
@@ -220,6 +227,49 @@ export function AdminDashboard() {
       fetchDashboardData().finally(() => setLoading(false));
     }
   }, [isAdmin, fetchDashboardData]);
+
+  const fetchSuggestionsPage = async (page) => {
+    try {
+      const limit = 10;
+      const from = (page - 1) * limit;
+      const to = from + limit - 1;
+      const { data: suggestions, count } = await supabase
+        .from('user_feedbacks')
+        .select('*, profiles(full_name, institution, profession)', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(from, to);
+      if (suggestions) {
+        setUserSuggestions(suggestions);
+        setSuggestionsTotal(count || 0);
+        setSuggestionsPage(page);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const toggleSuggestionRead = async (id, currentStatus) => {
+    setActionLoading(`read-${id}`);
+    try {
+      const { error } = await supabase.from('user_feedbacks').update({ is_read: !currentStatus }).eq('id', id);
+      if (!error) {
+        setUserSuggestions(prev => prev.map(s => s.id === id ? { ...s, is_read: !currentStatus } : s));
+      }
+    } catch (err) { console.error(err); }
+    setActionLoading(null);
+  };
+
+  const deleteSuggestion = async (id) => {
+    if (!window.confirm('Hapus saran ini secara permanen?')) return;
+    setActionLoading(`del-${id}`);
+    try {
+      const { error } = await supabase.from('user_feedbacks').delete().eq('id', id);
+      if (!error) {
+        fetchSuggestionsPage(suggestionsPage); // Reload current page
+      }
+    } catch (err) { console.error(err); }
+    setActionLoading(null);
+  };
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -515,54 +565,124 @@ export function AdminDashboard() {
               </div>
             </div>
 
-            {/* Kotak Saran */}
+            {/* Kotak Saran - TABEL */}
             <div>
               <h3 className="font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#2AA79B]/10 flex items-center justify-center">
                   <MessageSquare className="w-3.5 h-3.5 text-[#2AA79B]" />
                 </div>
                 Kotak Saran Pengguna
-                <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{userSuggestions.length}</span>
+                <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{suggestionsTotal}</span>
               </h3>
-              {userSuggestions.length > 0 ? (
-                <div className="space-y-3">
-                  {userSuggestions.map((s) => {
-                    const CatIcon = catIcons[s.category] || MessageSquare;
-                    const colorClass = catColors[s.category] || 'text-slate-500 bg-slate-50';
-                    return (
-                      <div key={s.id} className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2AA79B] to-blue-500 flex items-center justify-center text-white font-black text-sm shrink-0">
-                              {(s.profiles?.full_name || 'U').charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                              <div className="font-bold text-slate-800 dark:text-slate-200 text-sm">{s.profiles?.full_name || 'Anonim'}</div>
-                              <div className="text-xs text-slate-400">{s.profiles?.institution || s.profiles?.profession || '-'}</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            <span className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold uppercase ${colorClass}`}>
-                              <CatIcon className="w-3 h-3" />
-                              {catLabels[s.category] || s.category}
-                            </span>
-                            <span className="text-xs text-slate-400">{new Date(s.created_at).toLocaleDateString('id-ID')}</span>
-                          </div>
-                        </div>
-                        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3.5 border border-slate-100 dark:border-slate-800">
-                          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{s.feedback}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+              
+              <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm whitespace-nowrap">
+                    <thead className="bg-slate-50 dark:bg-slate-800/50 text-xs uppercase font-bold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                      <tr>
+                        <th className="px-5 py-4 w-12 text-center">Status</th>
+                        <th className="px-5 py-4">Pengguna</th>
+                        <th className="px-5 py-4">Kategori</th>
+                        <th className="px-5 py-4 min-w-[300px] w-full">Pesan</th>
+                        <th className="px-5 py-4">Tanggal</th>
+                        <th className="px-5 py-4 text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                      {userSuggestions.length > 0 ? (
+                        userSuggestions.map((s) => {
+                          const CatIcon = catIcons[s.category] || MessageSquare;
+                          const colorClass = catColors[s.category] || 'text-slate-500 bg-slate-50';
+                          const isUnread = !s.is_read;
+                          return (
+                            <tr key={s.id} className={`transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30 ${isUnread ? 'bg-[#2AA79B]/[0.02] dark:bg-[#2AA79B]/[0.05]' : ''}`}>
+                              <td className="px-5 py-4 text-center">
+                                <button 
+                                  onClick={() => toggleSuggestionRead(s.id, s.is_read)}
+                                  disabled={actionLoading === `read-${s.id}`}
+                                  className="mx-auto flex items-center justify-center transition-all disabled:opacity-50"
+                                  title={s.is_read ? 'Tandai Belum Dibaca' : 'Tandai Sudah Dibaca'}
+                                >
+                                  {actionLoading === `read-${s.id}` ? (
+                                    <Loader2 className="w-5 h-5 text-slate-400 animate-spin" />
+                                  ) : s.is_read ? (
+                                    <CheckCircle className="w-5 h-5 text-green-500" />
+                                  ) : (
+                                    <div className="w-3 h-3 rounded-full bg-[#2AA79B] animate-pulse" />
+                                  )}
+                                </button>
+                              </td>
+                              <td className="px-5 py-4">
+                                <div className={`font-bold text-slate-800 dark:text-slate-200 ${isUnread ? '' : 'font-medium opacity-80'}`}>
+                                  {s.profiles?.full_name || 'Anonim'}
+                                </div>
+                                <div className="text-xs text-slate-400">
+                                  {s.profiles?.institution || s.profiles?.profession || '-'}
+                                </div>
+                              </td>
+                              <td className="px-5 py-4">
+                                <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase w-fit ${colorClass} ${isUnread ? '' : 'opacity-80'}`}>
+                                  <CatIcon className="w-3.5 h-3.5" />
+                                  {catLabels[s.category] || s.category}
+                                </span>
+                              </td>
+                              <td className="px-5 py-4">
+                                <div className={`text-sm truncate max-w-[300px] lg:max-w-[400px] xl:max-w-[600px] ${isUnread ? 'font-semibold text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}`}>
+                                  {s.feedback}
+                                </div>
+                              </td>
+                              <td className="px-5 py-4 text-slate-500 dark:text-slate-400 text-xs">
+                                {new Date(s.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric'})}
+                              </td>
+                              <td className="px-5 py-4">
+                                <div className="flex justify-center">
+                                  <button
+                                    onClick={() => deleteSuggestion(s.id)}
+                                    disabled={actionLoading === `del-${s.id}`}
+                                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50"
+                                    title="Hapus"
+                                  >
+                                    {actionLoading === `del-${s.id}` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <tr>
+                          <td colSpan={6} className="px-5 py-12 text-center text-slate-400">Belum ada saran dari pengguna</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
                 </div>
-              ) : (
-                <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-10 text-center shadow-sm">
-                  <MessageSquare className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                  <p className="text-slate-400 font-medium">Belum ada saran dari pengguna</p>
-                  <p className="text-xs text-slate-400 mt-1">Tombol kotak saran tersedia di pojok kanan bawah aplikasi</p>
-                </div>
-              )}
+                
+                {/* Pagination Controls */}
+                {suggestionsTotal > 10 && (
+                  <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/20">
+                    <span className="text-xs text-slate-500 font-medium">
+                      Menampilkan {(suggestionsPage - 1) * 10 + 1} - {Math.min(suggestionsPage * 10, suggestionsTotal)} dari {suggestionsTotal} saran
+                    </span>
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={() => fetchSuggestionsPage(suggestionsPage - 1)}
+                        disabled={suggestionsPage === 1}
+                        className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button 
+                        onClick={() => fetchSuggestionsPage(suggestionsPage + 1)}
+                        disabled={suggestionsPage * 10 >= suggestionsTotal}
+                        className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Rating Feedback */}
