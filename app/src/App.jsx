@@ -1538,7 +1538,7 @@ function App() {
                 </button>
                 
                 <div 
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer lg:hidden"
                   onClick={() => handleTabClick('new_search')}
                 >
                   <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
