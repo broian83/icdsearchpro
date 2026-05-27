@@ -28,13 +28,19 @@ export const calculateClinicalScore = (res, query, searchType) => {
   const exactWordMatch = queryWords.length > 0 && matchCount === queryWords.length;
 
   if (cleanQuery === cleanCode || cleanQuery === code.toLowerCase()) {
-    score = score * 0.001;
+    score = score * 0.00001;
   } else if (code.toLowerCase().startsWith(cleanQuery)) {
-    score = score * 0.05;
+    score = score * 0.005;
   } else if (title.toLowerCase() === cleanQuery || desc.toLowerCase() === cleanQuery) {
-    score = score * 0.1;
+    score = score * 0.0001;
   } else if (title.toLowerCase().includes(cleanQuery) || desc.toLowerCase().includes(cleanQuery)) {
-    score = score * 0.5;
+    // Cek apakah itu exact word match (berdiri sendiri)
+    const exactWordInTitle = queryWords.length > 0 && queryWords.every(word => new RegExp(`\\b${word}\\b`, 'i').test(title));
+    if (exactWordInTitle) {
+      score = score * 0.001;
+    } else {
+      score = score * 0.05;
+    }
   }
 
   if (exactWordMatch || queryWords.length === 0) {

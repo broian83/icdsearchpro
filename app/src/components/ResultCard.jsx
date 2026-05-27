@@ -19,7 +19,7 @@ const OMIT_CODES_ICD9 = {
   '89.52': 'Omit jika perekaman EKG merupakan bagian dari pemeriksaan pra-bedah rutin.'
 };
 
-function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, feedbackCount, onSelectDetail, isActive }) {
+function SubcodeItem({ sub, isMatched, searchQuery, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, feedbackCount, onSelectDetail, isActive }) {
   const { isLoggedIn, user } = useAuth();
   const { showToast } = useToast();
   const [aiResponse, setAiResponse] = useState('');
@@ -202,7 +202,7 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
                 ? 'bg-[#2AA79B] text-white'
                 : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 group-hover/sub:bg-slate-200'
             }`}>
-              <Highlight text={sub.code} matches={matches} property="code" />
+              <Highlight text={sub.code} searchQuery={searchQuery} />
             </span>
             <button
               onClick={handleCopyCode}
@@ -215,11 +215,11 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
               <h5 className={`text-sm sm:text-base font-semibold leading-snug ${
                 isActive || isMatched ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'
               }`}>
-                <Highlight text={sub.title} matches={matches} property="title" />
+                <Highlight text={sub.title} searchQuery={searchQuery} />
               </h5>
               {sub.desc && (
                 <p className="text-slate-500 dark:text-slate-400 mt-0.5 text-xs line-clamp-2">
-                  <Highlight text={sub.desc} matches={matches} property="desc" />
+                  <Highlight text={sub.desc} searchQuery={searchQuery} />
                 </p>
               )}
             </div>
@@ -351,7 +351,7 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
   );
 }
 
-export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, onSelectDetail, selectedCode }) {
+export function ResultCard({ group, searchType, searchQuery, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, onSelectDetail, selectedCode }) {
   const defaultExpanded = group.allSubcodes.length <= 8;
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [feedbackCounts, setFeedbackCounts] = useState({});
@@ -449,14 +449,13 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
       <div className="ml-4 pl-4 border-l-2 border-slate-100 dark:border-slate-800/60 space-y-4 relative">
         {visibleSubcodes.map(sub => {
           const isMatched = group.matchedCodes.includes(sub.code);
-          const matches = group.matchedMatches[sub.code] || [];
           const isActive = selectedCode === sub.code;
           return (
             <SubcodeItem
               key={sub.code}
               sub={sub}
               isMatched={isMatched}
-              matches={matches}
+              searchQuery={searchQuery}
               searchType={searchType}
               knowledgeText={knowledgeText}
               daggerAsteriskData={daggerAsteriskData}

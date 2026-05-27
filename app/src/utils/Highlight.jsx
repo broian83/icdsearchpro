@@ -1,39 +1,38 @@
 import React from 'react';
 
-export const Highlight = ({ text, matches, property }) => {
-  if (!matches || matches.length === 0) return <span>{text}</span>;
+export const Highlight = ({ text, searchQuery }) => {
+  if (!text) return null;
+  if (!searchQuery || typeof searchQuery !== 'string') return <span>{text}</span>;
 
-  const match = matches.find((m) => m.key === property);
-  if (!match || !match.indices || match.indices.length === 0) {
-    return <span>{text}</span>;
-  }
+  // Hapus karakter spesial dari query
+  const cleanQuery = searchQuery.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (!cleanQuery) return <span>{text}</span>;
 
-  // Filter out single character matches to avoid messy scattered highlights
-  const validIndices = match.indices.filter(([start, end]) => (end - start) > 0);
+  // Pisahkan query menjadi kata-kata (words)
+  const words = cleanQuery.split(/\s+/).filter(w => w.length > 2);
+  
+  if (words.length === 0) return <span>{text}</span>;
 
-  if (validIndices.length === 0) {
-    return <span>{text}</span>;
-  }
+  // Buat Regex yang mencocokkan kata apa saja di dalam array words
+  const regex = new RegExp(`(${words.join('|')})`, 'gi');
+  
+  // Pisahkan teks berdasarkan regex
+  const parts = text.split(regex);
 
-  const indices = validIndices;
-  let lastIndex = 0;
-  const parts = [];
-
-  indices.forEach(([start, end], i) => {
-    if (start > lastIndex) {
-      parts.push(<span key={`text-${i}`}>{text.substring(lastIndex, start)}</span>);
-    }
-    parts.push(
-      <span key={`mark-${i}`} className="bg-[#D6E400] text-gray-900 px-0.5 rounded-sm font-medium">
-        {text.substring(start, end + 1)}
-      </span>
-    );
-    lastIndex = end + 1;
-  });
-
-  if (lastIndex < text.length) {
-    parts.push(<span key={`text-end`}>{text.substring(lastIndex)}</span>);
-  }
-
-  return <span>{parts}</span>;
+  return (
+    <span>
+      {parts.map((part, i) => {
+        // Cek apakah part ini cocok dengan salah satu kata pencarian (case-insensitive)
+        const isMatch = words.some(word => part.toLowerCase() === word.toLowerCase());
+        
+        return isMatch ? (
+          <mark key={i} className="bg-[#D6E400] text-gray-900 px-0.5 rounded-sm font-medium bg-opacity-70 dark:bg-opacity-90">
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        );
+      })}
+    </span>
+  );
 };

@@ -1450,6 +1450,7 @@ const searchType = useMemo(() => {
                                     key={group.categoryCode + index}
                                     group={group}
                                     searchType={searchType}
+                                    searchQuery={searchQuery}
                                     knowledgeText={knowledgeText}
                                     daggerAsteriskData={daggerAsteriskData}
                                     onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda.' })}
