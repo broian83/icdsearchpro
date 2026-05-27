@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus } from 'lucide-react';
+import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export function Sidebar({ 
@@ -26,14 +26,14 @@ export function Sidebar({
   const renderRecentSearches = () => {
     if (recentSearches.length === 0) {
       return (
-        <div className="px-4 py-3 text-xs text-slate-400 dark:text-slate-555 italic">
+        <div className="px-5 py-3 text-xs text-slate-400 dark:text-slate-555 italic">
           Belum ada riwayat
         </div>
       );
     }
 
     return (
-      <div className="space-y-1.5 px-2 max-h-[260px] overflow-y-auto">
+      <div className="space-y-1.5 px-3 max-h-[calc(100vh-200px)] overflow-y-auto">
         {recentSearches.map((item, idx) => {
           const isObj = item && typeof item === 'object';
           const queryText = isObj ? item.query : item;
@@ -43,16 +43,15 @@ export function Sidebar({
           return (
             <div 
               key={idx} 
-              className="flex items-center justify-between group/item rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:translate-x-1 transition-all duration-200 p-1.5"
+              className="flex items-center justify-between group/item rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/60 transition-all duration-200 p-2 px-3"
             >
               <button
                 onClick={() => {
                   if (onSearchSelect) onSearchSelect(queryText, typeText);
                   if (window.innerWidth < 1024) onClose();
                 }}
-                className="flex items-center gap-2 min-w-0 flex-grow text-left text-xs font-semibold text-slate-655 dark:text-slate-350 hover:text-[#2AA79B] dark:hover:text-[#2AA79B]"
+                className="flex items-center gap-3 min-w-0 flex-grow text-left text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100"
               >
-                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                 {codeText && (
                   <span className="px-1.5 py-0.5 text-[9px] font-extrabold bg-[#2AA79B] text-white rounded shrink-0 font-mono">
                     {codeText}
@@ -65,7 +64,7 @@ export function Sidebar({
                   e.stopPropagation();
                   if (onRemoveRecent) onRemoveRecent(item);
                 }}
-                className="opacity-0 group-hover/item:opacity-100 p-1 text-slate-455 hover:text-red-500 rounded transition-opacity"
+                className="opacity-0 group-hover/item:opacity-100 p-1 text-slate-455 hover:text-red-500 rounded-full transition-opacity"
                 title="Hapus"
               >
                 <X className="w-3.5 h-3.5" />
@@ -79,66 +78,46 @@ export function Sidebar({
 
   const renderContent = (isMobileOrExpanded) => {
     return (
-      <div className="flex flex-col h-full bg-white dark:bg-slate-900 border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300">
+      <div className="flex flex-col h-full bg-[#f9fafd] dark:bg-slate-900 border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300">
         
-        {/* Header / Brand */}
-        <div className="p-4 flex items-center justify-between border-b border-slate-150 dark:border-slate-850 h-[73px]">
-          {isMobileOrExpanded ? (
-            <div 
-              className="flex items-center gap-2.5 cursor-pointer"
-              onClick={() => handleTabClick('icd10')}
-            >
-              <div className="rounded-xl bg-white p-1.5 border border-slate-100 shadow-sm flex items-center justify-center shrink-0">
-                <img 
-                  src="/PMIK-id%20Logo.png" 
-                  alt="Logo PMIK-id" 
-                  className="w-7 h-7 object-contain" 
-                />
-              </div>
-              <div className="min-w-0">
-                <h2 className="text-xs sm:text-sm font-black text-slate-800 dark:text-slate-100 tracking-tight truncate">ICD Search Pro</h2>
-                <p className="text-[9px] text-[#2AA79B] font-extrabold tracking-wider">by PMIK-id</p>
-              </div>
-            </div>
-          ) : (
-            <div 
-              className="flex justify-center w-full cursor-pointer"
-              onClick={() => handleTabClick('icd10')}
-            >
-              <div className="rounded-xl bg-white p-1 border border-slate-100 shadow-sm flex items-center justify-center">
-                <img 
-                  src="/PMIK-id%20Logo.png" 
-                  alt="Logo" 
-                  className="w-7 h-7 object-contain" 
-                />
-              </div>
-            </div>
-          )}
+        {/* Header / Hamburger */}
+        <div className={`pt-4 px-3 pb-2 flex items-center ${isMobileOrExpanded ? 'justify-between' : 'justify-center'}`}>
+          <button
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                onClose();
+              } else {
+                onToggleExpand();
+              }
+            }}
+            className={`p-2.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${isMobileOrExpanded ? 'ml-1' : ''}`}
+          >
+            <Menu className="w-5 h-5" />
+          </button>
 
-          {/* Close button on mobile ONLY. No collapse button here to prevent double hamburger */}
           {window.innerWidth < 1024 && (
             <button 
               onClick={onClose}
-              className="p-1.5 text-slate-400 dark:text-slate-555 hover:text-slate-655 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
           )}
         </div>
 
-        {/* Pencarian Baru Outline/Ghost Button */}
-        <div className="p-3 border-b border-slate-150 dark:border-slate-850">
+        {/* Pencarian Baru */}
+        <div className="px-3 py-4">
           {isMobileOrExpanded ? (
             <button
               onClick={() => handleTabClick('new_search')}
-              className="w-full bg-transparent hover:bg-[#2AA79B]/10 text-[#2AA79B] border-2 border-[#2AA79B] py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all hover:scale-[1.01] cursor-pointer"
+              className="w-full bg-[#e8eaed] dark:bg-slate-800 hover:bg-[#d8dce2] dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 px-4 rounded-full text-sm font-semibold flex items-center justify-start gap-3 transition-all cursor-pointer"
             >
-              <Plus className="w-4 h-4" /> Pencarian Baru
+              <Plus className="w-5 h-5" /> Pencarian Baru
             </button>
           ) : (
             <button
               onClick={() => handleTabClick('new_search')}
-              className="mx-auto w-10 h-10 bg-transparent hover:bg-[#2AA79B]/10 text-[#2AA79B] border-2 border-[#2AA79B] rounded-xl flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+              className="mx-auto w-11 h-11 bg-[#e8eaed] dark:bg-slate-800 hover:bg-[#d8dce2] dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center transition-all cursor-pointer"
               title="Pencarian Baru"
             >
               <Plus className="w-5 h-5" />
@@ -147,17 +126,17 @@ export function Sidebar({
         </div>
 
         {/* Navigations */}
-        <div className="flex-1 overflow-y-auto py-4 space-y-4">
+        <div className="flex-1 overflow-y-auto py-2">
           {isMobileOrExpanded && (
             <div className="pt-2">
-              <div className="px-4 flex items-center justify-between mb-2">
-                <span className="text-[10px] font-extrabold text-slate-400 dark:text-slate-555 uppercase tracking-widest">
-                  Riwayat Pencarian
+              <div className="px-6 flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Terbaru
                 </span>
                 {recentSearches.length > 0 && (
                   <button 
                     onClick={onClearRecent}
-                    className="text-[10px] text-red-500 hover:underline font-bold cursor-pointer"
+                    className="text-[10px] text-slate-400 hover:text-red-500 hover:underline font-bold cursor-pointer"
                   >
                     Hapus
                   </button>
@@ -183,7 +162,7 @@ export function Sidebar({
 
       {/* Mobile Drawer Panel */}
       <div 
-        className={`fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-900 z-50 transform transition-transform duration-300 ease-in-out shadow-2xl flex flex-col lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-[260px] bg-white dark:bg-slate-900 z-50 transform transition-transform duration-300 ease-in-out shadow-2xl flex flex-col lg:hidden ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -193,7 +172,7 @@ export function Sidebar({
       {/* Desktop Persistent / Collapsible Sidebar */}
       <div 
         className={`fixed top-0 left-0 h-full hidden lg:flex flex-col z-30 transition-all duration-300 ${
-          isExpanded ? 'w-[280px]' : 'w-[72px]'
+          isExpanded ? 'w-[260px]' : 'w-[76px]'
         }`}
       >
         {renderContent(isExpanded)}

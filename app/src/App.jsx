@@ -1477,34 +1477,32 @@ function App() {
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-850 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
       
-      {/* Sidebar Kiri — HANYA muncul saat hasResults === true */}
-      {hasResults && (
-        <Sidebar 
-          isOpen={isSidebarOpen} 
-          onClose={() => setIsSidebarOpen(false)} 
-          onSelectTab={handleTabClick}
-          isExpanded={isSidebarExpanded}
-          onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
-          recentSearches={recentSearches}
-          onRemoveRecent={(item) => setRecentSearches(prev => {
-            const updated = prev.filter(x => x.query !== item.query);
-            localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
-            return updated;
-          })}
-          onClearRecent={() => {
-            setRecentSearches([]);
-            localStorage.removeItem('icd_recent_searches');
-          }}
-          onSearchSelect={(q, type) => {
-            setInputValue(q);
-            setQuery(q);
-            setDebouncedQuery(q);
-            if (type === 'icd10') navigate('/');
-            else navigate('/' + type);
-          }}
-          activeTab={searchType}
-        />
-      )}
+      {/* Sidebar Kiri — Selalu muncul (Google AI pattern) */}
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+        onSelectTab={handleTabClick}
+        isExpanded={isSidebarExpanded}
+        onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
+        recentSearches={recentSearches}
+        onRemoveRecent={(item) => setRecentSearches(prev => {
+          const updated = prev.filter(x => x.query !== item.query);
+          localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
+          return updated;
+        })}
+        onClearRecent={() => {
+          setRecentSearches([]);
+          localStorage.removeItem('icd_recent_searches');
+        }}
+        onSearchSelect={(q, type) => {
+          setInputValue(q);
+          setQuery(q);
+          setDebouncedQuery(q);
+          if (type === 'icd10') navigate('/');
+          else navigate('/' + type);
+        }}
+        activeTab={searchType}
+      />
 
       <AuthModal 
         isOpen={authModalConfig.isOpen} 
@@ -1515,9 +1513,7 @@ function App() {
       {/* Kontainer Konten Utama */}
       <div 
         className={`flex-1 flex flex-col min-h-screen transition-all duration-300 relative ${
-          hasResults 
-            ? (isSidebarExpanded ? 'lg:pl-[280px]' : 'lg:pl-[72px]') 
-            : 'pl-0'
+          isSidebarExpanded ? 'lg:pl-[260px]' : 'lg:pl-[76px]'
         }`}
       >
         
@@ -1533,78 +1529,29 @@ function App() {
           <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 sticky top-0 z-40 transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
               
-              {/* Kiri: Hamburger + Logo — HANYA dirender saat hasResults === true */}
+              {/* Kiri: Logo (Selalu ada di navbar, hamburger dipindah ke sidebar) */}
               <div className="flex items-center gap-3">
-                {hasResults && (
-                  <button
-                    onClick={() => {
-                      if (window.innerWidth < 1024) {
-                        setIsSidebarOpen(true);
-                      } else {
-                        setIsSidebarExpanded(!isSidebarExpanded);
-                      }
-                    }}
-                    className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
-                  >
-                    <Menu className="w-5 h-5" />
-                  </button>
-                )}
+                {/* Mobile hamburger - muncul hanya di mobile */}
+                <button
+                  onClick={() => setIsSidebarOpen(true)}
+                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer lg:hidden"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
                 
-                {hasResults && !isSidebarExpanded && (
-                  <div 
-                    className="flex items-center gap-2 cursor-pointer hidden lg:flex"
-                    onClick={() => handleTabClick('new_search')}
-                  >
-                    <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
-                      <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
-                    </div>
-                    <span className="font-black text-xs text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
+                <div 
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => handleTabClick('new_search')}
+                >
+                  <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                    <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
                   </div>
-                )}
+                  <span className="font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight hidden sm:block">ICD Search Pro</span>
+                </div>
               </div>
 
-              {/* Tengah: Search pill kompak (hanya di mode pencarian) */}
-              {isSearchMode && (
-                <div className="flex-1 max-w-xl relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#2AA79B]">
-                    <Search className="w-4.5 h-4.5" />
-                  </div>
-                  <input
-                    type="text"
-                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-xs transition-all focus:bg-white dark:focus:bg-slate-855 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-655 dark:text-slate-100"
-                    placeholder="Cari kode atau diagnosa..."
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') { handleSearchConfirm(); } }}
-                    onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
-                    onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
-                  />
-                  {inputValue && (
-                    <button
-                      onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-455 hover:text-slate-655 dark:hover:text-slate-350 focus:outline-none"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                  {showSuggestions && inputValue.trim().length >= 2 && suggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1">
-                      {suggestions.map((suggestion, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onMouseDown={(e) => { e.preventDefault(); }}
-                          onClick={() => handleSelectSuggestion(suggestion)}
-                          className="w-full px-4 py-2.5 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-755 dark:text-slate-200 cursor-pointer"
-                        >
-                          <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span className="truncate">{suggestion}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
+              {/* Tengah: Dikosongkan, search bar pindah ke bawah */}
+              <div className="flex-1"></div>
 
               {/* Kanan: Navigasi, Toggle, Apps Drawer, Profil */}
               {renderHeaderRight(false)}
@@ -1744,7 +1691,7 @@ function App() {
                     </div>
                   ) : (
                     // TATA LETAK HASIL PENCARIAN (GRID KIRI HASIL, KANAN DETAIL PANEL)
-                    <div className="animate-in fade-in slide-in-from-bottom-3 duration-400">
+                    <div className="animate-in fade-in slide-in-from-bottom-3 duration-400 pb-32">
                       
                       {/* Rujukan Silang Medis Banner */}
                       {matchedCrossref && (
@@ -1920,6 +1867,69 @@ function App() {
           </Routes>
 
         </main>
+
+        {/* Floating Search Bar di Halaman Hasil (Google AI pattern) */}
+        {hasResults && (
+          <div className="sticky bottom-0 left-0 w-full bg-gradient-to-t from-slate-50 dark:from-[#0b0f19] via-slate-50/95 dark:via-[#0b0f19]/95 to-transparent pt-6 pb-6 px-4 z-40">
+            <div className="max-w-3xl mx-auto w-full relative group">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                <Plus className="w-6 h-6" />
+              </div>
+              <input
+                type="text"
+                className="block w-full h-14 pl-14 pr-16 bg-[#e3e6eb] dark:bg-slate-800 border-0 outline-none rounded-full shadow-sm text-base transition-all focus:bg-white dark:focus:bg-slate-850 focus:ring-2 focus:ring-slate-300 dark:focus:ring-slate-600 hover:bg-[#d8dce2] dark:hover:bg-slate-750 text-slate-800 dark:text-slate-100 placeholder-slate-500"
+                placeholder="Tanyakan apa saja..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { handleSearchConfirm(); } }}
+                onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
+                onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
+                disabled={loading}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center gap-2">
+                {inputValue && !loading && (
+                  <button
+                    onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); }}
+                    className="p-2 text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+                {loading && (
+                  <div className="p-2 text-[#2AA79B]">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  </div>
+                )}
+                <button 
+                  onClick={() => { if(inputValue.trim()) handleSearchConfirm(); }}
+                  className="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors cursor-pointer"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                  </svg>
+                </button>
+              </div>
+              
+              {showSuggestions && inputValue.trim().length >= 2 && suggestions.length > 0 && (
+                <div className="absolute bottom-full mb-3 left-0 right-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-bottom-2">
+                  {suggestions.map((suggestion, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onMouseDown={(e) => { e.preventDefault(); }}
+                      onClick={() => handleSelectSuggestion(suggestion)}
+                      className="w-full px-6 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-3.5 text-sm sm:text-base font-semibold text-slate-750 dark:text-slate-200 cursor-pointer"
+                    >
+                      <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                      <span className="truncate">{suggestion}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Floating Action Button - Scroll to Top */}
         <button
