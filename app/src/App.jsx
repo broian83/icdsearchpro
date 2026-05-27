@@ -627,7 +627,7 @@ function App() {
       : /^[0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2;
 
     let results = [];
-    if (isCodeQuery && !isUmbrellaQuery) {
+    if (isCodeQuery) {
       const cleanCodeQuery = expandedQuery.trim().replace('.', '').toUpperCase();
       const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
       
@@ -730,7 +730,7 @@ function App() {
       : /^[0-9]/i.test(searchQuery.trim());
 
     let results = [];
-    if (isCodeQuery && !isUmbrella) {
+    if (isCodeQuery) {
       const cleanCodeQuery = searchQuery.trim().replace('.', '').toUpperCase();
       const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
       const matchedItems = rawData.filter(item => {
