@@ -1110,7 +1110,7 @@ function App() {
     return (
       <div 
         id="apps-drawer"
-        className="absolute top-14 right-14 w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
+        className="absolute top-14 right-4 sm:right-14 w-[calc(100vw-2rem)] sm:w-80 max-w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
       >
         <div className="grid grid-cols-3 gap-3">
           {menuGrid.map((menu, idx) => (
@@ -1136,7 +1136,7 @@ function App() {
     return (
       <div 
         id="profile-dropdown"
-        className="absolute top-14 right-4 w-72 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
+        className="absolute top-14 right-4 w-[calc(100vw-2rem)] sm:w-72 max-w-[18rem] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
       >
         {isLoggedIn ? (
           <div>
