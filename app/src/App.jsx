@@ -1539,15 +1539,18 @@ function App() {
               <Menu className="w-5 h-5" />
             </button>
             
-            <div 
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleTabClick('new_search')}
-            >
-              <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
-                <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
+            {/* Logo Kecil (Hanya muncul jika di halaman hasil, sembunyikan di beranda karena ada logo besar) */}
+            {(!isSearchMode || hasResults) && (
+              <div 
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => handleTabClick('new_search')}
+              >
+                <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                  <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
+                </div>
+                <span className="hidden sm:block font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
               </div>
-              <span className="hidden sm:block font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
-            </div>
+            )}
           </div>
 
           {/* Kanan: Navigasi, Toggle, Profil dsb (mode non-floating) */}
