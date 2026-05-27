@@ -257,7 +257,8 @@ function App() {
   }, [location.pathname]);
   
   const [loading, setLoading] = useState(true);
-  const [query, setQuery] = useState('');
+  const [inputValue, setInputValue] = useState(''); // Teks real-time yang diketik user
+  const [query, setQuery] = useState(''); // Teks pencarian yang SUDAH dikonfirmasi (Enter / klik suggestion / klik CTA)
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [filterChapter, setFilterChapter] = useState('all');
   const [error, setError] = useState(null);
@@ -365,6 +366,7 @@ function App() {
 
   const handleTabClick = (tab) => {
     if (tab === 'new_search') {
+      setInputValue('');
       setQuery('');
       setDebouncedQuery('');
       setSelectedCodeDetail(null);
@@ -411,7 +413,7 @@ function App() {
     }
   });
 
-  // Debounce search query
+  // Debounce search query — hanya dipicu oleh query yang sudah dikonfirmasi
   useEffect(() => {
     if (!query) {
       setDebouncedQuery('');
@@ -423,17 +425,27 @@ function App() {
     return () => clearTimeout(timer);
   }, [query]);
 
-  // Debounce suggestions query
+  // Debounce suggestions query — dipicu oleh inputValue (ketikan real-time)
   useEffect(() => {
-    if (!query) {
+    if (!inputValue) {
       setSuggestionsQuery('');
       return;
     }
     const timer = setTimeout(() => {
-      setSuggestionsQuery(query);
+      setSuggestionsQuery(inputValue);
     }, 150);
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [inputValue]);
+
+  // Handler konfirmasi pencarian (Enter key)
+  const handleSearchConfirm = () => {
+    const trimmed = inputValue.trim();
+    if (trimmed) {
+      setQuery(trimmed);
+      setDebouncedQuery(trimmed);
+      setShowSuggestions(false);
+    }
+  };
 
   // Simpan ke riwayat kueri saat ter-debounce
   useEffect(() => {
@@ -759,9 +771,11 @@ function App() {
     const codeMatch = suggestion.match(/\(([^)]+)\)$/);
     if (codeMatch && codeMatch[1]) {
       const code = codeMatch[1];
+      setInputValue(code);
       setQuery(code);
       setDebouncedQuery(code);
     } else {
+      setInputValue(suggestion);
       setQuery(suggestion);
       setDebouncedQuery(suggestion);
     }
@@ -1480,6 +1494,7 @@ function App() {
             localStorage.removeItem('icd_recent_searches');
           }}
           onSearchSelect={(q, type) => {
+            setInputValue(q);
             setQuery(q);
             setDebouncedQuery(q);
             if (type === 'icd10') navigate('/');
@@ -1556,20 +1571,21 @@ function App() {
                     type="text"
                     className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-xs transition-all focus:bg-white dark:focus:bg-slate-855 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-655 dark:text-slate-100"
                     placeholder="Cari kode atau diagnosa..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') { handleSearchConfirm(); } }}
                     onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
                     onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
                   />
-                  {query && (
+                  {inputValue && (
                     <button
-                      onClick={() => { setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
+                      onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
                       className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-455 hover:text-slate-655 dark:hover:text-slate-350 focus:outline-none"
                     >
                       <X className="w-4 h-4" />
                     </button>
                   )}
-                  {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
+                  {showSuggestions && inputValue.trim().length >= 2 && suggestions.length > 0 && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1">
                       {suggestions.map((suggestion, idx) => (
                         <button
@@ -1610,10 +1626,11 @@ function App() {
             <Route path="/history" element={
               <HistoryView onSearchHistory={(q, type) => {
                 navigate(type === 'icd10' ? '/icd10' : type === 'icd9' ? '/icd9' : '/');
+                setInputValue(q);
                 setQuery(q);
               }} />
             } />
-            <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} initialResume={query} />} />
+            <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} initialResume={inputValue || query} />} />
             
             {/* Rute Pencarian: Semua, ICD-10 & ICD-9 */}
             {['/', '/icd10', '/icd9'].map((path) => (
@@ -1662,15 +1679,16 @@ function App() {
                           type="text"
                           className="block w-full h-16 pl-14 pr-12 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 outline-none rounded-full shadow-lg text-base sm:text-lg transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-350 dark:border-slate-750 dark:text-slate-100"
                           placeholder={searchType === 'icd10' ? "Cari kode, diagnosa, atau lead term (mis. Pneumonia)..." : "Cari prosedur medis (mis. Sectio Caesarea, ORIF)..."}
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
+                          value={inputValue}
+                          onChange={(e) => setInputValue(e.target.value)}
+                          onKeyDown={(e) => { if (e.key === 'Enter') { handleSearchConfirm(); } }}
                           onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
                           onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
                           disabled={loading}
                         />
-                        {query && !loading && (
+                        {inputValue && !loading && (
                           <button
-                            onClick={() => { setQuery(''); setDebouncedQuery(''); }}
+                            onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); }}
                             className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none"
                           >
                             <X className="w-5 h-5" />
@@ -1681,7 +1699,7 @@ function App() {
                             <Loader2 className="w-6 h-6 animate-spin" />
                           </div>
                         )}
-                        {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
+                        {showSuggestions && inputValue.trim().length >= 2 && suggestions.length > 0 && (
                           <div className="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-2">
                             {suggestions.map((suggestion, idx) => (
                               <button
@@ -1703,8 +1721,8 @@ function App() {
                       <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md px-4">
                         <button
                           onClick={() => {
-                            if (query.trim()) {
-                              setDebouncedQuery(query.trim());
+                            if (inputValue.trim()) {
+                              handleSearchConfirm();
                             }
                           }}
                           className="w-full sm:w-auto px-8 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:shadow-md active:scale-[0.98]"
@@ -1744,7 +1762,7 @@ function App() {
                                 </span>
                                 {matchedCrossref.see && (
                                   <button
-                                    onClick={() => { setQuery(matchedCrossref.see); setDebouncedQuery(matchedCrossref.see); }}
+                                    onClick={() => { setInputValue(matchedCrossref.see); setQuery(matchedCrossref.see); setDebouncedQuery(matchedCrossref.see); }}
                                     className="px-2.5 py-1 bg-[#2AA79B]/10 hover:bg-[#2AA79B]/20 border border-[#2AA79B]/25 text-[#2AA79B] text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     {matchedCrossref.see}
@@ -1755,6 +1773,7 @@ function App() {
                                     key={idx}
                                     onClick={() => {
                                       const cleanCode = code.split(' ')[0];
+                                      setInputValue(cleanCode);
                                       setQuery(cleanCode);
                                       setDebouncedQuery(cleanCode);
                                     }}
