@@ -2013,7 +2013,7 @@ function App() {
 
         {/* Footer */}
         <footer className="mt-auto py-6 text-center text-slate-400 dark:text-slate-550 text-xs font-bold uppercase tracking-wider border-t border-slate-150 dark:border-slate-850 bg-white/40 dark:bg-slate-900/10">
-          <p>&copy; {new Date().getFullYear()} ICD Pro Powered by PMIK-id. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ICD Pro Powered by <a href="https://pmik.web.id" target="_blank" rel="noopener noreferrer" className="hover:text-[#2AA79B] transition-colors duration-200">PMIK-id</a>. All rights reserved.</p>
         </footer>
       </div>
 
