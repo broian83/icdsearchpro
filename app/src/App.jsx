@@ -1567,32 +1567,34 @@ function App() {
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-850 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
       
-      {/* Sidebar Kiri — Selalu muncul (Google AI pattern) */}
-      <Sidebar 
-        isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)} 
-        onSelectTab={handleTabClick}
-        isExpanded={isSidebarExpanded}
-        onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
-        recentSearches={recentSearches}
-        onRemoveRecent={(item) => setRecentSearches(prev => {
-          const updated = prev.filter(x => x.query !== item.query);
-          localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
-          return updated;
-        })}
-        onClearRecent={() => {
-          setRecentSearches([]);
-          localStorage.removeItem('icd_recent_searches');
-        }}
-        onSearchSelect={(q, type) => {
-          setInputValue(q);
-          setQuery(q);
-          setDebouncedQuery(q);
-          if (type === 'icd10') navigate('/');
-          else navigate('/' + type);
-        }}
-        activeTab={searchType}
-      />
+      {/* Sidebar Kiri — Disembunyikan di halaman /admin */}
+      {location.pathname !== '/admin' && (
+        <Sidebar 
+          isOpen={isSidebarOpen} 
+          onClose={() => setIsSidebarOpen(false)} 
+          onSelectTab={handleTabClick}
+          isExpanded={isSidebarExpanded}
+          onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
+          recentSearches={recentSearches}
+          onRemoveRecent={(item) => setRecentSearches(prev => {
+            const updated = prev.filter(x => x.query !== item.query);
+            localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
+            return updated;
+          })}
+          onClearRecent={() => {
+            setRecentSearches([]);
+            localStorage.removeItem('icd_recent_searches');
+          }}
+          onSearchSelect={(q, type) => {
+            setInputValue(q);
+            setQuery(q);
+            setDebouncedQuery(q);
+            if (type === 'icd10') navigate('/');
+            else navigate('/' + type);
+          }}
+          activeTab={searchType}
+        />
+      )}
 
       <AuthModal 
         isOpen={authModalConfig.isOpen} 
@@ -1603,7 +1605,7 @@ function App() {
       {/* Kontainer Konten Utama */}
       <div 
         className={`flex-1 flex flex-col min-h-screen transition-all duration-300 relative ${
-          isSidebarExpanded ? 'lg:pl-[260px]' : 'lg:pl-[76px]'
+          location.pathname === '/admin' ? '' : (isSidebarExpanded ? 'lg:pl-[260px]' : 'lg:pl-[76px]')
         }`}
       >
         
