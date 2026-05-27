@@ -957,8 +957,8 @@ const searchType = useMemo(() => {
         {/* Mode Malam */}
         <button
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          aria-label="Toggle Dark Mode"
           className="p-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
-          title="Ganti Tema"
         >
           {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
         </button>
@@ -967,10 +967,10 @@ const searchType = useMemo(() => {
         <button
           id="apps-drawer-toggle"
           onClick={() => setIsAppsDrawerOpen(!isAppsDrawerOpen)}
+          aria-label="Menu Aplikasi"
           className={`p-2 rounded-xl transition-all cursor-pointer ${
             isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800'
           }`}
-          title="Menu Aplikasi"
         >
           <Grid className="w-5 h-5" />
         </button>
@@ -982,8 +982,8 @@ const searchType = useMemo(() => {
         <button
           id="profile-dropdown-toggle"
           onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+          aria-label="Akun Saya"
           className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors font-extrabold text-xs text-slate-655 dark:text-slate-300"
-          title="Akun Saya"
         >
           {isLoggedIn && user?.user_metadata?.avatar_url ? (
             <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
@@ -1149,6 +1149,7 @@ const searchType = useMemo(() => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsSidebarOpen(true)}
+                aria-label="Buka Menu Navigasi"
                 className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
               >
                 <Menu className="w-5 h-5" />
@@ -1267,6 +1268,7 @@ const searchType = useMemo(() => {
                           {inputValue && !loading && (
                             <button
                               onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); }}
+                              aria-label="Hapus Pencarian"
                               className="p-1 text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
                               title="Hapus"
                             >
@@ -1277,6 +1279,7 @@ const searchType = useMemo(() => {
                             <button
                               type="button"
                               onClick={toggleListening}
+                              aria-label={isListening ? "Hentikan Perekaman Suara" : "Mulai Pencarian Suara"}
                               className={`p-1.5 rounded-full transition-all duration-300 focus:outline-none ${
                                 isListening 
                                   ? 'bg-red-500 text-white shadow-md shadow-red-500/30 animate-pulse hover:bg-red-600' 

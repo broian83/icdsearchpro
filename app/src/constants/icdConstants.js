@@ -76,3 +76,68 @@ export const ICD9_UMBRELLA = {
   'MRI': { target: 'magnetic resonance', label: 'MRI (88.9)' },
   'CT SCAN': { target: 'cat scan', label: 'CT Scan (87.03, 87.41, 88.01, 88.38)' }
 };
+
+// Pemetaan Sinonim / Alias Lokal untuk istilah Puskesmas & awam
+export const ICD10_ALIAS = {
+  'diabetes tipe 2': 'E11',
+  'kencing manis': 'E11',
+  'dm tipe 2': 'E11',
+  'kusta': 'A30',
+  'lepra': 'A30',
+  'gigitan ular': 'W57',
+  'digigit ular': 'W57',
+  'ispa': 'J06.9',
+  'radang tenggorokan': 'J02.9',
+  'batuk pilek': 'J06.9',
+  'maag': 'K30',
+  'asam lambung': 'K30',
+  'darah tinggi': 'I10',
+  'hipertensi': 'I10',
+  'sakit gigi': 'K04',
+  'gigi berlubang': 'K02',
+  'asam urat': 'M10',
+  'pegal linu': 'M79.1',
+  'gatal gatal': 'L30',
+  'gatal': 'L30',
+  'eksim': 'L30',
+  'mencret': 'A09',
+  'diare': 'A09',
+  'muntaber': 'A09',
+  'demam': 'R50.9',
+  'meriang': 'R50.9',
+  'tipes': 'A01.0',
+  'typus': 'A01.0',
+  'usus buntu': 'K35',
+  'angin duduk': 'I20',
+  'jantung koroner': 'I25',
+  'cacar air': 'B01',
+  'cangkrang': 'B01',
+  'campak': 'B05',
+  'tampek': 'B05',
+  'dbd': 'A91',
+  'demam berdarah': 'A91',
+  'cacingan': 'B82',
+  'flek paru': 'A15',
+  'batu ginjal': 'N20',
+  'mata minus': 'H52.1',
+  'rabun jauh': 'H52.1'
+};
+
+export const ICD9_ALIAS = {
+  'appendectomy': '47.0',
+  'operasi usus buntu': '47.0',
+  'transplantasi hati': '50.5',
+  'operasi sesar': '74.1',
+  'sc': '74.1',
+  'caesar': '74.1'
+};
+
+// Boost untuk kode langka / aneh yang relevan agar naik ke atas
+export const RARE_ICD10 = {
+  'A30': 3.0, 'W57': 3.0, 'W58': 3.0, 'W91.81': 5.0, 'Z00.0': 3.0
+};
+
+export const RARE_ICD9 = {
+  '47.0': 3.0, '47.01': 3.0, '50.5': 3.0, '37.51': 3.0
+};
+

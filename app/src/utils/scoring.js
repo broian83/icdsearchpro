@@ -1,4 +1,4 @@
-import { HIGH_FREQUENCY_ICD10, HIGH_FREQUENCY_ICD9 } from '../constants/icdConstants';
+import { HIGH_FREQUENCY_ICD10, HIGH_FREQUENCY_ICD9, RARE_ICD10, RARE_ICD9 } from '../constants/icdConstants';
 
 export const calculateClinicalScore = (res, query, searchType) => {
   // Jika res.item tidak ada (karena data dari Supabase langsung), sesuaikan strukturnya
@@ -84,6 +84,13 @@ export const calculateClinicalScore = (res, query, searchType) => {
   if (queryWords.length > 0 && matchCount < queryWords.length) {
     const missingRatio = (queryWords.length - matchCount) / queryWords.length;
     score = score * (1 + missingRatio * 20.0);
+  }
+
+  // RARE CODE BOOST
+  if (searchType === 'icd10' && RARE_ICD10[code]) {
+    score = score / RARE_ICD10[code];
+  } else if (searchType === 'icd9' && RARE_ICD9[code]) {
+    score = score / RARE_ICD9[code];
   }
 
   return score;

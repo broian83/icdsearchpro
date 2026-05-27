@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../lib/supabase';
 import { calculateClinicalScore } from '../utils/scoring';
-import { ICD10_UMBRELLA, ICD9_UMBRELLA } from '../constants/icdConstants';
+import { ICD10_UMBRELLA, ICD9_UMBRELLA, ICD10_ALIAS, ICD9_ALIAS } from '../constants/icdConstants';
 
 export const useICDSearch = (debouncedQuery, searchType, filterChapter, aliases) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -20,6 +20,24 @@ export const useICDSearch = (debouncedQuery, searchType, filterChapter, aliases)
         searchQuery: UMBRELLA[cleanQuery].target, 
         activeAlias: { key: cleanQuery, value: UMBRELLA[cleanQuery].label }
       };
+    }
+
+    // Cek Alias Lokal
+    if (searchType === 'icd10' || searchType === 'all') {
+      if (ICD10_ALIAS[cleanQuery]) {
+        return {
+          searchQuery: ICD10_ALIAS[cleanQuery],
+          activeAlias: { key: cleanQuery, value: `Merujuk ke kode: ${ICD10_ALIAS[cleanQuery]}` }
+        };
+      }
+    }
+    if (searchType === 'icd9' || searchType === 'all') {
+      if (ICD9_ALIAS[cleanQuery]) {
+        return {
+          searchQuery: ICD9_ALIAS[cleanQuery],
+          activeAlias: { key: cleanQuery, value: `Merujuk ke prosedur: ${ICD9_ALIAS[cleanQuery]}` }
+        };
+      }
     }
 
     if (aliases[cleanQuery]) {
