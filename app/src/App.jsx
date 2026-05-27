@@ -208,9 +208,7 @@ function App() {
   const { showToast } = useToast();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile drawer
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
-    return window.innerWidth >= 1024;
-  });
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   
   const [isAppsDrawerOpen, setIsAppsDrawerOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
