@@ -7,7 +7,7 @@ import {
   Save, Activity, RefreshCw, TrendingUp, Search, Building2,
   Stethoscope, Star, AlertTriangle, CheckCircle, Eye, EyeOff,
   ChevronRight, Zap, Shield, ArrowUpRight, Hash, Home, LogOut,
-  Lightbulb, Bug, Heart, HelpCircle, ChevronLeft, Trash2, Check, X
+  Lightbulb, Bug, Heart, HelpCircle, ChevronLeft, Trash2, Check, X, Edit, Phone
 } from 'lucide-react';
 
 // ─── Komponen Stat Card ────────────────────────────────────────────────────────
@@ -174,6 +174,9 @@ export function AdminDashboard() {
   const [actionLoading, setActionLoading] = useState(null);
   const [feedbacksPage, setFeedbacksPage] = useState(1);
   const [feedbacksTotal, setFeedbacksTotal] = useState(0);
+  const [usersSearch, setUsersSearch] = useState('');
+  const [usersPage, setUsersPage] = useState(1);
+  const [editingUser, setEditingUser] = useState(null);
 
   const fetchDashboardData = useCallback(async () => {
     try {
@@ -299,6 +302,38 @@ export function AdminDashboard() {
       const { error } = await supabase.from('user_feedbacks').delete().eq('id', id);
       if (!error) {
         fetchSuggestionsPage(suggestionsPage); // Reload current page
+      }
+    } catch (err) { console.error(err); }
+    setActionLoading(null);
+  };
+
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    setActionLoading('update-user');
+    try {
+      const { error } = await supabase.from('profiles').update({
+        full_name: editingUser.full_name,
+        profession: editingUser.profession,
+        institution: editingUser.institution,
+        whatsapp_number: editingUser.whatsapp_number,
+        role: editingUser.role
+      }).eq('id', editingUser.id);
+      
+      if (!error) {
+        setUsersList(prev => prev.map(u => u.id === editingUser.id ? editingUser : u));
+        setEditingUser(null);
+      }
+    } catch (err) { console.error(err); }
+    setActionLoading(null);
+  };
+
+  const handleDeleteUser = async (id, name) => {
+    if (!window.confirm(`PERINGATAN: Anda akan menghapus profil "${name}". Akun autentikasi mereka tetap ada, tetapi mereka akan kehilangan akses profil ke aplikasi. Lanjutkan?`)) return;
+    setActionLoading(`del-user-${id}`);
+    try {
+      const { error } = await supabase.from('profiles').delete().eq('id', id);
+      if (!error) {
+        setUsersList(prev => prev.filter(u => u.id !== id));
       }
     } catch (err) { console.error(err); }
     setActionLoading(null);
@@ -456,13 +491,32 @@ export function AdminDashboard() {
           </div>
         );
 
-      case 'users':
+      case 'users': {
+        const filteredUsers = usersList.filter(u => 
+          (u.full_name || '').toLowerCase().includes(usersSearch.toLowerCase()) || 
+          (u.institution || '').toLowerCase().includes(usersSearch.toLowerCase())
+        );
+        const uLimit = 10;
+        const uTotal = filteredUsers.length;
+        const uFrom = (usersPage - 1) * uLimit;
+        const displayedUsers = filteredUsers.slice(uFrom, uFrom + uLimit);
+
         return (
           <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <div>
                 <h3 className="font-black text-slate-800 dark:text-slate-100">Daftar Pengguna Terdaftar</h3>
-                <p className="text-xs text-slate-400 mt-0.5">{usersList.length} pengguna ditemukan</p>
+                <p className="text-xs text-slate-400 mt-0.5">{uTotal} pengguna ditemukan</p>
+              </div>
+              <div className="relative w-full sm:w-64">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Cari nama atau instansi..."
+                  value={usersSearch}
+                  onChange={(e) => { setUsersSearch(e.target.value); setUsersPage(1); }}
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200"
+                />
               </div>
             </div>
             <div className="overflow-x-auto">
@@ -474,10 +528,11 @@ export function AdminDashboard() {
                     <th className="px-6 py-3 text-left">Instansi</th>
                     <th className="px-6 py-3 text-left">Kontak</th>
                     <th className="px-6 py-3 text-center">Role</th>
+                    <th className="px-6 py-3 text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {usersList.map((usr) => (
+                  {displayedUsers.map((usr) => (
                     <tr key={usr.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
@@ -495,13 +550,46 @@ export function AdminDashboard() {
                           {usr.role || 'user'}
                         </span>
                       </td>
+                      <td className="px-6 py-4">
+                        <div className="flex justify-center gap-2">
+                          <button onClick={() => setEditingUser({...usr})} className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all" title="Edit Profil">
+                            <Edit className="w-4 h-4" />
+                          </button>
+                          <button onClick={() => handleDeleteUser(usr.id, usr.full_name || 'Tanpa Nama')} disabled={actionLoading === `del-user-${usr.id}`} className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50" title="Hapus Profil (Soft Delete)">
+                            {actionLoading === `del-user-${usr.id}` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
+                  {displayedUsers.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="px-6 py-12 text-center text-slate-400">Tidak ada pengguna yang cocok dengan pencarian.</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
+
+            {/* Pagination Controls */}
+            {uTotal > 10 && (
+              <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/20">
+                <span className="text-xs text-slate-500 font-medium">
+                  Menampilkan {uFrom + 1} - {Math.min(uFrom + uLimit, uTotal)} dari {uTotal}
+                </span>
+                <div className="flex gap-2">
+                  <button onClick={() => setUsersPage(p => p - 1)} disabled={usersPage === 1} className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 disabled:opacity-30">
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => setUsersPage(p => p + 1)} disabled={usersPage * uLimit >= uTotal} className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 disabled:opacity-30">
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         );
+      }
 
       case 'demographics':
         return (
