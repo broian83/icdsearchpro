@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
-  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff, ShieldAlert
 } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
@@ -15,6 +15,7 @@ import { HelpView } from './components/HelpView';
 import { BookmarkView } from './components/BookmarkView';
 import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
+import { AdminDashboard } from './components/AdminDashboard';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
 import { supabase } from './lib/supabase';
@@ -204,7 +205,7 @@ const calculateClinicalScore = (res, query, searchType) => {
 };
 
 function App() {
-  const { isLoggedIn, user, profile, loginWithGoogle, logout } = useAuth();
+  const { isLoggedIn, user, profile, isAdmin, loginWithGoogle, logout } = useAuth();
   const { showToast } = useToast();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile drawer
@@ -1259,6 +1260,17 @@ function App() {
               >
                 <HelpCircle className="w-3.5 h-3.5 text-slate-400" /> Bantuan & FAQ
               </button>
+              {isAdmin && (
+                <>
+                  <div className="border-t border-slate-100 dark:border-slate-800/60 my-1"></div>
+                  <button 
+                    onClick={() => { handleTabClick('admin'); setIsProfileDropdownOpen(false); }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors flex items-center gap-2 cursor-pointer"
+                  >
+                    <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Admin Dashboard
+                  </button>
+                </>
+              )}
               <div className="border-t border-slate-100 dark:border-slate-800/60 my-1"></div>
               <button 
                 onClick={() => { logout(); setIsProfileDropdownOpen(false); }}
@@ -1660,6 +1672,7 @@ function App() {
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/help" element={<HelpView />} />
             <Route path="/bookmark" element={<BookmarkView />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={
               <HistoryView onSearchHistory={(q, type) => {
                 navigate(type === 'icd10' ? '/icd10' : type === 'icd9' ? '/icd9' : '/');

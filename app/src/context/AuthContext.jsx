@@ -95,6 +95,7 @@ export function AuthProvider({ children }) {
     user,
     profile,
     isLoggedIn: !!user,
+    isAdmin: profile?.role === 'admin',
     loginWithGoogle,
     logout,
     loading,
