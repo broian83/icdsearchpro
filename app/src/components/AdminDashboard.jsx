@@ -181,7 +181,8 @@ export function AdminDashboard() {
   const fetchDashboardData = useCallback(async () => {
     try {
       const { data: profiles } = await supabase.from('profiles').select('*');
-      const { data: searches } = await supabase.from('search_history').select('query, created_at');
+      const { data: searches } = await supabase.from('search_history').select('id', { count: 'exact' });
+      const { data: copies } = await supabase.from('copied_codes').select('code, created_at');
       const { data: settings } = await supabase.from('settings').select('value').eq('key', 'GEMINI_API_KEY').maybeSingle();
 
       if (profiles) {
@@ -197,14 +198,20 @@ export function AdminDashboard() {
           professions: Object.entries(profCount).sort((a, b) => b[1] - a[1]).slice(0, 8),
         });
       }
-      if (searches) {
-        const queryCount = {};
-        searches.forEach(s => {
-          const q = (s.query || '').trim().toUpperCase();
-          if (q) queryCount[q] = (queryCount[q] || 0) + 1;
+      if (copies) {
+        const codeCount = {};
+        copies.forEach(c => {
+          const code = (c.code || '').trim().toUpperCase();
+          if (code) codeCount[code] = (codeCount[code] || 0) + 1;
         });
-        const top = Object.entries(queryCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
-        setStats(prev => ({ ...prev, totalUsers: profiles?.length || 0, totalSearches: searches.length, topCodes: top }));
+        const top = Object.entries(codeCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        setStats(prev => ({ 
+          ...prev, 
+          totalUsers: profiles?.length || 0, 
+          totalSearches: searches ? searches.length : 0, 
+          totalCopies: copies.length,
+          topCodes: top 
+        }));
       }
       if (settings) setApiKey(settings.value);
 
@@ -446,45 +453,50 @@ export function AdminDashboard() {
           <div className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="bg-gradient-to-br from-[#2AA79B]/10 to-transparent dark:from-[#2AA79B]/20 border border-[#2AA79B]/20 rounded-2xl p-5">
-                <div className="text-3xl font-black text-[#2AA79B]">{stats.totalSearches.toLocaleString()}</div>
+                <div className="text-3xl font-black text-[#2AA79B]">{stats.totalSearches?.toLocaleString() || 0}</div>
                 <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">Total kueri dikirim</div>
               </div>
               <div className="bg-gradient-to-br from-purple-50 to-transparent dark:from-purple-900/20 border border-purple-100 dark:border-purple-800/30 rounded-2xl p-5">
                 <div className="text-3xl font-black text-purple-600">
-                  {stats.topCodes.length > 0 && stats.totalSearches > 0 ? ((stats.topCodes[0][1] / stats.totalSearches) * 100).toFixed(1) : 0}%
+                  {stats.topCodes?.length > 0 && stats.totalCopies > 0 ? ((stats.topCodes[0][1] / stats.totalCopies) * 100).toFixed(1) : 0}%
                 </div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">Share kueri teratas</div>
+                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">Share kode disalin teratas</div>
               </div>
             </div>
 
             <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-              <h4 className="font-black text-slate-800 dark:text-slate-100 mb-5">Grafik Top 10 Pencarian</h4>
-              <BarChart data={stats.topCodes} />
+              <h4 className="font-black text-slate-800 dark:text-slate-100 mb-5">Grafik Top 10 Kode ICD Disalin</h4>
+              <BarChart data={stats.topCodes || []} />
             </div>
 
             <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
               <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
                 <Hash className="w-4 h-4 text-slate-400" />
-                <h4 className="font-black text-slate-800 dark:text-slate-100">Tabel Lengkap</h4>
+                <h4 className="font-black text-slate-800 dark:text-slate-100">Tabel Lengkap Kode ICD</h4>
               </div>
               <table className="w-full text-sm">
                 <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 font-bold text-xs uppercase">
                   <tr>
                     <th className="px-6 py-3 text-left w-10">#</th>
-                    <th className="px-6 py-3 text-left">Kueri</th>
-                    <th className="px-6 py-3 text-right">Jumlah</th>
+                    <th className="px-6 py-3 text-left">Kode ICD</th>
+                    <th className="px-6 py-3 text-right">Disalin (x)</th>
                     <th className="px-6 py-3 text-right">Share</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {stats.topCodes.map(([code, count], idx) => (
+                  {(stats.topCodes || []).map(([code, count], idx) => (
                     <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="px-6 py-3 text-slate-400 font-bold">{idx + 1}</td>
                       <td className="px-6 py-3 font-bold text-slate-800 dark:text-slate-200">{code}</td>
                       <td className="px-6 py-3 text-right font-black text-[#2AA79B]">{count}</td>
-                      <td className="px-6 py-3 text-right text-slate-500">{((count / stats.totalSearches) * 100).toFixed(1)}%</td>
+                      <td className="px-6 py-3 text-right text-slate-500">{stats.totalCopies ? ((count / stats.totalCopies) * 100).toFixed(1) : 0}%</td>
                     </tr>
                   ))}
+                  {(!stats.topCodes || stats.topCodes.length === 0) && (
+                    <tr>
+                      <td colSpan={4} className="px-6 py-12 text-center text-slate-400">Belum ada data kode yang disalin.</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

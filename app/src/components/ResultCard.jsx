@@ -93,12 +93,24 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
     }
   };
 
-  const handleCopyCode = (e) => {
+  const handleCopyCode = async (e) => {
     e.stopPropagation();
     navigator.clipboard.writeText(sub.code);
     setIsCopied(true);
     showToast(`Kode ${sub.code} disalin!`, 'success', 2000);
     setTimeout(() => setIsCopied(false), 2000);
+
+    if (isLoggedIn && user) {
+      try {
+        await supabase.from('copied_codes').insert({
+          user_id: user.id,
+          code: sub.code,
+          description: sub.title || sub.desc || sub.description || ''
+        });
+      } catch (err) {
+        // ignore error
+      }
+    }
   };
 
   const handleAskAI = async (e) => {
