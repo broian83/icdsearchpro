@@ -1062,8 +1062,8 @@ function App() {
     localStorage.setItem('icd_dismissed_crossrefs', JSON.stringify(updated));
   };
 
-  const hasResults = !!query.trim() && ['icd10', 'icd9'].includes(searchType);
-  const isSearchMode = ['icd10', 'icd9'].includes(searchType);
+  const isSearchMode = ['all', 'icd10', 'icd9'].includes(searchType);
+  const hasResults = !!query.trim() && isSearchMode;
 
   // Click Outside to close dropdowns
   useEffect(() => {
@@ -1461,31 +1461,33 @@ function App() {
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-850 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
       
-      {/* Sidebar Kiri */}
-      <Sidebar 
-        isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)} 
-        onSelectTab={handleTabClick}
-        isExpanded={isSidebarExpanded}
-        onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
-        recentSearches={recentSearches}
-        onRemoveRecent={(item) => setRecentSearches(prev => {
-          const updated = prev.filter(x => x.query !== item.query);
-          localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
-          return updated;
-        })}
-        onClearRecent={() => {
-          setRecentSearches([]);
-          localStorage.removeItem('icd_recent_searches');
-        }}
-        onSearchSelect={(q, type) => {
-          setQuery(q);
-          setDebouncedQuery(q);
-          if (type === 'icd10') navigate('/');
-          else navigate('/' + type);
-        }}
-        activeTab={searchType}
-      />
+      {/* Sidebar Kiri — HANYA muncul saat hasResults === true */}
+      {hasResults && (
+        <Sidebar 
+          isOpen={isSidebarOpen} 
+          onClose={() => setIsSidebarOpen(false)} 
+          onSelectTab={handleTabClick}
+          isExpanded={isSidebarExpanded}
+          onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
+          recentSearches={recentSearches}
+          onRemoveRecent={(item) => setRecentSearches(prev => {
+            const updated = prev.filter(x => x.query !== item.query);
+            localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
+            return updated;
+          })}
+          onClearRecent={() => {
+            setRecentSearches([]);
+            localStorage.removeItem('icd_recent_searches');
+          }}
+          onSearchSelect={(q, type) => {
+            setQuery(q);
+            setDebouncedQuery(q);
+            if (type === 'icd10') navigate('/');
+            else navigate('/' + type);
+          }}
+          activeTab={searchType}
+        />
+      )}
 
       <AuthModal 
         isOpen={authModalConfig.isOpen} 
@@ -1496,7 +1498,9 @@ function App() {
       {/* Kontainer Konten Utama */}
       <div 
         className={`flex-1 flex flex-col min-h-screen transition-all duration-300 relative ${
-          isSidebarExpanded ? 'lg:pl-[280px]' : 'lg:pl-[72px]'
+          hasResults 
+            ? (isSidebarExpanded ? 'lg:pl-[280px]' : 'lg:pl-[72px]') 
+            : 'pl-0'
         }`}
       >
         
@@ -1512,22 +1516,24 @@ function App() {
           <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 sticky top-0 z-40 transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
               
-              {/* Kiri: Hamburger + Logo (jika sidebar collapse) */}
+              {/* Kiri: Hamburger + Logo — HANYA dirender saat hasResults === true */}
               <div className="flex items-center gap-3">
-                <button
-                  onClick={() => {
-                    if (window.innerWidth < 1024) {
-                      setIsSidebarOpen(true);
-                    } else {
-                      setIsSidebarExpanded(!isSidebarExpanded);
-                    }
-                  }}
-                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
+                {hasResults && (
+                  <button
+                    onClick={() => {
+                      if (window.innerWidth < 1024) {
+                        setIsSidebarOpen(true);
+                      } else {
+                        setIsSidebarExpanded(!isSidebarExpanded);
+                      }
+                    }}
+                    className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-105 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
+                  >
+                    <Menu className="w-5 h-5" />
+                  </button>
+                )}
                 
-                {!isSidebarExpanded && (
+                {hasResults && !isSidebarExpanded && (
                   <div 
                     className="flex items-center gap-2 cursor-pointer hidden lg:flex"
                     onClick={() => handleTabClick('new_search')}
@@ -1693,22 +1699,26 @@ function App() {
                         )}
                       </div>
 
-                      {/* Filter Kategori Cepat dengan Label Medis Lengkap */}
-                      <div className="mt-8 flex flex-col items-center gap-3 max-w-2xl px-4">
-                        <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block w-full text-center">
-                          Filter Kategori Cepat:
-                        </span>
-                        <div className="flex flex-wrap justify-center gap-2">
-                          {(searchType === 'icd10' ? quickFiltersICD10 : quickFiltersICD9).map((c) => (
-                            <button
-                              key={c.id}
-                              onClick={() => { setFilterChapter(c.id); showToast(`Filter aktif: ${c.label}`, 'info'); }}
-                              className="px-3.5 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#2AA79B]/50 hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 text-xs font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:scale-[1.03] shadow-sm"
-                            >
-                              {c.label}
-                            </button>
-                          ))}
-                        </div>
+                      {/* 2 Tombol CTA */}
+                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md px-4">
+                        <button
+                          onClick={() => {
+                            if (query.trim()) {
+                              setDebouncedQuery(query.trim());
+                            }
+                          }}
+                          className="w-full sm:w-auto px-8 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:shadow-md active:scale-[0.98]"
+                        >
+                          Cari Kode ICD
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleTabClick('case');
+                          }}
+                          className="w-full sm:w-auto px-8 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:shadow-md active:scale-[0.98]"
+                        >
+                          Tanya Klinik AI
+                        </button>
                       </div>
 
                     </div>
