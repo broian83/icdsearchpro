@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
-  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff
 } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
@@ -264,6 +264,76 @@ function App() {
   const [isFocused, setIsFocused] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionsQuery, setSuggestionsQuery] = useState('');
+
+  // Voice Search States
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = React.useRef(null);
+
+  const toggleListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      showToast("Browser Anda tidak mendukung fitur Dikte Suara. Silakan gunakan Google Chrome, Edge, atau Safari terbaru.", 'error');
+      return;
+    }
+
+    if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      showToast('Dikte suara dihentikan', 'info');
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'id-ID';
+      recognition.continuous = false; // Stop when the user stops speaking
+      recognition.interimResults = true;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        showToast('Mulai mendengarkan suara...', 'info');
+      };
+
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        let currentInterim = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+           const transcript = event.results[i][0].transcript;
+           if (event.results[i].isFinal) {
+             finalTranscript += transcript;
+           } else {
+             currentInterim += transcript;
+           }
+        }
+        
+        // Update input value with the dictated text
+        if (finalTranscript || currentInterim) {
+          setInputValue(prev => {
+             const newText = (prev ? prev + ' ' : '') + (finalTranscript || currentInterim);
+             return newText;
+          });
+          setShowSuggestions(true);
+        }
+        
+        if (finalTranscript) {
+          // Trigger search automatically when dictation is done
+          setQuery(finalTranscript);
+          setDebouncedQuery(finalTranscript);
+        }
+      };
+
+      recognition.onerror = (err) => {
+        setIsListening(false);
+        showToast('Terjadi kesalahan dikte suara: ' + (err.error || ''), 'error');
+      };
+      
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    }
+  };
 
   // Sinkronisasi Tema
   useEffect(() => {
@@ -1609,7 +1679,7 @@ function App() {
                         </div>
                         <input
                           type="text"
-                          className="block w-full h-16 pl-14 pr-12 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 outline-none rounded-full shadow-lg text-base sm:text-lg transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-350 dark:border-slate-750 dark:text-slate-100"
+                          className="block w-full h-16 pl-14 pr-24 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 outline-none rounded-full shadow-lg text-base sm:text-lg transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-350 dark:border-slate-750 dark:text-slate-100"
                           placeholder={searchType === 'icd10' ? "Cari kode, diagnosa, atau lead term (mis. Pneumonia)..." : "Cari prosedur medis (mis. Sectio Caesarea, ORIF)..."}
                           value={inputValue}
                           onChange={(e) => setInputValue(e.target.value)}
@@ -1618,19 +1688,36 @@ function App() {
                           onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
                           disabled={loading}
                         />
-                        {inputValue && !loading && (
-                          <button
-                            onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); }}
-                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none"
-                          >
-                            <X className="w-5 h-5" />
-                          </button>
-                        )}
-                        {loading && (
-                          <div className="absolute inset-y-0 right-0 pr-5 flex items-center text-[#2AA79B]">
-                            <Loader2 className="w-6 h-6 animate-spin" />
-                          </div>
-                        )}
+                        <div className="absolute inset-y-0 right-0 pr-4 flex items-center gap-1.5">
+                          {inputValue && !loading && (
+                            <button
+                              onClick={() => { setInputValue(''); setQuery(''); setDebouncedQuery(''); }}
+                              className="p-1 text-slate-450 dark:text-slate-550 hover:text-slate-655 dark:hover:text-slate-300 transition-colors focus:outline-none rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+                              title="Hapus"
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          )}
+                          {!loading && (
+                            <button
+                              type="button"
+                              onClick={toggleListening}
+                              className={`p-1.5 rounded-full transition-all duration-300 focus:outline-none ${
+                                isListening 
+                                  ? 'bg-red-500 text-white shadow-md shadow-red-500/30 animate-pulse hover:bg-red-600' 
+                                  : 'text-slate-450 dark:text-slate-550 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
+                              }`}
+                              title="Pencarian Suara"
+                            >
+                              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                            </button>
+                          )}
+                          {loading && (
+                            <div className="p-1 text-[#2AA79B]">
+                              <Loader2 className="w-6 h-6 animate-spin" />
+                            </div>
+                          )}
+                        </div>
                         {showSuggestions && inputValue.trim().length >= 2 && suggestions.length > 0 && (
                           <div className="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-2">
                             {suggestions.map((suggestion, idx) => (
