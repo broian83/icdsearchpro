@@ -78,7 +78,7 @@ export function Sidebar({
 
   const renderContent = (isMobileOrExpanded) => {
     return (
-      <div className="flex flex-col h-full bg-[#f9fafd] dark:bg-slate-900 border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300">
+      <div className="flex flex-col h-full bg-[#f0f4f9] dark:bg-[#131722] border-r border-slate-200/60 dark:border-slate-850 transition-colors duration-300">
         
         {/* Header / Hamburger */}
         <div className={`pt-4 px-3 pb-2 flex items-center ${isMobileOrExpanded ? 'justify-between' : 'justify-center'}`}>
@@ -110,14 +110,14 @@ export function Sidebar({
           {isMobileOrExpanded ? (
             <button
               onClick={() => handleTabClick('new_search')}
-              className="w-full bg-[#e8eaed] dark:bg-slate-800 hover:bg-[#d8dce2] dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 px-4 rounded-full text-sm font-semibold flex items-center justify-start gap-3 transition-all cursor-pointer"
+              className="w-full bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 px-4 rounded-full text-sm font-semibold flex items-center justify-start gap-3 shadow-sm transition-all cursor-pointer border border-slate-200/50 dark:border-transparent"
             >
               <Plus className="w-5 h-5" /> Pencarian Baru
             </button>
           ) : (
             <button
               onClick={() => handleTabClick('new_search')}
-              className="mx-auto w-11 h-11 bg-[#e8eaed] dark:bg-slate-800 hover:bg-[#d8dce2] dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center transition-all cursor-pointer"
+              className="mx-auto w-11 h-11 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center shadow-sm transition-all cursor-pointer border border-slate-200/50 dark:border-transparent"
               title="Pencarian Baru"
             >
               <Plus className="w-5 h-5" />
