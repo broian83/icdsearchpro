@@ -214,6 +214,7 @@ function App() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [selectedCodeDetail, setSelectedCodeDetail] = useState(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [hideProfileWarning, setHideProfileWarning] = useState(false);
 
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('icd_theme_preference');
@@ -1627,21 +1628,25 @@ function App() {
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
           
           {/* Warning Profil Belum Lengkap */}
-          {isProfileIncomplete && location.pathname !== '/profile' && (
-            <div className="mb-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-bold text-amber-800 dark:text-amber-400 text-sm sm:text-base">Profil Anda Belum Lengkap</h4>
-                  <p className="text-amber-700 dark:text-amber-500 text-xs sm:text-sm mt-1">Silakan lengkapi data profil Anda (Nomor WhatsApp, Profesi, Instansi) untuk mengoptimalkan fitur aplikasi.</p>
-                </div>
+          {isProfileIncomplete && location.pathname !== '/profile' && !hideProfileWarning && (
+            <div className="mb-6 flex justify-center w-full relative z-0">
+              <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800/50 rounded-full py-1.5 px-4 flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm text-sm">
+                <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                <span className="font-medium text-amber-800 dark:text-amber-400">Profil Anda Belum Lengkap</span>
+                <span className="text-amber-300 dark:text-amber-700/50">|</span>
+                <button 
+                  onClick={() => navigate('/profile')}
+                  className="text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-bold transition-colors"
+                >
+                  Lengkapi Profil
+                </button>
+                <button 
+                  onClick={() => setHideProfileWarning(true)}
+                  className="ml-1 p-0.5 rounded-full hover:bg-amber-200/50 dark:hover:bg-amber-800/50 text-amber-500 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-300 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              <button 
-                onClick={() => navigate('/profile')}
-                className="shrink-0 w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-5 rounded-xl text-sm transition-colors shadow-sm"
-              >
-                Lengkapi Profil
-              </button>
             </div>
           )}
 
