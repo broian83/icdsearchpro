@@ -182,7 +182,7 @@ export function AdminDashboard() {
     try {
       const { data: profiles } = await supabase.from('profiles').select('*');
       const { data: searches } = await supabase.from('search_history').select('query, created_at');
-      const { data: settings } = await supabase.from('settings').select('value').eq('key', 'GEMINI_API_KEY').single();
+      const { data: settings } = await supabase.from('settings').select('value').eq('key', 'GEMINI_API_KEY').maybeSingle();
 
       if (profiles) {
         setUsersList(profiles);
@@ -969,6 +969,84 @@ export function AdminDashboard() {
         <main className="flex-1 p-4 sm:p-6">
           {renderContent()}
         </main>
+
+        {/* MODAL EDIT PENGGUNA */}
+        {editingUser && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+            <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in duration-200">
+              <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
+                <h3 className="font-black text-lg text-slate-800 dark:text-slate-100">Edit Profil Pengguna</h3>
+                <button onClick={() => setEditingUser(null)} className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-white dark:bg-slate-800 rounded-full shadow-sm">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleUpdateUser} className="p-6 space-y-4 text-left">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+                  <input 
+                    type="text" 
+                    value={editingUser.full_name || ''} 
+                    onChange={e => setEditingUser({...editingUser, full_name: e.target.value})}
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200" 
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Profesi</label>
+                    <input 
+                      type="text" 
+                      value={editingUser.profession || ''} 
+                      onChange={e => setEditingUser({...editingUser, profession: e.target.value})}
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200" 
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Instansi</label>
+                    <input 
+                      type="text" 
+                      value={editingUser.institution || ''} 
+                      onChange={e => setEditingUser({...editingUser, institution: e.target.value})}
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200" 
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Kontak (WA)</label>
+                    <input 
+                      type="text" 
+                      value={editingUser.whatsapp_number || ''} 
+                      onChange={e => setEditingUser({...editingUser, whatsapp_number: e.target.value})}
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200" 
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Hak Akses (Role)</label>
+                    <select 
+                      value={editingUser.role || 'user'} 
+                      onChange={e => setEditingUser({...editingUser, role: e.target.value})}
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#2AA79B] dark:text-slate-200 font-bold"
+                    >
+                      <option value="user">User Biasa</option>
+                      <option value="admin">Administrator</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="pt-4 flex gap-3">
+                  <button type="button" onClick={() => setEditingUser(null)} className="flex-1 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    Batal
+                  </button>
+                  <button type="submit" disabled={actionLoading === 'update-user'} className="flex-1 px-5 py-3 rounded-xl bg-[#2AA79B] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 flex items-center justify-center gap-2">
+                    {actionLoading === 'update-user' ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+                    Simpan Profil
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
