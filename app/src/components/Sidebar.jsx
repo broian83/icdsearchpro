@@ -109,7 +109,11 @@ export function Sidebar({
               
               {/* Logo (Kanan) */}
               <div className="flex items-center pr-2">
-                <div className="rounded-xl bg-white p-1.5 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                <div 
+                  className="rounded-xl bg-white p-1.5 border border-slate-150 shadow-sm flex items-center justify-center shrink-0 cursor-pointer hover:shadow-md transition-all"
+                  onClick={(e) => { e.stopPropagation(); handleTabClick('new_search'); }}
+                  title="Kembali ke Beranda"
+                >
                   <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain" />
                 </div>
               </div>
@@ -117,7 +121,11 @@ export function Sidebar({
           ) : (
             /* Logo Tunggal Saat Tertutup (Tengah) */
             <div className="p-1 rounded-xl transition-all flex items-center justify-center shrink-0">
-              <div className="rounded-xl bg-white p-1.5 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+              <div 
+                className="rounded-xl bg-white p-1.5 border border-slate-150 shadow-sm flex items-center justify-center shrink-0 cursor-pointer hover:shadow-md transition-all"
+                onClick={(e) => { e.stopPropagation(); handleTabClick('new_search'); }}
+                title="Kembali ke Beranda"
+              >
                 <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain" />
               </div>
             </div>
