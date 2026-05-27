@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Sparkles, Loader2, Brain, AlertTriangle, Link as LinkIcon, Copy, Check, Star, ThumbsDown, ChevronDown, ChevronUp } from 'lucide-react';
+import { Sparkles, Loader2, Brain, AlertTriangle, Link as LinkIcon, Copy, Check, Star, ThumbsDown, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Highlight } from '../utils/Highlight';
 import { getGroqDetailSuggestion } from '../utils/ai';
@@ -19,7 +19,7 @@ const OMIT_CODES_ICD9 = {
   '89.52': 'Omit jika perekaman EKG merupakan bagian dari pemeriksaan pra-bedah rutin.'
 };
 
-function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, feedbackCount }) {
+function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, feedbackCount, onSelectDetail, isActive }) {
   const { isLoggedIn, user } = useAuth();
   const { showToast } = useToast();
   const [aiResponse, setAiResponse] = useState('');
@@ -101,7 +101,8 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const handleAskAI = async () => {
+  const handleAskAI = async (e) => {
+    e.stopPropagation();
     if (isAIExpanded && aiResponse) {
       setIsAIExpanded(false);
       return;
@@ -123,6 +124,12 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
       setAiResponse("Maaf, terjadi kesalahan saat menghubungi AI: " + err.message);
     } finally {
       setIsAILoading(false);
+    }
+  };
+
+  const handleCardClick = () => {
+    if (onSelectDetail) {
+      onSelectDetail(sub);
     }
   };
 
@@ -166,30 +173,35 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
       {/* Garis cabang L */}
       <div className="absolute left-0 top-6 w-5 h-[1px] bg-slate-200 dark:bg-slate-700/80" />
       
-      <div className={`p-4 rounded-xl border transition-all duration-300 flex flex-col gap-3 group/sub ${
-        isMatched 
-          ? 'bg-[#00B4A4]/5 dark:bg-[#00B4A4]/10 border-[#00B4A4]/25 shadow-sm hover:shadow-md' 
-          : 'bg-white dark:bg-slate-800/40 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80'
-      }`}>
+      <div 
+        onClick={handleCardClick}
+        className={`p-4 rounded-xl border transition-all duration-300 flex flex-col gap-3 group/sub cursor-pointer ${
+          isActive
+            ? 'bg-[#2AA79B]/10 dark:bg-[#2AA79B]/20 border-[#2AA79B] shadow-md ring-2 ring-[#2AA79B]/20'
+            : isMatched 
+              ? 'bg-[#2AA79B]/5 dark:bg-[#2AA79B]/10 border-[#2AA79B]/20 shadow-sm hover:border-[#2AA79B]/40' 
+              : 'bg-white dark:bg-slate-800/40 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80'
+        }`}
+      >
         <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 justify-between">
           <div className="flex items-start gap-3 min-w-0">
             <span className={`inline-block px-2.5 py-1 font-mono font-bold rounded-lg text-sm flex-shrink-0 transition-colors ${
-              isMatched
-                ? 'bg-[#00B4A4] text-white'
+              isActive || isMatched
+                ? 'bg-[#2AA79B] text-white'
                 : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 group-hover/sub:bg-slate-200'
             }`}>
               <Highlight text={sub.code} matches={matches} property="code" />
             </span>
             <button
               onClick={handleCopyCode}
-              className="p-1 text-slate-400 dark:text-slate-500 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded transition-colors focus:outline-none shrink-0"
+              className="p-1 text-slate-400 dark:text-slate-500 hover:text-[#2AA79B] hover:bg-[#2AA79B]/10 rounded transition-colors focus:outline-none shrink-0"
               title="Salin Kode"
             >
               {isCopied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
             </button>
             <div className="min-w-0">
               <h5 className={`text-sm sm:text-base font-semibold leading-snug ${
-                isMatched ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'
+                isActive || isMatched ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'
               }`}>
                 <Highlight text={sub.title} matches={matches} property="title" />
               </h5>
@@ -256,21 +268,38 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
                 disabled={isAILoading}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border ${
                   isAIExpanded || isAILoading 
-                    ? 'bg-[#00B4A4]/10 text-[#00B4A4] border-[#00B4A4]/20 shadow-inner' 
-                    : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-[#00B4A4] hover:border-[#00B4A4]/30'
+                    ? 'bg-[#2AA79B]/10 text-[#2AA79B] border-[#2AA79B]/20 shadow-inner' 
+                    : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-[#2AA79B] hover:border-[#2AA79B]/30'
                 }`}
               >
                 {isAILoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
                 Tanya AI
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCardClick();
+                }}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border ${
+                  isActive
+                    ? 'bg-[#2AA79B] text-white border-[#2AA79B] shadow-sm'
+                    : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 hover:text-[#2AA79B] hover:border-[#2AA79B]/30'
+                }`}
+                title="Lihat Detail Panel"
+              >
+                <Info className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Detail</span>
               </button>
             </div>
           </div>
         </div>
 
         {isAIExpanded && (
-          <div className="overflow-hidden rounded-xl border border-[#00B4A4]/20 bg-gradient-to-br from-[#00B4A4]/5 to-[#D6E400]/5 shadow-inner p-4 animate-in fade-in slide-in-from-top-2">
+          <div className="overflow-hidden rounded-xl border border-[#2AA79B]/25 bg-gradient-to-br from-[#2AA79B]/5 to-[#D6E400]/5 shadow-inner p-4 animate-in fade-in slide-in-from-top-2" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-start gap-3">
-              <div className="bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-sm flex-shrink-0 text-[#00B4A4] mt-0.5">
+              <div className="bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-sm flex-shrink-0 text-[#2AA79B] mt-0.5">
                 <Brain className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
@@ -310,7 +339,7 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
   );
 }
 
-export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder }) {
+export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, onSelectDetail, selectedCode }) {
   const defaultExpanded = group.allSubcodes.length <= 8;
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [feedbackCounts, setFeedbackCounts] = useState({});
@@ -346,13 +375,11 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
   };
 
   const handleReportFeedback = async (code) => {
-    // Optimistic UI update
     setFeedbackCounts(prev => ({
       ...prev,
       [code]: (prev[code] || 0) + 1
     }));
     
-    // Trigger parent report function
     if (onReportIncorrectOrder) {
       onReportIncorrectOrder(code);
     }
@@ -361,7 +388,6 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
   const visibleSubcodes = useMemo(() => {
     if (isExpanded) return group.allSubcodes;
 
-    // Prioritaskan matched codes di paling atas
     const matched = group.allSubcodes.filter(sub => group.matchedCodes.includes(sub.code));
     const nonMatched = group.allSubcodes.filter(sub => !group.matchedCodes.includes(sub.code));
     
@@ -392,7 +418,7 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
         {group.allSubcodes.length > 3 && (
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-[#00B4A4]/10 dark:bg-slate-800 dark:hover:bg-[#00B4A4]/20 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-[#2AA79B]/10 dark:bg-slate-800 dark:hover:bg-[#2AA79B]/20 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#2AA79B] text-xs font-bold rounded-lg transition-colors cursor-pointer"
           >
             {isExpanded ? (
               <>
@@ -412,6 +438,7 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
         {visibleSubcodes.map(sub => {
           const isMatched = group.matchedCodes.includes(sub.code);
           const matches = group.matchedMatches[sub.code] || [];
+          const isActive = selectedCode === sub.code;
           return (
             <SubcodeItem
               key={sub.code}
@@ -424,6 +451,8 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
               onRequireAuth={onRequireAuth}
               onReportIncorrectOrder={handleReportFeedback}
               feedbackCount={feedbackCounts[sub.code] || 0}
+              onSelectDetail={onSelectDetail}
+              isActive={isActive}
             />
           );
         })}

@@ -216,13 +216,13 @@ export function CaseConsultation({ knowledgeText }) {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 p-6">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-800 p-6">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <FileText className="w-6 h-6 text-[#00B4A4]" />
+            <FileText className="w-6 h-6 text-[#2AA79B]" />
             Konsultasi Kasus Medis
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm sm:text-base leading-relaxed">
             Masukkan resume medis lengkap pasien (keluhan, riwayat, pemeriksaan, tindakan). AI akan menganalisis dan menyusun draf koding ICD-10 dan ICD-9 sesuai aturan INA-CBG.
           </p>
         </div>
@@ -236,17 +236,17 @@ export function CaseConsultation({ knowledgeText }) {
                 setInterimText('');
               }}
               placeholder="Contoh: Pasien datang pasca KLL menabrak pohon. Terdapat fraktur femur dextra terbuka. Riwayat DM tipe 2 tidak terkontrol. Dilakukan tindakan ORIF..."
-              className="w-full min-h-[160px] p-4 pb-14 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 focus:shadow-[0_0_20px_rgba(0,180,164,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-200"
+              className="w-full min-h-[160px] p-4 pb-14 bg-white/70 dark:bg-slate-800/40 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/20 focus:shadow-[0_0_20px_rgba(42,167,155,0.15)] outline-none transition-all resize-y text-slate-700 dark:text-slate-250 text-sm sm:text-base"
               disabled={isLoading}
             />
             
             <button
               type="button"
               onClick={toggleListening}
-              className={`absolute bottom-4 right-4 p-2.5 rounded-xl flex items-center gap-2 font-medium text-sm transition-all duration-300 shadow-sm ${
+              className={`absolute bottom-4 right-4 p-2.5 rounded-xl flex items-center gap-2 font-medium text-xs sm:text-sm transition-all duration-300 shadow-sm ${
                 isListening 
                   ? 'bg-red-500 text-white shadow-red-500/30 animate-pulse hover:bg-red-600' 
-                  : 'bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 hover:text-[#00B4A4] hover:bg-slate-50'
+                  : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 hover:text-[#2AA79B] hover:bg-slate-50 dark:hover:bg-slate-700'
               }`}
               title="Dikte Suara (Voice to Text)"
             >
@@ -266,7 +266,7 @@ export function CaseConsultation({ knowledgeText }) {
             <button
               type="submit"
               disabled={isLoading || !resume.trim()}
-              className="w-full sm:flex-1 bg-[#00B4A4] hover:bg-[#009B8D] hover:shadow-lg hover:-translate-y-0.5 active:scale-95 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+              className="w-full sm:flex-1 bg-[#2AA79B] hover:bg-[#208f84] hover:shadow-lg hover:-translate-y-0.5 active:scale-95 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2 cursor-pointer shadow-sm shadow-[#2AA79B]/10"
             >
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
               {isLoading ? 'Menganalisis Kasus...' : 'Analisis & Kodingkan'}
@@ -277,7 +277,7 @@ export function CaseConsultation({ knowledgeText }) {
                 type="button"
                 onClick={handleClear}
                 disabled={isLoading}
-                className="w-full sm:w-auto px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 active:scale-95 text-slate-600 dark:text-slate-300 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 active:scale-95 text-slate-650 dark:text-slate-300 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <RefreshCcw className="w-5 h-5" />
                 Reset
@@ -287,14 +287,14 @@ export function CaseConsultation({ knowledgeText }) {
         </form>
 
         {error && (
-          <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-xl flex items-start gap-3 border border-red-100">
+          <div className="mb-6 bg-red-50 dark:bg-red-950/20 text-red-750 dark:text-red-400 p-4 rounded-xl flex items-start gap-3 border border-red-100 dark:border-red-900/50">
             <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <p className="font-medium">{error}</p>
+            <p className="font-semibold text-sm">{error}</p>
           </div>
         )}
 
         {isLoading && !aiResponse && (
-          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-800 border border-slate-100 dark:border-slate-700/50 p-6 rounded-2xl shadow-sm animate-in fade-in">
+          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/30 dark:to-slate-800 border border-slate-150 dark:border-slate-800 p-6 rounded-2xl shadow-sm animate-in fade-in">
             <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-1/3 mb-6"></div>
             <div className="space-y-3">
               <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md animate-pulse w-full"></div>
@@ -306,18 +306,18 @@ export function CaseConsultation({ knowledgeText }) {
         )}
 
         {aiResponse && (
-          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/80 dark:to-slate-800 border border-[#00B4A4]/20 p-6 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-slate-700/50">
-              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/40 dark:to-slate-800/10 border border-[#2AA79B]/25 p-6 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-150 dark:border-slate-800">
+              <h3 className="font-bold text-lg text-slate-850 dark:text-slate-100 flex items-center gap-2">
                 Hasil Analisis Koding
-                <span className="text-[10px] uppercase tracking-wider bg-[#00B4A4] text-white px-2 py-1 rounded-md">AI Generated</span>
+                <span className="text-[10px] uppercase tracking-wider bg-[#2AA79B] text-white px-2 py-1 rounded-md">AI Generated</span>
               </h3>
               
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={handleCopyAllCodes}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-[#00B4A4]/10 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#00B4A4] border border-slate-200 dark:border-slate-600 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
+                  className="px-3 py-1.5 bg-slate-50 hover:bg-[#2AA79B]/10 dark:bg-slate-800 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] border border-slate-200 dark:border-slate-750 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
                   title="Salin semua kode ICD-10 & ICD-9"
                 >
                   <Copy className="w-3.5 h-3.5" />
@@ -327,14 +327,14 @@ export function CaseConsultation({ knowledgeText }) {
                 <button
                   type="button"
                   onClick={handleExportCSV}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-[#00B4A4]/10 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#00B4A4] border border-slate-200 dark:border-slate-600 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
+                  className="px-3 py-1.5 bg-slate-50 hover:bg-[#2AA79B]/10 dark:bg-slate-800 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] border border-slate-200 dark:border-slate-750 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
                   title="Unduh Tabel Koding INA-CBG (CSV)"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   Ekspor CSV
                 </button>
 
-                <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-700 mx-1 hidden md:block"></div>
+                <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-700 mx-1 hidden lg:block"></div>
 
                 <button
                   type="button"
@@ -344,7 +344,7 @@ export function CaseConsultation({ knowledgeText }) {
                     showToast('Hasil analisis disalin ke clipboard!', 'success');
                     setTimeout(() => setIsCopied(false), 2000);
                   }}
-                  className="px-3 py-1.5 bg-[#00B4A4] hover:bg-[#009B8D] text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm hover:shadow active:scale-95 cursor-pointer focus:outline-none"
+                  className="px-3 py-1.5 bg-[#2AA79B] hover:bg-[#208f84] text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm hover:shadow active:scale-95 cursor-pointer focus:outline-none"
                   title="Salin Analisis Lengkap"
                 >
                   {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -352,10 +352,10 @@ export function CaseConsultation({ knowledgeText }) {
                 </button>
               </div>
             </div>
-            <div className="prose prose-slate prose-headings:text-[#00B4A4] max-w-none prose-p:leading-relaxed prose-li:my-1">
+            <div className="prose prose-slate dark:prose-invert prose-headings:text-[#2AA79B] dark:prose-headings:text-[#2AA79B] max-w-none prose-p:leading-relaxed prose-li:my-1 text-slate-700 dark:text-slate-200">
               <ReactMarkdown
                 components={{
-                  strong: ({node, ...props}) => <span className="font-bold text-slate-900" {...props} />,
+                  strong: ({node, ...props}) => <span className="font-bold text-slate-900 dark:text-white" {...props} />,
                   ul: ({node, ...props}) => <ul className="list-disc pl-5 my-3 space-y-1" {...props} />,
                   ol: ({node, ...props}) => <ol className="list-decimal pl-5 my-3 space-y-1" {...props} />,
                 }}
@@ -367,7 +367,7 @@ export function CaseConsultation({ knowledgeText }) {
         )}
 
         {caseHistory.length > 0 && !aiResponse && !isLoading && (
-          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700/50">
+          <div className="mt-8 pt-6 border-t border-slate-150 dark:border-slate-800">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 flex items-center gap-2">
                 <Clock className="w-4 h-4" /> Riwayat Konsultasi (5 Terakhir)
@@ -377,7 +377,7 @@ export function CaseConsultation({ knowledgeText }) {
                   localStorage.removeItem('icd_case_history');
                   setCaseHistory([]);
                 }}
-                className="text-xs text-red-400 hover:text-red-600 flex items-center gap-1 transition-colors"
+                className="text-xs text-red-400 hover:text-red-650 flex items-center gap-1 transition-colors cursor-pointer"
               >
                 <Trash2 className="w-3 h-3" /> Hapus Semua
               </button>
@@ -391,10 +391,10 @@ export function CaseConsultation({ knowledgeText }) {
                     setAiResponse(item.response);
                     setError(null);
                   }}
-                  className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-[#00B4A4] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 bg-white/50 dark:bg-slate-800/50 group focus:outline-none"
+                  className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-[#2AA79B] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 bg-white/50 dark:bg-slate-800/40 group focus:outline-none cursor-pointer"
                 >
                   <div className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.date}</div>
-                  <div className="text-sm text-slate-700 dark:text-slate-200 line-clamp-2 group-hover:text-[#00B4A4] font-medium transition-colors">
+                  <div className="text-sm text-slate-700 dark:text-slate-250 line-clamp-2 group-hover:text-[#2AA79B] font-semibold transition-colors">
                     {item.resume}
                   </div>
                 </button>

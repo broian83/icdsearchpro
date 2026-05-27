@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Fuse from 'fuse.js';
-import { Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu } from 'lucide-react';
+import { 
+  Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
+  Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2
+} from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
 import { Sidebar } from './components/Sidebar';
@@ -55,7 +59,6 @@ const icd9Chapters = [
 ];
 
 const HIGH_FREQUENCY_ICD10 = {
-  // Tier 1 (0.001) - Top BPJS
   'J18.9': 0.001, 
   'I10': 0.001,
   'E11.9': 0.001, 
@@ -71,7 +74,6 @@ const HIGH_FREQUENCY_ICD10 = {
   'J06.9': 0.001, 
   'T30': 0.001,
   
-  // Tier 2 (0.01) - Common Specialty (K80.1 removed, K80.2 and K80.20 retained)
   'D64.9': 0.01, 
   'A90': 0.01,   
   'A91': 0.01,   
@@ -100,11 +102,9 @@ const HIGH_FREQUENCY_ICD10 = {
 };
 
 const HIGH_FREQUENCY_ICD9 = {
-  // Tier 1 (0.001) - Top BPJS
   '39.95': 0.001,
   '74.1': 0.001,
   
-  // Tier 2 (0.01) - Common Specialty
   '79.3': 0.01, 
   '78.6': 0.01, 
   '47.09': 0.01,
@@ -120,18 +120,6 @@ const HIGH_FREQUENCY_ICD9 = {
   '13.19': 0.01,
 };
 
-const OMIT_CODES_ICD9 = {
-  '99.18': 'Omit jika merupakan bagian rutin dari terapi cairan intravena.',
-  '99.29': 'Omit jika merupakan bagian dari injeksi obat terapeutik rutin.',
-  '99.21': 'Omit jika merupakan bagian dari pemberian antibiotik rutin.',
-  '57.94': 'Omit jika pemasangan kateter urin dilakukan secara rutin selama operasi atau persalinan.',
-  '96.07': 'Omit jika pemasangan NGT merupakan bagian rutin dari prosedur pembedahan.',
-  '86.59': 'Omit jika hanya penutupan luka post-operasi rutin. Kode jika tindakan utama di IGD.',
-  '38.93': 'Omit jika kanulasi vena/kateterisasi vena dilakukan untuk jalur infus rutin.',
-  '93.94': 'Omit jika pemberian terapi oksigen merupakan bagian dari prosedur anestesi atau pemulihan pasca operasi.',
-  '89.52': 'Omit jika perekaman EKG merupakan bagian dari pemeriksaan pra-bedah rutin.'
-};
-
 const calculateClinicalScore = (res, query, searchType) => {
   const code = res.item.code || '';
   const title = res.item.title || '';
@@ -142,7 +130,6 @@ const calculateClinicalScore = (res, query, searchType) => {
   const cleanQuery = query.trim().toLowerCase();
   const cleanCode = code.replace('.', '').toLowerCase();
 
-  // Pre-calculate word matches
   const queryWords = cleanQuery.split(/\s+/).filter(w => w.length > 2);
   const itemText = (code + ' ' + title + ' ' + desc).toLowerCase();
   let matchCount = 0;
@@ -154,7 +141,6 @@ const calculateClinicalScore = (res, query, searchType) => {
 
   const exactWordMatch = queryWords.length > 0 && matchCount === queryWords.length;
 
-  // 1. Exact Match / Prefix Match Bonus
   if (cleanQuery === cleanCode || cleanQuery === code.toLowerCase()) {
     score = score * 0.001;
   } else if (code.toLowerCase().startsWith(cleanQuery)) {
@@ -165,7 +151,6 @@ const calculateClinicalScore = (res, query, searchType) => {
     score = score * 0.5;
   }
 
-  // 2. Clinical Frequency Weighting (Only if all keywords are present)
   if (exactWordMatch || queryWords.length === 0) {
     if (searchType === 'icd10') {
       const mainCode = code.split('.')[0].toUpperCase();
@@ -188,7 +173,6 @@ const calculateClinicalScore = (res, query, searchType) => {
     }
   }
 
-  // 3. Parent-before-child rule
   const isParent = searchType === 'icd10' ? code.length === 3 : code.length <= 4 && !code.includes('.');
   const queryHasDetail = cleanQuery.includes('.') || cleanQuery.replace(/[^0-9]/g, '').length >= 3;
   
@@ -198,7 +182,6 @@ const calculateClinicalScore = (res, query, searchType) => {
     score = score * 1.5;
   }
 
-  // 4. Chapter boost
   if (searchType === 'icd10') {
     const firstChar = code.charAt(0).toUpperCase();
     if (firstChar >= 'A' && firstChar <= 'N') {
@@ -212,7 +195,6 @@ const calculateClinicalScore = (res, query, searchType) => {
     }
   }
 
-  // 5. Query words matching penalty (Fuzzy match false-positive mitigation)
   if (queryWords.length > 0 && matchCount < queryWords.length) {
     const missingRatio = (queryWords.length - matchCount) / queryWords.length;
     score = score * (1 + missingRatio * 20.0);
@@ -222,9 +204,27 @@ const calculateClinicalScore = (res, query, searchType) => {
 };
 
 function App() {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, loginWithGoogle, logout } = useAuth();
   const { showToast } = useToast();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile drawer
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
+    // Default expanded di desktop
+    return window.innerWidth >= 1024;
+  });
+  
+  const [isAppsDrawerOpen, setIsAppsDrawerOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [selectedCodeDetail, setSelectedCodeDetail] = useState(null);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('icd_theme_preference');
+    if (saved) return saved;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  });
+
   const [authModalConfig, setAuthModalConfig] = useState({ isOpen: false, message: '' });
 
   const [icd10Data, setIcd10Data] = useState([]);
@@ -243,7 +243,18 @@ function App() {
   
   const navigate = useNavigate();
   const location = useLocation();
-  const searchType = location.pathname === '/' ? 'icd10' : location.pathname.substring(1).replace(/\/$/, '');
+  
+  const searchType = useMemo(() => {
+    const path = location.pathname.substring(1).replace(/\/$/, '');
+    if (path === 'icd9') return 'icd9';
+    if (path === 'case') return 'case';
+    if (path === 'profile') return 'profile';
+    if (path === 'help') return 'help';
+    if (path === 'bookmark') return 'bookmark';
+    if (path === 'history') return 'history';
+    if (path === 'settings') return 'settings';
+    return 'icd10';
+  }, [location.pathname]);
   
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
@@ -254,6 +265,17 @@ function App() {
   const [isFocused, setIsFocused] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionsQuery, setSuggestionsQuery] = useState('');
+
+  // Sinkronisasi Tema
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('icd_theme_preference', theme);
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -266,7 +288,6 @@ function App() {
   // Keyboard Shortcuts untuk Filter Kategori
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Abaikan jika sedang mengetik di input/textarea
       if (
         document.activeElement && (
           document.activeElement.tagName === 'INPUT' ||
@@ -277,7 +298,6 @@ function App() {
         return;
       }
 
-      // Kombinasi Alt + Shift
       if (e.altKey && e.shiftKey) {
         const key = e.key.toUpperCase();
         
@@ -344,10 +364,18 @@ function App() {
   };
 
   const handleTabClick = (tab) => {
+    if (tab === 'new_search') {
+      setQuery('');
+      setDebouncedQuery('');
+      setSelectedCodeDetail(null);
+      navigate('/');
+      return;
+    }
+
     if (['case', 'bookmark', 'history', 'locked_bookmark', 'locked_history'].includes(tab) && !isLoggedIn) {
-      let msg = "Gunakan asisten Klinik AI untuk pengkodean otomatis yang lebih akurat. Silakan masuk atau buat akun gratis terlebih dahulu.";
-      if (tab.includes('bookmark')) msg = "Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.";
-      if (tab.includes('history')) msg = "Login untuk melihat histori pencarian dan konsultasi klinis Anda yang tersimpan di cloud.";
+      let msg = "Gunakan asisten Klinik AI untuk koding medis otomatis. Masuk atau buat akun gratis dahulu.";
+      if (tab.includes('bookmark')) msg = "Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda.";
+      if (tab.includes('history')) msg = "Login untuk melihat histori pencarian dan konsultasi klinis Anda.";
       
       setAuthModalConfig({ isOpen: true, message: msg });
       return;
@@ -356,6 +384,11 @@ function App() {
     if (tab === 'locked_bookmark') tab = 'bookmark';
     if (tab === 'locked_history') tab = 'history';
     
+    // Tutup panel detail saat berpindah tab non-pencarian
+    if (!['icd10', 'icd9'].includes(tab)) {
+      setSelectedCodeDetail(null);
+    }
+
     if (tab === 'icd10') {
       navigate('/');
     } else {
@@ -363,48 +396,48 @@ function App() {
     }
   };
 
-  // Reset filter on tab change
   useEffect(() => {
     setFilterChapter('all');
+    setSelectedCodeDetail(null);
   }, [searchType]);
   
   const [recentSearches, setRecentSearches] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('icd_recent_searches')) || [];
+      const saved = localStorage.getItem('icd_recent_searches');
+      if (!saved) return [];
+      const parsed = JSON.parse(saved);
+      // Migrasi format lama array string ke objek
+      return parsed.map(item => typeof item === 'object' ? item : { query: item, type: 'icd10' });
     } catch {
       return [];
     }
   });
 
-  // Debounce search query to prevent typing lag
+  // Debounce search query
   useEffect(() => {
     if (!query) {
       setDebouncedQuery('');
       return;
     }
-
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
     }, 300);
-
     return () => clearTimeout(timer);
   }, [query]);
 
-  // Debounce suggestions query (150ms) to prevent typing lag
+  // Debounce suggestions query
   useEffect(() => {
     if (!query) {
       setSuggestionsQuery('');
       return;
     }
-
     const timer = setTimeout(() => {
       setSuggestionsQuery(query);
     }, 150);
-
     return () => clearTimeout(timer);
   }, [query]);
 
-  // Save to recent searches when debounced query changes
+  // Simpan ke riwayat kueri saat ter-debounce
   useEffect(() => {
     const saveToSupabase = async (queryText) => {
       if (isLoggedIn && user) {
@@ -420,11 +453,12 @@ function App() {
       }
     };
 
-    if (debouncedQuery.trim().length >= 3) {
+    if (debouncedQuery.trim().length >= 3 && ['icd10', 'icd9'].includes(searchType)) {
       setRecentSearches(prev => {
         const lowerQuery = debouncedQuery.trim().toLowerCase();
-        const filtered = prev.filter(q => q.toLowerCase() !== lowerQuery);
-        const newRecent = [debouncedQuery.trim(), ...filtered].slice(0, 6);
+        const filtered = prev.filter(item => item.query.toLowerCase() !== lowerQuery);
+        const newEntry = { query: debouncedQuery.trim(), type: searchType };
+        const newRecent = [newEntry, ...filtered].slice(0, 8);
         localStorage.setItem('icd_recent_searches', JSON.stringify(newRecent));
         return newRecent;
       });
@@ -432,10 +466,24 @@ function App() {
     }
   }, [debouncedQuery, isLoggedIn, user, searchType]);
 
+  const handleSelectDetail = (sub) => {
+    setSelectedCodeDetail(sub);
+    // Tambahkan atau perbarui riwayat pencarian terakhir dengan kode ini
+    if (query.trim()) {
+      setRecentSearches(prev => {
+        const currentQuery = query.trim();
+        const lowerQuery = currentQuery.toLowerCase();
+        const filtered = prev.filter(item => item.query.toLowerCase() !== lowerQuery);
+        const newEntry = { query: currentQuery, code: sub.code, type: searchType };
+        const newRecent = [newEntry, ...filtered].slice(0, 8);
+        localStorage.setItem('icd_recent_searches', JSON.stringify(newRecent));
+        return newRecent;
+      });
+    }
+  };
+
   const fetchDynamicAliases = async () => {
     let combined = {};
-    
-    // 1. Ambil dari LocalStorage (offline/local fallback)
     try {
       const localCustom = JSON.parse(localStorage.getItem('icd_custom_abbreviations')) || {};
       Object.assign(combined, localCustom);
@@ -443,21 +491,18 @@ function App() {
       console.warn("Failed to parse custom local abbreviations:", e);
     }
     
-    // 2. Ambil dari Supabase (publik + milik user)
     try {
       const { data, error } = await supabase
         .from('custom_abbreviations')
         .select('keyword, expansion');
-        
       if (!error && data) {
         data.forEach(item => {
-          combined[item.keyword.toUpperCase()] = item.expansion;
+          combined[item.keyword.trim().toUpperCase()] = item.expansion.trim();
         });
       }
-    } catch (err) {
-      console.log("Supabase custom abbreviations table fetch failed (might not exist yet):", err);
+    } catch (e) {
+      console.warn("Failed to fetch abbreviations from Supabase:", e);
     }
-    
     return combined;
   };
 
@@ -467,45 +512,44 @@ function App() {
       const dynamic = await fetchDynamicAliases();
       setAliases({ ...resAliases, ...dynamic });
     } catch (e) {
-      console.warn("Failed to reload aliases:", e);
+      console.warn("Reload aliases failed:", e);
     }
   };
 
-  // Load data on mount
   useEffect(() => {
     const loadData = async () => {
+      let cached10, cached9;
       let hasCache = false;
-      let cached10 = null;
-      let cached9 = null;
       
       try {
-        // 1. Coba memuat dari cache IndexedDB terlebih dahulu
-        cached10 = await getCache('icd10');
-        cached9 = await getCache('icd9');
-        const cachedDA = await getCache('daggerAsterisk');
-        const cachedAliases = await getCache('aliases');
-        const cachedKnowledge = await getCache('knowledge');
+        const [c10, c9, cK, cDA, cA] = await Promise.all([
+          getCache('icd10'),
+          getCache('icd9'),
+          getCache('knowledge'),
+          getCache('daggerAsterisk'),
+          getCache('aliases')
+        ]);
 
-        if (cached10 && cached9) {
-          setIcd10Data(cached10);
-          setIcd9Data(cached9);
-          if (cachedKnowledge) setKnowledgeText(cachedKnowledge);
-          if (cachedDA) setDaggerAsteriskData(cachedDA);
-          if (cachedAliases) setAliases(cachedAliases);
-          setLoading(false); // Selesai memuat instan dari cache lokal
+        if (c10 && c9) {
+          cached10 = c10;
+          cached9 = c9;
+          setIcd10Data(c10);
+          setIcd9Data(c9);
+          if (cK) setKnowledgeText(cK);
+          if (cDA) setDaggerAsteriskData(cDA);
+          if (cA) setAliases(cA);
+          setLoading(false);
           hasCache = true;
         }
-      } catch (cacheErr) {
-        console.warn("IndexedDB cache read failed, falling back to network:", cacheErr);
+      } catch (err) {
+        console.warn("Cache retrieval failed:", err);
       }
 
       try {
-        // Jika belum ada cache, tampilkan loading spinner
         if (!hasCache) {
           setLoading(true);
         }
 
-        // 2. Fetch data terbaru dari server secara senyap
         const [res10, res9, resKnowledge, resDA, resAliases, resCrossref] = await Promise.all([
           fetch('/icd10.json').then(res => res.json()),
           fetch('/icd9.json').then(res => res.json()),
@@ -517,12 +561,10 @@ function App() {
 
         setCrossrefData(resCrossref || {});
 
-        // Cek apakah ada perubahan data dibanding cache
         const isDataChanged = !hasCache || 
           JSON.stringify(res10) !== JSON.stringify(cached10) || 
           JSON.stringify(res9) !== JSON.stringify(cached9);
 
-        // Ambil singkatan kustom dinamis
         const dynamicAliases = await fetchDynamicAliases();
         const finalAliases = { ...resAliases, ...dynamicAliases };
 
@@ -533,7 +575,6 @@ function App() {
           setDaggerAsteriskData(resDA);
           setAliases(finalAliases);
 
-          // Simpan data terbaru ke dalam cache IndexedDB secara asinkron
           setCache('icd10', res10);
           setCache('icd9', res9);
           setCache('knowledge', resKnowledge);
@@ -620,7 +661,6 @@ function App() {
   }), []);
 
   const suggestions = useMemo(() => {
-    // Query pre-processing: Replace '+' with space, normalize multiple spaces
     let trimmed = suggestionsQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim();
     if (!trimmed || trimmed.length < 2) return [];
 
@@ -628,7 +668,6 @@ function App() {
     const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
 
     const expandedQuery = UMBRELLA[cleanQueryForAlias] ? UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
-    const isUmbrellaQuery = !!UMBRELLA[cleanQueryForAlias];
 
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
     
@@ -707,28 +746,25 @@ function App() {
   };
 
   // Handle Smart Alias
-  const { searchQuery, activeAlias, isUmbrella } = useMemo(() => {
-    if (!debouncedQuery) return { searchQuery: '', activeAlias: null, isUmbrella: false };
-    // Pre-process: replace '+' with space, normalize multiple spaces
+  const { searchQuery, activeAlias } = useMemo(() => {
+    if (!debouncedQuery) return { searchQuery: '', activeAlias: null };
     const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
     const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
 
     if (UMBRELLA[cleanQuery]) {
       return { 
         searchQuery: UMBRELLA[cleanQuery].target, 
-        activeAlias: { key: cleanQuery, value: UMBRELLA[cleanQuery].label }, 
-        isUmbrella: true 
+        activeAlias: { key: cleanQuery, value: UMBRELLA[cleanQuery].label }
       };
     }
 
     if (aliases[cleanQuery]) {
       return { 
         searchQuery: aliases[cleanQuery], 
-        activeAlias: { key: cleanQuery, value: aliases[cleanQuery] }, 
-        isUmbrella: false 
+        activeAlias: { key: cleanQuery, value: aliases[cleanQuery] }
       };
     }
-    return { searchQuery: debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim(), activeAlias: null, isUmbrella: false };
+    return { searchQuery: debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim(), activeAlias: null };
   }, [debouncedQuery, aliases, searchType, ICD10_UMBRELLA, ICD9_UMBRELLA]);
 
   // Handle Search
@@ -775,7 +811,6 @@ function App() {
     });
 
     scoredResults.sort((a, b) => a.clinicalScore - b.clinicalScore);
-
     return scoredResults.slice(0, 60);
   }, [searchQuery, searchType, fuse10, fuse9, filterChapter, icd10Data, icd9Data]);
 
@@ -795,7 +830,6 @@ function App() {
     }
     const primary = [];
     const supplementary = [];
-
     const cleanQuery = searchQuery.trim().toLowerCase();
     const isSpecificSupplQuery = 
       /^[ztvywx]/i.test(cleanQuery) || 
@@ -803,16 +837,13 @@ function App() {
 
     searchResults.forEach(res => {
       const firstChar = res.item.code.charAt(0).toUpperCase();
-      
       let isSupplChapter = false;
       if (['V', 'W', 'X', 'Y', 'Z'].includes(firstChar)) {
         isSupplChapter = true;
       } else if (firstChar === 'T') {
         const numPart = parseInt(res.item.code.substring(1), 10);
-        if (!isNaN(numPart)) {
-          if (numPart >= 90 && numPart <= 98) {
-            isSupplChapter = true;
-          }
+        if (!isNaN(numPart) && numPart >= 90 && numPart <= 98) {
+          isSupplChapter = true;
         }
       }
       
@@ -897,7 +928,7 @@ function App() {
     return Object.values(groups).sort((a, b) => a.bestScore - b.bestScore);
   }, [supplementaryResults, searchType, icd10Data, icd9Data]);
 
-  // See also banner calculation
+  // See also banner
   const matchedCrossref = useMemo(() => {
     if (!query) return null;
     const clean = query.trim().toLowerCase();
@@ -916,567 +947,761 @@ function App() {
     localStorage.setItem('icd_dismissed_crossrefs', JSON.stringify(updated));
   };
 
+  const hasResults = !!query.trim() && ['icd10', 'icd9'].includes(searchType);
+  const isSearchMode = ['icd10', 'icd9'].includes(searchType);
+
+  // Click Outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('#apps-drawer-toggle') && !e.target.closest('#apps-drawer')) {
+        setIsAppsDrawerOpen(false);
+      }
+      if (!e.target.closest('#profile-dropdown-toggle') && !e.target.closest('#profile-dropdown')) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // UI Render Helpers
+  const renderAppsDrawer = () => {
+    const menuGrid = [
+      { name: 'Beranda', icon: <BookOpen className="w-5 h-5" />, action: () => handleTabClick('new_search') },
+      { name: 'ICD-10', icon: <Search className="w-5 h-5" />, action: () => handleTabClick('icd10') },
+      { name: 'ICD-9', icon: <Search className="w-5 h-5" />, action: () => handleTabClick('icd9') },
+      { name: 'Klinik AI', icon: <Brain className="w-5 h-5" />, action: () => handleTabClick('case') },
+      { name: 'Ekspor', icon: <FileText className="w-5 h-5" />, action: () => handleTabClick('history') },
+      { name: 'Profil', icon: <User className="w-5 h-5" />, action: () => handleTabClick('profile') },
+      { name: 'FAQ', icon: <HelpCircle className="w-5 h-5" />, action: () => handleTabClick('help') },
+      { name: 'Pengaturan', icon: <Settings className="w-5 h-5" />, action: () => handleTabClick('settings') },
+      { name: 'Tentang', icon: <Info className="w-5 h-5" />, action: () => setIsAboutOpen(true) }
+    ];
+
+    if (!isAppsDrawerOpen) return null;
+
+    return (
+      <div 
+        id="apps-drawer"
+        className="absolute top-14 right-14 w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
+      >
+        <div className="grid grid-cols-3 gap-3">
+          {menuGrid.map((menu, idx) => (
+            <button
+              key={idx}
+              onClick={() => { menu.action(); setIsAppsDrawerOpen(false); }}
+              className="flex flex-col items-center justify-center p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] dark:hover:text-[#2AA79B] transition-all cursor-pointer group"
+            >
+              <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-850 dark:group-hover:bg-[#2AA79B]/10 text-slate-500 dark:text-slate-400 group-hover:text-[#2AA79B] group-hover:bg-[#2AA79B]/5 transition-colors">
+                {menu.icon}
+              </div>
+              <span className="text-[10px] font-bold mt-1.5 text-center leading-tight truncate w-full">{menu.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderProfileDropdown = () => {
+    if (!isProfileDropdownOpen) return null;
+
+    return (
+      <div 
+        id="profile-dropdown"
+        className="absolute top-14 right-4 w-72 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-3 duration-200"
+      >
+        {isLoggedIn ? (
+          <div>
+            <div className="flex items-center gap-3 p-2 border-b border-slate-100 dark:border-slate-800 pb-3 mb-2">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0 border border-[#2AA79B]/40 flex items-center justify-center">
+                {user?.user_metadata?.avatar_url ? (
+                  <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <User className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <h4 className="text-xs font-bold text-slate-850 dark:text-slate-100 truncate">{user?.user_metadata?.full_name || 'Rekan PMIK'}</h4>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate">{user?.email}</p>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <button 
+                onClick={() => { handleTabClick('profile'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5" /> Profil Saya
+              </button>
+              <button 
+                onClick={() => { handleTabClick('bookmark'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Star className="w-3.5 h-3.5" /> Bookmark Saya
+              </button>
+              <button 
+                onClick={() => { handleTabClick('history'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-650 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Cloud className="w-3.5 h-3.5" /> Histori Cloud
+              </button>
+              <button 
+                onClick={() => { logout(); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors flex items-center gap-2 mt-1 cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" /> Keluar Akun
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="p-2 text-center">
+            <h4 className="text-sm font-bold text-slate-850 dark:text-slate-100 mb-1">Masuk ke ICD Search</h4>
+            <p className="text-[10px] text-slate-450 dark:text-slate-500 mb-3.5">Sinkronisasikan bookmark Anda di cloud dan akses asisten koding AI.</p>
+            <button
+              onClick={() => { loginWithGoogle(); setIsProfileDropdownOpen(false); }}
+              className="w-full bg-[#2AA79B] hover:bg-[#208f84] text-white py-2 px-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
+            >
+              Masuk / Daftar
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderKnowledgePanelContent = (sub) => {
+    if (!sub) return null;
+    const isInjury = ['S', 'T'].includes(sub.code.charAt(0).toUpperCase());
+    
+    return (
+      <div className="flex flex-col gap-5">
+        <div>
+          <span className="inline-block px-2.5 py-1 bg-[#2AA79B] text-white font-mono font-bold rounded-lg text-sm sm:text-base mb-2 shadow-sm">
+            {sub.code}
+          </span>
+          <h3 className="text-lg font-bold text-slate-850 dark:text-slate-100 leading-snug">
+            {sub.title}
+          </h3>
+          {sub.desc && (
+            <p className="text-slate-500 dark:text-slate-450 mt-1.5 text-xs sm:text-sm italic bg-slate-50 dark:bg-slate-850 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+              Deskripsi: {sub.desc}
+            </p>
+          )}
+        </div>
+
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-4 space-y-4">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Informasi Bab & Rujukan</h4>
+          
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-xl">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-550 block mb-0.5">Klasifikasi</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-350">{searchType === 'icd10' ? 'ICD-10 Vol. 1' : 'ICD-9-CM Prosedur'}</span>
+            </div>
+            
+            <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-xl">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-550 block mb-0.5">Tipe Kode</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-350">
+                {sub.code.includes('.') ? 'Sub-Kategori / Kode Spesifik' : 'Kategori Utama'}
+              </span>
+            </div>
+          </div>
+
+          {isInjury && (
+            <div className="p-3 bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/50 rounded-xl text-xs text-orange-700 dark:text-orange-400">
+              <span className="font-bold flex items-center gap-1 mb-1">🚨 Peringatan Penyebab Luar</span>
+              Cedera terdeteksi. Koder wajib menyertakan kode tambahan dari Bab XX (V01-Y98) sebagai diagnosis komorbid untuk menjelaskan penyebab cedera (misal KLL, jatuh, dll.).
+            </div>
+          )}
+        </div>
+
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-4 space-y-2">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Tindakan Cepat</h4>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(sub.code);
+                showToast(`Kode ${sub.code} disalin!`, 'success');
+              }}
+              className="w-full py-2.5 bg-slate-50 hover:bg-[#2AA79B]/10 dark:bg-slate-850 dark:hover:bg-[#2AA79B]/20 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Copy className="w-4 h-4" /> Salin Kode Utama
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(`${sub.code} ${sub.title}`);
+                showToast(`Kode & deskripsi disalin!`, 'success');
+              }}
+              className="w-full py-2.5 bg-slate-50 hover:bg-[#2AA79B]/10 dark:bg-slate-850 dark:hover:bg-[#2AA79B]/20 text-slate-650 dark:text-slate-300 hover:text-[#2AA79B] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Copy className="w-4 h-4" /> Salin Lengkap
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#00B4A4] selection:text-white">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} onSelectTab={handleTabClick} />
+    <div className="min-h-screen flex bg-slate-50 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-150 font-sans selection:bg-[#2AA79B] selection:text-white transition-colors duration-300">
+      
+      {/* Sidebar Kiri */}
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+        onSelectTab={handleTabClick}
+        isExpanded={isSidebarExpanded}
+        onToggleExpand={() => setIsSidebarExpanded(!isSidebarExpanded)}
+        recentSearches={recentSearches}
+        onRemoveRecent={(item) => setRecentSearches(prev => {
+          const updated = prev.filter(x => x.query !== item.query);
+          localStorage.setItem('icd_recent_searches', JSON.stringify(updated));
+          return updated;
+        })}
+        onClearRecent={() => {
+          setRecentSearches([]);
+          localStorage.removeItem('icd_recent_searches');
+        }}
+        onSearchSelect={(q, type) => {
+          setQuery(q);
+          setDebouncedQuery(q);
+          if (type === 'icd10') navigate('/');
+          else navigate('/' + type);
+        }}
+        activeTab={searchType}
+      />
+
       <AuthModal 
         isOpen={authModalConfig.isOpen} 
         onClose={() => setAuthModalConfig({ ...authModalConfig, isOpen: false })} 
         message={authModalConfig.message} 
       />
-      {/* Header */}
-      <header className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 transition-all duration-300">
-        <div className="max-w-5xl mx-auto px-4 py-3 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4A4] hover:bg-slate-100 dark:bg-slate-700 rounded-xl transition-all active:scale-95 focus:outline-none flex items-center justify-center"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-            <div 
-              className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
-              onClick={() => navigate('/')}
-              title="Kembali ke Beranda"
-            >
-              <img 
-                src="/PMIK-id%20Logo.png" 
-                alt="PMIK Logo" 
-                className="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0 group-hover:opacity-90 transition-opacity" 
-              />
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 leading-tight group-hover:text-[#00B4A4] transition-colors">ICD Search Pro</h1>
-                <p className="text-[11px] sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                  <span className="text-[#00B4A4] font-bold">by PMIK-id</span> <span className="px-1.5 opacity-40">•</span> Smart Clinical Coding Assistant
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 sm:flex bg-slate-100/80 dark:bg-slate-700/80 p-1.5 rounded-xl w-full sm:w-auto gap-1 backdrop-blur-sm">
-            <button 
-              onClick={() => handleTabClick('icd10')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 text-center ${searchType === 'icd10' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
-            >
-              ICD-10
-            </button>
-            <button 
-              onClick={() => handleTabClick('icd9')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 text-center ${searchType === 'icd9' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
-            >
-              ICD-9
-            </button>
-            <button 
-              onClick={() => handleTabClick('case')}
-              className={`px-2 sm:px-4 py-2 sm:py-2 text-sm font-semibold rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1.5 ${searchType === 'case' ? 'bg-white dark:bg-slate-800 shadow-sm text-[#00B4A4]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:bg-slate-700/50'}`}
-            >
-              <Brain className="w-4 h-4 shrink-0" /> <span className="hidden sm:inline">Klinik AI</span><span className="sm:hidden">AI</span>
-            </button>
-          </div>
-        </div>
-      </header>
 
-      {/* Main Content */}
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
+      {/* Kontainer Konten Utama */}
+      <div 
+        className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ${
+          isSidebarExpanded ? 'lg:pl-[280px]' : 'lg:pl-[72px]'
+        }`}
+      >
         
-        <Routes>
-          <Route path="/settings" element={<SettingsView onAliasesUpdated={reloadAliases} />} />
-          <Route path="/profile" element={<ProfileView />} />
-          <Route path="/help" element={<HelpView />} />
-          <Route path="/bookmark" element={<BookmarkView />} />
-          <Route path="/history" element={
-            <HistoryView onSearchHistory={(q, type) => {
-              navigate(type === 'icd10' ? '/' : '/' + type);
-              setQuery(q);
-            }} />
-          } />
-          <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} />} />
-          
-          <Route path="/" element={
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              {/* Search Bar & Filter */}
-              <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                <div className="relative group flex-1">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#00B4A4]">
-                    <Search className="w-6 h-6" />
-                  </div>
-                  <input
-                    type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 hover:shadow-md placeholder:text-slate-400 dark:text-slate-500"
-                    placeholder={`Cari kode, deskripsi, atau diagnosa...`}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onFocus={() => {
-                      setIsFocused(true);
-                      setShowSuggestions(true);
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => {
-                        setIsFocused(false);
-                        setShowSuggestions(false);
-                      }, 200);
-                    }}
-                    disabled={loading}
-                  />
-                  {query && !loading && (
-                    <button
-                      onClick={() => {
-                        setQuery('');
-                        setDebouncedQuery('');
-                      }}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors focus:outline-none"
-                      title="Hapus pencarian"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  )}
-                  {loading && (
-                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00B4A4]">
-                      <Loader2 className="w-6 h-6 animate-spin" />
-                    </div>
-                  )}
-                  {activeAlias && (
-                    <div className="absolute -bottom-7 left-4 text-xs text-[#00B4A4] flex items-center gap-1 font-bold bg-[#00B4A4]/10 px-2 py-1 rounded-md shadow-sm border border-[#00B4A4]/20 animate-in fade-in slide-in-from-top-1">
-                      <Brain className="w-3 h-3" />
-                      Smart Alias: {activeAlias.key} → {activeAlias.value}
-                    </div>
-                  )}
-                  {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50 transition-all duration-200 animate-in fade-in slide-in-from-top-2">
-                      {suggestions.map((suggestion, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onMouseDown={(e) => {
-                            e.preventDefault();
-                          }}
-                          onClick={() => handleSelectSuggestion(suggestion)}
-                          className="w-full px-5 py-3.5 text-left hover:bg-[#00B4A4]/5 dark:hover:bg-[#00B4A4]/10 transition-colors flex items-center gap-3 text-sm sm:text-base font-medium text-slate-700 dark:text-slate-200 cursor-pointer"
-                        >
-                          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 shrink-0" />
-                          <span className="truncate">{suggestion}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Filter Dropdown */}
-                <div className="w-full sm:w-64 shrink-0 relative h-14 sm:h-16">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
-                    <Filter className="w-5 h-5" />
-                  </div>
-                  <select 
-                    value={filterChapter}
-                    onChange={(e) => setFilterChapter(e.target.value)}
-                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-sm text-slate-700 dark:text-slate-200 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 truncate font-medium cursor-pointer"
+        {/* Render sticky header jika ada pencarian (hasResults === true) ATAU jika bukan halaman pencarian */}
+        {(hasResults || !isSearchMode) ? (
+          <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 sticky top-0 z-40 transition-all duration-300">
+            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+              
+              {/* Kiri: Hamburger + Logo (jika sidebar collapse) */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    if (window.innerWidth < 1024) {
+                      setIsSidebarOpen(true);
+                    } else {
+                      setIsSidebarExpanded(!isSidebarExpanded);
+                    }
+                  }}
+                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all active:scale-95 flex items-center justify-center cursor-pointer"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+                
+                {!isSidebarExpanded && (
+                  <div 
+                    className="flex items-center gap-2 cursor-pointer hidden lg:flex"
+                    onClick={() => handleTabClick('new_search')}
                   >
-                    {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
-                      <option key={c.id} value={c.id}>{c.label}</option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                  </div>
-                </div>
-              </div>
-
-              {/* Rujukan Silang Banner */}
-              {matchedCrossref && (
-                <div className="mb-6 bg-[#00B4A4]/5 dark:bg-slate-800/80 border border-[#00B4A4]/20 dark:border-slate-700/80 p-4 rounded-2xl shadow-sm flex items-start justify-between gap-3 animate-in fade-in slide-in-from-top-3 duration-300 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00B4A4]" />
-                  <div className="flex items-start gap-3 pl-1.5">
-                    <div className="bg-[#00B4A4]/10 text-[#00B4A4] p-1.5 rounded-xl mt-0.5">
-                      <BookOpen className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
-                        Rujukan Silang Medis (Cross-Reference)
-                      </h4>
-                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                          {matchedCrossref.see ? 'Lihat (See):' : 'Lihat juga (See also):'}
-                        </span>
-                        {matchedCrossref.see && (
-                          <button
-                            onClick={() => {
-                              setQuery(matchedCrossref.see);
-                              setDebouncedQuery(matchedCrossref.see);
-                            }}
-                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
-                          >
-                            {matchedCrossref.see}
-                          </button>
-                        )}
-                        {matchedCrossref.see_also && matchedCrossref.see_also.map((code, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => {
-                              const cleanCode = code.split(' ')[0];
-                              setQuery(cleanCode);
-                              setDebouncedQuery(cleanCode);
-                            }}
-                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
-                          >
-                            {code}
-                          </button>
-                        ))}
-                      </div>
-                      {matchedCrossref.note && (
-                        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 italic">
-                          Petunjuk: {matchedCrossref.note}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleDismissCrossref(matchedCrossref.key)}
-                    className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors focus:outline-none"
-                    title="Tutup & simpan pilihan"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
-
-              {/* Recent Searches */}
-              {!query && !loading && recentSearches.length > 0 && (
-                <div className="mb-8 flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mr-2">
-                    <Clock className="w-4 h-4" /> Riwayat:
-                  </span>
-                  {recentSearches.map((s, idx) => (
-                    <div key={idx} className="flex items-center bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
-                      <button
-                        onClick={() => setQuery(s)}
-                        className="px-3 py-1.5 text-slate-600 dark:text-slate-300 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
-                      >
-                        {s}
-                      </button>
-                      <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
-                      <button
-                        onClick={() => {
-                          setRecentSearches(prev => {
-                            const newHistory = prev.filter(item => item !== s);
-                            localStorage.setItem('icd_recent_searches', JSON.stringify(newHistory));
-                            return newHistory;
-                          });
-                        }}
-                        className="px-2 py-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors hover:bg-red-50"
-                        title="Hapus dari riwayat"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                  {recentSearches.length > 1 && (
-                    <button
-                      onClick={() => {
-                        setRecentSearches([]);
-                        localStorage.removeItem('icd_recent_searches');
-                      }}
-                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 dark:text-slate-500 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
-                    >
-                      Hapus Semua
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {error && (
-                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-xl flex items-start gap-3 border border-red-100">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm font-medium">{error}</p>
-                </div>
-              )}
-
-              {/* Results */}
-              {!loading && debouncedQuery && searchResults.length === 0 && (
-                <div className="text-center py-16 text-slate-500 dark:text-slate-400">
-                  <Search className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                  <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
-                  <p className="text-sm mt-1">Coba gunakan kata kunci lain.</p>
-                </div>
-              )}
-
-              <div className="space-y-4">
-                {primaryGroups.map((group, index) => (
-                  <ResultCard 
-                    key={group.categoryCode + index}
-                    group={group}
-                    searchType={searchType}
-                    knowledgeText={knowledgeText}
-                    daggerAsteriskData={daggerAsteriskData}
-                    onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
-                    onReportIncorrectOrder={reportIncorrectOrder}
-                  />
-                ))}
-
-                {supplementaryGroups.length > 0 && (
-                  <div className="mt-8 pt-6 border-t border-dashed border-slate-200 dark:border-slate-700">
-                    <h3 className="text-sm font-semibold text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4 text-[#00B4A4]" />
-                      Kode Penunjang / External / Status (T, V-Z)
-                    </h3>
-                    <div className="space-y-4">
-                      {supplementaryGroups.map((group, index) => (
-                        <ResultCard 
-                          key={group.categoryCode + index}
-                          group={group}
-                          searchType={searchType}
-                          knowledgeText={knowledgeText}
-                          daggerAsteriskData={daggerAsteriskData}
-                          onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
-                          onReportIncorrectOrder={reportIncorrectOrder}
-                        />
-                      ))}
-                    </div>
+                    <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-8 h-8 object-contain shrink-0" />
+                    <span className="font-bold text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
                   </div>
                 )}
               </div>
-            </div>
-          } />
-          
-          <Route path="/icd9" element={
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              {/* Search Bar & Filter */}
-              <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                <div className="relative group flex-1">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#00B4A4]">
-                    <Search className="w-6 h-6" />
+
+              {/* Tengah: Search pill kompak (hanya di mode pencarian) */}
+              {isSearchMode && (
+                <div className="flex-1 max-w-xl relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#2AA79B]">
+                    <Search className="w-4.5 h-4.5" />
                   </div>
                   <input
                     type="text"
-                    className="block w-full h-14 sm:h-16 pl-12 pr-12 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-base sm:text-lg transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 hover:shadow-md placeholder:text-slate-400 dark:text-slate-500"
-                    placeholder={`Cari kode, deskripsi, atau diagnosa...`}
+                    className="block w-full h-11 pl-10 pr-10 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 outline-none rounded-full text-sm transition-all focus:bg-white dark:focus:bg-slate-850 focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-300 dark:border-slate-650 dark:text-slate-100"
+                    placeholder="Cari kode atau diagnosa..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    onFocus={() => {
-                      setIsFocused(true);
-                      setShowSuggestions(true);
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => {
-                        setIsFocused(false);
-                        setShowSuggestions(false);
-                      }, 200);
-                    }}
-                    disabled={loading}
+                    onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
+                    onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
                   />
-                  {query && !loading && (
+                  {query && (
                     <button
-                      onClick={() => {
-                        setQuery('');
-                        setDebouncedQuery('');
-                      }}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors focus:outline-none"
-                      title="Hapus pencarian"
+                      onClick={() => { setQuery(''); setDebouncedQuery(''); setSelectedCodeDetail(null); }}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-450 hover:text-slate-650 dark:hover:text-slate-350 focus:outline-none"
                     >
-                      <X className="w-5 h-5" />
+                      <X className="w-4 h-4" />
                     </button>
                   )}
-                  {loading && (
-                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00B4A4]">
-                      <Loader2 className="w-6 h-6 animate-spin" />
-                    </div>
-                  )}
-                  {activeAlias && (
-                    <div className="absolute -bottom-7 left-4 text-xs text-[#00B4A4] flex items-center gap-1 font-bold bg-[#00B4A4]/10 px-2 py-1 rounded-md shadow-sm border border-[#00B4A4]/20 animate-in fade-in slide-in-from-top-1">
-                      <Brain className="w-3 h-3" />
-                      Smart Alias: {activeAlias.key} → {activeAlias.value}
-                    </div>
-                  )}
                   {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50 transition-all duration-200 animate-in fade-in slide-in-from-top-2">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1">
                       {suggestions.map((suggestion, idx) => (
                         <button
                           key={idx}
                           type="button"
-                          onMouseDown={(e) => {
-                            e.preventDefault();
-                          }}
+                          onMouseDown={(e) => e.preventDefault()}
                           onClick={() => handleSelectSuggestion(suggestion)}
-                          className="w-full px-5 py-3.5 text-left hover:bg-[#00B4A4]/5 dark:hover:bg-[#00B4A4]/10 transition-colors flex items-center gap-3 text-sm sm:text-base font-medium text-slate-700 dark:text-slate-200 cursor-pointer"
+                          className="w-full px-4 py-2.5 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-750 dark:text-slate-200 cursor-pointer"
                         >
-                          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 shrink-0" />
+                          <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                           <span className="truncate">{suggestion}</span>
                         </button>
                       ))}
                     </div>
                   )}
                 </div>
+              )}
 
-                {/* Filter Dropdown */}
-                <div className="w-full sm:w-64 shrink-0 relative h-14 sm:h-16">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
-                    <Filter className="w-5 h-5" />
+              {/* Kanan: Navigasi, Toggle, Apps Drawer, Profil */}
+              <div className="flex items-center gap-2 sm:gap-3 relative">
+                
+                {/* Tab switchers di header jika ada hasResults */}
+                {isSearchMode && (
+                  <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg text-xs font-semibold mr-1">
+                    <button 
+                      onClick={() => handleTabClick('icd10')}
+                      className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                        searchType === 'icd10' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      ICD-10
+                    </button>
+                    <button 
+                      onClick={() => handleTabClick('icd9')}
+                      className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                        searchType === 'icd9' ? 'bg-white dark:bg-slate-900 text-[#2AA79B] shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      ICD-9
+                    </button>
                   </div>
-                  <select 
-                    value={filterChapter}
-                    onChange={(e) => setFilterChapter(e.target.value)}
-                    className="block w-full h-full appearance-none pl-11 pr-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none rounded-2xl shadow-sm text-sm text-slate-700 dark:text-slate-200 transition-all focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 hover:border-slate-300 dark:border-slate-600 truncate font-medium cursor-pointer"
-                  >
-                    {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
-                      <option key={c.id} value={c.id}>{c.label}</option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                  </div>
-                </div>
+                )}
+
+                {/* Theme Toggle */}
+                <button
+                  onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                  className="p-2 text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+                  title="Ganti Tema"
+                >
+                  {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                </button>
+
+                {/* Apps Drawer Toggle */}
+                <button
+                  id="apps-drawer-toggle"
+                  onClick={() => setIsAppsDrawerOpen(!isAppsDrawerOpen)}
+                  className={`p-2 rounded-xl transition-all cursor-pointer ${
+                    isAppsDrawerOpen ? 'bg-[#2AA79B]/10 text-[#2AA79B]' : 'text-slate-500 dark:text-slate-400 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                  title="Menu Aplikasi"
+                >
+                  <Grid className="w-5 h-5" />
+                </button>
+
+                {/* Apps Drawer Panel */}
+                {renderAppsDrawer()}
+
+                {/* Profile Toggle */}
+                <button
+                  id="profile-dropdown-toggle"
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shrink-0 flex items-center justify-center cursor-pointer hover:border-[#2AA79B]/55 transition-colors"
+                  title="Akun Saya"
+                >
+                  {isLoggedIn && user?.user_metadata?.avatar_url ? (
+                    <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-4 h-4 text-slate-400" />
+                  )}
+                </button>
+
+                {/* Profile Dropdown Panel */}
+                {renderProfileDropdown()}
               </div>
+            </div>
+          </header>
+        ) : null}
 
-              {/* Rujukan Silang Banner */}
-              {matchedCrossref && (
-                <div className="mb-6 bg-[#00B4A4]/5 dark:bg-slate-800/80 border border-[#00B4A4]/20 dark:border-slate-700/80 p-4 rounded-2xl shadow-sm flex items-start justify-between gap-3 animate-in fade-in slide-in-from-top-3 duration-300 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00B4A4]" />
-                  <div className="flex items-start gap-3 pl-1.5">
-                    <div className="bg-[#00B4A4]/10 text-[#00B4A4] p-1.5 rounded-xl mt-0.5">
-                      <BookOpen className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
-                        Rujukan Silang Medis (Cross-Reference)
-                      </h4>
-                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                          {matchedCrossref.see ? 'Lihat (See):' : 'Lihat juga (See also):'}
-                        </span>
-                        {matchedCrossref.see && (
+        {/* Area Konten Utama */}
+        <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
+          
+          {/* RUTE PENCARIAN & HOMEPAGE TERPUSAT */}
+          <Routes>
+            <Route path="/settings" element={<SettingsView onAliasesUpdated={reloadAliases} />} />
+            <Route path="/profile" element={<ProfileView />} />
+            <Route path="/help" element={<HelpView />} />
+            <Route path="/bookmark" element={<BookmarkView />} />
+            <Route path="/history" element={
+              <HistoryView onSearchHistory={(q, type) => {
+                navigate(type === 'icd10' ? '/' : '/' + type);
+                setQuery(q);
+              }} />
+            } />
+            <Route path="/case" element={<CaseConsultation knowledgeText={knowledgeText} />} />
+            
+            {/* Rute ICD-10 & ICD-9 */}
+            {['/', '/icd9'].map((path) => (
+              <Route 
+                key={path}
+                path={path} 
+                element={
+                  !hasResults ? (
+                    // HOMEPAGE TERPUSAT (GOOGLE PATTERN)
+                    <div className="flex flex-col items-center justify-center min-h-[72vh] px-4 animate-in fade-in duration-500">
+                      
+                      {/* Brand Logo & Personal Greeting */}
+                      <div className="flex flex-col items-center mb-8 text-center">
+                        <div className="relative mb-4 group">
+                          <div className="absolute -inset-1.5 bg-gradient-to-r from-[#2AA79B] to-[#D6E400] rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                          <img 
+                            src="/PMIK-id%20Logo.png" 
+                            alt="PMIK Logo" 
+                            className="relative w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105" 
+                          />
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
+                        <p className="text-[#2AA79B] font-bold text-xs sm:text-sm mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
+                        
+                        <h3 className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-6 font-semibold">
+                          {isLoggedIn 
+                            ? `Halo ${user?.user_metadata?.full_name || 'Rekan PMIK'}, mau cari kode apa?` 
+                            : 'Halo Rekan PMIK, mau cari kode apa?'}
+                        </h3>
+                      </div>
+
+                      {/* Search Bar Terpusat */}
+                      <div className="w-full max-w-2xl relative group">
+                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-[#2AA79B]">
+                          <Search className="w-6 h-6 animate-pulse" />
+                        </div>
+                        <input
+                          type="text"
+                          className="block w-full h-16 pl-14 pr-12 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 outline-none rounded-full shadow-lg text-base sm:text-lg transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 hover:border-slate-350 dark:border-slate-750 dark:text-slate-100"
+                          placeholder={searchType === 'icd10' ? "Cari kode, diagnosa, atau lead term (mis. Pneumonia)..." : "Cari prosedur medis (mis. Sectio Caesarea, ORIF)..."}
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          onFocus={() => { setIsFocused(true); setShowSuggestions(true); }}
+                          onBlur={() => { setTimeout(() => { setIsFocused(false); setShowSuggestions(false); }, 200); }}
+                          disabled={loading}
+                        />
+                        {query && !loading && (
                           <button
-                            onClick={() => {
-                              setQuery(matchedCrossref.see);
-                              setDebouncedQuery(matchedCrossref.see);
-                            }}
-                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                            onClick={() => { setQuery(''); setDebouncedQuery(''); }}
+                            className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus:outline-none"
                           >
-                            {matchedCrossref.see}
+                            <X className="w-5 h-5" />
                           </button>
                         )}
-                        {matchedCrossref.see_also && matchedCrossref.see_also.map((code, idx) => (
+                        {loading && (
+                          <div className="absolute inset-y-0 right-0 pr-5 flex items-center text-[#2AA79B]">
+                            <Loader2 className="w-6 h-6 animate-spin" />
+                          </div>
+                        )}
+                        {showSuggestions && query.trim().length >= 2 && suggestions.length > 0 && (
+                          <div className="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-2">
+                            {suggestions.map((suggestion, idx) => (
+                              <button
+                                key={idx}
+                                type="button"
+                                onMouseDown={(e) => { e.preventDefault(); }}
+                                onClick={() => handleSelectSuggestion(suggestion)}
+                                className="w-full px-6 py-4 text-left hover:bg-[#2AA79B]/5 dark:hover:bg-[#2AA79B]/10 transition-colors flex items-center gap-3.5 text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
+                              >
+                                <Search className="w-4 h-4 text-slate-400 dark:text-slate-550 shrink-0" />
+                                <span className="truncate">{suggestion}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Info & Chapter quick toggles */}
+                      <div className="mt-8 flex flex-wrap justify-center gap-2 max-w-xl px-4">
+                        <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block w-full text-center mb-1">
+                          Filter Kategori Cepat:
+                        </span>
+                        {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).slice(1, 6).map((c) => (
                           <button
-                            key={idx}
-                            onClick={() => {
-                              const cleanCode = code.split(' ')[0];
-                              setQuery(cleanCode);
-                              setDebouncedQuery(cleanCode);
-                            }}
-                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                            key={c.id}
+                            onClick={() => { setFilterChapter(c.id); showToast(`Filter aktif: ${c.label.split('[')[0]}`, 'info'); }}
+                            className="px-3 py-1.5 bg-slate-100 hover:bg-[#2AA79B]/10 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-xs font-semibold text-slate-650 dark:text-slate-350 rounded-xl transition-all cursor-pointer hover:scale-[1.03]"
                           >
-                            {code}
+                            {c.label.split(':')[0]}
                           </button>
                         ))}
                       </div>
-                      {matchedCrossref.note && (
-                        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 italic">
-                          Petunjuk: {matchedCrossref.note}
-                        </p>
+
+                    </div>
+                  ) : (
+                    // TATA LETAK HASIL PENCARIAN (GRID KIRI HASIL, KANAN DETAIL PANEL)
+                    <div className="animate-in fade-in slide-in-from-bottom-3 duration-400">
+                      
+                      {/* Rujukan Silang Medis Banner */}
+                      {matchedCrossref && (
+                        <div className="mb-6 bg-[#2AA79B]/5 dark:bg-slate-900 border border-[#2AA79B]/20 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-start justify-between gap-3 relative overflow-hidden animate-in fade-in">
+                          <div className="absolute top-0 left-0 w-1.5 h-full bg-[#2AA79B]" />
+                          <div className="flex items-start gap-3 pl-1.5">
+                            <div className="bg-[#2AA79B]/10 text-[#2AA79B] p-2 rounded-xl mt-0.5 shrink-0">
+                              <BookOpen className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
+                                Rujukan Silang Medis (Cross-Reference)
+                              </h4>
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                                  {matchedCrossref.see ? 'Lihat (See):' : 'Lihat juga (See also):'}
+                                </span>
+                                {matchedCrossref.see && (
+                                  <button
+                                    onClick={() => { setQuery(matchedCrossref.see); setDebouncedQuery(matchedCrossref.see); }}
+                                    className="px-2.5 py-1 bg-[#2AA79B]/10 hover:bg-[#2AA79B]/20 border border-[#2AA79B]/25 text-[#2AA79B] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                  >
+                                    {matchedCrossref.see}
+                                  </button>
+                                )}
+                                {matchedCrossref.see_also && matchedCrossref.see_also.map((code, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => {
+                                      const cleanCode = code.split(' ')[0];
+                                      setQuery(cleanCode);
+                                      setDebouncedQuery(cleanCode);
+                                    }}
+                                    className="px-2.5 py-1 bg-[#2AA79B]/10 hover:bg-[#2AA79B]/20 border border-[#2AA79B]/25 text-[#2AA79B] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                  >
+                                    {code}
+                                  </button>
+                                ))}
+                              </div>
+                              {matchedCrossref.note && (
+                                <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 italic">
+                                  Petunjuk: {matchedCrossref.note}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleDismissCrossref(matchedCrossref.key)}
+                            className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none shrink-0"
+                            title="Tutup banner"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
                       )}
+
+                      {/* Header filter jika query aktif */}
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-white dark:bg-slate-900 p-4 border border-slate-200/60 dark:border-slate-800 rounded-2xl">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="text-xs font-bold text-slate-450 dark:text-slate-500 mr-1.5 uppercase tracking-wider">Bab Aktif:</span>
+                          <span className="px-2.5 py-1 text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg">
+                            {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).find(c => c.id === filterChapter)?.label.split('[')[0]}
+                          </span>
+                          {activeAlias && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#2AA79B]/10 text-[#2AA79B] border border-[#2AA79B]/20 text-xs font-bold rounded-lg">
+                              <Brain className="w-3 h-3" />
+                              Alias: {activeAlias.key} → {activeAlias.value}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Filter select di hasil */}
+                        <div className="relative w-full sm:w-60 h-10 shrink-0">
+                          <select
+                            value={filterChapter}
+                            onChange={(e) => setFilterChapter(e.target.value)}
+                            className="block w-full h-full appearance-none pl-3 pr-8 bg-slate-50 dark:bg-slate-800 border border-slate-250 dark:border-slate-750 outline-none rounded-xl text-xs text-slate-755 dark:text-slate-200 transition-all focus:border-[#2AA79B] focus:ring-4 focus:ring-[#2AA79B]/10 truncate font-semibold cursor-pointer"
+                          >
+                            {(searchType === 'icd10' ? icd10Chapters : icd9Chapters).map(c => (
+                              <option key={c.id} value={c.id}>{c.label.split('[')[0]}</option>
+                            ))}
+                          </select>
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                            <ChevronDown className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Not found state */}
+                      {!loading && debouncedQuery && searchResults.length === 0 && (
+                        <div className="text-center py-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm">
+                          <Search className="w-12 h-12 mx-auto mb-4 text-slate-350 dark:text-slate-600 animate-pulse" />
+                          <p className="text-base font-bold text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
+                          <p className="text-xs text-slate-400 mt-1.5">Coba gunakan kata kunci lain.</p>
+                        </div>
+                      )}
+
+                      {/* Grid Container 1 Kolom atau 2 Kolom */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        
+                        {/* Kiri: Daftar kartu hasil */}
+                        <div 
+                          className={`space-y-4 transition-all duration-300 ${
+                            selectedCodeDetail ? 'lg:col-span-7 xl:col-span-8' : 'lg:col-span-12 max-w-5xl mx-auto w-full'
+                          }`}
+                        >
+                          {primaryGroups.map((group, index) => (
+                            <ResultCard 
+                              key={group.categoryCode + index}
+                              group={group}
+                              searchType={searchType}
+                              knowledgeText={knowledgeText}
+                              daggerAsteriskData={daggerAsteriskData}
+                              onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda.' })}
+                              onReportIncorrectOrder={reportIncorrectOrder}
+                              onSelectDetail={handleSelectDetail}
+                              selectedCode={selectedCodeDetail?.code}
+                            />
+                          ))}
+
+                          {supplementaryGroups.length > 0 && (
+                            <div className="mt-8 pt-6 border-t border-dashed border-slate-200 dark:border-slate-800">
+                              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <BookOpen className="w-4 h-4 text-[#2AA79B]" />
+                                Kode Penunjang / External / Status (T, V-Z)
+                              </h3>
+                              <div className="space-y-4">
+                                {supplementaryGroups.map((group, index) => (
+                                  <ResultCard 
+                                    key={group.categoryCode + index}
+                                    group={group}
+                                    searchType={searchType}
+                                    knowledgeText={knowledgeText}
+                                    daggerAsteriskData={daggerAsteriskData}
+                                    onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda.' })}
+                                    onReportIncorrectOrder={reportIncorrectOrder}
+                                    onSelectDetail={handleSelectDetail}
+                                    selectedCode={selectedCodeDetail?.code}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Kanan: Detail Panel (Knowledge Panel) Desktop */}
+                        {selectedCodeDetail && (
+                          <aside 
+                            className="hidden lg:block lg:col-span-5 xl:col-span-4 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 rounded-3xl shadow-sm sticky top-[84px] max-h-[calc(100vh-110px)] overflow-y-auto"
+                          >
+                            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
+                              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-450 dark:text-slate-500 flex items-center gap-1.5">
+                                <Info className="w-4 h-4 text-[#2AA79B]" /> Detail Kode
+                              </h3>
+                              <button 
+                                onClick={() => setSelectedCodeDetail(null)}
+                                className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-250 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                                title="Tutup detail panel"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                            {renderKnowledgePanelContent(selectedCodeDetail)}
+                          </aside>
+                        )}
+
+                        {/* Bottom Sheet Detail Panel Mobile */}
+                        {selectedCodeDetail && (
+                          <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end">
+                            <div 
+                              className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+                              onClick={() => setSelectedCodeDetail(null)}
+                            />
+                            
+                            {/* Bottom Sheet container dengan gestur penutup swipe down (drag bar) */}
+                            <div 
+                              className="relative bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[2.5rem] p-6 pb-8 shadow-2xl z-10 max-h-[80vh] overflow-y-auto animate-in slide-in-from-bottom-20 duration-300"
+                            >
+                              {/* Drag Handle */}
+                              <div 
+                                className="w-12 h-1.5 bg-slate-250 dark:bg-slate-850 rounded-full mx-auto mb-5 cursor-pointer"
+                                onClick={() => setSelectedCodeDetail(null)}
+                              />
+                              
+                              <button 
+                                onClick={() => setSelectedCodeDetail(null)}
+                                className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-650 dark:hover:text-slate-250 rounded-full transition-colors focus:outline-none"
+                              >
+                                <X className="w-5 h-5" />
+                              </button>
+                              {renderKnowledgePanelContent(selectedCodeDetail)}
+                            </div>
+                          </div>
+                        )}
+
+                      </div>
+
                     </div>
-                  </div>
-                  <button
-                    onClick={() => handleDismissCrossref(matchedCrossref.key)}
-                    className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors focus:outline-none"
-                    title="Tutup & simpan pilihan"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
+                  )
+                }
+              />
+            ))}
+            
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
 
-              {/* Recent Searches */}
-              {!query && !loading && recentSearches.length > 0 && (
-                <div className="mb-8 flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mr-2">
-                    <Clock className="w-4 h-4" /> Riwayat:
-                  </span>
-                  {recentSearches.map((s, idx) => (
-                    <div key={idx} className="flex items-center bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 rounded-full transition-all hover:shadow hover:border-[#00B4A4] overflow-hidden group">
-                      <button
-                        onClick={() => setQuery(s)}
-                        className="px-3 py-1.5 text-slate-600 dark:text-slate-300 text-sm font-medium group-hover:text-[#00B4A4] transition-colors"
-                      >
-                        {s}
-                      </button>
-                      <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700 group-hover:bg-[#00B4A4]/20 transition-colors"></div>
-                      <button
-                        onClick={() => {
-                          setRecentSearches(prev => {
-                            const newHistory = prev.filter(item => item !== s);
-                            localStorage.setItem('icd_recent_searches', JSON.stringify(newHistory));
-                            return newHistory;
-                          });
-                        }}
-                        className="px-2 py-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors hover:bg-red-50"
-                        title="Hapus dari riwayat"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                  {recentSearches.length > 1 && (
-                    <button
-                      onClick={() => {
-                        setRecentSearches([]);
-                        localStorage.removeItem('icd_recent_searches');
-                      }}
-                      className="ml-auto sm:ml-2 mt-1 sm:mt-0 px-3 py-1.5 text-[13px] text-slate-400 dark:text-slate-500 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-1 rounded-md hover:bg-red-50"
-                    >
-                      Hapus Semua
-                    </button>
-                  )}
-                </div>
-              )}
+        </main>
 
-              {error && (
-                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-xl flex items-start gap-3 border border-red-100">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm font-medium">{error}</p>
-                </div>
-              )}
+        {/* Floating Action Button - Scroll to Top */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-6 right-6 p-3 bg-[#2AA79B] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#208f84] transition-all duration-300 active:scale-95 z-40 flex items-center justify-center cursor-pointer ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+          aria-label="Scroll to top"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path></svg>
+        </button>
 
-              {/* Results */}
-              {!loading && debouncedQuery && searchResults.length === 0 && (
-                <div className="text-center py-16 text-slate-500 dark:text-slate-400">
-                  <Search className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                  <p className="text-lg font-medium text-slate-600 dark:text-slate-300">Tidak ada hasil pencarian statis ditemukan.</p>
-                  <p className="text-sm mt-1">Coba gunakan kata kunci lain.</p>
-                </div>
-              )}
+        {/* Footer */}
+        <footer className="mt-auto py-6 text-center text-slate-400 dark:text-slate-550 text-xs font-bold uppercase tracking-wider border-t border-slate-150 dark:border-slate-850 bg-white/40 dark:bg-slate-900/10">
+          <p>&copy; {new Date().getFullYear()} PMIK-id. All rights reserved.</p>
+        </footer>
+      </div>
 
-              <div className="space-y-4">
-                {primaryGroups.map((group, index) => (
-                  <ResultCard 
-                    key={group.categoryCode + index}
-                    group={group}
-                    searchType={searchType}
-                    knowledgeText={knowledgeText}
-                    daggerAsteriskData={daggerAsteriskData}
-                    onRequireAuth={() => setAuthModalConfig({ isOpen: true, message: 'Login untuk menyimpan bookmark dan mengakses kode ICD favorit Anda dari mana saja.' })}
-                    onReportIncorrectOrder={reportIncorrectOrder}
-                  />
-                ))}
-              </div>
+      {/* Modal Tentang App (Premium 9-grid menu item) */}
+      {isAboutOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsAboutOpen(false)} />
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 rounded-3xl p-6 shadow-2xl z-10 text-center animate-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setIsAboutOpen(false)}
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-250 rounded-lg hover:bg-slate-105 transition-colors focus:outline-none"
+            >
+              <X className="w-4.5 h-4.5" />
+            </button>
+            
+            <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-20 h-20 mx-auto object-contain mb-4" />
+            <h3 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">ICD Search Pro</h3>
+            <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
+            
+            <p className="text-slate-550 dark:text-slate-400 text-xs sm:text-sm mt-4 leading-relaxed">
+              Aplikasi pendukung koding medis pintar (smart coding assistant) yang dikembangkan khusus untuk profesional PMIK (Perekam Medis dan Informasi Kesehatan) di Indonesia. Membantu mempercepat koding diagnosis (ICD-10) dan tindakan (ICD-9-CM) dengan akurasi klinis tinggi sesuai aturan BPJS Kesehatan.
+            </p>
+            
+            <div className="mt-6 border-t border-slate-100 dark:border-slate-850 pt-4 flex flex-col gap-2">
+              <a 
+                href="https://pmik.id" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full py-2 bg-[#2AA79B] hover:bg-[#208f84] text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1"
+              >
+                Kunjungi Website PMIK-id <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+              <button 
+                onClick={() => setIsAboutOpen(false)}
+                className="w-full py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-350 hover:bg-slate-200 rounded-xl text-xs font-bold transition-colors"
+              >
+                Selesai
+              </button>
             </div>
-          } />
-          
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+          </div>
+        </div>
+      )}
 
-      </main>
-
-      {/* Floating Action Button - Scroll to Top */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 p-3 bg-[#00B4A4] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#009B8D] transition-all duration-300 active:scale-95 z-50 flex items-center justify-center ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
-        aria-label="Scroll to top"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path></svg>
-      </button>
-
-      {/* Footer */}
-      <footer className="mt-auto py-6 text-center text-slate-500 dark:text-slate-400 text-sm font-medium">
-        <p>&copy; {new Date().getFullYear()} PMIK-id. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
