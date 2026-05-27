@@ -6,7 +6,8 @@ import {
   ShieldAlert, Users, Key, BarChart3, MessageSquare, Loader2,
   Save, Activity, RefreshCw, TrendingUp, Search, Building2,
   Stethoscope, Star, AlertTriangle, CheckCircle, Eye, EyeOff,
-  ChevronRight, Zap, Shield, ArrowUpRight, Hash, Home, LogOut
+  ChevronRight, Zap, Shield, ArrowUpRight, Hash, Home, LogOut,
+  Lightbulb, Bug, Heart, HelpCircle
 } from 'lucide-react';
 
 // ─── Komponen Stat Card ────────────────────────────────────────────────────────
@@ -166,6 +167,7 @@ export function AdminDashboard() {
   const [savingKey, setSavingKey] = useState(false);
   const [keySaved, setKeySaved] = useState(false);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [userSuggestions, setUserSuggestions] = useState([]);
   const [demographics, setDemographics] = useState({ institutions: [], professions: [] });
 
   const fetchDashboardData = useCallback(async () => {
@@ -199,6 +201,14 @@ export function AdminDashboard() {
       }
       if (settings) setApiKey(settings.value);
       if (fbs) setFeedbacks(fbs);
+
+      // Fetch user suggestions (Kotak Saran)
+      const { data: suggestions } = await supabase
+        .from('user_feedbacks')
+        .select('*, profiles(full_name, institution, profession)')
+        .order('created_at', { ascending: false })
+        .limit(100);
+      if (suggestions) setUserSuggestions(suggestions);
     } catch (err) {
       console.error('Admin fetch error:', err);
     }
@@ -468,54 +478,118 @@ export function AdminDashboard() {
         );
 
       case 'feedback':
+        const catIcons = { saran: Lightbulb, bug: Bug, pujian: Heart, pertanyaan: HelpCircle };
+        const catColors = { saran: 'text-amber-500 bg-amber-50 dark:bg-amber-900/20', bug: 'text-red-500 bg-red-50 dark:bg-red-900/20', pujian: 'text-pink-500 bg-pink-50 dark:bg-pink-900/20', pertanyaan: 'text-blue-500 bg-blue-50 dark:bg-blue-900/20' };
+        const catLabels = { saran: 'Saran & Ide', bug: 'Laporan Bug', pujian: 'Pujian', pertanyaan: 'Pertanyaan' };
         return (
-          <div className="space-y-4">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/30 rounded-2xl p-4 flex items-center gap-3">
-                <CheckCircle className="w-8 h-8 text-green-500 shrink-0" />
+          <div className="space-y-6">
+            {/* Stat Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/30 rounded-2xl p-4 flex items-center gap-3">
+                <Lightbulb className="w-7 h-7 text-amber-500 shrink-0" />
                 <div>
-                  <div className="text-2xl font-black text-green-600">{feedbacks.filter(f => f.score >= 4).length}</div>
-                  <div className="text-xs text-slate-500">Feedback positif</div>
+                  <div className="text-xl font-black text-amber-600">{userSuggestions.filter(s => s.category === 'saran').length}</div>
+                  <div className="text-xs text-slate-500">Saran & Ide</div>
                 </div>
               </div>
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30 rounded-2xl p-4 flex items-center gap-3">
-                <AlertTriangle className="w-8 h-8 text-red-400 shrink-0" />
+                <Bug className="w-7 h-7 text-red-400 shrink-0" />
                 <div>
-                  <div className="text-2xl font-black text-red-500">{feedbacks.filter(f => f.score < 4).length}</div>
-                  <div className="text-xs text-slate-500">Perlu perhatian</div>
+                  <div className="text-xl font-black text-red-500">{userSuggestions.filter(s => s.category === 'bug').length}</div>
+                  <div className="text-xs text-slate-500">Laporan Bug</div>
+                </div>
+              </div>
+              <div className="bg-pink-50 dark:bg-pink-900/20 border border-pink-100 dark:border-pink-800/30 rounded-2xl p-4 flex items-center gap-3">
+                <Heart className="w-7 h-7 text-pink-500 shrink-0" />
+                <div>
+                  <div className="text-xl font-black text-pink-500">{userSuggestions.filter(s => s.category === 'pujian').length}</div>
+                  <div className="text-xs text-slate-500">Pujian</div>
+                </div>
+              </div>
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/30 rounded-2xl p-4 flex items-center gap-3">
+                <CheckCircle className="w-7 h-7 text-green-500 shrink-0" />
+                <div>
+                  <div className="text-xl font-black text-green-600">{feedbacks.filter(f => f.score >= 4).length}</div>
+                  <div className="text-xs text-slate-500">Rating Positif</div>
                 </div>
               </div>
             </div>
-            {feedbacks.length > 0 ? feedbacks.map((fb) => (
-              <div key={fb.id} className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center shrink-0">
-                      <span className="text-white font-black text-xs">U</span>
-                    </div>
-                    <div>
-                      <div className="font-bold text-slate-800 dark:text-slate-200 text-sm">Pengguna</div>
-                      <div className="text-xs text-slate-400 font-mono">{fb.user_id?.substring(0, 8)}...</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map(s => (
-                        <Star key={s} className={`w-3.5 h-3.5 ${s <= fb.score ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'}`} />
-                      ))}
-                    </div>
-                    <span className="text-xs text-slate-400">{new Date(fb.created_at).toLocaleDateString('id-ID')}</span>
-                  </div>
+
+            {/* Kotak Saran */}
+            <div>
+              <h3 className="font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-[#2AA79B]/10 flex items-center justify-center">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#2AA79B]" />
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
-                  <div className="text-xs text-slate-400 mb-1 font-bold uppercase tracking-wider">Kueri</div>
-                  <div className="text-sm font-medium text-slate-700 dark:text-slate-300">{fb.query || '-'}</div>
+                Kotak Saran Pengguna
+                <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{userSuggestions.length}</span>
+              </h3>
+              {userSuggestions.length > 0 ? (
+                <div className="space-y-3">
+                  {userSuggestions.map((s) => {
+                    const CatIcon = catIcons[s.category] || MessageSquare;
+                    const colorClass = catColors[s.category] || 'text-slate-500 bg-slate-50';
+                    return (
+                      <div key={s.id} className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2AA79B] to-blue-500 flex items-center justify-center text-white font-black text-sm shrink-0">
+                              {(s.profiles?.full_name || 'U').charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                              <div className="font-bold text-slate-800 dark:text-slate-200 text-sm">{s.profiles?.full_name || 'Anonim'}</div>
+                              <div className="text-xs text-slate-400">{s.profiles?.institution || s.profiles?.profession || '-'}</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold uppercase ${colorClass}`}>
+                              <CatIcon className="w-3 h-3" />
+                              {catLabels[s.category] || s.category}
+                            </span>
+                            <span className="text-xs text-slate-400">{new Date(s.created_at).toLocaleDateString('id-ID')}</span>
+                          </div>
+                        </div>
+                        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3.5 border border-slate-100 dark:border-slate-800">
+                          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{s.feedback}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
-            )) : (
-              <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center shadow-sm">
-                <MessageSquare className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <p className="text-slate-400 font-medium">Belum ada umpan balik dari pengguna</p>
+              ) : (
+                <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-10 text-center shadow-sm">
+                  <MessageSquare className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                  <p className="text-slate-400 font-medium">Belum ada saran dari pengguna</p>
+                  <p className="text-xs text-slate-400 mt-1">Tombol kotak saran tersedia di pojok kanan bawah aplikasi</p>
+                </div>
+              )}
+            </div>
+
+            {/* Rating Feedback */}
+            {feedbacks.length > 0 && (
+              <div>
+                <h3 className="font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center">
+                    <Star className="w-3.5 h-3.5 text-amber-500" />
+                  </div>
+                  Rating Hasil Pencarian
+                  <span className="text-xs text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{feedbacks.length}</span>
+                </h3>
+                <div className="space-y-3">
+                  {feedbacks.map((fb) => (
+                    <div key={fb.id} className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex items-center gap-4">
+                      <div className="flex gap-0.5 shrink-0">
+                        {[1, 2, 3, 4, 5].map(s => (
+                          <Star key={s} className={`w-3.5 h-3.5 ${s <= fb.score ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'}`} />
+                        ))}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate block">{fb.query || '-'}</span>
+                      </div>
+                      <span className="text-xs text-slate-400 shrink-0">{new Date(fb.created_at).toLocaleDateString('id-ID')}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

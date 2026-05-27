@@ -16,6 +16,7 @@ import { BookmarkView } from './components/BookmarkView';
 import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { AdminDashboard } from './components/AdminDashboard';
+import { FeedbackModal } from './components/FeedbackModal';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
 import { supabase } from './lib/supabase';
@@ -1601,6 +1602,9 @@ function App() {
         onClose={() => setAuthModalConfig({ ...authModalConfig, isOpen: false })} 
         message={authModalConfig.message} 
       />
+
+      {/* Tombol Kotak Saran (Tidak muncul di /admin) */}
+      {location.pathname !== '/admin' && <FeedbackModal />}
 
       {/* Kontainer Konten Utama */}
       <div 
