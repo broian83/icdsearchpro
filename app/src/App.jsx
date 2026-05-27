@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
-  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus
 } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
