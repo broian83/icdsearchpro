@@ -1546,7 +1546,7 @@ function App() {
               <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
                 <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
               </div>
-              <span className="font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
+              <span className="hidden sm:block font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
             </div>
           </div>
 
@@ -1587,11 +1587,6 @@ function App() {
                     // HOMEPAGE TERPUSAT (GOOGLE PATTERN)
                     <div className="flex flex-col items-center justify-center min-h-[72vh] px-4 animate-in fade-in duration-500 relative">
                       
-                      {/* Mobile Header Right (hanya muncul saat mobile di beranda) */}
-                      <div className="md:hidden absolute top-0 right-0 z-40 pr-2 pt-1">
-                        {renderHeaderRight(true)}
-                      </div>
-
                       {/* Brand Logo & Personal Greeting */}
                       <div className="flex flex-col items-center mb-8 text-center mt-8 md:mt-0">
                         <div className="relative mb-6 group">
