@@ -1254,7 +1254,9 @@ function App() {
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-xl">
               <span className="text-[10px] font-bold text-slate-400 dark:text-slate-550 block mb-0.5">Klasifikasi</span>
-              <span className="font-semibold text-slate-700 dark:text-slate-350">{searchType === 'icd10' ? 'ICD-10 Vol. 1' : 'ICD-9-CM Prosedur'}</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-350">
+                {/^[A-Z]/i.test(sub.code) ? 'ICD-10 Vol. 1' : 'ICD-9-CM Prosedur'}
+              </span>
             </div>
             
             <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-xl">
