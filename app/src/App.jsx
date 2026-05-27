@@ -1411,7 +1411,7 @@ function App() {
     const activeTabId = getActiveTabId();
 
     return (
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200/60 dark:border-slate-850 sticky top-[68px] z-30 transition-all duration-300">
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200/60 dark:border-slate-850 sticky top-[68px] lg:top-0 z-30 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-6 text-xs sm:text-sm overflow-x-auto scrollbar-none h-12">
             {tabs.map((tab) => {
@@ -1515,48 +1515,37 @@ function App() {
         }`}
       >
         
-        {/* Header Kanan Atas Melayang Absolut di Homepage */}
-        {!hasResults && isSearchMode && (
-          <div className="absolute top-4 right-6 z-40 hidden md:block">
-            {renderHeaderRight(true)}
-          </div>
-        )}
+        {/* Header Kanan Atas Melayang (Desktop/Tablet) */}
+        <div className="fixed top-4 right-6 z-40 hidden lg:block">
+          {renderHeaderRight(true)}
+        </div>
 
-        {/* Render sticky header jika ada pencarian (hasResults === true) ATAU jika bukan halaman pencarian */}
-        {(hasResults || !isSearchMode) ? (
-          <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 sticky top-0 z-40 transition-all duration-300">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-              
-              {/* Kiri: Logo (Selalu ada di navbar, hamburger dipindah ke sidebar) */}
-              <div className="flex items-center gap-3">
-                {/* Mobile hamburger - muncul hanya di mobile */}
-                <button
-                  onClick={() => setIsSidebarOpen(true)}
-                  className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer lg:hidden"
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
-                
-                <div 
-                  className="flex items-center gap-2 cursor-pointer lg:hidden"
-                  onClick={() => handleTabClick('new_search')}
-                >
-                  <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
-                    <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
-                  </div>
-                  <span className="font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight hidden sm:block">ICD Search Pro</span>
-                </div>
+        {/* Mobile Header (Hanya muncul di layar kecil < 1024px) */}
+        <div className="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 transition-all duration-300 px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            
+            <div 
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => handleTabClick('new_search')}
+            >
+              <div className="rounded-xl bg-white p-1 border border-slate-150 shadow-sm flex items-center justify-center shrink-0">
+                <img src="/PMIK-id%20Logo.png" alt="Logo" className="w-7 h-7 object-contain" />
               </div>
-
-              {/* Tengah: Dikosongkan, search bar pindah ke bawah */}
-              <div className="flex-1"></div>
-
-              {/* Kanan: Navigasi, Toggle, Apps Drawer, Profil */}
-              {renderHeaderRight(false)}
-
+              <span className="font-black text-sm text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</span>
             </div>
-          </header>
-        ) : null}
+          </div>
+
+          {/* Kanan: Navigasi, Toggle, Profil dsb (mode non-floating) */}
+          <div className="flex items-center">
+            {renderHeaderRight(false)}
+          </div>
+        </div>
 
         {/* Tab horizontal bar Google filter di bawah header kompak */}
         {renderTabFilterBar()}
