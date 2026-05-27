@@ -35,8 +35,8 @@ export default defineConfig(({ mode }) => {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024 // 10MB to accommodate icd10.json
       },
       manifest: {
-        name: 'ICD Search Pro',
-        short_name: 'ICD Search',
+        name: 'ICD Pro',
+        short_name: 'ICD Pro',
         description: 'Smart Offline ICD-10 & ICD-9 Search',
         theme_color: '#00B4A4',
         background_color: '#ffffff',

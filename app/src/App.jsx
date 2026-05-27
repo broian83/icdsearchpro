@@ -1660,7 +1660,8 @@ function App() {
                               className="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105 relative z-10 drop-shadow-lg" 
                             />
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
+                        <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Pro</h1>
+                        <p className="text-sm font-bold text-slate-550 dark:text-slate-400 mt-0.5">by PMIK-id</p>
                         <p className="text-[#2AA79B] font-extrabold text-[10px] sm:text-xs mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
                         
                         <h3 className="text-sm sm:text-base text-slate-655 dark:text-slate-350 mt-6 font-semibold">
@@ -2010,7 +2011,7 @@ function App() {
 
         {/* Footer */}
         <footer className="mt-auto py-6 text-center text-slate-400 dark:text-slate-550 text-xs font-bold uppercase tracking-wider border-t border-slate-150 dark:border-slate-850 bg-white/40 dark:bg-slate-900/10">
-          <p>&copy; {new Date().getFullYear()} PMIK-id. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ICD Pro Powered by PMIK-id. All rights reserved.</p>
         </footer>
       </div>
 
@@ -2027,7 +2028,7 @@ function App() {
             </button>
             
               <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-16 h-16 object-contain drop-shadow-md mx-auto mb-4" />
-            <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Search Pro</h3>
+            <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Pro</h3>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
             
             <p className="text-slate-550 dark:text-slate-400 text-xs sm:text-sm mt-4 leading-relaxed">

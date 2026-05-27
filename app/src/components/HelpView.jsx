@@ -171,7 +171,7 @@ export function HelpView() {
           </div>
           <div>
             <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Pertanyaan Umum (FAQ)</h2>
-            <p className="text-sm text-slate-555 dark:text-slate-400 mt-1">Temukan jawaban atas pertanyaan teknis operasional ICD Search Pro.</p>
+            <p className="text-sm text-slate-555 dark:text-slate-400 mt-1">Temukan jawaban atas pertanyaan teknis operasional ICD Pro.</p>
           </div>
         </div>
 
