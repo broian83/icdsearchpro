@@ -118,6 +118,102 @@ export function CaseConsultation({ knowledgeText }) {
     setError(null);
   };
 
+  const handleCopyAllCodes = () => {
+    if (!aiResponse) return;
+    
+    const icd10Regex = /\b[A-Z][0-9]{2}(?:\.[0-9]{1,2})?\b/g;
+    const icd9Regex = /\b[0-9]{2}\.[0-9]{1,2}\b/g;
+    const codes10 = aiResponse.match(icd10Regex) || [];
+    const codes9 = aiResponse.match(icd9Regex) || [];
+    const allCodes = [...new Set([...codes10, ...codes9])];
+    
+    if (allCodes.length === 0) {
+      showToast('Tidak ada kode ICD yang terdeteksi untuk disalin', 'warning');
+      return;
+    }
+    
+    const textToCopy = allCodes.join(', ');
+    navigator.clipboard.writeText(textToCopy);
+    showToast(`Berhasil menyalin ${allCodes.length} kode: ${textToCopy}`, 'success');
+  };
+
+  const handleExportCSV = () => {
+    if (!aiResponse) return;
+    
+    const icd10Regex = /\b[A-Z][0-9]{2}(?:\.[0-9]{1,2})?\b/g;
+    const icd9Regex = /\b[0-9]{2}\.[0-9]{1,2}\b/g;
+    const codes10 = aiResponse.match(icd10Regex) || [];
+    const codes9 = aiResponse.match(icd9Regex) || [];
+    
+    const uniqueCodes10 = [...new Set(codes10)];
+    const uniqueCodes9 = [...new Set(codes9)];
+    
+    if (uniqueCodes10.length === 0 && uniqueCodes9.length === 0) {
+      showToast('Tidak ada kode ICD yang terdeteksi untuk diekspor', 'warning');
+      return;
+    }
+    
+    const lines = aiResponse.split('\n');
+    
+    const getContextAndDesc = (code) => {
+      const line = lines.find(l => l.includes(code));
+      let context = '';
+      
+      if (line) {
+        const cleanLine = line.replace(/[*#_\-`[\]()]/g, '').trim();
+        const codeIndex = cleanLine.indexOf(code);
+        if (codeIndex > 0) {
+          context = cleanLine.substring(0, codeIndex).trim();
+          context = context.replace(/[:\-]/g, '').trim();
+        } else {
+          context = cleanLine;
+        }
+      }
+      return { context };
+    };
+
+    const getTipe = (code, isIcd10) => {
+      const line = lines.find(l => l.includes(code)) || '';
+      const lowerLine = line.toLowerCase();
+      
+      if (lowerLine.includes('utama') || lowerLine.includes('primer') || lowerLine.includes('primary')) {
+        return 'Diagnosis Utama';
+      }
+      if (lowerLine.includes('sekunder') || lowerLine.includes('komorbid') || lowerLine.includes('secondary')) {
+        return 'Komorbid';
+      }
+      if (lowerLine.includes('prosedur') || lowerLine.includes('tindakan') || lowerLine.includes('procedure') || !isIcd10) {
+        return 'Prosedur';
+      }
+      return 'Diagnosis Utama';
+    };
+
+    let csvContent = "\uFEFF"; // Add BOM for Excel UTF-8 support
+    csvContent += "Tipe,Kode,Deskripsi Inggris,Deskripsi Indonesia,Catatan AI\n";
+    
+    uniqueCodes10.forEach(code => {
+      const { context } = getContextAndDesc(code);
+      const tipe = getTipe(code, true);
+      csvContent += `"${tipe}","${code}","","${context.replace(/"/g, '""')}","Diagnosis primer hasil analisis"\n`;
+    });
+    
+    uniqueCodes9.forEach(code => {
+      const { context } = getContextAndDesc(code);
+      const tipe = getTipe(code, false);
+      csvContent += `"${tipe}","${code}","","${context.replace(/"/g, '""')}","Prosedur hasil analisis"\n`;
+    });
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Ekspor_Koding_INA_CBG_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('Ekspor CSV INA-CBG-ready berhasil diunduh!', 'success');
+  };
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 p-6">
@@ -211,24 +307,50 @@ export function CaseConsultation({ knowledgeText }) {
 
         {aiResponse && (
           <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/80 dark:to-slate-800 border border-[#00B4A4]/20 p-6 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700/50">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-slate-700/50">
               <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2">
                 Hasil Analisis Koding
                 <span className="text-[10px] uppercase tracking-wider bg-[#00B4A4] text-white px-2 py-1 rounded-md">AI Generated</span>
               </h3>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(aiResponse);
-                  setIsCopied(true);
-                  showToast('Hasil analisis disalin ke clipboard!', 'success');
-                  setTimeout(() => setIsCopied(false), 2000);
-                }}
-                className="p-2 text-slate-400 hover:text-[#00B4A4] hover:bg-[#00B4A4]/10 rounded-lg transition-colors flex items-center gap-1.5"
-                title="Salin Hasil"
-              >
-                {isCopied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                <span className="text-xs font-medium hidden sm:inline">{isCopied ? 'Tersalin!' : 'Salin'}</span>
-              </button>
+              
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopyAllCodes}
+                  className="px-3 py-1.5 bg-slate-100 hover:bg-[#00B4A4]/10 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#00B4A4] border border-slate-200 dark:border-slate-600 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
+                  title="Salin semua kode ICD-10 & ICD-9"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  Salin Semua Kode
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={handleExportCSV}
+                  className="px-3 py-1.5 bg-slate-100 hover:bg-[#00B4A4]/10 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#00B4A4] border border-slate-200 dark:border-slate-600 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer focus:outline-none"
+                  title="Unduh Tabel Koding INA-CBG (CSV)"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  Ekspor CSV
+                </button>
+
+                <div className="w-[1px] h-6 bg-slate-200 dark:bg-slate-700 mx-1 hidden md:block"></div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(aiResponse);
+                    setIsCopied(true);
+                    showToast('Hasil analisis disalin ke clipboard!', 'success');
+                    setTimeout(() => setIsCopied(false), 2000);
+                  }}
+                  className="px-3 py-1.5 bg-[#00B4A4] hover:bg-[#009B8D] text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm hover:shadow active:scale-95 cursor-pointer focus:outline-none"
+                  title="Salin Analisis Lengkap"
+                >
+                  {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  {isCopied ? 'Tersalin!' : 'Salin Semua'}
+                </button>
+              </div>
             </div>
             <div className="prose prose-slate prose-headings:text-[#00B4A4] max-w-none prose-p:leading-relaxed prose-li:my-1">
               <ReactMarkdown

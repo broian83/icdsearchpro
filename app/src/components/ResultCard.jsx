@@ -19,7 +19,7 @@ const OMIT_CODES_ICD9 = {
   '89.52': 'Omit jika perekaman EKG merupakan bagian dari pemeriksaan pra-bedah rutin.'
 };
 
-function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder }) {
+function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder, feedbackCount }) {
   const { isLoggedIn, user } = useAuth();
   const { showToast } = useToast();
   const [aiResponse, setAiResponse] = useState('');
@@ -243,10 +243,11 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
                     e.stopPropagation();
                     onReportIncorrectOrder(sub.code);
                   }}
-                  className="p-1.5 text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-500 focus:outline-none transition-colors duration-200"
+                  className="p-1.5 text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-500 focus:outline-none transition-colors duration-200 flex items-center gap-1"
                   title="Urutan kurang pas? Laporkan"
                 >
                   <ThumbsDown className="w-4 h-4" />
+                  {feedbackCount > 0 && <span className="text-[10px] font-bold bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-500 dark:text-slate-300">{feedbackCount}</span>}
                 </button>
               )}
               
@@ -312,10 +313,50 @@ function SubcodeItem({ sub, isMatched, matches, searchType, knowledgeText, dagge
 export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskData, onRequireAuth, onReportIncorrectOrder }) {
   const defaultExpanded = group.allSubcodes.length <= 8;
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const [feedbackCounts, setFeedbackCounts] = useState({});
 
   useEffect(() => {
     setIsExpanded(group.allSubcodes.length <= 8);
   }, [group.categoryCode, group.allSubcodes.length]);
+
+  useEffect(() => {
+    fetchFeedbackCounts();
+  }, [group.categoryCode, group.allSubcodes]);
+
+  const fetchFeedbackCounts = async () => {
+    try {
+      const codes = group.allSubcodes.map(sub => sub.code);
+      if (codes.length === 0) return;
+      
+      const { data, error } = await supabase
+        .from('ranking_feedback')
+        .select('code')
+        .in('code', codes);
+        
+      if (!error && data) {
+        const counts = {};
+        data.forEach(item => {
+          counts[item.code] = (counts[item.code] || 0) + 1;
+        });
+        setFeedbackCounts(counts);
+      }
+    } catch (err) {
+      console.warn("Failed to batch fetch feedback counts:", err);
+    }
+  };
+
+  const handleReportFeedback = async (code) => {
+    // Optimistic UI update
+    setFeedbackCounts(prev => ({
+      ...prev,
+      [code]: (prev[code] || 0) + 1
+    }));
+    
+    // Trigger parent report function
+    if (onReportIncorrectOrder) {
+      onReportIncorrectOrder(code);
+    }
+  };
 
   const visibleSubcodes = useMemo(() => {
     if (isExpanded) return group.allSubcodes;
@@ -381,7 +422,8 @@ export function ResultCard({ group, searchType, knowledgeText, daggerAsteriskDat
               knowledgeText={knowledgeText}
               daggerAsteriskData={daggerAsteriskData}
               onRequireAuth={onRequireAuth}
-              onReportIncorrectOrder={onReportIncorrectOrder}
+              onReportIncorrectOrder={handleReportFeedback}
+              feedbackCount={feedbackCounts[sub.code] || 0}
             />
           );
         })}

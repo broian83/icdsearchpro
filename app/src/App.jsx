@@ -69,6 +69,7 @@ const HIGH_FREQUENCY_ICD10 = {
   'A09.9': 0.001,
   'A09.0': 0.001,
   'J06.9': 0.001, 
+  'T30': 0.001,
   
   // Tier 2 (0.01) - Common Specialty (K80.1 removed, K80.2 and K80.20 retained)
   'D64.9': 0.01, 
@@ -94,6 +95,8 @@ const HIGH_FREQUENCY_ICD10 = {
   'S72.0': 0.01, 
   'S72': 0.01,
   'Z38.0': 0.01, 
+  'T14': 0.01,
+  'T31': 0.01,
 };
 
 const HIGH_FREQUENCY_ICD9 = {
@@ -587,6 +590,13 @@ function App() {
     'PPOK': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Penyakit Paru Obstruktif Kronis)' },
     'COPD': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Chronic Obstructive Pulmonary Disease)' },
     'SC': { target: 'O82', label: 'O82 (Persalinan Sectio Caesarea)' },
+    'BATUK': { target: 'R05', label: 'R05 (Batuk / Cough)' },
+    'SAKIT KEPALA': { target: 'R51', label: 'R51 (Sakit Kepala / Headache)' },
+    'MAAG': { target: 'K29.7', label: 'K29.7 / K30 (Gastritis / Dispepsia / Maag)' },
+    'PNEUMONIA ASPIRASI': { target: 'J69.0', label: 'J69.0 (Pneumonia Aspirasi)' },
+    'DM DENGAN GANGREN': { target: 'E11.5', label: 'E11.5 (DM Tipe 2 dengan Gangren)' },
+    'HIPERTENSI DALAM KEHAMILAN': { target: 'O1', label: 'O10-O14 (Hipertensi dalam Kehamilan, Pre-eklampsia, Eklampsia)' },
+    'FRAKTUR TERBUKA FEMUR': { target: 'S72.90', label: 'S72.90 (Fraktur Femur Terbuka - pilih subkode spesifik berdasarkan lokasi & pair dengan penyebab luar W-kode)' }
   }), []);
 
   const ICD9_UMBRELLA = useMemo(() => ({

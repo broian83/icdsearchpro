@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, Keyboard, Info } from 'lucide-react';
+import { HelpCircle, ChevronDown, Keyboard, Info, BookOpen } from 'lucide-react';
 
 const faqs = [
   {
@@ -24,16 +24,145 @@ const faqs = [
   }
 ];
 
+const eduGuidelines = [
+  {
+    title: "Alur Koding Digital (Vol. 3 → Vol. 1)",
+    icon: "📖",
+    content: (
+      <div className="space-y-2 text-xs sm:text-sm">
+        <p>Aplikasi ini dirancang khusus untuk mereplikasi alur koding standar WHO/PORMIKI secara digital demi meminimalisir kesalahan:</p>
+        <ol className="list-decimal pl-5 space-y-1.5 leading-relaxed text-slate-600 dark:text-slate-300">
+          <li><strong>Identifikasi Lead Term</strong>: Ketikkan kata benda kondisi patologis (misalnya <em>"Pneumonia"</em>, <em>"Fracture"</em>) di kolom input pencarian utama.</li>
+          <li><strong>Grup Kategori (Index Alfabetis Vol. 3)</strong>: Hasil pencarian otomatis dikelompokkan ke dalam kategori induknya (seperti <code>J18</code> atau <code>S72</code>).</li>
+          <li><strong>Verifikasi Subkode (Tabular List Vol. 1)</strong>: Klik tombol <em>"Tampilkan semua subkode"</em> pada grup kartu untuk memverifikasi subkode paling spesifik (seperti <code>J18.9</code> atau <code>S72.0</code>) berdasarkan detail klinis di berkas rekam medis.</li>
+        </ol>
+      </div>
+    )
+  },
+  {
+    title: "Panduan Lencana Badge Peringatan Klinis",
+    icon: "🏷️",
+    content: (
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+        <div className="p-3 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-100 dark:border-yellow-900/50 rounded-xl">
+          <span className="font-bold text-yellow-800 dark:text-yellow-400 text-xs uppercase flex items-center gap-1">⚠ Omit Code (ICD-9)</span>
+          <p className="text-slate-600 dark:text-slate-400 mt-1 leading-normal">
+            Merupakan tindakan medis rutin yang pengerjaannya sudah inheren/tercakup dalam prosedur utama. Berdasarkan aturan JKN (PMK 76/2016), kode ini <strong>tidak boleh dikode terpisah</strong> untuk klaim BPJS (mis. kanulasi vena rutin atau episiotomi). Keterangan kondisi omit tersedia pada tooltip lencana terkait.
+          </p>
+        </div>
+        <div className="p-3 bg-purple-50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/50 rounded-xl">
+          <span className="font-bold text-purple-800 dark:text-purple-400 text-xs uppercase flex items-center gap-1">🔗 Dagger/Asterisk (ICD-10)</span>
+          <p className="text-slate-600 dark:text-slate-400 mt-1 leading-normal">
+            Sistem klasifikasi ganda berpasangan. Kode Dagger (tanda †, etiologi penyakit) harus menjadi diagnosis utama, dan wajib diikuti oleh Kode Asterisk (tanda *, manifestasi organ tubuh) sebagai diagnosis sekunder (komorbid).
+          </p>
+        </div>
+        <div className="p-3 bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/50 rounded-xl">
+          <span className="font-bold text-orange-800 dark:text-orange-400 text-xs uppercase flex items-center gap-1">🚨 External Code / Penyebab Luar</span>
+          <p className="text-slate-600 dark:text-slate-400 mt-1 leading-normal">
+            Wajib menyertakan kode bab XX (V01-Y98) sebagai diagnosis penunjang jika diagnosis utamanya adalah cedera (S00-T98) atau keracunan. Ini penting untuk melengkapi berkas administrasi dan keabsahan klaim JKN.
+          </p>
+        </div>
+        <div className="p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 rounded-xl">
+          <span className="font-bold text-blue-800 dark:text-blue-400 text-xs uppercase flex items-center gap-1">🩺 Gejala / Symptoms (Bab R)</span>
+          <p className="text-slate-600 dark:text-slate-400 mt-1 leading-normal">
+            Berdasarkan kaidah koding WHO (Kaidah MB1), gejala (seperti pingsan R55, nyeri dada R07) tidak boleh dikode sebagai diagnosis utama jika penyakit aslinya (mis. infark miokard PJK) telah ditegakkan oleh dokter.
+          </p>
+        </div>
+      </div>
+    )
+  },
+  {
+    title: "Kasus Koding JKN: Hipertensi + Gagal Jantung Kongestif",
+    icon: "💡",
+    content: (
+      <div className="space-y-3 text-xs sm:text-sm">
+        <div className="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-xl leading-relaxed text-slate-700 dark:text-slate-300">
+          <span className="font-bold text-slate-800 dark:text-slate-200">Skenario Resume:</span> Pasien masuk IGD dengan keluhan sesak napas akut. Hasil pemeriksaan menunjukkan efusi pleura dan edema paru akibat gagal jantung. Dokter menulis diagnosis utama: <strong>Hipertensi Primer</strong> dan <strong>Gagal Jantung Kongestif (CHF)</strong>.
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-3.5 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/50 rounded-xl">
+            <span className="font-bold text-red-700 dark:text-red-400 text-xs flex items-center gap-1">❌ Salah (Koding Terpisah)</span>
+            <p className="text-sm font-mono font-bold mt-1">I10 + I50.0</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              Mengkoding kedua diagnosis secara terpisah adalah kekeliruan besar. Kausalitas antara hipertensi dan gangguan jantung sudah terikat dalam kode kombinasi. Pemisahan kode berisiko memicu dispute klaim saat diaudit verifikator BPJS.
+            </p>
+          </div>
+          <div className="p-3.5 bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/50 rounded-xl">
+            <span className="font-bold text-green-700 dark:text-green-400 text-xs flex items-center gap-1">✅ Benar (Kode Kombinasi)</span>
+            <p className="text-sm font-mono font-bold mt-1">I11.0 (Hypertensive Heart Disease with CHF)</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              <strong>Aturan Resmi (ICD-10 Vol. 1):</strong> Di bawah kelompok kode <code>I11</code>, terdapat instruksi inklusi eksplisit untuk menyatukan gagal jantung (<code>I50.-</code>) akibat hipertensi. Koder wajib menggunakan kode kombinasi tunggal <code>I11.0</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+];
+
 export function HelpView() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [eduOpenIndex, setEduOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const toggleEduAccordion = (index) => {
+    setEduOpenIndex(eduOpenIndex === index ? null : index);
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
+      {/* JKN Coding Education Center */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-3 bg-[#00B4A4]/10 rounded-xl text-[#00B4A4]">
+            <BookOpen className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Pusat Edukasi Koding JKN</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Panduan klinis praktis, contoh kasus, dan penjelasan badge demi kepatuhan koding JKN.</p>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {eduGuidelines.map((item, index) => (
+            <div 
+              key={index} 
+              className={`border rounded-xl transition-all duration-200 ${
+                eduOpenIndex === index ? 'border-[#00B4A4] shadow-sm bg-slate-50 dark:bg-slate-800/50' : 'border-slate-200 dark:border-slate-700 hover:border-[#00B4A4]/50'
+              }`}
+            >
+              <button
+                onClick={() => toggleEduAccordion(index)}
+                className="w-full text-left px-5 py-4 flex items-center justify-between focus:outline-none"
+              >
+                <span className="font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 pr-4">
+                  <span className="text-lg">{item.icon}</span>
+                  {item.title}
+                </span>
+                <ChevronDown 
+                  className={`w-5 h-5 text-slate-400 dark:text-slate-500 transition-transform duration-300 shrink-0 ${
+                    eduOpenIndex === index ? 'rotate-180 text-[#00B4A4]' : ''
+                  }`} 
+                />
+              </button>
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  eduOpenIndex === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed pt-2">
+                  {item.content}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* FAQ Section */}
       <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-8">
@@ -41,8 +170,8 @@ export function HelpView() {
             <HelpCircle className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Pusat Bantuan (FAQ)</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Temukan jawaban atas pertanyaan umum seputar ICD Search Pro.</p>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Pertanyaan Umum (FAQ)</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Temukan jawaban atas pertanyaan teknis operasional ICD Search Pro.</p>
           </div>
         </div>
 

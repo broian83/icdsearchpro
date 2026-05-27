@@ -177,14 +177,25 @@ export function ProfileView() {
 
             <div>
               <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">Spesialisasi / Minat Klinis</label>
-              <input
-                type="text"
+              <select
                 name="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:bg-slate-800 focus:outline-none focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 transition-all text-slate-800 dark:text-slate-100"
-                placeholder="Contoh: Bedah, Onkologi, Koding JKN"
-              />
+                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:bg-slate-800 focus:outline-none focus:border-[#00B4A4] focus:ring-4 focus:ring-[#00B4A4]/20 transition-all text-slate-800 dark:text-slate-100 font-medium cursor-pointer"
+              >
+                <option value="">Pilih Spesialisasi / Minat Klinis...</option>
+                <option value="Rekam Medis / PMIK">Rekam Medis / PMIK</option>
+                <option value="Casemix / Koding JKN">Casemix / Koding JKN</option>
+                <option value="Penyakit Dalam">Penyakit Dalam</option>
+                <option value="Bedah">Bedah</option>
+                <option value="Kebidanan & Kandungan (OBGYN)">Kebidanan & Kandungan (OBGYN)</option>
+                <option value="Anak (Pediatri)">Anak (Pediatri)</option>
+                <option value="Kardiovaskular (Jantung)">Kardiovaskular (Jantung)</option>
+                <option value="Neurologi (Saraf)">Neurologi (Saraf)</option>
+                <option value="Onkologi (Kanker)">Onkologi (Kanker)</option>
+                <option value="FKTP / Puskesmas">FKTP / Puskesmas</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
             </div>
 
             <div className="pt-4 flex items-center justify-end gap-4">
