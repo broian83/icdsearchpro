@@ -1651,17 +1651,19 @@ function App() {
                       
                       {/* Brand Logo & Personal Greeting */}
                       <div className="flex flex-col items-center mb-8 text-center mt-8 md:mt-0">
-                        <div className="relative mb-6 group">
-                          <div className="absolute -inset-1.5 bg-gradient-to-r from-[#2AA79B] to-[#D6E400] rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                          {/* Bingkai bulat keping emblem premium untuk logo PMIK-id agar tampak rapi di dark mode */}
-                            <img 
-                              src="/icdsearchpro_transparan.png" 
-                              alt="PMIK Logo" 
-                              className="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105 relative z-10 drop-shadow-lg" 
-                              fetchpriority="high"
-                            />
+                        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
+                          <div className="relative group">
+                            <div className="absolute -inset-1.5 bg-gradient-to-r from-[#2AA79B] to-[#D6E400] rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                            {/* Bingkai bulat keping emblem premium untuk logo PMIK-id agar tampak rapi di dark mode */}
+                              <img 
+                                src="/icdsearchpro_transparan.png" 
+                                alt="PMIK Logo" 
+                                className="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0 transition-transform duration-350 hover:scale-105 relative z-10 drop-shadow-md" 
+                                fetchpriority="high"
+                              />
+                          </div>
+                          <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Pro</h1>
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Pro</h1>
                         <p className="text-[#2AA79B] font-extrabold text-[10px] sm:text-xs mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
                         
                         <h3 className="text-sm sm:text-base text-slate-655 dark:text-slate-350 mt-6 font-semibold">
@@ -2027,8 +2029,10 @@ function App() {
               <X className="w-4.5 h-4.5" />
             </button>
             
-              <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-16 h-16 object-contain drop-shadow-md mx-auto mb-4" />
-            <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Pro</h3>
+            <div className="flex items-center justify-center gap-2.5 mb-2">
+              <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-8 h-8 object-contain drop-shadow-md" />
+              <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Pro</h3>
+            </div>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
             
             <p className="text-slate-550 dark:text-slate-400 text-xs sm:text-sm mt-4 leading-relaxed">
