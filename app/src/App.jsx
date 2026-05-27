@@ -1413,7 +1413,8 @@ function App() {
     return (
       <div className="bg-white dark:bg-slate-900 border-b border-slate-200/60 dark:border-slate-850 sticky top-[68px] lg:top-0 z-30 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-6 text-xs sm:text-sm overflow-x-auto scrollbar-none h-12">
+          <div className="flex items-center justify-between h-12">
+            <div className="flex items-center gap-6 text-xs sm:text-sm overflow-x-auto scrollbar-none h-full">
             {tabs.map((tab) => {
               const isActive = tab.id === activeTabId;
               return (
@@ -1433,6 +1434,12 @@ function App() {
                 </button>
               );
             })}
+            </div>
+
+            {/* Header Right Menu sebaris dengan Filter Tabs di Desktop */}
+            <div className="hidden lg:flex items-center">
+              {renderHeaderRight(false)}
+            </div>
           </div>
 
           {/* Sub-Filter Row (Hanya muncul jika tab aktif adalah icd10 atau icd9 DAN hasResults === true) */}
@@ -1515,10 +1522,12 @@ function App() {
         }`}
       >
         
-        {/* Header Kanan Atas Melayang (Desktop/Tablet) */}
-        <div className="fixed top-4 right-6 z-40 hidden lg:block">
-          {renderHeaderRight(true)}
-        </div>
+        {/* Header Kanan Atas Melayang (Desktop/Tablet) HANYA DI HOMEPAGE */}
+        {!hasResults && isSearchMode && (
+          <div className="fixed top-4 right-6 z-40 hidden lg:block">
+            {renderHeaderRight(true)}
+          </div>
+        )}
 
         {/* Mobile Header (Hanya muncul di layar kecil < 1024px) */}
         <div className="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200/60 dark:border-slate-850 transition-all duration-300 px-4 py-3 flex items-center justify-between">
