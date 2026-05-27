@@ -1,0 +1,60 @@
+{
+  "diabetes": {
+    "see_also": ["E10", "E11", "E12", "E13", "E14"],
+    "note": "Pilih berdasarkan tipe DM, status komplikasi, dan manifestasi organ (dagger/asterisk)."
+  },
+  "hypertension": {
+    "see": "I10-I15",
+    "see_also": ["I11", "I12", "I13"],
+    "note": "Perhatikan keterlibatan organ jantung dan ginjal untuk kode kombinasi."
+  },
+  "hipertensi": {
+    "see": "I10-I15",
+    "see_also": ["I11", "I12", "I13"],
+    "note": "Perhatikan keterlibatan organ jantung dan ginjal untuk kode kombinasi."
+  },
+  "gagal ginjal": {
+    "see_also": ["N17", "N18", "N19"],
+    "note": "Bedakan AKI (N17), CKD (N18), dan Gagal Ginjal Tidak Spesifik (N19)."
+  },
+  "sepsis": {
+    "see_also": ["A41.9", "A41", "A40"],
+    "note": "Kode sepsis sebagai diagnosis utama hanya jika didokumentasikan oleh dokter. Cari berdasarkan organisme penyebab."
+  },
+  "infeksi": {
+    "see": "A00-B99",
+    "note": "Identifikasi organisme penyebab dan lokasi infeksi untuk kode spesifik."
+  },
+  "fracture": {
+    "see_also": ["S02", "S12", "S22", "S32", "S42", "S52", "S62", "S72", "S82", "S92"],
+    "note": "Lihat berdasarkan lokasi anatomi spesifik tulang (S02-S92)."
+  },
+  "fraktur": {
+    "see_also": ["S02", "S12", "S22", "S32", "S42", "S52", "S62", "S72", "S82", "S92"],
+    "note": "Lihat berdasarkan lokasi anatomi spesifik tulang (S02-S92)."
+  },
+  "neoplasm": {
+    "see": "C00-D48",
+    "note": "Lihat Tabel Neoplasma untuk pengkodean topografi C (Malignant) dan D (Benign/In-situ)."
+  },
+  "tumor": {
+    "see": "C00-D48",
+    "note": "Lihat Tabel Neoplasma untuk pengkodean topografi C (Malignant) dan D (Benign/In-situ)."
+  },
+  "kanker": {
+    "see": "C00-D48",
+    "note": "Lihat Tabel Neoplasma untuk pengkodean topografi C (Malignant) dan D (Benign/In-situ)."
+  },
+  "anemia": {
+    "see_also": ["D50", "D51", "D52", "D53", "D55", "D56", "D57", "D58", "D59", "D60", "D61", "D62", "D63", "D64"],
+    "note": "Beri kode berdasarkan etiologi (defisiensi besi, hemolitik, aplastik, atau sekunder)."
+  },
+  "burn": {
+    "see_also": ["T20", "T21", "T22", "T23", "T24", "T25", "T26", "T27", "T28", "T29", "T30", "T31", "T32"],
+    "note": "Urutkan berdasarkan derajat luka bakar tertinggi dan luas permukaan tubuh (T31)."
+  },
+  "luka bakar": {
+    "see_also": ["T20", "T21", "T22", "T23", "T24", "T25", "T26", "T27", "T28", "T29", "T30", "T31", "T32"],
+    "note": "Urutkan berdasarkan derajat luka bakar tertinggi dan luas permukaan tubuh (T31)."
+  }
+}

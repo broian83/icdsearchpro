@@ -55,72 +55,78 @@ const icd9Chapters = [
 ];
 
 const HIGH_FREQUENCY_ICD10 = {
-  // Top 5 most common Indonesian BPJS codes (extreme boost)
-  'J18.9': 0.1, // Pneumonia, unspecified
-  'A09': 0.1,   // Gastroenteritis
-  'A09.9': 0.1,
-  'A09.0': 0.1,
-  'E11.9': 0.1, // Type 2 Diabetes without complications
-  'E11': 0.2,
-  'I64': 0.1,   // Stroke, unspecified
-  'D64.9': 0.1, // Anaemia, unspecified
+  // Tier 1 (0.001) - Top BPJS
+  'J18.9': 0.001, 
+  'I10': 0.001,
+  'E11.9': 0.001, 
+  'E11': 0.002,   
+  'I64': 0.001,   
+  'K35.8': 0.001, 
+  'K35': 0.001,
+  'O82': 0.001,   
+  'N18.5': 0.001, 
+  'A09': 0.001,
+  'A09.9': 0.001,
+  'A09.0': 0.001,
+  'J06.9': 0.001, 
   
-  // INA-CBG Indonesia Top 30-50 codes (strong boost)
-  'A90': 0.3,   // Dengue fever
-  'A91': 0.3,   // DHF
-  'A01.0': 0.3, // Typhoid fever
-  'A01': 0.3,
-  'B20': 0.3,   // HIV disease
-  'I10': 0.3,   // Essential hypertension
-  'I21.9': 0.3, // AMI unspecified
-  'I21': 0.3,
-  'I50.0': 0.3, // Congestive heart failure
-  'I50.9': 0.3, // Heart failure, unspecified
-  'I50': 0.3,
-  'J06.9': 0.3, // URTI unspecified
-  'J06': 0.3,
-  'J45.9': 0.3, // Asthma unspecified
-  'J45': 0.3,
-  'K35.8': 0.3, // Acute appendicitis
-  'K35': 0.3,
-  'K80.1': 0.3, // Cholecystitis with gallstone
-  'K80': 0.3,
-  'N18.9': 0.3, // CKD unspecified
-  'N18.5': 0.3, // CKD stage 5
-  'N18': 0.3,
-  'O80': 0.3,   // Normal delivery
-  'O80.9': 0.3,
-  'S72.0': 0.3, // Fracture neck of femur
-  'S72': 0.3,
-  'Z38.0': 0.3, // Newborn, hospital born
-  
-  // Other frequent clinical codes
-  'K30': 0.4,   // Dyspepsia
-  'M54.5': 0.4, // Low back pain
-  'M54': 0.4,
-  'J18.0': 0.4, // Bronchopneumonia
-  'J18': 0.4,
-  'N39.0': 0.4, // UTI
-  'L03.9': 0.4, // Cellulitis
-  'L03': 0.4,
-  'K40.9': 0.4, // Inguinal hernia
-  'K40': 0.4,
-  'D64.8': 0.4, // Other anemias
-  'D64': 0.4
+  // Tier 2 (0.01) - Common Specialty (K80.1 removed, K80.2 and K80.20 retained)
+  'D64.9': 0.01, 
+  'A90': 0.01,   
+  'A91': 0.01,   
+  'A01.0': 0.01, 
+  'A01': 0.01,
+  'B20': 0.01,   
+  'I21.9': 0.01, 
+  'I21': 0.01,
+  'I50.0': 0.01, 
+  'I50.9': 0.01, 
+  'I50': 0.01,
+  'J45.9': 0.01, 
+  'J45': 0.01,
+  'K80.20': 0.01, 
+  'K80.2': 0.01,
+  'K80': 0.01,
+  'N18.9': 0.01, 
+  'N18': 0.01,
+  'O80': 0.01,   
+  'O80.9': 0.01,
+  'S72.0': 0.01, 
+  'S72': 0.01,
+  'Z38.0': 0.01, 
 };
 
 const HIGH_FREQUENCY_ICD9 = {
-  '39.95': 0.4,
-  '99.25': 0.5,
-  '93.94': 0.6,
-  '88.72': 0.6,
-  '90.59': 0.7,
-  '87.44': 0.7,
-  '96.71': 0.7,
-  '96.72': 0.7,
-  '88.76': 0.7,
-  '13.71': 0.7,
-  '13.19': 0.7,
+  // Tier 1 (0.001) - Top BPJS
+  '39.95': 0.001,
+  '74.1': 0.001,
+  
+  // Tier 2 (0.01) - Common Specialty
+  '79.3': 0.01, 
+  '78.6': 0.01, 
+  '47.09': 0.01,
+  '99.25': 0.01,
+  '93.94': 0.01,
+  '88.72': 0.01,
+  '90.59': 0.01,
+  '87.44': 0.01,
+  '96.71': 0.01,
+  '96.72': 0.01,
+  '88.76': 0.01,
+  '13.71': 0.01,
+  '13.19': 0.01,
+};
+
+const OMIT_CODES_ICD9 = {
+  '99.18': 'Omit jika merupakan bagian rutin dari terapi cairan intravena.',
+  '99.29': 'Omit jika merupakan bagian dari injeksi obat terapeutik rutin.',
+  '99.21': 'Omit jika merupakan bagian dari pemberian antibiotik rutin.',
+  '57.94': 'Omit jika pemasangan kateter urin dilakukan secara rutin selama operasi atau persalinan.',
+  '96.07': 'Omit jika pemasangan NGT merupakan bagian rutin dari prosedur pembedahan.',
+  '86.59': 'Omit jika hanya penutupan luka post-operasi rutin. Kode jika tindakan utama di IGD.',
+  '38.93': 'Omit jika kanulasi vena/kateterisasi vena dilakukan untuk jalur infus rutin.',
+  '93.94': 'Omit jika pemberian terapi oksigen merupakan bagian dari prosedur anestesi atau pemulihan pasca operasi.',
+  '89.52': 'Omit jika perekaman EKG merupakan bagian dari pemeriksaan pra-bedah rutin.'
 };
 
 const calculateClinicalScore = (res, query, searchType) => {
@@ -133,35 +139,49 @@ const calculateClinicalScore = (res, query, searchType) => {
   const cleanQuery = query.trim().toLowerCase();
   const cleanCode = code.replace('.', '').toLowerCase();
 
+  // Pre-calculate word matches
+  const queryWords = cleanQuery.split(/\s+/).filter(w => w.length > 2);
+  const itemText = (code + ' ' + title + ' ' + desc).toLowerCase();
+  let matchCount = 0;
+  queryWords.forEach(word => {
+    if (itemText.includes(word)) {
+      matchCount++;
+    }
+  });
+
+  const exactWordMatch = queryWords.length > 0 && matchCount === queryWords.length;
+
   // 1. Exact Match / Prefix Match Bonus
   if (cleanQuery === cleanCode || cleanQuery === code.toLowerCase()) {
-    score = score * 0.01;
+    score = score * 0.001;
   } else if (code.toLowerCase().startsWith(cleanQuery)) {
-    score = score * 0.2;
+    score = score * 0.05;
   } else if (title.toLowerCase() === cleanQuery || desc.toLowerCase() === cleanQuery) {
-    score = score * 0.3;
+    score = score * 0.1;
   } else if (title.toLowerCase().includes(cleanQuery) || desc.toLowerCase().includes(cleanQuery)) {
-    score = score * 0.8;
+    score = score * 0.5;
   }
 
-  // 2. Clinical Frequency Weighting
-  if (searchType === 'icd10') {
-    const mainCode = code.split('.')[0].toUpperCase();
-    if (HIGH_FREQUENCY_ICD10[mainCode]) {
-      score = score * HIGH_FREQUENCY_ICD10[mainCode];
-    }
-    const exactCode = code.toUpperCase();
-    if (HIGH_FREQUENCY_ICD10[exactCode]) {
-      score = score * HIGH_FREQUENCY_ICD10[exactCode];
-    }
-  } else {
-    const exactCode = code;
-    if (HIGH_FREQUENCY_ICD9[exactCode]) {
-      score = score * HIGH_FREQUENCY_ICD9[exactCode];
-    }
-    const mainCode = code.split('.')[0];
-    if (HIGH_FREQUENCY_ICD9[mainCode]) {
-      score = score * HIGH_FREQUENCY_ICD9[mainCode];
+  // 2. Clinical Frequency Weighting (Only if all keywords are present)
+  if (exactWordMatch || queryWords.length === 0) {
+    if (searchType === 'icd10') {
+      const mainCode = code.split('.')[0].toUpperCase();
+      if (HIGH_FREQUENCY_ICD10[mainCode]) {
+        score = score * HIGH_FREQUENCY_ICD10[mainCode];
+      }
+      const exactCode = code.toUpperCase();
+      if (HIGH_FREQUENCY_ICD10[exactCode]) {
+        score = score * HIGH_FREQUENCY_ICD10[exactCode];
+      }
+    } else {
+      const exactCode = code;
+      if (HIGH_FREQUENCY_ICD9[exactCode]) {
+        score = score * HIGH_FREQUENCY_ICD9[exactCode];
+      }
+      const mainCode = code.split('.')[0];
+      if (HIGH_FREQUENCY_ICD9[mainCode]) {
+        score = score * HIGH_FREQUENCY_ICD9[mainCode];
+      }
     }
   }
 
@@ -170,9 +190,9 @@ const calculateClinicalScore = (res, query, searchType) => {
   const queryHasDetail = cleanQuery.includes('.') || cleanQuery.replace(/[^0-9]/g, '').length >= 3;
   
   if (isParent && !queryHasDetail) {
-    score = score * 0.7;
+    score = score * 0.5;
   } else if (!isParent && !queryHasDetail) {
-    score = score * 1.3;
+    score = score * 1.5;
   }
 
   // 4. Chapter boost
@@ -186,33 +206,13 @@ const calculateClinicalScore = (res, query, searchType) => {
       if (!isSupplementaryQuery) {
         score = score * 1.8;
       }
-    } else if (firstChar === 'T') {
-      const numPart = parseInt(code.substring(1), 10);
-      if (!isNaN(numPart)) {
-        if (numPart >= 90 && numPart <= 98) {
-          const isSupplementaryQuery = /^[t]/i.test(cleanQuery) || cleanQuery.includes('sequelae') || cleanQuery.includes('lanjutan');
-          if (!isSupplementaryQuery) {
-            score = score * 1.8;
-          }
-        }
-      }
     }
   }
 
   // 5. Query words matching penalty (Fuzzy match false-positive mitigation)
-  const queryWords = cleanQuery.split(/\s+/).filter(w => w.length > 2);
-  if (queryWords.length > 0) {
-    const itemText = (code + ' ' + title + ' ' + desc).toLowerCase();
-    let matchCount = 0;
-    queryWords.forEach(word => {
-      if (itemText.includes(word)) {
-        matchCount++;
-      }
-    });
-    if (matchCount < queryWords.length) {
-      const missingRatio = (queryWords.length - matchCount) / queryWords.length;
-      score = score * (1 + missingRatio * 8.0);
-    }
+  if (queryWords.length > 0 && matchCount < queryWords.length) {
+    const missingRatio = (queryWords.length - matchCount) / queryWords.length;
+    score = score * (1 + missingRatio * 20.0);
   }
 
   return score;
@@ -229,6 +229,14 @@ function App() {
   const [knowledgeText, setKnowledgeText] = useState('');
   const [daggerAsteriskData, setDaggerAsteriskData] = useState(null);
   const [aliases, setAliases] = useState({});
+  const [crossrefData, setCrossrefData] = useState({});
+  const [dismissedCrossrefs, setDismissedCrossrefs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('icd_dismissed_crossrefs')) || {};
+    } catch {
+      return {};
+    }
+  });
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -495,13 +503,16 @@ function App() {
         }
 
         // 2. Fetch data terbaru dari server secara senyap
-        const [res10, res9, resKnowledge, resDA, resAliases] = await Promise.all([
+        const [res10, res9, resKnowledge, resDA, resAliases, resCrossref] = await Promise.all([
           fetch('/icd10.json').then(res => res.json()),
           fetch('/icd9.json').then(res => res.json()),
           fetch('/knowledge.md').then(res => res.text()),
           fetch('/kodedeggerdanasterik.json').then(res => res.json()).catch(() => null),
-          fetch('/singkatan.json').then(res => res.json()).catch(() => ({}))
+          fetch('/singkatan.json').then(res => res.json()).catch(() => ({})),
+          fetch('/crossref.json').then(res => res.json()).catch(() => ({}))
         ]);
+
+        setCrossrefData(resCrossref || {});
 
         // Cek apakah ada perubahan data dibanding cache
         const isDataChanged = !hasCache || 
@@ -559,33 +570,60 @@ function App() {
     useExtendedSearch: true
   }), [icd9Data]);
 
+  const ICD10_UMBRELLA = useMemo(() => ({
+    'DM': { target: 'Diabetes mellitus', label: 'E10-E14 (Diabetes Mellitus)' },
+    'DM TIPE 2': { target: 'E11', label: 'E11 (DM Tipe 2)' },
+    'DM TIPE 1': { target: 'E10', label: 'E10 (DM Tipe 1)' },
+    'STROKE NON HEMORAGIK': { target: 'I63', label: 'I63 (Stroke Non Hemoragik / SNH)' },
+    'SNH': { target: 'I63', label: 'I63 (Stroke Non Hemoragik / SNH)' },
+    'GEA': { target: 'Gastroenteritis', label: 'A09 / K52 (Gastroenteritis Akut)' },
+    'DBD': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Demam Berdarah Dengue)' },
+    'DHF': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Dengue Haemorrhagic Fever)' },
+    'ISK': { target: 'Urinary tract infection', label: 'N39.0 (Infeksi Saluran Kemih)' },
+    'UTI': { target: 'Urinary tract infection', label: 'N39.0 (Urinary Tract Infection)' },
+    'TB': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
+    'TBC': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
+    'PJK': { target: 'Coronary heart disease', label: 'I20-I25 (Penyakit Jantung Koroner)' },
+    'PPOK': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Penyakit Paru Obstruktif Kronis)' },
+    'COPD': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Chronic Obstructive Pulmonary Disease)' },
+    'SC': { target: 'O82', label: 'O82 (Persalinan Sectio Caesarea)' },
+  }), []);
+
+  const ICD9_UMBRELLA = useMemo(() => ({
+    'SC': { target: '74.1', label: '74.1 (Sectio Caesarea / Cesarean Section)' },
+    'HD': { target: '39.95', label: '39.95 (Hemodialisis / Hemodialysis)' },
+    'ORIF': { target: '79.3', label: '79.3 (Open Reduction Internal Fixation)' },
+    'AFF': { target: '78.6', label: '78.6 (Pelepasan Alat Implan / Removal of Fixation)' },
+    'LAP EKS': { target: '54.11', label: '54.11 (Laparotomi Eksplorasi)' },
+    'AP': { target: '47.09', label: '47.09 (Apendektomi / Appendectomy)' },
+    'VK': { target: '73.21', label: '73.21 (Versi Kompromi)' },
+    'EKC': { target: '72.29', label: '72.29 (Ekstraksi Kepala Cunam / Forceps)' },
+    'EVD': { target: '72.71', label: '72.71 (Ekstraksi Vakum / Vacuum Extraction)' },
+    'HECTING': { target: '86.59', label: '86.59 (Penjahitan Luka)' },
+    'INSISI': { target: '86.04', label: '86.04 (Insisi Abses)' },
+    'BIOPSI': { target: '86.11', label: '86.11 (Biopsi Kulit/Umum)' },
+    'CATH': { target: '57.94', label: '57.94 (Kateterisasi Urin)' },
+    'NGT': { target: '96.07', label: '96.07 (Pemasangan NGT)' },
+    'WSD': { target: '34.04', label: '34.04 (Water Seal Drainage)' },
+    'TRACH': { target: '31.1', label: '31.1 (Trakeostomi)' },
+    'PTCA': { target: '36.01', label: '36.01 (Balloon Catheter / Angioplasty)' }
+  }), []);
+
   const suggestions = useMemo(() => {
-    const trimmed = suggestionsQuery.trim();
+    // Query pre-processing: Replace '+' with space, normalize multiple spaces
+    let trimmed = suggestionsQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim();
     if (!trimmed || trimmed.length < 2) return [];
 
-    // 1. Expand Alias (Umbrella or Specific)
     const cleanQueryForAlias = trimmed.toUpperCase();
-    const UMBRELLA_ALIASES = {
-      'DM': 'Diabetes mellitus',
-      'GEA': 'Gastroenteritis',
-      'DBD': 'Dengue haemorrhagic fever',
-      'DHF': 'Dengue haemorrhagic fever',
-      'ISK': 'Urinary tract infection',
-      'UTI': 'Urinary tract infection',
-      'TB': 'Tuberculosis',
-      'TBC': 'Tuberculosis',
-      'PJK': 'Coronary heart disease',
-      'PPOK': 'Chronic obstructive pulmonary disease',
-      'COPD': 'Chronic obstructive pulmonary disease',
-    };
+    const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
 
-    const expandedQuery = UMBRELLA_ALIASES[cleanQueryForAlias] || aliases[cleanQueryForAlias] || trimmed;
-    const isUmbrellaQuery = !!UMBRELLA_ALIASES[cleanQueryForAlias];
+    const expandedQuery = UMBRELLA[cleanQueryForAlias] ? UMBRELLA[cleanQueryForAlias].target : (aliases[cleanQueryForAlias] || trimmed);
+    const isUmbrellaQuery = !!UMBRELLA[cleanQueryForAlias];
 
     const fuse = searchType === 'icd10' ? fuse10 : fuse9;
     
     const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
+      ? /^[A-Z]$|^[A-Z][0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2
       : /^[0-9]/i.test(expandedQuery.trim()) && expandedQuery.trim().length >= 2;
 
     let results = [];
@@ -627,7 +665,7 @@ function App() {
       }
     }
     return uniqueTerms;
-  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases, icd10Data, icd9Data]);
+  }, [suggestionsQuery, searchType, fuse10, fuse9, aliases, icd10Data, icd9Data, ICD10_UMBRELLA, ICD9_UMBRELLA]);
 
   const handleSelectSuggestion = (suggestion) => {
     const codeMatch = suggestion.match(/\(([^)]+)\)$/);
@@ -661,26 +699,14 @@ function App() {
   // Handle Smart Alias
   const { searchQuery, activeAlias, isUmbrella } = useMemo(() => {
     if (!debouncedQuery) return { searchQuery: '', activeAlias: null, isUmbrella: false };
-    const cleanQuery = debouncedQuery.trim().toUpperCase();
+    // Pre-process: replace '+' with space, normalize multiple spaces
+    const cleanQuery = debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
+    const UMBRELLA = searchType === 'icd10' ? ICD10_UMBRELLA : ICD9_UMBRELLA;
 
-    const UMBRELLA_ALIASES = {
-      'DM': { target: 'Diabetes mellitus', label: 'E10-E14 (Diabetes Mellitus)' },
-      'GEA': { target: 'Gastroenteritis', label: 'A09 / K52 (Gastroenteritis Akut)' },
-      'DBD': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Demam Berdarah Dengue)' },
-      'DHF': { target: 'Dengue haemorrhagic fever', label: 'A90-A91 (Dengue Haemorrhagic Fever)' },
-      'ISK': { target: 'Urinary tract infection', label: 'N39.0 (Infeksi Saluran Kemih)' },
-      'UTI': { target: 'Urinary tract infection', label: 'N39.0 (Urinary Tract Infection)' },
-      'TB': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
-      'TBC': { target: 'Tuberculosis', label: 'A15-A16 (TBC / Tuberculosis)' },
-      'PJK': { target: 'Coronary heart disease', label: 'I20-I25 (Penyakit Jantung Koroner)' },
-      'PPOK': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Penyakit Paru Obstruktif Kronis)' },
-      'COPD': { target: 'Chronic obstructive pulmonary disease', label: 'J44 (Chronic Obstructive Pulmonary Disease)' },
-    };
-
-    if (UMBRELLA_ALIASES[cleanQuery]) {
+    if (UMBRELLA[cleanQuery]) {
       return { 
-        searchQuery: UMBRELLA_ALIASES[cleanQuery].target, 
-        activeAlias: { key: cleanQuery, value: UMBRELLA_ALIASES[cleanQuery].label }, 
+        searchQuery: UMBRELLA[cleanQuery].target, 
+        activeAlias: { key: cleanQuery, value: UMBRELLA[cleanQuery].label }, 
         isUmbrella: true 
       };
     }
@@ -692,15 +718,15 @@ function App() {
         isUmbrella: false 
       };
     }
-    return { searchQuery: debouncedQuery, activeAlias: null, isUmbrella: false };
-  }, [debouncedQuery, aliases]);
+    return { searchQuery: debouncedQuery.replace(/\+/g, ' ').replace(/\s+/g, ' ').trim(), activeAlias: null, isUmbrella: false };
+  }, [debouncedQuery, aliases, searchType, ICD10_UMBRELLA, ICD9_UMBRELLA]);
 
   // Handle Search
   const searchResults = useMemo(() => {
     if (!searchQuery) return [];
     
     const isCodeQuery = searchType === 'icd10' 
-      ? /^[A-Z]/i.test(searchQuery.trim()) 
+      ? /^[A-Z]$|^[A-Z][0-9]/i.test(searchQuery.trim()) 
       : /^[0-9]/i.test(searchQuery.trim());
 
     let results = [];
@@ -743,6 +769,16 @@ function App() {
     return scoredResults.slice(0, 60);
   }, [searchQuery, searchType, fuse10, fuse9, filterChapter, icd10Data, icd9Data]);
 
+  // Group Category helper
+  const getCategoryCode = (code, type) => {
+    if (!code) return '';
+    if (type === 'icd10') {
+      return code.includes('.') ? code.split('.')[0] : code.substring(0, 3);
+    } else {
+      return code.includes('.') ? code.split('.')[0] : code;
+    }
+  };
+
   const { primaryResults, supplementaryResults } = useMemo(() => {
     if (searchType !== 'icd10') {
       return { primaryResults: searchResults, supplementaryResults: [] };
@@ -779,6 +815,96 @@ function App() {
 
     return { primaryResults: primary, supplementaryResults: supplementary };
   }, [searchResults, searchType, searchQuery]);
+
+  // Group Category Memos
+  const primaryGroups = useMemo(() => {
+    const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
+    const groups = {};
+
+    primaryResults.forEach(res => {
+      const code = res.item.code;
+      const catCode = getCategoryCode(code, searchType);
+      
+      if (!groups[catCode]) {
+        const catItem = rawData.find(item => item.code === catCode);
+        groups[catCode] = {
+          categoryCode: catCode,
+          categoryItem: catItem || { code: catCode, title: 'Kategori ' + catCode, desc: '' },
+          matchedCodes: [],
+          matchedMatches: {},
+          bestScore: res.clinicalScore,
+          allSubcodes: []
+        };
+      }
+      groups[catCode].matchedCodes.push(code);
+      groups[catCode].matchedMatches[code] = res.matches || [];
+      if (res.clinicalScore < groups[catCode].bestScore) {
+        groups[catCode].bestScore = res.clinicalScore;
+      }
+    });
+
+    Object.keys(groups).forEach(catCode => {
+      groups[catCode].allSubcodes = rawData.filter(item => 
+        item.code === catCode || item.code.startsWith(catCode + '.')
+      );
+    });
+
+    return Object.values(groups).sort((a, b) => a.bestScore - b.bestScore);
+  }, [primaryResults, searchType, icd10Data, icd9Data]);
+
+  const supplementaryGroups = useMemo(() => {
+    const rawData = searchType === 'icd10' ? icd10Data : icd9Data;
+    const groups = {};
+
+    supplementaryResults.forEach(res => {
+      const code = res.item.code;
+      const catCode = getCategoryCode(code, searchType);
+      
+      if (!groups[catCode]) {
+        const catItem = rawData.find(item => item.code === catCode);
+        groups[catCode] = {
+          categoryCode: catCode,
+          categoryItem: catItem || { code: catCode, title: 'Kategori ' + catCode, desc: '' },
+          matchedCodes: [],
+          matchedMatches: {},
+          bestScore: res.clinicalScore,
+          allSubcodes: []
+        };
+      }
+      groups[catCode].matchedCodes.push(code);
+      groups[catCode].matchedMatches[code] = res.matches || [];
+      if (res.clinicalScore < groups[catCode].bestScore) {
+        groups[catCode].bestScore = res.clinicalScore;
+      }
+    });
+
+    Object.keys(groups).forEach(catCode => {
+      groups[catCode].allSubcodes = rawData.filter(item => 
+        item.code === catCode || item.code.startsWith(catCode + '.')
+      );
+    });
+
+    return Object.values(groups).sort((a, b) => a.bestScore - b.bestScore);
+  }, [supplementaryResults, searchType, icd10Data, icd9Data]);
+
+  // See also banner calculation
+  const matchedCrossref = useMemo(() => {
+    if (!query) return null;
+    const clean = query.trim().toLowerCase();
+    const matchedKey = Object.keys(crossrefData).find(key => 
+      clean.includes(key.toLowerCase()) || key.toLowerCase().includes(clean)
+    );
+    if (matchedKey && !dismissedCrossrefs[matchedKey]) {
+      return { key: matchedKey, ...crossrefData[matchedKey] };
+    }
+    return null;
+  }, [query, crossrefData, dismissedCrossrefs]);
+
+  const handleDismissCrossref = (key) => {
+    const updated = { ...dismissedCrossrefs, [key]: true };
+    setDismissedCrossrefs(updated);
+    localStorage.setItem('icd_dismissed_crossrefs', JSON.stringify(updated));
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-100 font-sans selection:bg-[#00B4A4] selection:text-white">
@@ -944,6 +1070,64 @@ function App() {
                 </div>
               </div>
 
+              {/* Rujukan Silang Banner */}
+              {matchedCrossref && (
+                <div className="mb-6 bg-[#00B4A4]/5 dark:bg-slate-800/80 border border-[#00B4A4]/20 dark:border-slate-700/80 p-4 rounded-2xl shadow-sm flex items-start justify-between gap-3 animate-in fade-in slide-in-from-top-3 duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00B4A4]" />
+                  <div className="flex items-start gap-3 pl-1.5">
+                    <div className="bg-[#00B4A4]/10 text-[#00B4A4] p-1.5 rounded-xl mt-0.5">
+                      <BookOpen className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
+                        Rujukan Silang Medis (Cross-Reference)
+                      </h4>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          {matchedCrossref.see ? 'Lihat (See):' : 'Lihat juga (See also):'}
+                        </span>
+                        {matchedCrossref.see && (
+                          <button
+                            onClick={() => {
+                              setQuery(matchedCrossref.see);
+                              setDebouncedQuery(matchedCrossref.see);
+                            }}
+                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                          >
+                            {matchedCrossref.see}
+                          </button>
+                        )}
+                        {matchedCrossref.see_also && matchedCrossref.see_also.map((code, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const cleanCode = code.split(' ')[0];
+                              setQuery(cleanCode);
+                              setDebouncedQuery(cleanCode);
+                            }}
+                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                          >
+                            {code}
+                          </button>
+                        ))}
+                      </div>
+                      {matchedCrossref.note && (
+                        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 italic">
+                          Petunjuk: {matchedCrossref.note}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDismissCrossref(matchedCrossref.key)}
+                    className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors focus:outline-none"
+                    title="Tutup & simpan pilihan"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
               {/* Recent Searches */}
               {!query && !loading && recentSearches.length > 0 && (
                 <div className="mb-8 flex flex-wrap items-center gap-2">
@@ -1005,11 +1189,10 @@ function App() {
               )}
 
               <div className="space-y-4">
-                {primaryResults.map(({ item, matches }, index) => (
+                {primaryGroups.map((group, index) => (
                   <ResultCard 
-                    key={item.code + index}
-                    item={item}
-                    matches={matches}
+                    key={group.categoryCode + index}
+                    group={group}
                     searchType={searchType}
                     knowledgeText={knowledgeText}
                     daggerAsteriskData={daggerAsteriskData}
@@ -1018,18 +1201,17 @@ function App() {
                   />
                 ))}
 
-                {supplementaryResults.length > 0 && (
+                {supplementaryGroups.length > 0 && (
                   <div className="mt-8 pt-6 border-t border-dashed border-slate-200 dark:border-slate-700">
                     <h3 className="text-sm font-semibold text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2">
                       <BookOpen className="w-4 h-4 text-[#00B4A4]" />
                       Kode Penunjang / External / Status (T, V-Z)
                     </h3>
                     <div className="space-y-4">
-                      {supplementaryResults.map(({ item, matches }, index) => (
+                      {supplementaryGroups.map((group, index) => (
                         <ResultCard 
-                          key={item.code + index}
-                          item={item}
-                          matches={matches}
+                          key={group.categoryCode + index}
+                          group={group}
                           searchType={searchType}
                           knowledgeText={knowledgeText}
                           daggerAsteriskData={daggerAsteriskData}
@@ -1133,6 +1315,64 @@ function App() {
                 </div>
               </div>
 
+              {/* Rujukan Silang Banner */}
+              {matchedCrossref && (
+                <div className="mb-6 bg-[#00B4A4]/5 dark:bg-slate-800/80 border border-[#00B4A4]/20 dark:border-slate-700/80 p-4 rounded-2xl shadow-sm flex items-start justify-between gap-3 animate-in fade-in slide-in-from-top-3 duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00B4A4]" />
+                  <div className="flex items-start gap-3 pl-1.5">
+                    <div className="bg-[#00B4A4]/10 text-[#00B4A4] p-1.5 rounded-xl mt-0.5">
+                      <BookOpen className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
+                        Rujukan Silang Medis (Cross-Reference)
+                      </h4>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          {matchedCrossref.see ? 'Lihat (See):' : 'Lihat juga (See also):'}
+                        </span>
+                        {matchedCrossref.see && (
+                          <button
+                            onClick={() => {
+                              setQuery(matchedCrossref.see);
+                              setDebouncedQuery(matchedCrossref.see);
+                            }}
+                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                          >
+                            {matchedCrossref.see}
+                          </button>
+                        )}
+                        {matchedCrossref.see_also && matchedCrossref.see_also.map((code, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const cleanCode = code.split(' ')[0];
+                              setQuery(cleanCode);
+                              setDebouncedQuery(cleanCode);
+                            }}
+                            className="px-2 py-0.5 bg-[#00B4A4]/10 hover:bg-[#00B4A4]/20 border border-[#00B4A4]/20 text-[#00B4A4] text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                          >
+                            {code}
+                          </button>
+                        ))}
+                      </div>
+                      {matchedCrossref.note && (
+                        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 italic">
+                          Petunjuk: {matchedCrossref.note}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDismissCrossref(matchedCrossref.key)}
+                    className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors focus:outline-none"
+                    title="Tutup & simpan pilihan"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
               {/* Recent Searches */}
               {!query && !loading && recentSearches.length > 0 && (
                 <div className="mb-8 flex flex-wrap items-center gap-2">
@@ -1194,11 +1434,10 @@ function App() {
               )}
 
               <div className="space-y-4">
-                {primaryResults.map(({ item, matches }, index) => (
+                {primaryGroups.map((group, index) => (
                   <ResultCard 
-                    key={item.code + index}
-                    item={item}
-                    matches={matches}
+                    key={group.categoryCode + index}
+                    group={group}
                     searchType={searchType}
                     knowledgeText={knowledgeText}
                     daggerAsteriskData={daggerAsteriskData}
