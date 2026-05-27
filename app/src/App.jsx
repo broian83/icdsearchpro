@@ -1654,13 +1654,11 @@ function App() {
                         <div className="relative mb-6 group">
                           <div className="absolute -inset-1.5 bg-gradient-to-r from-[#2AA79B] to-[#D6E400] rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                           {/* Bingkai bulat keping emblem premium untuk logo PMIK-id agar tampak rapi di dark mode */}
-                          <div className="relative rounded-3xl bg-white dark:bg-white p-3 shadow-md border border-slate-150 dark:border-slate-800 flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28">
                             <img 
                               src="/icdsearchpro_transparan.png" 
                               alt="PMIK Logo" 
-                              className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0 transition-transform duration-350 hover:scale-105" 
+                              className="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0 transition-transform duration-350 hover:scale-105 relative z-10 drop-shadow-lg" 
                             />
-                          </div>
                         </div>
                         <h1 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">ICD Search Pro</h1>
                         <p className="text-[#2AA79B] font-extrabold text-[10px] sm:text-xs mt-1 uppercase tracking-widest">Smart Clinical Coding Assistant</p>
@@ -2028,9 +2026,7 @@ function App() {
               <X className="w-4.5 h-4.5" />
             </button>
             
-            <div className="rounded-2xl bg-white p-2 border border-slate-150 shadow-sm flex items-center justify-center w-20 h-20 mx-auto mb-4">
-              <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-14 h-14 object-contain" />
-            </div>
+              <img src="/icdsearchpro_transparan.png" alt="Logo" className="w-16 h-16 object-contain drop-shadow-md mx-auto mb-4" />
             <h3 className="text-xl font-extrabold text-slate-855 dark:text-slate-100">ICD Search Pro</h3>
             <p className="text-[#2AA79B] font-bold text-xs uppercase tracking-widest mt-0.5">Premium Version 2.5.0</p>
             
