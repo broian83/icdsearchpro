@@ -6,19 +6,47 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
+
+  const fetchProfile = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') throw error;
+      setProfile(data || {});
+    } catch (err) {
+      console.error('Error fetching profile context:', err);
+    }
+  };
 
   useEffect(() => {
     // Memeriksa session saat aplikasi dimuat
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        fetchProfile(currentUser.id);
+      } else {
+        setProfile(null);
+      }
       setLoading(false);
     });
 
     // Mendengarkan perubahan state auth
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        fetchProfile(currentUser.id);
+      } else {
+        setProfile(null);
+      }
       setLoading(false);
 
       if (event === 'SIGNED_IN' && session?.user) {
@@ -65,10 +93,12 @@ export function AuthProvider({ children }) {
 
   const value = {
     user,
+    profile,
     isLoggedIn: !!user,
     loginWithGoogle,
     logout,
-    loading
+    loading,
+    refreshProfile: () => user && fetchProfile(user.id)
   };
 
   return (

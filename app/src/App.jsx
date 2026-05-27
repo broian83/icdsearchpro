@@ -204,7 +204,7 @@ const calculateClinicalScore = (res, query, searchType) => {
 };
 
 function App() {
-  const { isLoggedIn, user, loginWithGoogle, logout } = useAuth();
+  const { isLoggedIn, user, profile, loginWithGoogle, logout } = useAuth();
   const { showToast } = useToast();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile drawer
@@ -253,6 +253,8 @@ function App() {
     if (path === 'settings') return 'settings';
     return 'all'; // Default path `/` memetakan ke 'all' (Semua)
   }, [location.pathname]);
+
+  const isProfileIncomplete = isLoggedIn && profile && (!profile.whatsapp_number || !profile.profession || !profile.institution);
   
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState(''); // Teks real-time yang diketik user
@@ -1624,6 +1626,25 @@ function App() {
         {/* Area Konten Utama */}
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
           
+          {/* Warning Profil Belum Lengkap */}
+          {isProfileIncomplete && location.pathname !== '/profile' && (
+            <div className="mb-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300 shadow-sm">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-amber-800 dark:text-amber-400 text-sm sm:text-base">Profil Anda Belum Lengkap</h4>
+                  <p className="text-amber-700 dark:text-amber-500 text-xs sm:text-sm mt-1">Silakan lengkapi data profil Anda (Nomor WhatsApp, Profesi, Instansi) untuk mengoptimalkan fitur aplikasi.</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => navigate('/profile')}
+                className="shrink-0 w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-5 rounded-xl text-sm transition-colors shadow-sm"
+              >
+                Lengkapi Profil
+              </button>
+            </div>
+          )}
+
           {/* RUTE PENCARIAN & HOMEPAGE TERPUSAT */}
           <Routes>
             <Route path="/settings" element={<SettingsView onAliasesUpdated={reloadAliases} />} />

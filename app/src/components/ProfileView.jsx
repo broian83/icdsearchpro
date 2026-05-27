@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { User, Loader2, Save, CheckCircle2 } from 'lucide-react';
 
 export function ProfileView() {
-  const { user } = useAuth();
+  const { user, refreshProfile } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -80,6 +80,7 @@ export function ProfileView() {
 
       if (error) throw error;
       setSuccess(true);
+      if (refreshProfile) refreshProfile();
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       console.error('Error saving profile:', err);
