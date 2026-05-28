@@ -1,0 +1,7516 @@
+{
+  "headers": [
+    "Kosa Kata",
+    "Arti Kata"
+  ],
+  "rows": [
+    [
+      "clamps",
+      "Terapkan digunakan untuk menggenggam bagian tubuh selama operasi."
+    ],
+    [
+      "claudication {claudicación}",
+      "Pincang disebabkan oleh suplai darah yang tidak memadai selama aktivitas; biasanya reda saat istirahat."
+    ],
+    [
+      "clavicle {clavicula}",
+      "Tulang bahu yang melengkung yang bergabung dengan skapula; tulang selangka."
+    ],
+    [
+      "climacteric {climaterio}",
+      "Periode perubahan hormonal sesaat sebelum menopause."
+    ],
+    [
+      "clitoris {clítoris}",
+      "Organ utama rangsangan seksual wanita, terletak di bagian atas labia minora."
+    ],
+    [
+      "closed",
+      "Dilakukan tanpa sayatan."
+    ],
+    [
+      "closed fracture",
+      "Fraktur tanpa luka kulit terbuka."
+    ],
+    [
+      "coagulant",
+      "Agen pembekuan."
+    ],
+    [
+      "coagulation {coagulación}",
+      "Mengubah cairan, terutama darah, menjadi semi padat."
+    ],
+    [
+      "coarctation of the aorta",
+      "Penyempitan aorta yang tidak normal."
+    ],
+    [
+      "cobalt",
+      "Zat radioaktif digunakan dalam terapi radiasi."
+    ],
+    [
+      "coccyx {cóccix}",
+      "Tulang kecil yang terdiri dari empat tulang belakang yang menyatu di ujung tulang belakang; tulang ekor."
+    ],
+    [
+      "cochlea {caracol}",
+      "Struktur berbentuk siput di telinga bagian dalam yang berisi organ Corti."
+    ],
+    [
+      "coitus {coito}",
+      "Hubungan seksual."
+    ],
+    [
+      "cold sore",
+      "Letusan di sekitar mulut atau bibir; virus herpes simpleks Tipe 1."
+    ],
+    [
+      "colectomy {colectomía}",
+      "Pengangkatan usus besar."
+    ],
+    [
+      "colic {cólico}",
+      "Gangguan gastrointestinal, terutama pada bayi."
+    ],
+    [
+      "colitis {colitis}",
+      "Radang usus besar."
+    ],
+    [
+      "collagen {colágeno}",
+      "Zat protein utama yang tangguh dan fleksibel yang membentuk jaringan ikat di dalam tubuh."
+    ],
+    [
+      "Colles' fracture",
+      "Fraktur ujung bawah jari-jari."
+    ],
+    [
+      "colon {colon}",
+      "Porsi utama dari usus besar."
+    ],
+    [
+      "colonoscopy {colonoscopia}",
+      "Pemeriksaan usus besar menggunakan endoskopi."
+    ],
+    [
+      "colostomy {colostomía}",
+      "Pembuatan lubang dari usus besar ke dinding perut."
+    ],
+    [
+      "colposcopy",
+      "Pemeriksaan vagina dengan kolposkop."
+    ],
+    [
+      "coma {coma}",
+      "Tidur nyenyak yang tidak normal dengan sedikit atau tanpa respons terhadap rangsangan."
+    ],
+    [
+      "comedo (pl., comedos, comedones)",
+      "Folikel rambut terbuka yang dipenuhi bakteri dan sebum; umum pada jerawat; bincul hitam."
+    ],
+    [
+      "comminuted fracture",
+      "Fraktur dengan tulang yang hancur."
+    ],
+    [
+      "compact bone",
+      "Tulang keras dengan struktur anyaman rapat."
+    ],
+    [
+      "complementary medicine",
+      "Praktik medis nonkonvensional yang digunakan dalam kombinasi dengan pengobatan konvensional."
+    ],
+    [
+      "complete blood count (CBC)",
+      "Tes darah paling umum untuk sejumlah faktor."
+    ],
+    [
+      "complex fracture",
+      "Fraktur dengan bagian tulang yang tergeser."
+    ],
+    [
+      "complicated fracture",
+      "Fraktur yang melibatkan cedera jaringan lunak yang luas."
+    ],
+    [
+      "compound fracture",
+      "Fraktur dengan luka kulit terbuka; fraktur terbuka."
+    ],
+    [
+      "compression fracture",
+      "Patahnya satu atau lebih ruas tulang belakang yang disebabkan oleh terkompresinya jarak antar ruas."
+    ],
+    [
+      "computerized (axial) tomography (CT or CAT) scan",
+      "Pencitraan radiografi yang menghasilkan gambar penampang."
+    ],
+    [
+      "concussion {concusión}",
+      "Cedera otak karena trauma."
+    ],
+    [
+      "condom {condón}",
+      "Alat kontrasepsi yang terdiri dari selubung karet atau vinil yang dipasang di atas penis atau sebagai lapisan yang menut"
+    ],
+    [
+      "condom catheter",
+      "Kateter sekali pakai untuk pengambilan sampel urin atau inkontinensia."
+    ],
+    [
+      "conduction system",
+      "Bagian dari jantung yang mengandung jaringan khusus yang mengirimkan muatan melalui serat jantung, menyebabkan jantung b"
+    ],
+    [
+      "conductivity {conductividad}",
+      "Kemampuan untuk mengirimkan sinyal."
+    ],
+    [
+      "condyle",
+      "Permukaan bulat di ujung tulang."
+    ],
+    [
+      "condyloma {condiloma}",
+      "Pertumbuhan di genitalia luar."
+    ],
+    [
+      "cones {conos}",
+      "Sel reseptor khusus di retina yang merasakan warna dan cahaya terang."
+    ],
+    [
+      "congenital heart disease",
+      "Penyakit jantung (biasanya sejenis malformasi) yang ada sejak lahir."
+    ],
+    [
+      "congestive heart failure",
+      "Ketidakmampuan jantung untuk memompa cukup darah keluar selama siklus jantung; hasil pengumpulan cairan di paru-paru."
+    ],
+    [
+      "conization {conización}",
+      "Pengangkatan bagian serviks yang berbentuk kerucut untuk pemeriksaan."
+    ],
+    [
+      "conjunctiva (pl., conjunctivae) {conjuntiva}",
+      "Selaput lendir yang melapisi kelopak mata."
+    ],
+    [
+      "conjunctivitis {conjuntivitis}",
+      "Peradangan pada konjungtiva kelopak mata."
+    ],
+    [
+      "connective tissue",
+      "Zat berserat yang membentuk kerangka pendukung tubuh."
+    ],
+    [
+      "constipation {constipación}",
+      "Buang air besar sulit atau jarang."
+    ],
+    [
+      "constriction {constricción}",
+      "Kompresi atau penyempitan yang disebabkan oleh kontraksi, seperti pada pembuluh."
+    ],
+    [
+      "contact lenses",
+      "Lensa korektif dikenakan di permukaan mata."
+    ],
+    [
+      "contraception {anticoncepción}",
+      "Metode pengendalian konsepsi dengan memblokir akses atau mengganggu siklus reproduksi; kontrol kelahiran."
+    ],
+    [
+      "contracture",
+      "Resistensi ekstrem terhadap peregangan otot."
+    ],
+    [
+      "contraindicated",
+      "Tidak disarankan untuk digunakan; terutama dikatakan tentang obat yang mungkin menyebabkan komplikasi bila digunakan dal"
+    ],
+    [
+      "convolutions {circunvolución}",
+      "Lipatan di korteks serebral; gyri."
+    ],
+    [
+      "copulation {copulación}",
+      "Hubungan seksual."
+    ],
+    [
+      "cordotomy {cordotomía}",
+      "Menghapus bagian dari sumsum tulang belakang."
+    ],
+    [
+      "corium {corium}",
+      "Lihat dermis."
+    ],
+    [
+      "corn {callo}",
+      "Pertumbuhan kulit keras, biasanya di jari kaki."
+    ],
+    [
+      "cornea {cornea}",
+      "Bagian anterior transparan dari bola mata yang membelokkan cahaya dalam proses yang disebut refraksi."
+    ],
+    [
+      "coronal plane",
+      "Garis imajiner yang membagi tubuh menjadi posisi anterior dan posterior."
+    ],
+    [
+      "coronary angioplasty",
+      "Lihat angioplasti."
+    ],
+    [
+      "coronary",
+      "Pembuluh darah yang memasok darah kaya oksigen ke jantung."
+    ],
+    [
+      "coronary artery disease",
+      "Kondisi yang mengurangi aliran darah dan nutrisi melalui arteri jantung."
+    ],
+    [
+      "coronary bypass surgery",
+      "Lihat memotong."
+    ],
+    [
+      "corpus callosum",
+      "Jembatan serabut saraf yang menghubungkan dua belahan otak besar."
+    ],
+    [
+      "corpus luteum",
+      "Struktur yang terbentuk setelah folikel graafian terisi dengan zat kuning yang mengeluarkan estrogen dan progesteron."
+    ],
+    [
+      "cortex {corteza}",
+      "Bagian luar ginjal."
+    ],
+    [
+      "corticosteroid {corticosteroide}",
+      "Agen dengan sifat anti-inflamasi."
+    ],
+    [
+      "corticosteroids",
+      "Steroid diproduksi oleh korteks adrenal."
+    ],
+    [
+      "cortisol {cortisol}",
+      "Hidrokortison."
+    ],
+    [
+      "cosmetic",
+      "Didesain untuk menyempurnakan tampilan bagian bodi eksterior."
+    ],
+    [
+      "Cowper's gland",
+      "Salah satu dari dua kelenjar di bawah prostat yang mengeluarkan cairan untuk melumasi bagian dalam uretra."
+    ],
+    [
+      "crackles",
+      "Suara letupan terdengar saat paru-paru kolaps atau kondisi lain; rales."
+    ],
+    [
+      "cranial cavity",
+      "Ruang di kepala yang berisi otak."
+    ],
+    [
+      "cranial nerves",
+      "Salah satu dari 12 pasang saraf yang membawa impuls ke dan dari otak."
+    ],
+    [
+      "craniectomy {cranietomía}",
+      "Pengangkatan sebagian tengkorak."
+    ],
+    [
+      "craniotomy {craneotomía}",
+      "Insisi ke tengkorak."
+    ],
+    [
+      "cranium {cráneo}",
+      "Struktur tulang tempat otak duduk."
+    ],
+    [
+      "creatine {creatina}",
+      "Zat yang ditemukan dalam urin; peningkatan kadar dapat mengindikasikan distrofi otot."
+    ],
+    [
+      "creatinine {creatinina}",
+      "Komponen kreatin."
+    ],
+    [
+      "crepitation, crepitus",
+      "Kebisingan terjadi dengan menggosok tulang."
+    ],
+    [
+      "crest {cresta}",
+      "Punggungan bertulang."
+    ],
+    [
+      "Crohn's disease",
+      "Jenis penyakit iritasi usus besar tanpa bisul."
+    ],
+    [
+      "cross-sectional plane",
+      "Garis imajiner yang memotong tubuh secara horizontal."
+    ],
+    [
+      "croup {crup}",
+      "Sindrom pernapasan akut pada anak-anak atau bayi yang disertai dengan batuk seperti anjing laut."
+    ],
+    [
+      "crown",
+      "Bagian gigi yang menonjol di atas garis rahang."
+    ],
+    [
+      "crust {costar}",
+      "Lapisan keras, terutama yang terbentuk dari nanah kering, seperti keropeng."
+    ],
+    [
+      "cryogenic",
+      "Menghancurkan jaringan dengan cara dibekukan."
+    ],
+    [
+      "cryoretinopexy",
+      "Memperbaiki retina yang robek menggunakan suhu dingin yang ekstrim."
+    ],
+    [
+      "cryosurgery {criocirugía}",
+      "1. Pembedahan yang mengangkat jaringan dengan membekukannya dengan nitrogen cair. 2. Penghancuran dengan pembekuan."
+    ],
+    [
+      "cryptorchism",
+      "Cacat lahir dengan kegagalan salah satu atau kedua testis turun ke kantung skrotum."
+    ],
+    [
+      "CT (computed tomography) scan",
+      "Pemindaian CAT."
+    ],
+    [
+      "culdocentesis",
+      "Pengambilan sampel cairan dari dasar rongga panggul untuk melihat apakah kehamilan ektopik telah pecah."
+    ],
+    [
+      "culdoscopy",
+      "Pemeriksaan rongga panggul menggunakan endoskopi."
+    ],
+    [
+      "curettage",
+      "Pengangkatan jaringan dari suatu daerah, seperti luka, dengan cara dikorek."
+    ],
+    [
+      "curette",
+      "Alat tajam untuk mengikis tisu."
+    ],
+    [
+      "Cushing's syndrome",
+      "Kelompok gejala yang disebabkan oleh aktivitas kelenjar adrenal yang berlebihan."
+    ],
+    [
+      "cusp",
+      "Proyeksi gigi berujung tajam."
+    ],
+    [
+      "cuspid",
+      "Gigi ketiga dari median garis rahang dengan titik puncak."
+    ],
+    [
+      "cuticle {cutícula}",
+      "Pita tipis epidermis yang mengelilingi tepi kuku, kecuali di bagian atas."
+    ],
+    [
+      "cyanosis {cianosis}",
+      "Warna kebiruan atau keunguan, pada kulit, disebabkan oleh oksigenasi darah yang tidak memadai."
+    ],
+    [
+      "cyst {quiste}",
+      "Kantung abnormal berisi cairan."
+    ],
+    [
+      "cystectomy {cistectomía}",
+      "Operasi pengangkatan kandung kemih."
+    ],
+    [
+      "cystic",
+      "Diisi dengan cairan."
+    ],
+    [
+      "cystic fibrosis",
+      "Penyakit yang menyebabkan penyumbatan saluran napas kronis dan juga memengaruhi saluran bronkial."
+    ],
+    [
+      "cystitis {cistitis}",
+      "Radang kandung kemih."
+    ],
+    [
+      "cystocele {cistocele}",
+      "Hernia kandung kemih."
+    ],
+    [
+      "cystolith {cistolito}",
+      "Batu kandung kemih."
+    ],
+    [
+      "cystopexy",
+      "Operasi pemasangan kandung kemih ke dinding perut."
+    ],
+    [
+      "cystoplasty",
+      "Perbaikan bedah kandung kemih."
+    ],
+    [
+      "cystorrhaphy {cistorrafia}",
+      "Menjahit kandung kemih yang rusak."
+    ],
+    [
+      "cystoscope {cistoscopio}",
+      "Instrumen tubular untuk memeriksa bagian dalam kandung kemih."
+    ],
+    [
+      "cystoscopy",
+      "Penyisipan cystoscope untuk memeriksa kandung kemih dengan cahaya."
+    ],
+    [
+      "cytoplasm",
+      "Bagian luar sel yang mengelilingi inti."
+    ],
+    [
+      "cytotoxic cell T`",
+      "sel yang membantu dalam penghancuran sel yang terinfeksi di seluruh tubuh."
+    ],
+    [
+      "dacryoadenitis",
+      "Peradangan pada kelenjar lakrimal."
+    ],
+    [
+      "dacryocystectomy",
+      "Pengangkatan kantung lakrimal."
+    ],
+    [
+      "dacryocystitis",
+      "Peradangan saluran air mata."
+    ],
+    [
+      "deafness",
+      "Kehilangan atau tidak adanya pendengaran."
+    ],
+    [
+      "debridement",
+      "Pengangkatan jaringan mati dari luka."
+    ],
+    [
+      "decibel {decibel}",
+      "Ukur intensitas suara."
+    ],
+    [
+      "deciduous teeth",
+      "Gigi sulung."
+    ],
+    [
+      "decongestants",
+      "Agen yang meredakan lendir yang tersumbat pada saluran pernapasan bagian atas."
+    ],
+    [
+      "decubitus (pl., decubiti) {decubiti} ulcer",
+      "Ulkus kronis pada kulit di atas bagian tulang yang berada di bawah tekanan konstan; tekanan sakit."
+    ],
+    [
+      "dedifferentiated",
+      "Kurangnya susunan sel yang teratur dan normal."
+    ],
+    [
+      "deep",
+      "Jauh dari permukaan (tubuh)."
+    ],
+    [
+      "deep vein thrombosis",
+      "Pembentukan trombus (bekuan) di vena dalam, seperti vena femoralis."
+    ],
+    [
+      "defecation {defecación}",
+      "Keluarnya kotoran dari anus."
+    ],
+    [
+      "degenerative arthritis",
+      "Artritis dengan erosi tulang rawan."
+    ],
+    [
+      "deglutition {deglución}",
+      "Menelan."
+    ],
+    [
+      "deliriousness",
+      "Kebingungan mental, seringkali dengan halusinasi, biasanya memiliki penyebab fisik seperti demam tinggi."
+    ],
+    [
+      "delusional",
+      "Memiliki keyakinan salah akibat pemikiran yang tidak teratur."
+    ],
+    [
+      "dementia {demencia}",
+      "1. Penurunan kapasitas mental, biasanya pada manula. 2. Gangguan, terutama pada usia dewasa yang lebih tua, dengan beber"
+    ],
+    [
+      "demyelination {desmielinación}",
+      "Kerusakan selubung mielin, khususnya pada MS."
+    ],
+    [
+      "dendrite {dendrita}",
+      "Perpanjangan percabangan tipis dari sel saraf yang mengalirkan impuls saraf ke tubuh sel."
+    ],
+    [
+      "densitometer",
+      "Perangkat yang mengukur kepadatan tulang menggunakan cahaya dan sinar-x."
+    ],
+    [
+      "dentin",
+      "Lapisan tulang bagian dalam mahkota gigi."
+    ],
+    [
+      "dentist",
+      "Praktisi terlatih dalam kedokteran gigi."
+    ],
+    [
+      "dentures",
+      "Gigi pengganti tiruan."
+    ],
+    [
+      "depigmentation",
+      "Hilangnya warna kulit."
+    ],
+    [
+      "depolarization {despolarización}",
+      "Keadaan kontraksi jaringan miokard dalam sistem konduksi jantung."
+    ],
+    [
+      "depression",
+      "Kondisi melumpuhkan dengan hilangnya minat dan kesenangan di hampir semua aktivitas."
+    ],
+    [
+      "dermabrasion {dermabrasión}",
+      "Menghilangkan kerutan, bekas luka, tato, dan tanda lainnya dengan cara dikikis dengan kuas atau kertas ampelas."
+    ],
+    [
+      "dermatitis {dermatitis}",
+      "Radang kulit."
+    ],
+    [
+      "dermatochalasis {dermatocalasia}",
+      "Kehilangan elastisitas kelopak mata."
+    ],
+    [
+      "dermatology je",
+      "Spesialisasi medis yang menangani penyakit kulit."
+    ],
+    [
+      "dermis {dermis}",
+      "Lapisan kulit di bawah epidermis yang berisi pembuluh darah, saraf, dan beberapa kelenjar."
+    ],
+    [
+      "diabetes {diabetes}",
+      "Lihat diabetes tipe I, diabetes tipe II."
+    ],
+    [
+      "diabetes insipidus",
+      "Kondisi yang disebabkan oleh hiposekresi hormon antidiuretik."
+    ],
+    [
+      "diabetes mellitus",
+      "Lihat diabetes tipe I, diabetes tipe II."
+    ],
+    [
+      "diabetic nephropathy",
+      "Penyakit ginjal akibat diabetes."
+    ],
+    [
+      "diabetic neuropathy",
+      "Hilangnya sensasi pada ekstremitas akibat diabetes."
+    ],
+    [
+      "diabetic retinopathy",
+      "Hilangnya penglihatan secara bertahap karena diabetes."
+    ],
+    [
+      "diagnostic",
+      "Membantu menyelesaikan diagnosis. pencitraan diagnostik Penggunaan teknik pencitraan dalam mendiagnosis penyakit."
+    ],
+    [
+      "dialysis {diálisis}",
+      "Metode filtrasi digunakan bila ginjal gagal."
+    ],
+    [
+      "diaphoresis {diaforesis}",
+      "Ekskresi cairan oleh kelenjar keringat; berkeringat."
+    ],
+    [
+      "diaphragm {diafragma}",
+      "Otot yang membagi rongga perut dan dada; otot membran antara rongga perut dan dada yang berkontraksi dan rileks selama s"
+    ],
+    [
+      "diaphysis {diáfisis}",
+      "Bagian tengah panjang dari tulang panjang; batang."
+    ],
+    [
+      "diarrhea {diarrea}",
+      "Tinja encer dan encer."
+    ],
+    [
+      "diarthroses (sing., diarthrosis)",
+      "Sendi yang bisa digerakkan secara bebas."
+    ],
+    [
+      "diastole {diástole}",
+      "Fase relaksasi detak jantung."
+    ],
+    [
+      "diencephalon {diencéfalo}",
+      "Salah satu dari empat struktur utama otak; itu adalah bagian otak yang dalam dan berisi talamus."
+    ],
+    [
+      "differentiated",
+      "Tumbuh secara tertib."
+    ],
+    [
+      "diffuse",
+      "Menyebar secara merata."
+    ],
+    [
+      "digestion {digestión}",
+      "Konversi makanan menjadi nutrisi bagi tubuh dan menjadi produk limbah untuk dikeluarkan dari tubuh."
+    ],
+    [
+      "digestive system",
+      "Sistem tubuh yang meliputi seluruh organ pencernaan dan kotoran ekskresi, mulai dari mulut hingga anus."
+    ],
+    [
+      "digital subtraction angiography",
+      "Penggunaan dua angiogram dilakukan dengan pewarna berbeda untuk memberikan perbandingan antar hasil."
+    ],
+    [
+      "dilator",
+      "Terapkan digunakan untuk memperbesar bukaan."
+    ],
+    [
+      "diopter",
+      "Satuan daya pembiasan lensa."
+    ],
+    [
+      "diphtheria {difteria}",
+      "Infeksi akut pada tenggorokan dan saluran pernapasan bagian atas yang disebabkan oleh bakteri."
+    ],
+    [
+      "diplopia {diplopía}",
+      "Visi ganda."
+    ],
+    [
+      "discoid lupus erythematosus (DLE)",
+      "Bentuk lupus yang ringan."
+    ],
+    [
+      "disk {disco}",
+      "Lihat cakram tulang rawan."
+    ],
+    [
+      "diskography {discografía}",
+      "Gambar radiografik dari diskus intervertebralis dengan injeksi media kontras ke tengah disk."
+    ],
+    [
+      "dislocation {dislocación}",
+      "Pergerakan sendi keluar dari posisi normalnya sebagai akibat dari cedera atau gerakan berat yang tiba-tiba."
+    ],
+    [
+      "dissociative disorder",
+      "Kondisi dengan hilangnya kemampuan secara bertahap atau tiba-tiba untuk mengintegrasikan memori, identitas, dan kemampua"
+    ],
+    [
+      "distal",
+      "Jauh dari titik perlekatan ke bagasi."
+    ],
+    [
+      "diuretic",
+      "Agen farmakologis yang meningkatkan buang air kecil; obat yang mempromosikan ekskresi urin."
+    ],
+    [
+      "diverticula",
+      "Kantung kecil di dinding usus."
+    ],
+    [
+      "diverticulectomy",
+      "Penghapusan divertikula."
+    ],
+    [
+      "diverticulitis {diverticulitis}",
+      "Peradangan divertikula."
+    ],
+    [
+      "diverticulosis {diverticulosis}",
+      "Kondisi di mana divertikula menjebak makanan atau bakteri."
+    ],
+    [
+      "dopamine {dopamina}",
+      "Zat di otak atau zat buatan yang membantu meredakan gejala penyakit Parkinson."
+    ],
+    [
+      "Doppler ultrasound",
+      "Tes ultrasonografi aliran darah di pembuluh darah tertentu."
+    ],
+    [
+      "dorsal",
+      "Di atau ke arah belakang tubuh."
+    ],
+    [
+      "dorsal cavity",
+      "Rongga utama di sisi belakang tubuh yang berisi rongga tengkorak dan tulang belakang."
+    ],
+    [
+      "dorsal vertebrae",
+      "Vertebra toraks."
+    ],
+    [
+      "drilling",
+      "Memotong area yang membusuk dari gigi dengan bor gigi kecil."
+    ],
+    [
+      "drug {droga}",
+      "Agen biologis atau kimia yang dapat membantu atau mengubah fungsi tubuh."
+    ],
+    [
+      "druggist {boticario}",
+      "Lihat apoteker."
+    ],
+    [
+      "ductless gland",
+      "Kelenjar endokrin."
+    ],
+    [
+      "ductus arteriosus",
+      "Struktur dalam sistem peredaran darah janin yang melaluinya darah mengalir untuk melewati paru-paru janin yang tidak ber"
+    ],
+    [
+      "ductus venosus",
+      "Struktur dalam sistem peredaran darah janin yang melaluinya darah mengalir untuk melewati hati janin."
+    ],
+    [
+      "duodenal ulcer",
+      "Bisul di duodenum."
+    ],
+    [
+      "duodenum {duodeno}",
+      "Bagian atas usus kecil tempat chyme bercampur dengan empedu, cairan pankreas, dan jus usus untuk melanjutkan proses penc"
+    ],
+    [
+      "dura mater",
+      "Lapisan meninges terluar."
+    ],
+    [
+      "duritis",
+      "Radang dura mater."
+    ],
+    [
+      "dwarfism {enanismo}",
+      "Pertumbuhan kerdil yang tidak normal yang disebabkan oleh hiposekresi hormon pertumbuhan, kekurangan kelenjar tiroid baw"
+    ],
+    [
+      "dyscrasia {discrasia}",
+      "Penyakit apa pun dengan partikel abnormal dalam darah."
+    ],
+    [
+      "dysentery {disentería}",
+      "Iritasi pada saluran usus dengan tinja yang encer."
+    ],
+    [
+      "dysmenorrhea {dismenorrea}",
+      "Menstruasi yang menyakitkan."
+    ],
+    [
+      "dyspareunia {dispareunia}",
+      "Hubungan seksual yang menyakitkan karena berbagai kondisi, seperti kista, infeksi, atau kekeringan, di vagina."
+    ],
+    [
+      "dyspepsia {dispepsia}",
+      "Gangguan pencernaan."
+    ],
+    [
+      "dysphagia {disfagia}",
+      "Kesulitan menelan."
+    ],
+    [
+      "dysphasia {disfasia}",
+      "Kesulitan berbicara."
+    ],
+    [
+      "dysphonia {disfonía}",
+      "Suara serak biasanya disebabkan oleh radang tenggorokan."
+    ],
+    [
+      "dysplasia",
+      "Pertumbuhan jaringan tidak normal."
+    ],
+    [
+      "dysplastic",
+      "Penampilan sel yang tidak normal."
+    ],
+    [
+      "dyspnea {disnea}",
+      "Sulit bernapas."
+    ],
+    [
+      "dysrhythmia {disritmia}",
+      "Irama jantung tidak normal."
+    ],
+    [
+      "dystonia {distonia}",
+      "Nada abnormal pada jaringan."
+    ],
+    [
+      "dysuria {disuria}",
+      "Buang air kecil yang menyakitkan."
+    ],
+    [
+      "ear {oreja, oído}",
+      "Alat pendengar."
+    ],
+    [
+      "eardrum {tambor de oído}",
+      "Membran berbentuk oval dan semitransparan yang bergerak sebagai respons terhadap gelombang suara dan menghasilkan getara"
+    ],
+    [
+      "ecchymosis (pl., ecchymoses) {equimosis}",
+      "Bercak kulit berwarna keunguan (lebam) yang disebabkan oleh pecahnya pembuluh darah di bawah permukaan."
+    ],
+    [
+      "eccrine glands {glándulas ecrinas}",
+      "Kelenjar keringat yang terjadi di seluruh tubuh, kecuali kelenjar apokrin terjadi."
+    ],
+    [
+      "echocardiography {ecocardiografía}",
+      "Penggunaan gelombang suara untuk menghasilkan gambar yang menunjukkan struktur dan gerak jantung."
+    ],
+    [
+      "eczema {eccema}",
+      "Kondisi peradangan kulit yang parah, biasanya tidak diketahui penyebabnya."
+    ],
+    [
+      "edema {edema}",
+      "Retensi air di sel, jaringan, dan gigi berlubang, terkadang karena penyakit ginjal."
+    ],
+    [
+      "efferent (motor) neuron",
+      "Neuron yang membawa informasi ke otot dan kelenjar dari sistem saraf pusat."
+    ],
+    [
+      "ejaculation {eyaculación}",
+      "Pengusiran air mani ke luar tubuh."
+    ],
+    [
+      "ejection fraction",
+      "Persentase volume isi ventrikel kiri yang dikeluarkan dengan setiap kontraksi."
+    ],
+    [
+      "elbow {codo}",
+      "Sambungan antara lengan atas dan lengan bawah."
+    ],
+    [
+      "electrocardiography",
+      "Penggunaan elektrokardiograf dalam diagnosis."
+    ],
+    [
+      "electrocauterization",
+      "Penghancuran dengan membakar jaringan."
+    ],
+    [
+      "electroconvulsive therapy (ECT)",
+      "Lihat terapi kejut listrik."
+    ],
+    [
+      "electrodesiccation",
+      "Pengeringan dengan arus listrik."
+    ],
+    [
+      "electroencephalogram (EEG) {electroencefalógrafo}",
+      "Catat impuls listrik otak."
+    ],
+    [
+      "electrolyte {electrólito}",
+      "Zat apa pun yang menghantarkan listrik dan diurai olehnya."
+    ],
+    [
+      "electromyogram {electromiógrafo}",
+      "Gambar grafis aksi otot menggunakan arus listrik."
+    ],
+    [
+      "electrophoresis {electroforesis}",
+      "Proses pemisahan partikel dalam suatu larutan dengan mengalirkan listrik melalui zat cair."
+    ],
+    [
+      "electroshock therapy (EST)",
+      "Meneruskan arus listrik melalui area tertentu di otak untuk mengubah atau \"mengacak\" komunikasi dari area tersebut ke pr"
+    ],
+    [
+      "elimination",
+      "Konversi bahan limbah dari cairan menjadi setengah padat dan pembuangan bahan tersebut melalui buang air besar."
+    ],
+    [
+      "embolectomy {embolectomía}",
+      "Operasi pengangkatan embolus."
+    ],
+    [
+      "embolic stroke",
+      "Stroke mendadak yang disebabkan oleh embolus."
+    ],
+    [
+      "embolus {émbolo}",
+      "Massa bahan asing yang menghalangi kapal; bekuan dari suatu tempat di tubuh yang menghalangi pembuluh darah kecil di ota"
+    ],
+    [
+      "embryo",
+      "Sel telur dibuahi sampai sekitar 10 minggu masa kehamilan."
+    ],
+    [
+      "emesis {emesis}",
+      "Lihat regurgitasi."
+    ],
+    [
+      "emollient",
+      "Agen yang menghaluskan atau melembutkan kulit."
+    ],
+    [
+      "emphysema {enfisema}",
+      "Kondisi kronis hiperinflasi kantung udara; sering disebabkan oleh merokok dalam waktu lama."
+    ],
+    [
+      "empyema {empiema}",
+      "Nanah di rongga pleura."
+    ],
+    [
+      "emulsification",
+      "Memecah lemak."
+    ],
+    [
+      "enamel",
+      "Lapisan luar gigi yang putih dan mengkilap."
+    ],
+    [
+      "encapsulated",
+      "Diadakan dalam kapsul; jinak."
+    ],
+    [
+      "encephalitis {encefalitis}",
+      "Radang otak."
+    ],
+    [
+      "encephalogram {encefalograma}",
+      "Rekam studi radiografi ventrikel otak."
+    ],
+    [
+      "endarterectomy",
+      "Operasi pengangkatan bagian yang sakit dari lapisan arteri."
+    ],
+    [
+      "endocarditis {endocarditis}",
+      "Peradangan pada endokardium, terutama peradangan yang disebabkan oleh bakteri (misalnya stafilokokus) atau agen jamur."
+    ],
+    [
+      "endocardium {endocardio}",
+      "Lapisan membran bilik dan katup jantung; lapisan jaringan jantung paling dalam."
+    ],
+    [
+      "endocrine gland {glándula endocrina}",
+      "Kelenjar yang mengeluarkan zat ke dalam aliran darah, bukan ke saluran."
+    ],
+    [
+      "endocrine system",
+      "Sistem tubuh yang meliputi kelenjar yang mengeluarkan hormon untuk mengatur fungsi tubuh tertentu."
+    ],
+    [
+      "endodontist",
+      "Dokter gigi yang memiliki spesialisasi dalam perawatan saluran akar."
+    ],
+    [
+      "endolymph {endolinfa}",
+      "Cairan di dalam labirin membran."
+    ],
+    [
+      "endometriosis {endometriosis}",
+      "Kondisi abnormal dimana ditemukan jaringan dinding rahim di pelvis atau di dinding perut."
+    ],
+    [
+      "endometrium {endometrio}",
+      "Lapisan mukosa bagian dalam rahim."
+    ],
+    [
+      "endoscope {endoscopio}",
+      "Tube digunakan untuk melihat rongga tubuh."
+    ],
+    [
+      "endosteum {endostio}",
+      "Lapisan rongga meduler."
+    ],
+    [
+      "endothelium {endotelio}",
+      "Lapisan arteri yang mengeluarkan zat ke dalam darah."
+    ],
+    [
+      "endotracheal intubation (ET)",
+      "Penyisipan tabung melalui hidung atau mulut, faring, dan laring dan ke dalam trakea untuk membuat jalan napas."
+    ],
+    [
+      "endovascular surgery",
+      "Berbagai prosedur yang dilakukan selama kateterisasi jantung, seperti angioskopi dan aterektomi."
+    ],
+    [
+      "end-stage renal disease (ESRD)",
+      "Tahap terakhir gagal ginjal."
+    ],
+    [
+      "energy therapy",
+      "Terapi menggunakan medan energi."
+    ],
+    [
+      "enteric-coated",
+      "Memiliki lapisan (seperti pada kapsul) yang mencegah iritasi lambung."
+    ],
+    [
+      "enteritis {enteritis}",
+      "Radang usus kecil."
+    ],
+    [
+      "enucleation {enucleación}",
+      "Pengangkatan bola mata."
+    ],
+    [
+      "enuresis {enuresis}",
+      "Inkontinensia urin."
+    ],
+    [
+      "enzyme {enzima}",
+      "Protein yang menyebabkan perubahan kimiawi pada zat di saluran pencernaan."
+    ],
+    [
+      "enzyme-linked immunosorbent assay (EIA, ELISA)",
+      "Tes digunakan untuk menyaring darah untuk keberadaan antibodi terhadap virus atau bakteri yang berbeda."
+    ],
+    [
+      "eosinophil {eosinófilo}",
+      "Jenis granulosit."
+    ],
+    [
+      "eosinophilia {eosinofilia}",
+      "Kondisi dengan jumlah eosinofil yang abnormal dalam darah."
+    ],
+    [
+      "epicardium {epicardio}",
+      "Lapisan terluar jaringan jantung."
+    ],
+    [
+      "epidermis {epidermis}",
+      "Bagian luar kulit mengandung beberapa lapisan."
+    ],
+    [
+      "epidermoid",
+      "Menyerupai sel epitel."
+    ],
+    [
+      "epididymectomy",
+      "Penghapusan epididimis."
+    ],
+    [
+      "epididymis {epidídimo}",
+      "Kelompok saluran di bagian atas testis tempat penyimpanan sperma."
+    ],
+    [
+      "epididymitis {epididimitis}",
+      "Peradangan pada epididimis."
+    ],
+    [
+      "epidural space",
+      "Area antara pia mater dan tulang sumsum tulang belakang."
+    ],
+    [
+      "epigastric region",
+      "Area tubuh tepat di atas perut."
+    ],
+    [
+      "epiglottis {epiglotis}",
+      "Flap tulang rawan yang menutupi laring saat menelan untuk mencegah makanan masuk ke jalan napas; flap jaringan yang dapa"
+    ],
+    [
+      "epiglottitis {epiglotitis}",
+      "Peradangan pada epiglotis."
+    ],
+    [
+      "epilepsy",
+      "Aktivitas kejang berulang kronis."
+    ],
+    [
+      "epinephrine {epinefrina}",
+      "Hormon yang dilepaskan oleh medula adrenal sebagai respons terhadap stres; adrenalin."
+    ],
+    [
+      "epiphora {epífora}",
+      "Robek yang berlebihan."
+    ],
+    [
+      "epiphyseal plate",
+      "Jaringan tulang rawan yang diganti selama tahun-tahun pertumbuhan, tetapi akhirnya mengeras dan menghilang saat pertumbu"
+    ],
+    [
+      "epiphysitis {epifisitis}",
+      "Peradangan pada epifisis."
+    ],
+    [
+      "epispadias {epispadias}",
+      "Cacat lahir dengan pembukaan uretra yang tidak normal di sisi atas penis."
+    ],
+    [
+      "epistaxis",
+      "Pendarahan dari hidung, biasanya disebabkan oleh trauma atau pecahnya pembuluh darah hidung secara tiba-tiba."
+    ],
+    [
+      "epithalamus {epitálamo}",
+      "Salah satu bagian diencephalon itu; berfungsi sebagai stasiun pemancar sensorik."
+    ],
+    [
+      "epithelial tissue",
+      "Jaringan yang menutupi atau melapisi badan atau bagian-bagiannya."
+    ],
+    [
+      "equilibrium {equilibrio}",
+      "Rasa keseimbangan."
+    ],
+    [
+      "erosion {erosion}",
+      "Mengikis permukaan kulit, terutama jika disebabkan oleh gesekan."
+    ],
+    [
+      "eructation {eructación}",
+      "Bersendawa."
+    ],
+    [
+      "erythroblastosis fetalis",
+      "Gangguan inkompatibilitas antara ibu dengan Rh negatif dan janin Rh positif."
+    ],
+    [
+      "erythrocyte {eritrocito}",
+      "Sel darah merah dewasa."
+    ],
+    [
+      "erythrocyte sedimentation rate (ESR)",
+      "Tes untuk menilai di mana sel darah merah jatuh melalui plasma."
+    ],
+    [
+      "erythropenia {eritropenia}",
+      "Gangguan dengan jumlah sel darah merah yang sangat rendah."
+    ],
+    [
+      "erythropoietin {eritropoyetina}",
+      "Hormon yang dikeluarkan oleh ginjal untuk merangsang produksi sel darah merah."
+    ],
+    [
+      "esophagitis {esofagitis}",
+      "Radang esofagus."
+    ],
+    [
+      "esophagoplasty {esofagoplastia}",
+      "Perbaikan esofagus."
+    ],
+    [
+      "esophagoscopy {esophagoscopia}",
+      "Pemeriksaan esofagus dengan esofagoskop."
+    ],
+    [
+      "esophagus {esófago}",
+      "Bagian dari saluran pencernaan dari faring ke lambung."
+    ],
+    [
+      "esotropia {esotropía}",
+      "Penyimpangan satu mata ke dalam."
+    ],
+    [
+      "essential hypertension",
+      "Tekanan darah tinggi tanpa penyebab yang diketahui."
+    ],
+    [
+      "estrogen {estrógeno}",
+      "Salah satu hormon wanita utama yang diproduksi oleh ovarium."
+    ],
+    [
+      "ethmoid bone",
+      "Tulang wajah tidak beraturan yang menempel pada tulang sphenoid."
+    ],
+    [
+      "ethmoid sinuses",
+      "Sinus di kedua sisi rongga hidung antara setiap mata dan sinus sphenoid."
+    ],
+    [
+      "eupnea {eupnea}",
+      "Pernapasan normal."
+    ],
+    [
+      "eustachian tube",
+      "Tabung yang menghubungkan telinga tengah ke faring."
+    ],
+    [
+      "euthanasia",
+      "Membantu bunuh diri atau membunuh seseorang dengan penyakit yang dapat disembuhkan atau menyakitkan."
+    ],
+    [
+      "evoked potentials",
+      "Catat pola gelombang listrik yang diamati dalam EEG."
+    ],
+    [
+      "exanthematous viral disease",
+      "Penyakit virus yang menyebabkan ruam pada kulit."
+    ],
+    [
+      "excisional biopsy",
+      "Pengangkatan tumor dan jaringan sekitarnya untuk pemeriksaan."
+    ],
+    [
+      "excitability {excitabilidad}",
+      "Kemampuan menanggapi rangsangan."
+    ],
+    [
+      "excoriation {excoriación}",
+      "Cedera pada permukaan kulit yang disebabkan oleh goresan, lecet, atau luka bakar, biasanya disertai dengan keluarnya cai"
+    ],
+    [
+      "excrete",
+      "Untuk memisahkan dan mengusir."
+    ],
+    [
+      "exenteration",
+      "Pengangkatan organ, tumor, dan jaringan di sekitarnya."
+    ],
+    [
+      "exfoliative biopsy",
+      "Pengikisan sel kulit dari permukaan kulit untuk pemeriksaan."
+    ],
+    [
+      "exhalation {exahalación}",
+      "Hembuskan napas."
+    ],
+    [
+      "exocrine gland {exocrine}",
+      "1. Setiap kelenjar yang melepaskan zat melalui saluran ke lokasi tertentu. 2. Kelenjar yang keluar melalui saluran menuj"
+    ],
+    [
+      "exophthalmos, exophthalmus {exoftalmía}",
+      "Tonjolan bola mata yang tidak normal; tonjolan abnormal pada mata khas penyakit Graves."
+    ],
+    [
+      "exostosis {exostosis}",
+      "Pertumbuhan tulang abnormal yang dibatasi oleh tulang rawan."
+    ],
+    [
+      "exotropia",
+      "Deviasi satu mata ke luar."
+    ],
+    [
+      "expectorants",
+      "Agen yang mempromosikan batuk dan pengeluaran lendir."
+    ],
+    [
+      "expiration {espiración}",
+      "Penghembusan."
+    ],
+    [
+      "external fixation device",
+      "Perangkat yang diterapkan secara eksternal untuk menahan dahan di tempatnya."
+    ],
+    [
+      "external nares",
+      "Lihat lubang hidung."
+    ],
+    [
+      "external respiration",
+      "Pertukaran udara antara tubuh dan lingkungan luar."
+    ],
+    [
+      "extracorporeal shock wave lithotripsy (ESWL)",
+      "Memecah batu ginjal dengan menggunakan gelombang kejut dari luar tubuh."
+    ],
+    [
+      "exudate {exudado}",
+      "Cairan apa pun yang dikeluarkan dari jaringan, terutama cairan yang dikeluarkan dari luka pada kulit."
+    ],
+    [
+      "eye {ojo}",
+      "Organ penglihatan."
+    ],
+    [
+      "eyebrow {ceja}",
+      "Gumpalan rambut, biasanya sekitar setengah inci di atas mata, yang membantu mencegah partikel asing masuk ke mata."
+    ],
+    [
+      "eyelashes {pestaña}",
+      "Sekelompok rambut yang menonjol dari ujung kelopak mata; membantu mencegah partikel asing memasuki mata."
+    ],
+    [
+      "eyelid {párpado}",
+      "Penutup mata yang bisa digerakkan."
+    ],
+    [
+      "eyestrain {vista fatigada}",
+      "Asthenopia."
+    ],
+    [
+      "eyetooth",
+      "Gigi taring."
+    ],
+    [
+      "fainting",
+      "Lihat sinkop."
+    ],
+    [
+      "fallopian tube",
+      "Salah satu dari dua saluran yang mengarah dari ovarium ke rahim; tabung rahim."
+    ],
+    [
+      "farsightedness {hiperopía}",
+      "Rabun dekat."
+    ],
+    [
+      "fascia (pl., fasciae) {fascia}",
+      "Lembaran jaringan fibrosa yang membungkus otot."
+    ],
+    [
+      "fasting blood sugar",
+      "Tes glukosa dalam darah setelah puasa 12 jam."
+    ],
+    [
+      "fatty acid",
+      "Asam yang berasal dari lemak selama proses pencernaan."
+    ],
+    [
+      "feces {heces}",
+      "Limbah setengah padat yang bergerak melalui usus besar ke anus, kemudian dikeluarkan dari tubuh."
+    ],
+    [
+      "femoral artery",
+      "Arteri yang memasok darah ke paha."
+    ],
+    [
+      "femur {fémur}",
+      "Tulang paha panjang."
+    ],
+    [
+      "fertilization",
+      "Penyatuan sel telur dengan sperma."
+    ],
+    [
+      "fetus",
+      "Mengembangkan produk konsepsi dari 8 minggu hingga lahir."
+    ],
+    [
+      "fever blister",
+      "Letusan di sekitar mulut atau bibir; virus herpes simpleks Tipe 1."
+    ],
+    [
+      "fibrillation {fibrilación}",
+      "Irama jantung acak, kacau, tidak teratur."
+    ],
+    [
+      "fibrin clot",
+      "Benang pembentuk gumpalan terbentuk di lokasi cedera selama koagulasi di mana trombosit menggumpal bersama dengan berbag"
+    ],
+    [
+      "fibrinogen {fibrinógeno}",
+      "Protein dalam plasma yang membantu pembekuan."
+    ],
+    [
+      "fibroid {fibroide}",
+      "Tumor jinak banyak ditemukan di rahim."
+    ],
+    [
+      "fibula {peroné}",
+      "Tulang panjang terkecil di kaki bagian bawah."
+    ],
+    [
+      "filtration {filtración}",
+      "Proses pemisahan zat padat dari zat cair dengan melewatkannya melalui zat berpori."
+    ],
+    [
+      "fimbriae {fimbrias}",
+      "Ujung tuba rahim yang menyerupai rambut yang menyapu sel telur ke dalam rahim."
+    ],
+    [
+      "first bicuspid",
+      "Gigi keempat dari median garis rahang."
+    ],
+    [
+      "first molar",
+      "Gigi keenam dari median garis rahang."
+    ],
+    [
+      "first-degree burn",
+      "Luka bakar paling ringan, menyebabkan luka pada permukaan kulit tanpa melepuh."
+    ],
+    [
+      "fissure {fisura}",
+      "1. Celah dalam di kulit. 2. Alur atau celah yang dalam (seperti pada tulang). 3. Salah satu dari banyak lekukan otak bes"
+    ],
+    [
+      "fistula {fistula}",
+      "Pembukaan jaringan yang tidak normal."
+    ],
+    [
+      "flaccid {fláccido}",
+      "Tanpa nada; santai."
+    ],
+    [
+      "flagellum {flagelo}",
+      "Ekor di ujung sperma yang membantunya bergerak."
+    ],
+    [
+      "flat bones",
+      "Tulang pipih tipis yang menutupi area tertentu, seperti tengkorak."
+    ],
+    [
+      "flatulence {flatulencia}",
+      "Gas di perut atau usus."
+    ],
+    [
+      "flatus {flato}",
+      "Gas di saluran usus bagian bawah yang bisa dikeluarkan melalui anus."
+    ],
+    [
+      "fluoride",
+      "Zat yang diberikan sebagai obat kumur untuk mencegah kerusakan gigi."
+    ],
+    [
+      "fluoroscopy",
+      "X-ray di mana gambar diproyeksikan ke layar fluoresen."
+    ],
+    [
+      "flutter {aleteo}",
+      "Detak jantung teratur tapi sangat cepat."
+    ],
+    [
+      "Foley catheter",
+      "Kateter yang menetap yang ditahan oleh balon yang mengembang di dalam kandung kemih."
+    ],
+    [
+      "follicle-stimulating hormone (FSH)",
+      "Hormon yang diperlukan untuk pematangan oosit dan ovulasi; hormon yang dilepaskan oleh hipofisis anterior untuk membantu"
+    ],
+    [
+      "follicular",
+      "Mengandung kantung kelenjar."
+    ],
+    [
+      "Fontan's operation",
+      "Prosedur pembedahan yang membuat bypass dari atrium kanan ke arteri pulmonalis utama; Prosedur Fontan."
+    ],
+    [
+      "fontanelle {fontanela}",
+      "Bagian selaput lembut di atas tengkorak bayi."
+    ],
+    [
+      "foramen {agujero}",
+      "Pembukaan atau perforasi melalui tulang."
+    ],
+    [
+      "foramen magnum",
+      "Pembukaan di tulang oksipital yang dilalui sumsum tulang belakang."
+    ],
+    [
+      "foramen ovale",
+      "Pembukaan di septum jantung janin yang menutup saat lahir."
+    ],
+    [
+      "forceps",
+      "Alat bedah yang digunakan untuk memegang dan mengeluarkan sesuatu."
+    ],
+    [
+      "foreskin {prepucio}",
+      "Lipat kulit di bagian atas labia minora; lipatan kulit yang menutupi kelenjar penis; dihapus dengan sunat di banyak buda"
+    ],
+    [
+      "fossa (pl., fossae) {fosa}",
+      "Depresi, seperti pada tulang."
+    ],
+    [
+      "fovea centralis",
+      "Depresi di tengah makula lutea; merasakan gambar paling tajam."
+    ],
+    [
+      "fracture {fractura}",
+      "Istirahat, terutama di tulang."
+    ],
+    [
+      "frenulum {frenillo}",
+      "Selaput lendir yang menempelkan lidah ke dasar mulut."
+    ],
+    [
+      "frontal bone",
+      "Tulang tengkorak besar yang membentuk bagian atas kepala dan dahi."
+    ],
+    [
+      "frontal lobe",
+      "Salah satu dari empat bagian setiap belahan otak besar."
+    ],
+    [
+      "frontal plane",
+      "Garis imajiner yang membagi tubuh menjadi posisi anterior dan posterior."
+    ],
+    [
+      "frontal sinuses",
+      "Sinus di atas mata."
+    ],
+    [
+      "fulguration {fulguración}",
+      "Penghancuran jaringan dengan menggunakan percikan listrik atau arus frekuensi tinggi."
+    ],
+    [
+      "full",
+      "Lengkap (gigi palsu)."
+    ],
+    [
+      "fundus {fondo}",
+      "Bagian atas rahim; bagian atas perut."
+    ],
+    [
+      "fungating",
+      "Tumbuh dengan pola seperti jamur."
+    ],
+    [
+      "furuncle {furúnculo}",
+      "Infeksi kulit terlokalisasi, biasanya pada folikel rambut dan berisi nanah; mendidih."
+    ],
+    [
+      "gait {marcha}",
+      "Cara berjalan."
+    ],
+    [
+      "gallbladder {vesícula biliar}",
+      "Organ di permukaan bawah hati; menyimpan empedu."
+    ],
+    [
+      "gallop {galope}",
+      "Suara detak jantung tiga kali lipat, biasanya menunjukkan penyakit jantung yang serius."
+    ],
+    [
+      "gallstones {cálculo biliar}",
+      "Kalkulus di kantong empedu."
+    ],
+    [
+      "gamete {gameto}",
+      "Sel kelamin; lihat sel telur."
+    ],
+    [
+      "gamma globulin",
+      "1. Globulin yang muncul di jaringan limfatik dan berfungsi sebagai bagian dari sistem kekebalan tubuh. 2. Antibodi diber"
+    ],
+    [
+      "gamma rays",
+      "Partikel radioaktif yang umum digunakan dengan kemampuan penetrasi yang tinggi."
+    ],
+    [
+      "gangliitis {ganglitis}",
+      "Peradangan ganglion."
+    ],
+    [
+      "ganglion (pl., ganglia, ganglions) {ganglion}",
+      "Setiap kelompok badan sel saraf yang membentuk massa atau kista di sistem saraf tepi; biasanya terbentuk di pergelangan"
+    ],
+    [
+      "gangrene {gangrena}",
+      "Kematian suatu area kulit, biasanya disebabkan oleh hilangnya suplai darah ke area tersebut."
+    ],
+    [
+      "gastrectomy {gastrectomia}",
+      "Pengangkatan sebagian atau seluruh perut."
+    ],
+    [
+      "gastric bypass",
+      "Lihat reseksi lambung."
+    ],
+    [
+      "gastric resection or gastric bypass",
+      "Pengangkatan bagian perut dan perbaikan bagian yang tersisa."
+    ],
+    [
+      "gastritis {gastritis}",
+      "Radang lambung."
+    ],
+    [
+      "gastroenteritis {gastroenteritis}",
+      "Radang lambung dan usus kecil."
+    ],
+    [
+      "gastroscopy {gastrocopia}",
+      "Pemeriksaan lambung menggunakan endoskopi."
+    ],
+    [
+      "gene therapy",
+      "Metode pengobatan menggunakan sel yang diubah secara genetik untuk menyembuhkan atau mengurangi gejala penyakit."
+    ],
+    [
+      "generic {genérico}",
+      "Versi singkat dari nama kimia."
+    ],
+    [
+      "genetics",
+      "Ilmu pewarisan biologis."
+    ],
+    [
+      "geriatric",
+      "Atau berkaitan dengan usia tua."
+    ],
+    [
+      "gerontology",
+      "Spesialisasi medis yang mendiagnosis dan mengobati gangguan pada usia tua."
+    ],
+    [
+      "gestation {gestación}",
+      "Masa perkembangan janin dari pembuahan sampai melahirkan; biasanya sekitar 40 minggu."
+    ],
+    [
+      "gigantism {gigantismo}",
+      "Pertumbuhan yang sangat cepat dan besar yang disebabkan oleh hipersekresi hormon pertumbuhan."
+    ],
+    [
+      "gingivae",
+      "Gusi."
+    ],
+    [
+      "gingivitis",
+      "Radang gusi."
+    ],
+    [
+      "gland {glándula}",
+      "Setiap massa jaringan yang terorganisir yang mengeluarkan atau mengeluarkan zat."
+    ],
+    [
+      "glans penis",
+      "Area sensitif di ujung penis."
+    ],
+    [
+      "glaucoma {glaucoma}",
+      "Berbagai penyakit yang disebabkan oleh tekanan mata tinggi yang tidak normal."
+    ],
+    [
+      "glioblastoma multiforme",
+      "Jenis glioma paling ganas."
+    ],
+    [
+      "glioma {glioma}",
+      "Tumor yang muncul dari neuroglia."
+    ],
+    [
+      "globin {globina}",
+      "Molekul protein; di dalam darah, bagian dari hemoglobin."
+    ],
+    [
+      "globulin {globulina}",
+      "Salah satu keluarga protein dalam plasma darah."
+    ],
+    [
+      "glomerulonephritis",
+      "Radang glomeruli ginjal."
+    ],
+    [
+      "glomerulus (pl., glomuleri) {glomérulo}",
+      "Kelompok kapiler di nefron."
+    ],
+    [
+      "glossectomy",
+      "Pengangkatan lidah."
+    ],
+    [
+      "glossitis {glositis}",
+      "Radang lidah."
+    ],
+    [
+      "glossorrhaphy",
+      "Jahitan lidah."
+    ],
+    [
+      "glottis {glotis}",
+      "Bagian laring terdiri dari pita suara selaput lendir dan otot."
+    ],
+    [
+      "glucagon {glucagon}",
+      "Hormon yang dikeluarkan oleh pankreas untuk meningkatkan gula darah."
+    ],
+    [
+      "glucocorticoids",
+      "Hormon dilepaskan oleh korteks adrenal."
+    ],
+    [
+      "glucose {glucosa}",
+      "Bentuk gula yang ditemukan di dalam darah; dapat mengindikasikan diabetes bila ditemukan dalam urin; gula ditemukan di b"
+    ],
+    [
+      "glucose tolerance test (GTT)",
+      "Tes darah untuk kemampuan tubuh memetabolisme karbohidrat; diminum setelah puasa 12 jam, kemudian diulangi setiap jam se"
+    ],
+    [
+      "glucosuria",
+      "Glukosa dalam urin."
+    ],
+    [
+      "glycated hemoglobin",
+      "Tes darah untuk mengetahui rata-rata kadar glukosa selama 2-3 bulan sebelumnya."
+    ],
+    [
+      "glycogen {glucógeno}",
+      "Glukosa yang diubah disimpan di hati untuk digunakan di masa mendatang; pati yang dapat diubah menjadi glukosa."
+    ],
+    [
+      "glycosuria",
+      "Glukosa dalam urin."
+    ],
+    [
+      "goiter {bocio}",
+      "Pembesaran kelenjar tiroid yang tidak normal akibat aktivitas yang berlebihan atau kekurangan yodium dalam makanan."
+    ],
+    [
+      "gonad {gónada}",
+      "Organ kelamin pria atau wanita; lihat ovarium."
+    ],
+    [
+      "goniometer {goniómetro}",
+      "Instrumen yang mengukur sudut atau rentang gerak dalam suatu sambungan."
+    ],
+    [
+      "gonorrhea {gonorrea}",
+      "Peradangan selaput kelamin yang ditularkan secara seksual."
+    ],
+    [
+      "gouty arthritis, gout",
+      "Radang sendi, hadir pada asam urat; biasanya disebabkan oleh kristal asam urat."
+    ],
+    [
+      "graafian follicle",
+      "Folikel di ovarium yang menahan oosit selama perkembangan dan kemudian melepaskannya."
+    ],
+    [
+      "grade",
+      "Kematangan tumor."
+    ],
+    [
+      "graft",
+      "Setiap jaringan atau organ yang ditanamkan untuk mengganti atau memperbaiki area yang rusak."
+    ],
+    [
+      "grand mal seizure",
+      "Lihat kejang tonik-klonik."
+    ],
+    [
+      "granulocyte",
+      "Leukosit dengan sitoplasma granular."
+    ],
+    [
+      "granulocytosis {granulocitosis}",
+      "Kondisi dengan jumlah granulosit yang tidak normal dalam aliran darah."
+    ],
+    [
+      "Graves' disease",
+      "Kelebihan kelenjar tiroid."
+    ],
+    [
+      "gravida {grávida}",
+      "Wanita hamil."
+    ],
+    [
+      "gray (gy)",
+      "Satuan ukuran sama dengan 100 rad."
+    ],
+    [
+      "greenstick fracture",
+      "Fraktur dengan tulang terpuntir atau bengkok tetapi tidak patah; biasanya terjadi pada anak-anak."
+    ],
+    [
+      "group therapy",
+      "Terapi bicara di bawah kepemimpinan psikoterapis di mana anggota kelompok mendiskusikan perasaan mereka dan mencoba untu"
+    ],
+    [
+      "growth hormone (GH)",
+      "Hormon dilepaskan oleh hipofisis anterior."
+    ],
+    [
+      "gums {encía}",
+      "Jaringan fibrosa padat yang membentuk penutup pelindung di sekitar soket dan bagian garis rahang di dalam rongga mulut;"
+    ],
+    [
+      "gynecologist {ginecólogo}",
+      "Spesialis yang mendiagnosis dan menangani proses dan gangguan pada sistem reproduksi wanita."
+    ],
+    [
+      "gyrus (pl., gyri) {circunvolución}",
+      "Lihat konvolusi."
+    ],
+    [
+      "hair follicle",
+      "Kantung seperti tabung di dermis tempat batang rambut berkembang."
+    ],
+    [
+      "hair root {raiz de pelo}",
+      "Porsi rambut di bawah permukaan kulit."
+    ],
+    [
+      "hair shaft",
+      "Porsi rambut terlihat di atas permukaan kulit."
+    ],
+    [
+      "hairline fracture",
+      "Fraktur tanpa pemisahan atau fragmentasi tulang."
+    ],
+    [
+      "halitosis {halitosis}",
+      "Bau mulut yang tidak sedap."
+    ],
+    [
+      "hard palate",
+      "Bagian anterior yang keras dari langit-langit mulut di atap mulut; pengerasan arteri."
+    ],
+    [
+      "hearing {audición}",
+      "Kemampuan untuk merasakan suara."
+    ],
+    [
+      "heart {corazón}",
+      "Organ otot yang menerima darah dari vena dan mengirimkannya ke arteri."
+    ],
+    [
+      "heart block",
+      "Lihat blok atrioventrikular."
+    ],
+    [
+      "heart transplant",
+      "Implantasi hati seseorang yang baru saja meninggal ke dalam orang yang penyakit jantungnya tidak dapat menopang kehidupa"
+    ],
+    [
+      "heel {talon}",
+      "Punggung, bagian kaki yang membulat."
+    ],
+    [
+      "helper cell",
+      "Sel T yang menstimulasi respon imun."
+    ],
+    [
+      "hematemesis {hematemesis}",
+      "Darah dalam muntahan."
+    ],
+    [
+      "hematochezia",
+      "Darah merah di tinja."
+    ],
+    [
+      "hematocrit {hematócrito}",
+      "Mengukur persentase sel darah merah dalam sampel darah."
+    ],
+    [
+      "hematocytoblast {hematocitoblasto}",
+      "Sebagian besar sel darah belum matang."
+    ],
+    [
+      "hematuria {hematuria}",
+      "Darah dalam urin."
+    ],
+    [
+      "heme",
+      "Pigmen yang mengandung zat besi dalam hemoglobin."
+    ],
+    [
+      "hemochromatosis",
+      "Kondisi keturunan dengan penumpukan zat besi yang berlebihan di dalam darah."
+    ],
+    [
+      "hemodialysis {hemodiálisis}",
+      "Dialisis dilakukan dengan mengalirkan darah melalui saringan ke luar tubuh dan mengembalikan darah yang disaring ke tubu"
+    ],
+    [
+      "hemoglobin {hemoglobina}",
+      "Protein dalam sel darah merah penting untuk pengangkutan oksigen."
+    ],
+    [
+      "hemolysis {hemolisis}",
+      "Gangguan dengan kerusakan membran sel darah merah."
+    ],
+    [
+      "hemophilia {hemofilia}",
+      "Gangguan keturunan dengan kurangnya faktor pembekuan dalam darah."
+    ],
+    [
+      "hemoptysis",
+      "Perdarahan paru-paru atau bronkial yang mengakibatkan darah meludah."
+    ],
+    [
+      "hemorrhagic stroke",
+      "Stroke yang disebabkan oleh darah yang keluar dari arteri serebral yang rusak."
+    ],
+    [
+      "hemorrhoidectomy {hemorroidectomía}",
+      "Operasi pengangkatan wasir."
+    ],
+    [
+      "hemorrhoids {hemorroides}",
+      "Kondisi varises di daerah anus; vena bengkak dan bengkok di anus."
+    ],
+    [
+      "hemostatic",
+      "Agen yang menghentikan pendarahan."
+    ],
+    [
+      "hemothorax {hemotórax}",
+      "Darah di rongga pleura."
+    ],
+    [
+      "heparin {heparina}",
+      "Antikoagulan hadir di dalam tubuh; juga, versi sintetis diberikan untuk mencegah pembekuan; zat dalam darah yang mencega"
+    ],
+    [
+      "hepatic lobectomy",
+      "Pengangkatan satu atau lebih lobus hati."
+    ],
+    [
+      "hepatitis {hepatitis}",
+      "Peradangan atau penyakit hati."
+    ],
+    [
+      "hepatomegaly {hepatomegalia}",
+      "Hati membesar."
+    ],
+    [
+      "hepatopathy {hepatopatía}",
+      "Penyakit hati."
+    ],
+    [
+      "hernia {hernia}",
+      "Penonjolan jaringan yang tidak normal melalui otot yang mengandungnya."
+    ],
+    [
+      "herniated disk",
+      "Penonjolan diskus intervertebralis ke dalam saluran saraf."
+    ],
+    [
+      "herpes {herpes}",
+      "Penyakit kulit inflamasi yang disebabkan oleh virus dari famili Herpesviridae."
+    ],
+    [
+      "herpes simplex virus Type 1",
+      "Herpes yang muncul kembali di bibir dan di sekitar area mulut, biasanya selama penyakit virus atau keadaan stres."
+    ],
+    [
+      "herpes simplex virus Type 2",
+      "Herpes yang berulang di alat kelamin; dapat dengan mudah ditularkan dari satu orang ke orang lain melalui kontak seksual"
+    ],
+    [
+      "herpes zoster",
+      "Herpes nyeri yang mempengaruhi akar saraf; herpes zoster."
+    ],
+    [
+      "heterograft {heterinjerto}",
+      "Cangkok kulit menggunakan kulit donor dari satu spesies ke spesies lainnya; xenograft.dll"
+    ],
+    [
+      "heteroplasia",
+      "Displasia."
+    ],
+    [
+      "hiatal hernia",
+      "Penonjolan perut melalui lubang di diafragma."
+    ],
+    [
+      "high blood pressure {presión arterial alta}",
+      "Lihat hipertensi."
+    ],
+    [
+      "hilum (also hilus) {hilio}",
+      "1. Bagian ginjal tempat masuk dan keluarnya pembuluh darah dan saraf. 2. Bagian tengah paru-paru tempat masuk dan keluar"
+    ],
+    [
+      "hirsutism {hirsutismo}",
+      "Pertumbuhan rambut tidak normal akibat kelebihan androgen."
+    ],
+    [
+      "histamine {histamine}",
+      "Zat yang dilepaskan oleh basofil dan eosinofil; terlibat dalam reaksi alergi."
+    ],
+    [
+      "histiocytic lymphoma",
+      "Limfoma dengan sel ganas yang menyerupai histiosit."
+    ],
+    [
+      "hives {urticaria}",
+      "Lihat urtikaria."
+    ],
+    [
+      "Hodgkin's lymphoma, Hodgkin's disease",
+      "Jenis kanker getah bening yang asalnya tidak pasti yang umumnya muncul pada masa dewasa awal."
+    ],
+    [
+      "Holter monitor",
+      "Perangkat portabel yang menyediakan elektrokardiogram 24 jam."
+    ],
+    [
+      "homeopathic medicine",
+      "Sistem medis yang menggunakan dosis zat yang diencerkan untuk merangsang kekebalan."
+    ],
+    [
+      "homograft {homoinjerto}",
+      "Cangkok kulit menggunakan kulit donor dari satu orang ke orang lain; allograft.dll"
+    ],
+    [
+      "hordeolum {orzuelo}",
+      "Infeksi kelenjar sebaceous pada kelopak mata; tembel."
+    ],
+    [
+      "hormone {hormona}",
+      "Sekresi kimiawi dari kelenjar seperti ovarium; zat yang disekresikan oleh kelenjar dan dibawa dalam aliran darah ke berb"
+    ],
+    [
+      "hormone replacement therapy (HRT)",
+      "Pengobatan dengan hormon ketika tubuh menghentikan atau menurunkan produksi hormon dengan sendirinya; menelan hormon unt"
+    ],
+    [
+      "human growth hormone (HCG)",
+      "Zat yang terjadi secara alami di dalam tubuh yang mendorong pertumbuhan; zat hasil sintesis yang memiliki fungsi yang sa"
+    ],
+    [
+      "human immunodeficiency virus (HIV)",
+      "Virus penyebab AIDS; menyebar melalui kontak seksual dan pertukaran cairan tubuh, dan penggunaan jarum suntik bersama."
+    ],
+    [
+      "humerus {húmero}",
+      "Tulang lengan panjang menghubungkan ke tulang belikat di atas dan jari-jari serta ulna di bawah."
+    ],
+    [
+      "humoral immunity",
+      "Resistensi terhadap penyakit yang diberikan oleh sel plasma dan produksi antibodi."
+    ],
+    [
+      "Huntington's chorea",
+      "Gangguan keturunan dengan gerakan menyentak yang tidak terkendali."
+    ],
+    [
+      "hydrocele {hidrocele}",
+      "Hernia testis yang mengandung cairan."
+    ],
+    [
+      "hydrocephalus {hidrocefalia}",
+      "Kelebihan cairan di otak."
+    ],
+    [
+      "hydronephrosis",
+      "Pengumpulan urin yang tidak normal di ginjal karena penyumbatan."
+    ],
+    [
+      "hymen {himen}",
+      "Lipatan selaput lendir yang menutupi vagina wanita muda; biasanya pecah saat hubungan seksual pertama."
+    ],
+    [
+      "hyperadrenalism",
+      "Kelebihan kelenjar adrenal."
+    ],
+    [
+      "hyperbilirubinemia",
+      "Bilirubin yang berlebihan di dalam darah."
+    ],
+    [
+      "hypercapnia",
+      "Penumpukan karbon dioksida yang berlebihan di paru-paru, biasanya berhubungan dengan hipoventilasi."
+    ],
+    [
+      "hyperchromatic",
+      "Berwarna intens."
+    ],
+    [
+      "hyperopia",
+      "Fokus di belakang retina menyebabkan distorsi penglihatan; rabun dekat."
+    ],
+    [
+      "hyperparathyroidism {hiperparatiroidismo}",
+      "Kelenjar paratiroid yang terlalu aktif."
+    ],
+    [
+      "hyperplastic",
+      "Berlebihan dalam perkembangan (sel)."
+    ],
+    [
+      "hyperpnea",
+      "Nafas dalam yang tidak normal."
+    ],
+    [
+      "hypersecretion",
+      "Sekresi tinggi yang tidak normal, seperti dari kelenjar."
+    ],
+    [
+      "hypersensitivity {hipersensibilidad}",
+      "Reaksi abnormal terhadap alergen."
+    ],
+    [
+      "hypersplenism",
+      "Limpa terlalu aktif."
+    ],
+    [
+      "hypertension",
+      "Kondisi kronis dengan tekanan darah lebih dari 140/90."
+    ],
+    [
+      "hypertensive heart disease",
+      "Penyakit jantung yang disebabkan, atau diperburuk, oleh tekanan darah tinggi."
+    ],
+    [
+      "hyperthyroidism {hipertiroidismo}",
+      "Kelebihan kelenjar tiroid."
+    ],
+    [
+      "hypertrophy",
+      "Peningkatan abnormal seperti pada ukuran otot."
+    ],
+    [
+      "hyperventilation {hiperventilación}",
+      "Nafas masuk dan keluar cepat yang tidak normal, sering dikaitkan dengan kecemasan."
+    ],
+    [
+      "hypnosis",
+      "Kondisi setengah sadar."
+    ],
+    [
+      "hypnotic",
+      "Agen yang menyebabkan tidur."
+    ],
+    [
+      "hypoadrenalism {hipoadrenalismo}",
+      "Kurang aktifnya kelenjar adrenal."
+    ],
+    [
+      "hypochondria",
+      "Kondisi keasyikan dengan membayangkan penyakit di tubuh pasien."
+    ],
+    [
+      "hypochondriac regions",
+      "Daerah kiri dan kanan tubuh tepat di bawah tulang rawan tulang rusuk dan tepat di atas perut."
+    ],
+    [
+      "hypodermis {hipodermis}",
+      "Lapisan kulit subkutan; lapisan di bawah dermis."
+    ],
+    [
+      "hypogastric region",
+      "Area tubuh tepat di bawah daerah pusar."
+    ],
+    [
+      "hypoglycemia {hypoglucemia}",
+      "Kadar glukosa dalam darah sangat rendah."
+    ],
+    [
+      "hypoglycemic {hipoglucémico}",
+      "Agen yang menurunkan glukosa darah."
+    ],
+    [
+      "hypoparathyroidism {hipoparatiroidismo}",
+      "Kelenjar paratiroid kurang aktif."
+    ],
+    [
+      "hypopharynx {hipofaringe}",
+      "Laringofaring."
+    ],
+    [
+      "hypophysectomy",
+      "Pengangkatan kelenjar pituitari."
+    ],
+    [
+      "hypophysis {hipófisis}",
+      "Kelenjar di bawah otak."
+    ],
+    [
+      "hypoplastic",
+      "Tertinggal, sebagai jaringan."
+    ],
+    [
+      "hypopnea",
+      "Nafas dangkal."
+    ],
+    [
+      "hyposecretion",
+      "Sekresi sangat rendah, seperti dari kelenjar."
+    ],
+    [
+      "hypospadias {hipospadias}",
+      "Cacat lahir dengan pembukaan uretra yang tidak normal di sisi bawah penis."
+    ],
+    [
+      "hypotension {hipotensión}",
+      "Kondisi kronis dengan tekanan darah di bawah normal."
+    ],
+    [
+      "hypothalamus {hipotálamo}",
+      "Salah satu bagian diencephalon itu; berfungsi sebagai stasiun pemancar sensorik; kelenjar dalam sistem saraf yang melepa"
+    ],
+    [
+      "hypothyroidism {hipotiroidismo}",
+      "Kurang aktifnya kelenjar tiroid."
+    ],
+    [
+      "hypotonia",
+      "Ketegangan otot berkurang secara tidak normal."
+    ],
+    [
+      "hypoventilation {hipoventilación}",
+      "Pergerakan udara masuk dan keluar paru-paru yang sangat rendah."
+    ],
+    [
+      "hypoxemia {hipoxemia}",
+      "Jumlah kekurangan oksigen dalam darah."
+    ],
+    [
+      "filling",
+      "Amalgam ditempatkan di ruang yang dibor untuk mencegah kerusakan gigi lebih lanjut."
+    ],
+    [
+      "genital herpes",
+      "Lihat virus herpes simpleks Tipe 2"
+    ],
+    [
+      "hypoxia {hipoxia}",
+      "Jumlah oksigen yang kurang dalam jaringan."
+    ],
+    [
+      "hysterectomy {histerectomía}",
+      "Pengangkatan rahim."
+    ],
+    [
+      "hysterosalpingography",
+      "Rontgen rahim dan saluran rahim setelah media kontras disuntikkan."
+    ],
+    [
+      "hysteroscopy {histeroscopia}",
+      "Pemeriksaan rahim menggunakan histeroskop."
+    ],
+    [
+      "icterus {icterus}",
+      "Penyakit kuning."
+    ],
+    [
+      "ileitis {ileitis}",
+      "Peradangan ileum."
+    ],
+    [
+      "ileostomy {ileostomía}",
+      "Penciptaan lubang ke ileum."
+    ],
+    [
+      "ileum {íleon}",
+      "Bagian bawah usus halus yang terhubung ke usus besar."
+    ],
+    [
+      "ileus {íleo}",
+      "Penyumbatan usus."
+    ],
+    [
+      "iliac",
+      "Daerah Bagian kiri dan kanan tubuh dekat bagian atas tulang pinggul."
+    ],
+    [
+      "ilium {ileum}",
+      "Porsi lebar tulang pinggul."
+    ],
+    [
+      "imaging",
+      "Produksi keluaran visual menggunakan sinar-x, gelombang suara, atau medan magnet."
+    ],
+    [
+      "immunity {inmunidad}",
+      "Resistensi terhadap patogen tertentu."
+    ],
+    [
+      "immunization",
+      "Vaksinasi."
+    ],
+    [
+      "immunoglobulin {inmunoglobina}",
+      "Antibodi."
+    ],
+    [
+      "immunosuppressive",
+      "Penyakit yang berkembang karena respon imun yang menurun."
+    ],
+    [
+      "impetigo {impétigo}",
+      "Jenis pioderma. implan 1. Untuk menempel pada dinding rahim pada tahap pertama kehamilan. 2. Gigi pengganti tiruan yang"
+    ],
+    [
+      "impotence {impotencia}",
+      "Ketidakmampuan untuk mempertahankan ereksi saat ejakulasi."
+    ],
+    [
+      "in utero",
+      "Di dalam rahim; belum lahir."
+    ],
+    [
+      "incisional",
+      "Pengangkatan sebagian tumor untuk pemeriksaan."
+    ],
+    [
+      "incisor",
+      "Gigi pertama dan kedua di sebelah median garis rahang. fraktur incomplete Fraktur yang tidak seluruhnya menembus tulang."
+    ],
+    [
+      "incontinence {incontinencia}",
+      "Ketidakmampuan untuk mencegah ekskresi urin atau feses."
+    ],
+    [
+      "incus {incus}",
+      "Salah satu dari tiga tulang telinga pendengaran; landasan."
+    ],
+    [
+      "indwelling",
+      "Dari jenis kateter yang dimasukkan ke dalam tubuh."
+    ],
+    [
+      "infarct {infarto}",
+      "Area nekrosis yang disebabkan oleh penurunan suplai darah arteri atau vena secara tiba-tiba."
+    ],
+    [
+      "infarction {infarto}",
+      "Penurunan suplai darah arteri atau vena secara tiba-tiba, seringkali karena embolus atau trombus."
+    ],
+    [
+      "infectious mononucleosis",
+      "Penyakit infeksi akut yang disebabkan oleh virus Epstein-Barr."
+    ],
+    [
+      "inferior",
+      "Di bawah struktur tubuh lain."
+    ],
+    [
+      "inferior lobe",
+      "Lobus bawah paru."
+    ],
+    [
+      "inferior vena cava",
+      "Vena besar yang menarik darah dari bagian bawah tubuh ke atrium kanan."
+    ],
+    [
+      "infertility {infertilidad}",
+      "Ketidakmampuan untuk membuahi sel telur."
+    ],
+    [
+      "inflammatory",
+      "Memiliki penampilan yang meradang (merah dan bengkak)."
+    ],
+    [
+      "infusion",
+      "Pemberian cairan melalui tabung intravena dengan kecepatan yang lambat dan stabil."
+    ],
+    [
+      "inguinal",
+      "Daerah Bagian kiri dan kanan tubuh dekat bagian atas tulang pinggul."
+    ],
+    [
+      "inhalation {inhalación}",
+      "1. Menghirup udara. 2. Mengonsumsi obat dalam percikan halus tetesan."
+    ],
+    [
+      "insertion {inserción}",
+      "Titik di mana otot menempel pada tulang yang bisa digerakkan."
+    ],
+    [
+      "inspiration {inspiración}",
+      "Inhalasi."
+    ],
+    [
+      "insulin {insulina}",
+      "Zat yang dikeluarkan oleh pankreas untuk menurunkan gula darah."
+    ],
+    [
+      "insulin-dependent diabetes mellitus (IDDM)",
+      "Lihat diabetes tipe I."
+    ],
+    [
+      "integument {integumento}",
+      "Kulit dan semua elemen yang terkandung di dalamnya dan muncul darinya."
+    ],
+    [
+      "integumentary",
+      "Sistem tubuh yang meliputi kulit, rambut, dan kuku."
+    ],
+    [
+      "intercostal muscles",
+      "Otot di antara tulang rusuk."
+    ],
+    [
+      "interferon",
+      "Protein diproduksi oleh sel T dan sel lainnya; menghancurkan sel penyebab penyakit dengan sifat antivirusnya."
+    ],
+    [
+      "interleukin {interleucina}",
+      "Protein diproduksi oleh sel T; membantu mengatur sistem kekebalan."
+    ],
+    [
+      "intermittent claudication",
+      "Serangan pincang, terutama di kaki, akibat iskemia otot."
+    ],
+    [
+      "interneuron {interneurona}",
+      "Neuron yang membawa dan memproses informasi sensorik."
+    ],
+    [
+      "interstitial",
+      "Brachytherapy dimana zat radioaktif ditempatkan di dalam jaringan atau tumor."
+    ],
+    [
+      "intervertebral",
+      "disk Lihat disk tulang rawan."
+    ],
+    [
+      "intra-arterial",
+      "Disuntikkan langsung ke arteri."
+    ],
+    [
+      "intracardiac",
+      "Disuntikkan langsung ke otot jantung."
+    ],
+    [
+      "intracardiac",
+      "Tumor di dalam salah satu ruang jantung."
+    ],
+    [
+      "intracavitary",
+      "Brakiterapi di mana zat radioaktif ditempatkan di rongga dekat lesi kanker."
+    ],
+    [
+      "intracorporeal electrohydraulic lithotripsy",
+      "Penggunaan endoskopi untuk memecah batu."
+    ],
+    [
+      "intracutaneous",
+      "Disuntikkan tepat di bawah lapisan luar kulit."
+    ],
+    [
+      "intradermal {intradérmico}",
+      "Dari dalam kulit, terutama dari dermis; Lihat intrakutan."
+    ],
+    [
+      "intradermal",
+      "Tes yang menyuntikkan antigen atau protein di antara lapisan kulit."
+    ],
+    [
+      "intramuscular",
+      "Disuntikkan jauh ke dalam jaringan otot."
+    ],
+    [
+      "intraosseus",
+      "Disuntikkan langsung ke tulang."
+    ],
+    [
+      "intraspinal",
+      "Disuntikkan langsung ke ruang tulang belakang."
+    ],
+    [
+      "intrathecal",
+      "Lihat intraspinal."
+    ],
+    [
+      "intrauterine",
+      "Alat kontrasepsi yang terdiri dari gulungan yang ditempatkan di dalam rahim untuk memblokir implantasi sel telur yang te"
+    ],
+    [
+      "intravascular stent",
+      "Stent ditempatkan di dalam pembuluh darah untuk memungkinkan darah mengalir dengan bebas."
+    ],
+    [
+      "intravenous (IV) {intravenoso (IV)}",
+      "Diberikan melalui tabung ke pembuluh darah."
+    ],
+    [
+      "introitus {introito}",
+      "Bukaan luar atau pintu masuk ke organ berlubang, seperti vagina."
+    ],
+    [
+      "intussusception",
+      "Prolaps atau kolapsnya bagian usus ke bagian sekitarnya. Satu bagian runtuh ke bagian lain seperti teleskop."
+    ],
+    [
+      "invasive",
+      "Menyusupi organ lain; menyebar."
+    ],
+    [
+      "iodine",
+      "Zat yang digunakan dalam radiofarmasi untuk media kontras dan terapi radiasi."
+    ],
+    [
+      "ion",
+      "Partikel bermuatan positif digunakan untuk mengionisasi jaringan."
+    ],
+    [
+      "ionize",
+      "Untuk menghancurkan sel dengan mengubah partikel netral menjadi ion menggunakan sinar-x."
+    ],
+    [
+      "iridectomy {iridectomía}",
+      "Pengangkatan sebagian iris."
+    ],
+    [
+      "iridotomy",
+      "Insisi pada iris untuk mengurangi tekanan."
+    ],
+    [
+      "iris {iris}",
+      "Bagian mata yang berwarna; berisi otot yang mengembang dan berkontraksi sebagai respons terhadap cahaya."
+    ],
+    [
+      "iritis {iritis}",
+      "Radang iris."
+    ],
+    [
+      "irradiated",
+      "Diobati dengan radiasi."
+    ],
+    [
+      "ischemia {isquemia}",
+      "Insufisiensi darah terlokalisasi yang disebabkan oleh obstruksi."
+    ],
+    [
+      "ischium {isquión}",
+      "Satu dari tiga tulang menyatu yang membentuk korset panggul."
+    ],
+    [
+      "islets of Langerhans",
+      "Sel khusus di pankreas yang melepaskan insulin dan glukagon."
+    ],
+    [
+      "isthmus {istmo}",
+      "Daerah sempit di bagian bawah rahim yang membuka ke dalam leher rahim; pita jaringan sempit yang menghubungkan dua lobus"
+    ],
+    [
+      "jaundice {ictericia}",
+      "Bilirubin yang berlebihan dalam darah menyebabkan kulit menguning."
+    ],
+    [
+      "jejunum {yeyuno}",
+      "Bagian tengah usus kecil."
+    ],
+    [
+      "joint {empalme}",
+      "Tempat menyambung antara dua tulang atau lebih."
+    ],
+    [
+      "Kaposi's sarcoma",
+      "Kanker kulit yang berhubungan dengan AIDS."
+    ],
+    [
+      "Kegel",
+      "Latihan untuk memperkuat otot kemaluan."
+    ],
+    [
+      "keloid {queloide}",
+      "Bekas luka tebal pada kulit yang terbentuk setelah cedera atau pembedahan."
+    ],
+    [
+      "keratin {queratina}",
+      "Protein keras dan terangsang yang membentuk kuku dan rambut."
+    ],
+    [
+      "keratitis {queratitis}",
+      "Peradangan pada kornea."
+    ],
+    [
+      "keratolytic",
+      "Agen yang membantu menghilangkan kutil dan jagung."
+    ],
+    [
+      "keratoplasty {queratoplastia}",
+      "Transplantasi kornea."
+    ],
+    [
+      "keratosis {queratosis}",
+      "Lesi pada bagian epidermis mengandung keratin."
+    ],
+    [
+      "ketoacidosis {cetoacidosis}",
+      "Kondisi kadar asam tinggi yang disebabkan oleh pelepasan keton yang tidak normal di dalam tubuh."
+    ],
+    [
+      "ketone {cetona}",
+      "Zat yang dihasilkan dari pemecahan lemak; menunjukkan diabetes atau kelaparan saat ada dalam urin."
+    ],
+    [
+      "ketonuria {cetonuria}",
+      "Peningkatan ekskresi keton melalui urin, biasanya mengindikasikan diabetes atau kelaparan."
+    ],
+    [
+      "ketosis {cetosis}",
+      "Kondisi yang disebabkan oleh pelepasan keton yang tidak normal di dalam tubuh."
+    ],
+    [
+      "kidney {riñón}",
+      "Organ yang membentuk urin dan menyerap kembali zat-zat penting ke dalam aliran darah."
+    ],
+    [
+      "kyphosis {cifosis}",
+      "Kelengkungan tulang belakang posterior yang abnormal."
+    ],
+    [
+      "labia majora",
+      "Dua lipatan kulit yang membentuk batas vulva."
+    ],
+    [
+      "labia minora",
+      "Dua lipatan kulit di antara labia majora."
+    ],
+    [
+      "labor",
+      "Proses mengeluarkan janin dan plasenta dari rahim."
+    ],
+    [
+      "labyrinthitis {laberintitis}",
+      "Peradangan labirin."
+    ],
+    [
+      "lacrimal",
+      "Tulang wajah tipis dan rata."
+    ],
+    [
+      "lacrimal glands",
+      "Kelenjar yang mengeluarkan cairan untuk melembabkan mata dan menghasilkan air mata."
+    ],
+    [
+      "lacrimation {lagrimeo}",
+      "Sekresi air mata, biasanya berlebihan."
+    ],
+    [
+      "lactation {lactación}",
+      "Produksi susu dari payudara setelah melahirkan."
+    ],
+    [
+      "lactiferous {lactifero}",
+      "Memproduksi susu."
+    ],
+    [
+      "lamina (pl., laminae) {lámina}",
+      "Bagian datar yang tipis dari kedua sisi lengkung vertebra."
+    ],
+    [
+      "laminectomy",
+      "Penghapusan bagian dari diskus intervertebralis."
+    ],
+    [
+      "laparoscopy {laparoscopia}",
+      "Penggunaan instrumen tubular berlampu yang dimasukkan melalui pusar wanita untuk melakukan ligasi tuba atau untuk memeri"
+    ],
+    [
+      "large intestine",
+      "Lintasan di saluran usus untuk limbah yang diterima dari usus kecil untuk dikeluarkan melalui anus; juga, tempat terjadi"
+    ],
+    [
+      "laryngectomy",
+      "Pengangkatan laring."
+    ],
+    [
+      "laryngitis {laringitis}",
+      "Peradangan pada laring."
+    ],
+    [
+      "laryngocentesis",
+      "Tusukan bedah pada laring."
+    ],
+    [
+      "laryngopharynx",
+      "Bagian faring di bawah dan di belakang laring."
+    ],
+    [
+      "laryngoplasty {laringoplastia}",
+      "Perbaikan laring."
+    ],
+    [
+      "laryngoscopy {laringoscopia}",
+      "Pemeriksaan visual mulut dan laring menggunakan endoskopi."
+    ],
+    [
+      "laryngospasm",
+      "Kontraksi tiba-tiba pada laring, yang dapat menyebabkan batuk dan membatasi pernapasan."
+    ],
+    [
+      "laryngostomy {laringostomía}",
+      "Penciptaan bukaan buatan di laring."
+    ],
+    [
+      "laryngotracheobronchitis",
+      "Peradangan pada laring, trakea, dan bronkus."
+    ],
+    [
+      "laryngotracheotomy",
+      "Insisi ke laring dan trakea."
+    ],
+    [
+      "larynx {laringe}",
+      "Organ produksi suara di saluran pernapasan, antara faring dan trakea; kotak suara."
+    ],
+    [
+      "lateral",
+      "Ke samping."
+    ],
+    [
+      "lateral incisor",
+      "Gigi kedua dari median garis rahang."
+    ],
+    [
+      "lateral plane",
+      "Garis imajiner yang membagi tubuh secara tegak lurus dengan bidang medial."
+    ],
+    [
+      "laxative",
+      "Agen yang mendorong usus untuk bergerak untuk meredakan sembelit."
+    ],
+    [
+      "left atrium",
+      "Bilik jantung kiri atas."
+    ],
+    [
+      "left lower quadrant",
+      "Kuadran di sisi kiri bawah anterior tubuh pasien."
+    ],
+    [
+      "left upper quadrant",
+      "Kuadran di sisi kiri atas anterior tubuh pasien."
+    ],
+    [
+      "left ventricle",
+      "Ruang jantung kiri bawah."
+    ],
+    [
+      "leiomyoma",
+      "Tumor jinak otot polos."
+    ],
+    [
+      "leiomyosarcoma",
+      "Tumor ganas otot polos."
+    ],
+    [
+      "lens {lens, lente}",
+      "Tubuh transparan tak berwarna dan fleksibel di belakang iris."
+    ],
+    [
+      "lesion {lesión}",
+      "Luka, kerusakan, atau cedera pada kulit."
+    ],
+    [
+      "leukemia",
+      "Istilah umum untuk sejumlah kelainan dengan sel darah putih yang berlebihan pada aliran darah dan sumsum tulang."
+    ],
+    [
+      "leukocyte",
+      "Sel darah putih dewasa."
+    ],
+    [
+      "leukoderma {leucoderma}",
+      "Tidak adanya pigmen di kulit atau di suatu area kulit."
+    ],
+    [
+      "leukoplakia {leucoplaquia}",
+      "Bercak putih selaput lendir di lidah atau pipi."
+    ],
+    [
+      "leukorrhea {leucorrea}",
+      "Keputihan yang tidak normal; biasanya keputihan."
+    ],
+    [
+      "ligament {ligamento}",
+      "Lembaran jaringan fibrosa yang menghubungkan dan mendukung tulang; menempelkan tulang ke tulang."
+    ],
+    [
+      "lingual tonsils",
+      "Dua gundukan jaringan getah bening di belakang lidah."
+    ],
+    [
+      "lipase {lipasa}",
+      "Enzim yang terkandung dalam jus pankreas."
+    ],
+    [
+      "lipid profile",
+      "Tes laboratorium yang memberikan kadar lipid, trigliserida, dan zat lain dalam darah."
+    ],
+    [
+      "lipid-lowering",
+      "Bermanfaat dalam menurunkan kadar kolesterol."
+    ],
+    [
+      "lips {labio}",
+      "Dua lipatan otot terbentuk di sekitar batas luar mulut."
+    ],
+    [
+      "lithotomy",
+      "Operasi pengangkatan batu kandung kemih."
+    ],
+    [
+      "liver {hígado}",
+      "Organ penting dalam fungsi pencernaan dan metabolisme; mengeluarkan empedu."
+    ],
+    [
+      "liver biopsy",
+      "Pengangkatan sejumlah kecil jaringan hati untuk memeriksa penyakit."
+    ],
+    [
+      "lobectomy {lobectomía}",
+      "1. Pengangkatan salah satu lobus paru. 2. Pengangkatan sebagian otak untuk mengobati gangguan tertentu."
+    ],
+    [
+      "lobotomy {lobotomía}",
+      "Sayatan ke dalam lobus frontal otak."
+    ],
+    [
+      "long bone",
+      "Setiap tulang ekstremitas dengan poros."
+    ],
+    [
+      "lordosis {lordosis}",
+      "Kelengkungan tulang belakang anterior yang abnormal menyebabkan punggung bergoyang."
+    ],
+    [
+      "Lou Gehrig's disease",
+      "Lihat sklerosis lateral amiotrofik."
+    ],
+    [
+      "low blood pressure {presión arterial baja}",
+      "Lihat hipotensi."
+    ],
+    [
+      "lumbar (spinal) puncture",
+      "Penarikan cairan serebrospinal dari antara dua vertebra lumbal."
+    ],
+    [
+      "lumbar regions",
+      "Daerah kiri dan kanan tubuh dekat perut."
+    ],
+    [
+      "lumbar vertebrae",
+      "Lima ruas punggung bawah."
+    ],
+    [
+      "lumen {lumen}",
+      "Saluran di dalam arteri tempat darah mengalir."
+    ],
+    [
+      "lumpectomy {nodulectomía}",
+      "Operasi pengangkatan tumor payudara lokal."
+    ],
+    [
+      "lung {pulmón}",
+      "Salah satu dari dua organ pernapasan (paru-paru kiri dan paru kanan) di rongga dada tempat oksigenasi darah berlangsung."
+    ],
+    [
+      "lunula (pl., lunulae) {lúnula}",
+      "Area berbentuk setengah bulan di dasar lempeng kuku."
+    ],
+    [
+      "luteinizing hormone (LH)",
+      "Hormon penting untuk ovulasi; hormon yang dilepaskan untuk membantu pematangan sel telur dan ovulasi."
+    ],
+    [
+      "lymph {linfa}",
+      "Cairan yang mengandung sel darah putih dan zat lain dan mengalir di pembuluh limfatik."
+    ],
+    [
+      "lymphadenectomy {linfadenectomía}",
+      "Pengangkatan kelenjar getah bening."
+    ],
+    [
+      "lymphadenopathy {linfadenopatía}",
+      "Kelenjar getah bening membengkak."
+    ],
+    [
+      "lymphadenotomy",
+      "Insisi ke kelenjar getah bening."
+    ],
+    [
+      "lymphatic 7-MYUN] system",
+      "Sistem tubuh yang meliputi getah bening, kelenjar dari sistem limfatik, pembuluh limfatik, dan pertahanan sistem kekebal"
+    ],
+    [
+      "lymph node",
+      "Organ khusus yang menghasilkan limfosit dan menyaring zat berbahaya dari jaringan dan membantu respons kekebalan."
+    ],
+    [
+      "lymph node dissection",
+      "Pengangkatan nodus kanker untuk pemeriksaan mikroskopis."
+    ],
+    [
+      "lymphocyte {linfocito}",
+      "Jenis agranulosit; sel darah putih yang dibuat di sumsum tulang yang sangat penting untuk pertahanan tubuh melawan penya"
+    ],
+    [
+      "lymphocytic lymphoma",
+      "Limfoma dengan sel ganas yang menyerupai limfosit besar."
+    ],
+    [
+      "lymphoma {linfoma}",
+      "Kanker kelenjar getah bening."
+    ],
+    [
+      "macrocytosis {macrocitosis}",
+      "Gangguan dengan sel darah merah besar yang tidak normal."
+    ],
+    [
+      "macrophage {macrófago}",
+      "Sel khusus yang memakan zat asing."
+    ],
+    [
+      "macula {mácula}",
+      "Struktur telinga bagian dalam mengandung sensor mirip rambut yang bergerak untuk menjaga keseimbangan."
+    ],
+    [
+      "macula lutea",
+      "Area kecil kekuningan terletak di tengah retina, yang memiliki depresi yang disebut fovea centralis."
+    ],
+    [
+      "macular degeneration",
+      "Hilangnya penglihatan secara bertahap yang disebabkan oleh degenerasi jaringan di makula."
+    ],
+    [
+      "macule",
+      "Bintik kecil, datar, dan berwarna mencolok di kulit."
+    ],
+    [
+      "magnetic resonance imaging (MRI)",
+      "Pencitraan dihasilkan dengan melacak sifat magnet di inti berbagai sel."
+    ],
+    [
+      "malaise",
+      "Perasaan umum sakit."
+    ],
+    [
+      "malignant",
+      "Tumbuh tak terkendali."
+    ],
+    [
+      "malignant melanoma",
+      "Kanker kulit ganas yang berasal dari melanosit, biasanya disebabkan oleh paparan sinar matahari yang berlebihan."
+    ],
+    [
+      "malleolus (pl., malleoli)",
+      "Tonjolan tulang tibia atau fibula yang membulat di kedua sisi pergelangan kaki."
+    ],
+    [
+      "malleus {malleus}",
+      "Salah satu dari tiga tulang telinga pendengaran; Palu."
+    ],
+    [
+      "malocclusions",
+      "Penutupan gigi atas yang tidak normal dalam hubungannya dengan gigi bawah."
+    ],
+    [
+      "mammary glands",
+      "Jaringan kelenjar yang membentuk payudara, yang merespons siklus menstruasi dan kelahiran."
+    ],
+    [
+      "mammography {mamografía}",
+      "Pencitraan sinar-X payudara sebagai metode skrining kanker."
+    ],
+    [
+      "mammoplasty {mamoplastia}",
+      "Operasi plastik untuk merekonstruksi payudara, terutama setelah mastektomi."
+    ],
+    [
+      "mandible {mandíbula}",
+      "Tulang rahang bawah berbentuk U."
+    ],
+    [
+      "mandibular bone",
+      "Rahang bawah."
+    ],
+    [
+      "manic",
+      "Memiliki mood yang sangat berbahaya."
+    ],
+    [
+      "manic-depressive disorder",
+      "Lihat gangguan bipolar."
+    ],
+    [
+      "manipulative",
+      "Dilakukan tanpa sayatan, seperti pada pengurangan patah tulang."
+    ],
+    [
+      "manipulative therapy",
+      "Terapi yang menggunakan manipulasi tubuh untuk merawat pasien."
+    ],
+    [
+      "Mantoux test",
+      "Tes tuberkulosis di mana dosis kecil tuberkulin disuntikkan secara intradermal dengan semprit."
+    ],
+    [
+      "marrow {médula}",
+      "Jaringan ikat yang mengisi rongga meduler, seringkali kaya akan nutrisi."
+    ],
+    [
+      "mastectomy {mastectomía}",
+      "Pengangkatan payudara."
+    ],
+    [
+      "mastication {masticación}",
+      "Mengunyah."
+    ],
+    [
+      "mastitis {mastitis}",
+      "Radang payudara."
+    ],
+    [
+      "mastoid process",
+      "Penonjolan tulang temporal yang berada di belakang telinga."
+    ],
+    [
+      "mastoiditis",
+      "Peradangan pada proses mastoid."
+    ],
+    [
+      "mastopexy",
+      "Prosedur pembedahan untuk memasang payudara yang kendur pada posisi yang lebih normal."
+    ],
+    [
+      "maxillary bone",
+      "Tulang rahang atas."
+    ],
+    [
+      "maxillary sinus",
+      "Sinus di kedua sisi rongga hidung di bawah mata."
+    ],
+    [
+      "meatotomy",
+      "Pembesaran meatus secara bedah."
+    ],
+    [
+      "meatus {meato}",
+      "Pembukaan luar saluran, seperti uretra."
+    ],
+    [
+      "medial",
+      "Di atau dekat tengah (tubuh)."
+    ],
+    [
+      "medial plane",
+      "Garis imajiner yang membagi tubuh menjadi dua bagian kiri dan kanan yang sama."
+    ],
+    [
+      "mediastinoscopy",
+      "Pemeriksaan visual mediastinum dan semua organ di dalamnya menggunakan endoskopi."
+    ],
+    [
+      "mediastinum {mediastino}",
+      "Bagian median dari rongga dada; septum antara dua area organ atau rongga."
+    ],
+    [
+      "medication, medicine {medicación,medecina}",
+      "Obat yang melayani tujuan terapeutik."
+    ],
+    [
+      "medulla {médula}",
+      "Bagian tengah ginjal yang lunak."
+    ],
+    [
+      "medulla oblongata",
+      "Bagian batang otak yang mengatur fungsi jantung dan paru, menelan, muntah, batuk, dan bersin."
+    ],
+    [
+      "medullary",
+      "Besar dan berdaging."
+    ],
+    [
+      "medullary cavity",
+      "Rongga tengah lunak pada tulang yang sering menampung sumsum."
+    ],
+    [
+      "megakaryocyte {megacariocito}",
+      "Sel besar di sumsum tulang merah yang membentuk trombosit."
+    ],
+    [
+      "melanin {melanina}",
+      "Pigmen yang dihasilkan oleh melanosit yang menentukan warna kulit, rambut, dan mata."
+    ],
+    [
+      "melanocyte {melanocito}",
+      "Sel di epidermis yang menghasilkan melanin."
+    ],
+    [
+      "melanocyte-stimulating hormone (MSH)",
+      "Hormon dilepaskan oleh kelenjar pituitari."
+    ],
+    [
+      "melatonin",
+      "Hormon yang dilepaskan oleh kelenjar pineal; mempengaruhi fungsi seksual dan pola tidur."
+    ],
+    [
+      "melena {melena}",
+      "Darah tua di bangku."
+    ],
+    [
+      "membranous labyrinth",
+      "Salah satu dari dua tabung yang membentuk saluran setengah lingkaran."
+    ],
+    [
+      "menarche {menarca}",
+      "Menstruasi pertama."
+    ],
+    [
+      "Meniere's disease",
+      "Peningkatan tekanan di dalam koklea."
+    ],
+    [
+      "meninges (sing., meninx) {meninges}",
+      "Tiga lapis selaput yang menutupi dan melindungi otak dan sumsum tulang belakang."
+    ],
+    [
+      "meningioma {meningioma}",
+      "Tumor yang muncul dari meninges."
+    ],
+    [
+      "meningitis {meningitis}",
+      "Peradangan pada meninges."
+    ],
+    [
+      "meningocele {meningocele}",
+      "Pada spina bifida cystica, penonjolan tulang belakang meninges di atas permukaan kulit."
+    ],
+    [
+      "meningomyelocele {meningomielocele}",
+      "Pada spina bifida cystica, penonjolan meninges dan sumsum tulang belakang berada di atas permukaan kulit."
+    ],
+    [
+      "menometrorrhagia",
+      "Pendarahan tidak teratur atau berlebihan antara atau selama menstruasi."
+    ],
+    [
+      "menopause {menopausia}",
+      "Waktu haid berhenti; biasanya antara usia 45 dan 55 tahun."
+    ],
+    [
+      "menorrhagia {menorragia}",
+      "Pendarahan menstruasi yang berlebihan."
+    ],
+    [
+      "menstruation {menstruación}",
+      "Pelepasan siklis lapisan rahim melalui vagina; biasanya setiap 28 hari."
+    ],
+    [
+      "mental retardation",
+      "Kondisi dengan fungsi intelektual di bawah rata-rata."
+    ],
+    [
+      "mesentery {mesenterio}",
+      "Jaringan membran yang menempelkan usus kecil dan besar ke dinding otot di bagian punggung perut."
+    ],
+    [
+      "mesothelioma {mesotelioma}",
+      "Kanker paru-paru langka yang berhubungan dengan asbestosis."
+    ],
+    [
+      "metabolism",
+      "Perubahan kimiawi dalam sel yang menyediakan energi atau proses dan aktivitas vital dan melaluinya bahan baru berasimila"
+    ],
+    [
+      "metabolize",
+      "Untuk mengubah secara kimiawi atau fisik agar bermanfaat."
+    ],
+    [
+      "metacarpal {metacarpiano}",
+      "Satu dari lima tulang tangan di antara pergelangan tangan dan jari-jari."
+    ],
+    [
+      "metaphysis {metáfisis}",
+      "Bagian tulang panjang antara epifisis dan diafisis."
+    ],
+    [
+      "metastasis {metastasis}",
+      "Penyebaran sel ganas ke bagian tubuh lainnya; penyebaran kanker dari area lokal."
+    ],
+    [
+      "metatarsal bones",
+      "Tulang kaki di antara punggung kaki (lengkung) dan jari kaki."
+    ],
+    [
+      "metrorrhagia {metrorragia}",
+      "Perdarahan uterus di antara periode menstruasi."
+    ],
+    [
+      "microcytosis {microcitosis}",
+      "Gangguan dengan sel darah merah kecil yang abnormal."
+    ],
+    [
+      "microglia {microglia}",
+      "Jenis neuroglia yang menghilangkan kotoran."
+    ],
+    [
+      "microphage {micrófago}",
+      "Sel fagositik kecil yang memakan zat asing."
+    ],
+    [
+      "midbrain {cerebro medio}",
+      "Bagian dari batang otak yang terlibat dengan refleks visual."
+    ],
+    [
+      "middle lobe",
+      "Bagian tengah paru kanan."
+    ],
+    [
+      "midsagittal plane",
+      "pesawat Lihat bidang medial."
+    ],
+    [
+      "mind-body intervention",
+      "Terapi yang menggunakan kekuatan pikiran untuk mempengaruhi tubuh."
+    ],
+    [
+      "mineralocorticoid",
+      "Steroid disekresikan oleh korteks adrenal."
+    ],
+    [
+      "minimally invasive",
+      "Dilakukan dengan sayatan sekecil mungkin, seperti pembersihan penyumbatan arteri dengan probe kecil yang menggunakan las"
+    ],
+    [
+      "miotic",
+      "Agen yang menyebabkan murid berkontraksi."
+    ],
+    [
+      "miscarriage {aborto espontáneo}",
+      "Akhir kehamilan yang spontan dan prematur."
+    ],
+    [
+      "mitosis",
+      "Pembelahan sel."
+    ],
+    [
+      "mitral insufficiency or reflux",
+      "Aliran mundur darah karena katup mitral yang rusak."
+    ],
+    [
+      "mitral stenosis",
+      "Penyempitan abnormal pada pembukaan katup mitral."
+    ],
+    [
+      "mitral valve",
+      "Lihat katup bikuspid."
+    ],
+    [
+      "mitral valve prolapse",
+      "Aliran mundur darah ke atrium kiri karena penonjolan salah satu atau kedua katup mitral ke atrium kiri selama kontraksi."
+    ],
+    [
+      "mixed-episode disorder",
+      "Lihat gangguan bipolar."
+    ],
+    [
+      "modality",
+      "Metode pengobatan."
+    ],
+    [
+      "Moh's surgery",
+      "1. Pengangkatan lapisan tipis jaringan ganas hingga ditemukan jaringan non-ganas. 2. Penghapusan karsinoma setelah pemet"
+    ],
+    [
+      "molar",
+      "Salah satu dari tiga gigi di bagian belakang mulut yang paling jauh dari median garis rahang."
+    ],
+    [
+      "monocyte {monocito}",
+      "Jenis agranulosit."
+    ],
+    [
+      "mons pubis",
+      "Gundukan jaringan lunak di genitalia luar yang ditutupi oleh rambut kemaluan setelah pubertas."
+    ],
+    [
+      "morning-after pill",
+      "Lihat abortifacient."
+    ],
+    [
+      "mouth {boca}",
+      "Lubang di wajah tempat makanan dan air tertelan."
+    ],
+    [
+      "multiple-gated acquisition (MUGA) angiography",
+      "Pemindaian radioaktif menunjukkan fungsi jantung."
+    ],
+    [
+      "multiple myeloma",
+      "Tumor ganas sumsum tulang."
+    ],
+    [
+      "multiple sclerosis (MS)",
+      "Penyakit degeneratif dengan hilangnya mielin, mengakibatkan kelemahan otot, kelelahan ekstrem, dan kelumpuhan."
+    ],
+    [
+      "murmur {soplo}",
+      "Suara jantung lembut berdengung terdengar di antara detak normal."
+    ],
+    [
+      "muscle {músculo}",
+      "Jaringan kontraktil yang berperan besar dalam pergerakan tubuh."
+    ],
+    [
+      "muscle relaxant",
+      "Agen yang mengurangi kekakuan otot."
+    ],
+    [
+      "muscle tissue",
+      "Jaringan yang mampu berkontraksi dan rileks."
+    ],
+    [
+      "muscular dystrophy {distrofia muscular}",
+      "Gangguan degeneratif progresif yang mempengaruhi sistem muskuloskeletal dan, kemudian, organ lain."
+    ],
+    [
+      "musculoskeletal system {musculoesquelético}",
+      "Sistem tubuh yang meliputi otot, tulang, dan tulang rawan."
+    ],
+    [
+      "mutation",
+      "Perubahan DNA untuk menghasilkan sel yang rusak."
+    ],
+    [
+      "myalgia {mialgia}",
+      "Nyeri otot."
+    ],
+    [
+      "myasthenia gravis",
+      "Penyakit yang melibatkan produksi antibodi yang berlebihan yang memblokir neurotransmiter tertentu; menyebabkan kelemaha"
+    ],
+    [
+      "mydriatic",
+      "Agen yang menyebabkan pupil membesar."
+    ],
+    [
+      "myelin sheath",
+      "Jaringan lemak yang menutupi akson. myelitis [mi-6-LI-t7s] Radang sumsum tulang belakang."
+    ],
+    [
+      "myeloblast {mieloblasto}",
+      "Granulosit yang belum matang."
+    ],
+    [
+      "myelogram {mielograma}",
+      "X-ray sumsum tulang belakang setelah media kontras diinjeksi."
+    ],
+    [
+      "myelography {mielografía}",
+      "Pencitraan radiografi sumsum tulang belakang."
+    ],
+    [
+      "myeloma {mieloma}",
+      "Tumor sumsum tulang."
+    ],
+    [
+      "myocardial infarction",
+      "Penurunan pasokan darah secara tiba-tiba ke area otot jantung, biasanya karena penyumbatan di arteri koroner."
+    ],
+    [
+      "myocarditis {miocarditis}",
+      "Peradangan miokardium."
+    ],
+    [
+      "myocardium {miocardio}",
+      "Lapisan otot jaringan jantung antara epikardium dan endokardium."
+    ],
+    [
+      "myodynia {miodinia}",
+      "Nyeri otot."
+    ],
+    [
+      "myoma {mioma}",
+      "Tumor otot jinak."
+    ],
+    [
+      "myomectomy {miomectomía}",
+      "Pengangkatan fibroid dari rahim."
+    ],
+    [
+      "myometrium {miometrio}",
+      "Lapisan tengah jaringan otot rahim."
+    ],
+    [
+      "myopia {miopía}",
+      "Fokus di depan retina menyebabkan distorsi penglihatan; rabun jauh."
+    ],
+    [
+      "myoplasty",
+      "Perbaikan jaringan otot secara bedah."
+    ],
+    [
+      "myositis {miositis}",
+      "Peradangan otot."
+    ],
+    [
+      "myringitis {myringitis}",
+      "Radang gendang telinga."
+    ],
+    [
+      "myringotomy",
+      "Memasukkan tabung kecil untuk membantu mengalirkan cairan dari telinga (terutama dari anak-anak)."
+    ],
+    [
+      "myxedema {mixedema}",
+      "Hipotiroidisme dewasa lanjut."
+    ],
+    [
+      "nail {uña}",
+      "Lapisan tipis keratin yang menutupi bagian distal jari tangan dan kaki."
+    ],
+    [
+      "narcolepsy {narcolepsia}",
+      "Gangguan sistem saraf yang menyebabkan tidur nyenyak yang tak terkendali dan tiba-tiba."
+    ],
+    [
+      "narcotic",
+      "Agen yang meredakan nyeri dengan memicu keadaan pingsan atau euforia."
+    ],
+    [
+      "nasal bones",
+      "Tulang yang membentuk pangkal hidung."
+    ],
+    [
+      "nasal cavity",
+      "1. Rongga di kedua sisi septum hidung. 2. Pembukaan di hidung luar tempat udara masuk ke dalam tubuh."
+    ],
+    [
+      "nasal septum",
+      "Divisi tulang rawan dari hidung luar."
+    ],
+    [
+      "nasopharyngitis",
+      "Radang hidung dan faring."
+    ],
+    [
+      "nasopharyngoscopy",
+      "Pemeriksaan saluran hidung dan faring menggunakan endoskopi."
+    ],
+    [
+      "nasopharynx {nasofaringe}",
+      "Porsi tenggorokan di atas langit-langit lunak."
+    ],
+    [
+      "natural immunity",
+      "Resistensi yang melekat terhadap penyakit ditemukan pada suatu spesies, ras, kelompok keluarga, atau individu tertentu."
+    ],
+    [
+      "naturopathic medicine",
+      "Terapi yang menggunakan kekuatan penyembuhan tubuh sendiri untuk memelihara dan memulihkan kesehatan."
+    ],
+    [
+      "nausea {náusea}",
+      "Perasaan mual di perut."
+    ],
+    [
+      "nearsightedness {miopía}",
+      "Lamur."
+    ],
+    [
+      "nebulizers",
+      "Alat yang menyalurkan obat melalui hidung atau mulut dengan semprotan halus ke saluran pernapasan."
+    ],
+    [
+      "necrosis {necrosis}",
+      "Kematian jaringan atau organ atau bagian karena kerusakan yang tidak dapat diperbaiki; biasanya akibat kekurangan oksige"
+    ],
+    [
+      "necrotic",
+      "Mengandung jaringan mati."
+    ],
+    [
+      "needle biopsy",
+      "Pengangkatan sel untuk pemeriksaan dengan menyedotnya menggunakan jarum."
+    ],
+    [
+      "needle holder",
+      "Tang bedah digunakan untuk menahan dan melewatkan jarum jahit melalui jaringan."
+    ],
+    [
+      "neonate",
+      "Bayi di bawah empat minggu."
+    ],
+    [
+      "neonatology",
+      "Spesialisasi medis yang mendiagnosis dan mengobati gangguan pada neonatus."
+    ],
+    [
+      "neoplasm {neoplasma}",
+      "Pertumbuhan jaringan yang tidak normal; tumor; pertumbuhan baru."
+    ],
+    [
+      "nephrectomy {nefrectomía}",
+      "Pengangkatan ginjal."
+    ],
+    [
+      "nephritis {nefritis}",
+      "Radang ginjal."
+    ],
+    [
+      "nephroblastoma {nefroblastoma}",
+      "Lihat tumor Wilms."
+    ],
+    [
+      "nephrolithotomy",
+      "Operasi pengangkatan batu ginjal."
+    ],
+    [
+      "nephrolysis",
+      "Penghapusan adhesi ginjal."
+    ],
+    [
+      "nephroma",
+      "Tumor ginjal apa saja."
+    ],
+    [
+      "nephron",
+      "Unit fungsional ginjal."
+    ],
+    [
+      "nephropexy",
+      "Operasi pemasangan ginjal ke dinding perut."
+    ],
+    [
+      "nephrorrhaphy",
+      "Menjahit ginjal yang rusak."
+    ],
+    [
+      "nephrosis",
+      "Gangguan akibat hilangnya protein dalam urin."
+    ],
+    [
+      "nephrostomy",
+      "Pembukaan dari pelvis ginjal ke luar tubuh."
+    ],
+    [
+      "nerve {nervio}",
+      "Kumpulan neuron yang membawa pesan listrik ke organ dan otot tubuh."
+    ],
+    [
+      "nerve cell",
+      "Sel dasar sistem saraf yang terdiri dari tiga bagian: badan sel, dendrit, dan akson; neuron."
+    ],
+    [
+      "nerve conduction velocity",
+      "Waktu konduktivitas sengatan listrik yang diberikan ke saraf tepi."
+    ],
+    [
+      "nerve impulse",
+      "Energi yang dilepaskan yang diterima atau disalurkan oleh jaringan atau organ dan biasanya memicu respons."
+    ],
+    [
+      "nervous system",
+      "Sistem tubuh yang mencakup otak, sumsum tulang belakang, dan saraf serta mengontrol sebagian besar fungsi tubuh dengan m"
+    ],
+    [
+      "nervous tissue",
+      "Jaringan khusus yang membentuk sel saraf dan mampu mentransmisikan pesan."
+    ],
+    [
+      "neural canal",
+      "Ruang yang dilalui sumsum tulang belakang."
+    ],
+    [
+      "neurectomy {neurectomía}",
+      "Operasi pengangkatan saraf."
+    ],
+    [
+      "neurilemma {neurilema}",
+      "Selubung membran yang melindungi selubung mielin."
+    ],
+    [
+      "neuritis {neuritis}",
+      "Radang saraf."
+    ],
+    [
+      "neuroglia nu-R3G-le-ål] cell",
+      "Sel sistem saraf yang tidak mengirimkan impuls."
+    ],
+    [
+      "neurohypophysis",
+      "Lobus posterior kelenjar pituitari."
+    ],
+    [
+      "neuron {neurona}",
+      "Sel dasar sistem saraf yang terdiri dari tiga bagian; sel saraf."
+    ],
+    [
+      "neuroplasty",
+      "Perbaikan saraf secara bedah."
+    ],
+    [
+      "neuroretina",
+      "Lapisan tebal jaringan saraf di retina."
+    ],
+    [
+      "neurorrhaphy",
+      "Menjahit saraf yang terputus."
+    ],
+    [
+      "neurosis (pl., neuroses)",
+      "Kondisi perilaku biasanya melibatkan kecemasan yang dapat diatasi oleh pasien yang tidak meningkat ke tingkat psikosis."
+    ],
+    [
+      "neurosurgeon {neurocirujano}",
+      "Spesialis medis yang melakukan operasi pada otak dan sumsum tulang belakang."
+    ],
+    [
+      "neurotomy",
+      "Diseksi saraf."
+    ],
+    [
+      "neurotransmitters {neurotramisor}",
+      "Berbagai zat terletak di kantung-kantung kecil di ujung akson."
+    ],
+    [
+      "neutrophil {neutrófilo}",
+      "Jenis leukosit; granulosit."
+    ],
+    [
+      "nevus (pl., nevi) {nevo}",
+      "Tahi lalat."
+    ],
+    [
+      "nipple {pezón}",
+      "Proyeksi di puncak payudara tempat ASI mengalir selama menyusui."
+    ],
+    [
+      "nitrate",
+      "Salah satu dari beberapa obat yang melebarkan vena, arteri, atau arteri koroner; digunakan untuk mengontrol angina."
+    ],
+    [
+      "nitrous oxide",
+      "Gas anestesi yang dihirup oleh pasien."
+    ],
+    [
+      "nocturia {nocturia}",
+      "Buang air kecil malam hari."
+    ],
+    [
+      "nodular",
+      "Dibentuk dalam kelompok yang ketat."
+    ],
+    [
+      "nodule {nódulo}",
+      "Kenop kecil jaringan."
+    ],
+    [
+      "non-Hodgkin's lymphoma",
+      "Kanker kelenjar getah bening dengan beberapa sel yang menyerupai sel sehat dan menyebar dengan pola menyebar."
+    ],
+    [
+      "noninsulin-dependent diabetes mellitus (NIDDM)",
+      "Lihat diabetes tipe II."
+    ],
+    [
+      "nonsteroidal anti-inflammatory drug (NSAID) {agentes de antiiflamatorios no esteroideos, AINE}",
+      "Agen atau obat yang mengurangi peradangan tanpa menggunakan steroid."
+    ],
+    [
+      "norepinephrine {norepinefrina}",
+      "Hormon disekresikan oleh medula adrenal."
+    ],
+    [
+      "nose {nariz}",
+      "Struktur luarnya ditopang oleh tulang hidung dan mengandung rongga hidung."
+    ],
+    [
+      "nosebleed {epistaxis}",
+      "Lihat epistaksis."
+    ],
+    [
+      "nostrils {naris}",
+      "Bukaan eksternal di pangkal hidung; juga disebut nares eksternal."
+    ],
+    [
+      "Novocaine",
+      "anestesi yang disuntikkan di dekat tempat yang sedang dirawat."
+    ],
+    [
+      "nuclear medicine",
+      "Spesialisasi medis untuk mengobati penyakit dengan zat radioaktif."
+    ],
+    [
+      "nucleus pulposus",
+      "Massa berserat di bagian tengah diskus intervertebralis."
+    ],
+    [
+      "nyctalopia {nictalopía}",
+      "Buta ayam."
+    ],
+    [
+      "nystagmus {nistagmo}",
+      "Gerakan bola mata berlebihan yang tidak disengaja."
+    ],
+    [
+      "obesity {obesidad}",
+      "Penumpukan lemak yang tidak normal di dalam tubuh."
+    ],
+    [
+      "obsessive-compulsive disorder",
+      "Kondisi dengan perasaan obsesif kompulsif."
+    ],
+    [
+      "obstetrician {obstetra}",
+      "Dokter spesialis kehamilan dan perawatan persalinan."
+    ],
+    [
+      "obstetrics",
+      "Spesialisasi medis yang membimbing wanita selama pembuahan, kehamilan, dan kelahiran."
+    ],
+    [
+      "occipital bone",
+      "Tulang yang membentuk bagian punggung bawah tengkorak."
+    ],
+    [
+      "occipital lobe",
+      "Salah satu dari empat bagian setiap belahan otak besar."
+    ],
+    [
+      "occlusion {oclusión}",
+      "Pemblokiran pembuluh darah; penutupan pembuluh darah."
+    ],
+    [
+      "odontalgia",
+      "Sakit gigi."
+    ],
+    [
+      "olecranon {olécranon}",
+      "Ujung melengkung dari ulna tempat tendon otot lengan menempel; tulang siku yang menonjol."
+    ],
+    [
+      "olfactory organs",
+      "Organ di bagian atas rongga hidung mengandung reseptor penciuman."
+    ],
+    [
+      "oligodendroglia {oligodendroglia}",
+      "Jenis neuroglia yang menghasilkan mielin dan membantu mendukung neuron."
+    ],
+    [
+      "oligodendroglioma {oligodendroglioma}",
+      "Jenis glioma yang terbentuk dari oligodendroglia."
+    ],
+    [
+      "oligomenorrhea {oligomenorrea}",
+      "Periode menstruasi sedikit."
+    ],
+    [
+      "oligo-ovulation",
+      "Ovulasi tidak teratur."
+    ],
+    [
+      "oligospermia {oligospermia}",
+      "Produksi sperma sedikit."
+    ],
+    [
+      "oliguria {oliguria}",
+      "Produksi urin sedikit."
+    ],
+    [
+      "oncogene",
+      "Fragmen DNA yang menyebabkan keganasan."
+    ],
+    [
+      "onychia, onychitis {oniquia}",
+      "Radang kuku."
+    ],
+    [
+      "onychopathy {onicopatia}",
+      "Penyakit kuku."
+    ],
+    [
+      "oocyte {oocito}",
+      "Sel telur yang belum matang diproduksi di gonad."
+    ],
+    [
+      "oophorectomy {ooforectomía}",
+      "Pengangkatan ovarium."
+    ],
+    [
+      "open fracture",
+      "Fraktur dengan luka kulit terbuka; fraktur majemuk."
+    ],
+    [
+      "operation",
+      "Setiap prosedur pembedahan, seperti pengangkatan, transplantasi, atau manipulasi jaringan."
+    ],
+    [
+      "ophthalmologist {oftalmólogo}",
+      "Spesialis medis yang mendiagnosis dan merawat gangguan mata."
+    ],
+    [
+      "ophthalmoscopy {oftalmoscopia}",
+      "Pemeriksaan visual bagian dalam mata."
+    ],
+    [
+      "opportunistic infection",
+      "Infeksi yang terjadi karena respon imun yang menurun."
+    ],
+    [
+      "optic nerve",
+      "Saraf yang mentransmisikan impuls saraf dari mata ke otak."
+    ],
+    [
+      "optician",
+      "Teknisi yang membuat dan memasang lensa korektif."
+    ],
+    [
+      "optometrist {optometrista}",
+      "Spesialis nonmedis yang memeriksa mata dan meresepkan lensa."
+    ],
+    [
+      "oral administration",
+      "Menelan pil atau cairan melalui mulut."
+    ],
+    [
+      "orchidectomy {orquidectomía}",
+      "Pengangkatan testis."
+    ],
+    [
+      "orchiectomy {orquiectomía}",
+      "Pengangkatan testis."
+    ],
+    [
+      "organ",
+      "Kelompok jaringan khusus yang menjalankan fungsi tertentu."
+    ],
+    [
+      "organ of Corti",
+      "Struktur pada membran basilar dengan reseptor mirip rambut yang menerima dan mengirimkan gelombang suara."
+    ],
+    [
+      "origin {origen}",
+      "Titik di mana otot menempel pada tulang stasioner."
+    ],
+    [
+      "oropharynx {orofaringe}",
+      "Bagian belakang mulut, merupakan bagian dari faring."
+    ],
+    [
+      "orthodontics",
+      "Spesialisasi gigi berkaitan dengan koreksi dan pencegahan penyimpangan dalam penempatan dan penampilan gigi."
+    ],
+    [
+      "orthopedist or-tho-PED-7k] surgeon",
+      "Dokter yang memeriksa, mendiagnosis, dan menangani gangguan pada sistem muskuloskeletal."
+    ],
+    [
+      "orthopnea {ortopnea}",
+      "Kesulitan bernapas, terutama saat berbaring."
+    ],
+    [
+      "orthosis, orthotic {ortosis, ortótica}",
+      "Alat luar yang digunakan untuk melumpuhkan atau membantu pergerakan tulang belakang atau anggota tubuh."
+    ],
+    [
+      "osseous tissue",
+      "Jaringan ikat tempat garam kalsium disimpan."
+    ],
+    [
+      "osseus labyrinth",
+      "Salah satu dari dua tabung yang membentuk saluran setengah lingkaran."
+    ],
+    [
+      "ossification {osificación}",
+      "Pengerasan menjadi tulang."
+    ],
+    [
+      "ostealgia {ostealgia}",
+      "Sakit tulang."
+    ],
+    [
+      "osteoarthritis {osteoartritis}",
+      "Artritis dengan hilangnya tulang rawan."
+    ],
+    [
+      "osteoblast {osteoblasto}",
+      "Sel yang membentuk tulang."
+    ],
+    [
+      "osteoclasis {osteoclasia}",
+      "Mematahkan tulang untuk memperbaiki atau mengubah posisinya."
+    ],
+    [
+      "osteoclast {osteoclasto}",
+      "Sel besar yang menyerap kembali dan mengangkat jaringan tulang."
+    ],
+    [
+      "osteocyte {osteocito}",
+      "Sel tulang."
+    ],
+    [
+      "osteodynia {osteodinia}",
+      "Sakit tulang."
+    ],
+    [
+      "osteoma {osteoma}",
+      "Tumor jinak, biasanya di tengkorak atau rahang bawah."
+    ],
+    [
+      "osteomyelitis {osteomielitis}",
+      "Radang sumsum tulang dan tulang di sekitarnya."
+    ],
+    [
+      "osteopath {osteópata}",
+      "Dokter yang menggabungkan pengobatan manipulatif dengan tindakan terapeutik konvensional."
+    ],
+    [
+      "osteoplasty {osteoplastia}",
+      "Operasi penggantian atau perbaikan tulang."
+    ],
+    [
+      "osteoporosis {osteoporosis}",
+      "Penipisan tulang yang degeneratif."
+    ],
+    [
+      "osteosarcoma {osteosarcoma}",
+      "Tumor tulang ganas."
+    ],
+    [
+      "osteotomy {osteotomía}",
+      "Pemotongan tulang."
+    ],
+    [
+      "otalgia {otalgia}",
+      "Sakit di telinga."
+    ],
+    [
+      "otitis externa {otitis externa}",
+      "Infeksi jamur pada saluran telinga luar."
+    ],
+    [
+      "otitis media {otitis media}",
+      "Radang telinga tengah."
+    ],
+    [
+      "otoliths {otolito}",
+      "Kalsifikasi kecil di telinga bagian dalam yang membantu menjaga keseimbangan."
+    ],
+    [
+      "otologist {otólogo}",
+      "Spesialis medis dalam gangguan telinga."
+    ],
+    [
+      "otoplasty {otoplastia}",
+      "Perbaikan bedah telinga luar."
+    ],
+    [
+      "otorhinolaryngologist",
+      "Dokter medis yang mendiagnosis dan mengobati gangguan pada telinga, hidung, dan tenggorokan."
+    ],
+    [
+      "otorrhagia {otorragia}",
+      "Pendarahan dari telinga."
+    ],
+    [
+      "otorrhea {otorrea}",
+      "Keluarnya cairan bernanah dari telinga."
+    ],
+    [
+      "otosclerosis {otosclerosis}",
+      "Pengerasan tulang telinga."
+    ],
+    [
+      "otoscopy {otoscopia}",
+      "Pemeriksaan telinga menggunakan otoskop."
+    ],
+    [
+      "ovary {ovario}",
+      "Salah satu dari dua kelenjar yang menghasilkan sel telur; salah satu dari dua kelenjar reproduksi wanita yang mengeluark"
+    ],
+    [
+      "overdose",
+      "Dosis racun suatu zat."
+    ],
+    [
+      "over-the-counter (OTC)",
+      "Tersedia untuk dijual tanpa resep dokter."
+    ],
+    [
+      "ovulation {ovulación}",
+      "Pelepasan sel telur (atau jarang, lebih dari satu sel telur) sebagai bagian dari siklus bulanan yang mengarah pada pembu"
+    ],
+    [
+      "ovum (pl., ova) {óvulo}",
+      "Sel kelamin wanita dewasa diproduksi oleh ovarium, yang kemudian melakukan perjalanan ke rahim. Jika dibuahi, itu ditana"
+    ],
+    [
+      "oxytocin {oxitocina}",
+      "Hormon diberikan untuk menginduksi persalinan; hormon yang dilepaskan oleh kelenjar pituitari posterior untuk membantu k"
+    ],
+    [
+      "pacemaker {marcapaso}",
+      "Istilah untuk simpul sinoatrial (SA); juga, alat buatan yang mengatur irama jantung."
+    ],
+    [
+      "palatine bone",
+      "Tulang yang membantu membentuk langit-langit keras dan rongga hidung; terletak di belakang tulang rahang atas."
+    ],
+    [
+      "palatine tonsils",
+      "Jaringan limfatik yang bekerja sebagai bagian dari sistem kekebalan; gundukan jaringan limfatik di kedua sisi faring."
+    ],
+    [
+      "palpitations {palpitaciones}",
+      "Denyut jantung yang tidak nyaman terasa seperti debaran di dada."
+    ],
+    [
+      "palsy {parálisis}",
+      "Kelumpuhan sebagian atau seluruhnya."
+    ],
+    [
+      "pancreas {páncreas}",
+      "Organ pencernaan yang mengeluarkan cairan pencernaan; kelenjar endokrin yang mengatur gula darah; kelenjar dari sistem e"
+    ],
+    [
+      "pancreatectomy {pancreatectomía}",
+      "Pengangkatan pankreas."
+    ],
+    [
+      "pancreatitis {pancreatitis}",
+      "Radang pankreas."
+    ],
+    [
+      "pancytopenia {pancitopenia}",
+      "Kondisi dengan jumlah komponen darah yang rendah."
+    ],
+    [
+      "pansinusitis",
+      "Peradangan pada semua sinus."
+    ],
+    [
+      "Papanicolaou (Pap) smear",
+      "Pengumpulan sel dari serviks dan vagina untuk mengamati kelainan."
+    ],
+    [
+      "papilla (pl., papillae) {papilas}",
+      "Tonjolan kecil di permukaan lidah bagian atas yang berisi pengecap."
+    ],
+    [
+      "papillary",
+      "Memiliki papila yang menonjol dari sel."
+    ],
+    [
+      "papillary layer",
+      "Sublapisan tipis dermis yang mengandung papila kecil (massa seperti puting)."
+    ],
+    [
+      "papule {pápula}",
+      "Peninggian kecil dan padat pada kulit."
+    ],
+    [
+      "para",
+      "Wanita yang melahirkan satu atau lebih bayi yang layak."
+    ],
+    [
+      "paracentesis",
+      "Insisi ke dalam rongga perut untuk mengeluarkan cairan atau mengurangi tekanan."
+    ],
+    [
+      "paracusis {paracusia}",
+      "Gangguan pendengaran."
+    ],
+    [
+      "paranasal sinuses",
+      "Area rongga hidung tempat udara luar dihangatkan oleh darah di lapisan selaput lendir."
+    ],
+    [
+      "paranoia",
+      "Ketidakpercayaan ekstrim yang tidak berdasar pada orang lain."
+    ],
+    [
+      "parasiticide",
+      "Agen yang membunuh atau memperlambat pertumbuhan parasit."
+    ],
+    [
+      "parasympathetic nervous system",
+      "Bagian dari sistem saraf otonom yang beroperasi saat tubuh dalam keadaan normal."
+    ],
+    [
+      "parathormone (PTH) {parathormona}",
+      "Hormon paratiroid."
+    ],
+    [
+      "parathyroid gland {paratiroide}",
+      "Salah satu dari empat kelenjar yang terletak berdekatan dengan kelenjar tiroid pada permukaan punggungnya yang membantu"
+    ],
+    [
+      "parathyroid hormone (PTH)",
+      "Hormon yang dikeluarkan oleh kelenjar paratiroid membantu meningkatkan kadar kalsium darah."
+    ],
+    [
+      "parathyroidectomy",
+      "Pengangkatan satu atau lebih kelenjar paratiroid."
+    ],
+    [
+      "parenteral administration",
+      "Pemberian obat melalui suntikan."
+    ],
+    [
+      "paresthesia",
+      "Sensasi yang tidak normal, seperti kesemutan."
+    ],
+    [
+      "parietal bone",
+      "Tulang datar dan melengkung di kedua sisi bagian atas tengkorak."
+    ],
+    [
+      "parietal lobe",
+      "Salah satu dari empat bagian setiap belahan otak besar."
+    ],
+    [
+      "parietal pleura",
+      "Lapisan luar pleura."
+    ],
+    [
+      "Parkinson's disease",
+      "Degenerasi saraf di otak disebabkan kurangnya dopamin yang cukup."
+    ],
+    [
+      "paronychia {paroniquia}",
+      "Peradangan, dengan nanah, pada lipatan yang mengelilingi lempeng kuku."
+    ],
+    [
+      "parotitis, parotiditis",
+      "Peradangan pada kelenjar parotis."
+    ],
+    [
+      "paroxysmal {paroxístico}",
+      "Tiba-tiba, seperti kejang atau kejang."
+    ],
+    [
+      "partial",
+      "Satu atau lebih gigi pengganti tiruan."
+    ],
+    [
+      "partial thromboplastin time (PTT)",
+      "Uji kemampuan darah untuk membeku."
+    ],
+    [
+      "parturition {parturición}",
+      "Kelahiran."
+    ],
+    [
+      "patch {placa}",
+      "Area kecil kulit yang berbeda warnanya dari area sekitarnya; plak."
+    ],
+    [
+      "patch test",
+      "Uji sensitivitas alergi di mana dosis kecil antigen dioleskan ke kulit dengan sepotong kecil kain kasa."
+    ],
+    [
+      "patella {rótula}",
+      "Tulang sesamoid besar yang membentuk tempurung lutut."
+    ],
+    [
+      "patent ductus arteriosus",
+      "Kondisi saat lahir saat duktus arteriosus, saluran kecil antara aorta dan arteri pulmonalis, tetap terbuka secara tidak"
+    ],
+    [
+      "pathogen {patógeno}",
+      "Agen penyebab penyakit."
+    ],
+    [
+      "pathological fracture",
+      "Fraktur terjadi di lokasi tulang yang sudah rusak."
+    ],
+    [
+      "peak flow meter",
+      "Alat untuk mengukur kapasitas pernapasan."
+    ],
+    [
+      "pediatrics",
+      "Spesialisasi medis yang mendiagnosis dan mengobati gangguan pada anak-anak sejak bayi hingga remaja."
+    ],
+    [
+      "pediculated polyp",
+      "Polip yang menonjol ke atas dari tangkai yang ramping."
+    ],
+    [
+      "pediculosis {pediculosis}",
+      "Infestasi kutu. pedodontist [pe-do-D3N-t7st] Dokter gigi yang mengkhususkan diri dalam perawatan gigi anak-anak."
+    ],
+    [
+      "pelvic cavity",
+      "Ruang tubuh di bawah rongga perut yang meliputi alat reproduksi; rongga berbentuk cangkir yang dibentuk oleh tulang besa"
+    ],
+    [
+      "pelvic girdle",
+      "Tulang pinggul."
+    ],
+    [
+      "pelvimetry",
+      "Pengukuran panggul selama kehamilan."
+    ],
+    [
+      "pelvis {pelvis}",
+      "Cincin tulang dan ligamen berbentuk cangkir di pangkal batang."
+    ],
+    [
+      "pemphigus {pénfigo}",
+      "Penyakit autoimun yang menyebabkan kulit melepuh."
+    ],
+    [
+      "penis {pene}",
+      "Bagian reproduksi pria yang menutupi uretra di luar tubuh."
+    ],
+    [
+      "pepsin {pepsina}",
+      "Enzim pencernaan sari lambung."
+    ],
+    [
+      "peptic ulcer",
+      "Sakit pada selaput lendir sistem pencernaan; tukak lambung atau tukak lambung."
+    ],
+    [
+      "percussion {percusión}",
+      "Mengetuk permukaan tubuh untuk melihat apakah paru-paru bersih."
+    ],
+    [
+      "percutaneous transluminal coronary angioplasty",
+      "Lihat dilatasi kateter balon."
+    ],
+    [
+      "perfusion deficit",
+      "Kurangnya aliran melalui pembuluh darah, biasanya disebabkan oleh oklusi."
+    ],
+    [
+      "impacted fracture",
+      "Fraktur di mana fragmen dari satu bagian fraktur didorong ke dalam jaringan di bagian lain."
+    ],
+    [
+      "inhibiting factor",
+      "Zat dalam hormon yang mencegah sekresi hormon lain."
+    ],
+    [
+      "internal fixation device",
+      "Perangkat, seperti peniti, dimasukkan ke dalam tulang untuk menahannya di tempatnya."
+    ],
+    [
+      "internal respiration",
+      "Pertukaran oksigen dan karbon dioksida antar sel."
+    ],
+    [
+      "involuntary muscle",
+      "Otot tidak bisa digerakkan sesuka hati."
+    ],
+    [
+      "irregular bones",
+      "Salah satu kelompok tulang dengan bentuk khusus yang cocok dengan area kerangka tertentu, seperti tengkorak."
+    ],
+    [
+      "kidney failure",
+      "Hilangnya fungsi ginjal."
+    ],
+    [
+      "kidney, ureter, bladder (KUB)",
+      "Sinar-X dari tiga bagian sistem kemih."
+    ],
+    [
+      "myelitis",
+      "Peradangan pada sumsum tulang belakang."
+    ],
+    [
+      "pedodontist",
+      "Dokter gigi yang mengkhususkan diri dalam perawatan gigi anak-anak."
+    ],
+    [
+      "pericarditis {pericarditis}",
+      "Peradangan pada perikardium."
+    ],
+    [
+      "pericardium {pericardio}",
+      "Selubung pelindung jantung."
+    ],
+    [
+      "perilymph",
+      "Cairan disekresikan oleh dinding labirin osseus."
+    ],
+    [
+      "perimenopause",
+      "Periode tiga sampai lima tahun penurunan kadar estrogen sebelum menopause."
+    ],
+    [
+      "perimetrium {perimetrio}",
+      "Lapisan luar rahim."
+    ],
+    [
+      "perineum {perineo}",
+      "Ruang antara labia majora dan anus; area antara penis dan anus."
+    ],
+    [
+      "periodontist",
+      "Dokter gigi yang mengkhususkan diri dalam pengobatan penyakit gusi."
+    ],
+    [
+      "periosteum {periostio}",
+      "Membran berserat menutupi permukaan tulang."
+    ],
+    [
+      "peripheral vascular disease",
+      "Penyakit vaskular di ekstremitas bawah, biasanya karena penyumbatan di arteri selangkangan atau tungkai."
+    ],
+    [
+      "peristalsis {peristaltismo}",
+      "Kontraksi otot polos yang terkoordinasi dan berirama yang memaksa makanan melalui saluran pencernaan."
+    ],
+    [
+      "peritoneal dialysis",
+      "Jenis dialisis di mana cairan yang mengekstrak zat dari darah dimasukkan ke dalam rongga peritoneum dan dikosongkan di l"
+    ],
+    [
+      "peritoneoscopy {peritoneoscopia}",
+      "Pemeriksaan rongga perut menggunakan peritoneoskop."
+    ],
+    [
+      "peritonitis {peritonitis}",
+      "Peradangan pada peritoneum."
+    ],
+    [
+      "permanent teeth",
+      "Gigi kedua yang tumbuh secara berkala mulai sekitar usia enam tahun."
+    ],
+    [
+      "pertussis {pertussis}",
+      "Infeksi parah pada faring, laring, dan trakea yang disebabkan oleh bakteri; batuk rejan."
+    ],
+    [
+      "PET (positron emission tomography) scan {TEP}",
+      "Pencitraan otak menggunakan isotop radioaktif dan tomografi; serangkaian gambar yang menunjukkan distribusi zat melalui"
+    ],
+    [
+      "petechia (pl., petechiae) {petequia}",
+      "Perdarahan kecil di bawah permukaan kulit; perdarahan kecil di kulit."
+    ],
+    [
+      "petit mal seizure",
+      "Lihat kejang absen."
+    ],
+    [
+      "Peyronie's disease",
+      "Kelengkungan penis yang tidak normal yang disebabkan oleh pengerasan di bagian dalam penis."
+    ],
+    [
+      "pH",
+      "Pengukuran keasaman atau alkalinitas suatu larutan seperti urin."
+    ],
+    [
+      "phacoemulsification",
+      "Penggunaan USG untuk memecah dan menghilangkan katarak."
+    ],
+    [
+      "phagocytosis {fagocitosis}",
+      "Penelanan zat asing oleh sel khusus."
+    ],
+    [
+      "phalanges (sing., phalanx) {falange}",
+      "Tulang panjang jari tangan dan kaki."
+    ],
+    [
+      "phantom limb, phantom pain",
+      "Nyeri terasa pada anggota tubuh yang lumpuh atau diamputasi."
+    ],
+    [
+      "pharmacist",
+      "Orang yang memiliki izin untuk memberikan obat."
+    ],
+    [
+      "pharmacodynamics",
+      "Studi tentang bagaimana obat mempengaruhi tubuh."
+    ],
+    [
+      "pharmacokinetics",
+      "Studi tentang bagaimana tubuh menyerap, memetabolisme, dan mengeluarkan obat-obatan."
+    ],
+    [
+      "pharmacology {farmacología}",
+      "Ilmu yang mempelajari, mengembangkan, dan menguji obat baru."
+    ],
+    [
+      "pharyngeal tonsils",
+      "Adenoid."
+    ],
+    [
+      "pharyngitis {faringitis}",
+      "Peradangan pada faring."
+    ],
+    [
+      "pharynx {faringe}",
+      "Lorong di belakang mulut untuk udara dan makanan; tenggorokan; tabung di mana makanan melewati kerongkongan."
+    ],
+    [
+      "phenylketones",
+      "Zat yang, jika terakumulasi dalam urin bayi, menunjukkan fenilketonuria (PKU), penyakit yang diobati dengan diet."
+    ],
+    [
+      "phimosis {fimosis}",
+      "Penyempitan pembukaan kulup yang tidak normal."
+    ],
+    [
+      "phlebitis {flebitis}",
+      "Peradangan pembuluh darah."
+    ],
+    [
+      "phlebography {flebografía}",
+      "Melihat vena dengan x-ray setelah injeksi media kontras."
+    ],
+    [
+      "phlebotomy {flebotomía}",
+      "Mengambil darah dari vena melalui sayatan kecil; Lihat venipuncture."
+    ],
+    [
+      "phobia",
+      "Ketakutan yang irasional atau obsesif terhadap sesuatu."
+    ],
+    [
+      "phosphorus {fósforo}",
+      "Mineral penting untuk pembentukan tulang."
+    ],
+    [
+      "photophobia {fotofobia}",
+      "Sensitivitas ekstrim terhadap cahaya."
+    ],
+    [
+      "physical therapy",
+      "Terapi gerakan untuk memulihkan penggunaan area tubuh yang rusak."
+    ],
+    [
+      "pia mater {piamadre}",
+      "Lapisan meninges paling dalam."
+    ],
+    [
+      "pica",
+      "Gangguan makan di mana pasien secara kompulsif mengonsumsi zat non-gizi, seperti tanah liat dan cat."
+    ],
+    [
+      "pilonidal cyst",
+      "Rambut yang mengandung kista, biasanya ditemukan di ujung bawah tulang belakang."
+    ],
+    [
+      "pineal gland",
+      "Kelenjar yang terletak di atas kelenjar pituitari; mengeluarkan melatonin."
+    ],
+    [
+      "pinkeye",
+      "Konjungtivitis."
+    ],
+    [
+      "pinna",
+      "Daun telinga."
+    ],
+    [
+      "pituitary gland",
+      "Kelenjar endokrin utama; mengeluarkan hormon penting untuk fungsi metabolisme."
+    ],
+    [
+      "placenta {placenta}",
+      "Organ kaya nutrisi yang berkembang di dalam rahim selama kehamilan; memasok nutrisi ke janin."
+    ],
+    [
+      "placenta previa",
+      "Penempatan plasenta sehingga menghalangi jalan lahir."
+    ],
+    [
+      "plantar wart",
+      "Kutil di telapak kaki."
+    ],
+    [
+      "plaque {placa}",
+      "Mikroorganisme yang tumbuh pada mahkota di sepanjang akar gigi menyebabkan kerusakan gigi dan kerusakan gusi; lihat tamb"
+    ],
+    [
+      "plasma",
+      "Porsi cair dari darah yang tidak membeku."
+    ],
+    [
+      "plasma {plasma} cell",
+      "Limfosit khusus yang menghasilkan imunoglobulin."
+    ],
+    [
+      "plasmapheresis {plasmaféresis}",
+      "plasmaféresis} Proses mengeluarkan darah dari seseorang, disentrifugasi, dan hanya mengembalikan sel darah merah ke ora"
+    ],
+    [
+      "plastic surgery",
+      "Perbaikan atau rekonstruksi (seperti pada kulit) dengan operasi."
+    ],
+    [
+      "platelet {plaqueta}",
+      "Trombosit; bagian dari megakariosit yang memulai pembekuan."
+    ],
+    [
+      "platelet count (PLT)",
+      "Pengukuran jumlah trombosit dalam sampel darah."
+    ],
+    [
+      "play therapy",
+      "Mengungkap perasaan melalui permainan dengan terapis terlatih."
+    ],
+    [
+      "pleomorphic",
+      "Memiliki banyak jenis sel."
+    ],
+    [
+      "pleura (pl., pleurae) {pleura}",
+      "Lapisan ganda membran yang menyusun bagian luar paru-paru."
+    ],
+    [
+      "pleural cavity",
+      "Ruang di antara dua pleura."
+    ],
+    [
+      "pleural effusion",
+      "Keluarnya cairan ke dalam rongga pleura."
+    ],
+    [
+      "pleuritis, pleurisy {pleuritis}",
+      "Peradangan pada pleura."
+    ],
+    [
+      "pleurocentesis",
+      "Tusukan ruang pleura secara bedah."
+    ],
+    [
+      "pleuropexy",
+      "Memperbaiki tempat pleura melalui pembedahan, biasanya jika terjadi cedera atau kerusakan."
+    ],
+    [
+      "pneumobronchotomy",
+      "Insisi paru dan bronkus."
+    ],
+    [
+      "pneumoconiosis {neumoconiosis}",
+      "Kondisi paru-paru akibat menghirup debu."
+    ],
+    [
+      "pneumonectomy {neumonectomía}",
+      "Pengangkatan paru-paru."
+    ],
+    [
+      "pneumonia {neumonía}",
+      "Infeksi akut pada alveoli."
+    ],
+    [
+      "pneumonitis {neumonitis}",
+      "Radang paru-paru."
+    ],
+    [
+      "pneumothorax {neumotórax}",
+      "Akumulasi udara atau gas di rongga pleura."
+    ],
+    [
+      "podagra {podagra}",
+      "Nyeri di jempol kaki, sering dikaitkan dengan asam urat."
+    ],
+    [
+      "podiatrist {podiatra}",
+      "Spesialis medis yang memeriksa, mendiagnosis, dan menangani gangguan pada kaki."
+    ],
+    [
+      "poikilocytosis {poiquilocitosis}",
+      "Gangguan dengan sel darah merah berbentuk tidak teratur."
+    ],
+    [
+      "polarization {polarización}",
+      "Keadaan istirahat jaringan miokard dalam sistem konduksi jantung."
+    ],
+    [
+      "polycystic kidney disease",
+      "Kondisi dengan banyak kista di dalam dan di dalam ginjal."
+    ],
+    [
+      "polycythemia {policetemia}",
+      "Gangguan dengan peningkatan abnormal sel darah merah dan hemoglobin."
+    ],
+    [
+      "polydipsia {polydipsa}",
+      "Haus yang berlebihan."
+    ],
+    [
+      "polyp {pólipo}",
+      "Massa jaringan yang menonjol yang menonjol keluar dari permukaan kulit."
+    ],
+    [
+      "polypectomy {polipectomía}",
+      "Penghapusan polip."
+    ],
+    [
+      "polypoid",
+      "Mengandung polip."
+    ],
+    [
+      "polyposis {poliposis}",
+      "Kondisi dengan polip, seperti di usus."
+    ],
+    [
+      "polysomnography (PSG)",
+      "Mencatat kelistrikan dan pola gerakan selama tidur."
+    ],
+    [
+      "polyuria {poliuria}",
+      "Buang air kecil berlebihan; jumlah air yang berlebihan dalam urin."
+    ],
+    [
+      "pons {pons}",
+      "Bagian dari batang otak yang mengontrol fungsi pernapasan tertentu."
+    ],
+    [
+      "popliteal artery",
+      "Arteri yang memasok darah ke sel-sel di area di belakang lutut."
+    ],
+    [
+      "pore {poro}",
+      "Bukaan atau lubang, terutama di bagian kulit."
+    ],
+    [
+      "positron emission tomography (PET) scan",
+      "Jenis citra nuklir yang mengukur pergerakan area jantung."
+    ],
+    [
+      "posterior",
+      "Di atau ke arah sisi belakang (tubuh)."
+    ],
+    [
+      "postprandial blood sugar",
+      "Tes glukosa dalam darah, biasanya sekitar dua jam setelah makan."
+    ],
+    [
+      "post-traumatic stress disorder (PTSD)",
+      "Kondisi stres traumatis ekstrem yang mungkin terjadi dan berlangsung selama bertahun-tahun setelah waktu atau kejadian t"
+    ],
+    [
+      "PPD",
+      "Turunan protein tuberkulin yang dimurnikan."
+    ],
+    [
+      "preeclampsia",
+      "Infeksi toksik selama kehamilan."
+    ],
+    [
+      "premature",
+      "Lahir sebelum usia kehamilan 37 minggu."
+    ],
+    [
+      "premature atrial contractions (PACs)",
+      "Kontraksi atrium yang terjadi sebelum impuls normal; bisa menjadi penyebab palpitasi."
+    ],
+    [
+      "premature ventricular contractions (PVCs)",
+      "Kontraksi ventrikel yang terjadi sebelum impuls normal; bisa menjadi penyebab palpitasi."
+    ],
+    [
+      "premolar",
+      "Molar pada gigi sulung."
+    ],
+    [
+      "presbyacusis {presbiacusia}",
+      "Gangguan pendengaran terkait usia."
+    ],
+    [
+      "presbyopia {presbiopía}",
+      "Penurunan kemampuan terkait usia untuk fokus atau mengakomodasi."
+    ],
+    [
+      "prescription {prescripción}",
+      "Perintah yang diberikan oleh dokter untuk dosis obat, rute, dan waktu pemberian."
+    ],
+    [
+      "pressure sore",
+      "Lihat ulkus dekubitus."
+    ],
+    [
+      "preventative",
+      "Dirancang untuk menghentikan atau mencegah penyakit."
+    ],
+    [
+      "preventive medicine",
+      "Spesialisasi medis yang berkaitan dengan pencegahan penyakit."
+    ],
+    [
+      "priapism {priapismo}",
+      "Ereksi penis yang terus-menerus dan menyakitkan."
+    ],
+    [
+      "primary teeth",
+      "Set gigi pertama yang tumbuh secara teratur antara enam bulan sampai usia empat tahun."
+    ],
+    [
+      "probe",
+      "Perangkat tajam untuk menjelajahi rongga tubuh atau membersihkan penyumbatan."
+    ],
+    [
+      "process",
+      "Pertumbuhan atau proyeksi tulang."
+    ],
+    [
+      "proctitis {proctitis}",
+      "Radang rektum dan anus."
+    ],
+    [
+      "proctoplasty",
+      "Perbaikan rektum dan anus."
+    ],
+    [
+      "proctoscopy {proctoscopia}",
+      "Pemeriksaan rektum dan anus menggunakan proctoscope."
+    ],
+    [
+      "progesterone {progesterona}",
+      "Salah satu hormon utama wanita."
+    ],
+    [
+      "prone",
+      "Berbaring tengkurap dengan wajah menghadap ke bawah."
+    ],
+    [
+      "proprietary name",
+      "Lihat nama dagang."
+    ],
+    [
+      "prostate {próstata} gland",
+      "Kelenjar yang mengelilingi uretra yang mengeluarkan cairan untuk membantu sperma bergerak dan berkontraksi dengan jaring"
+    ],
+    [
+      "prostatectomy {prostatectomía}",
+      "Pengangkatan prostat."
+    ],
+    [
+      "prostate-specific antigen (PSA) test",
+      "Tes darah untuk kanker prostat."
+    ],
+    [
+      "prostatitis {prostatitis}",
+      "Radang prostat."
+    ],
+    [
+      "prosthetic device",
+      "Alat tiruan yang digunakan sebagai pengganti bagian tubuh yang hilang atau sakit."
+    ],
+    [
+      "proteinuria",
+      "Adanya protein yang tidak normal dalam urin."
+    ],
+    [
+      "prothrombin {protrombina}",
+      "Jenis protein plasma yang membantu pembekuan."
+    ],
+    [
+      "prothrombin time (PT)",
+      "Uji kemampuan darah untuk membeku."
+    ],
+    [
+      "protocol",
+      "Kursus pengobatan."
+    ],
+    [
+      "proximal",
+      "Di atau dekat titik pemasangan ke bagasi."
+    ],
+    [
+      "pruritus {prurito}",
+      "Gatal."
+    ],
+    [
+      "pseudophakia {seudofaquia}",
+      "Mata dengan lensa yang ditanamkan setelah operasi katarak."
+    ],
+    [
+      "psoriasis {psoriasis}",
+      "Kondisi kulit kronis disertai lesi bersisik dengan pruritus yang ekstrim."
+    ],
+    [
+      "psychiatry",
+      "Spesialisasi medis yang berkaitan dengan diagnosis dan pengobatan gangguan mental."
+    ],
+    [
+      "psychoanalysis",
+      "Terapi yang berupaya agar pasien membawa emosi bawah sadar ke permukaan untuk menghadapinya."
+    ],
+    [
+      "psychology",
+      "Profesi yang mempelajari perilaku manusia dan menangani gangguan mental."
+    ],
+    [
+      "psychopharmacology",
+      "Ilmu yang membahas tentang pengobatan yang mempengaruhi emosi."
+    ],
+    [
+      "psychosis",
+      "Pemikiran yang sangat tidak teratur."
+    ],
+    [
+      "psychotherapy",
+      "Pengobatan gangguan jiwa dengan komunikasi verbal dan nonverbal."
+    ],
+    [
+      "puberty {pubertad}",
+      "Periode pra-remaja atau awal remaja ketika karakteristik seks sekunder berkembang dan menstruasi dimulai."
+    ],
+    [
+      "pubes {pubis}",
+      "Bagian anteroinferior tulang pinggul."
+    ],
+    [
+      "pubic symphysis",
+      "Sendi di antara dua tulang kemaluan."
+    ],
+    [
+      "pulmonary abscess",
+      "Kumpulan banyak nanah di paru-paru."
+    ],
+    [
+      "pulmonary artery {arteria pulmunar}",
+      "Salah satu dari dua arteri yang membawa darah yang rendah oksigen dari jantung ke paru-paru."
+    ],
+    [
+      "pulmonary artery stenosis",
+      "Penyempitan arteri pulmonalis, mencegah paru-paru menerima cukup darah dari jantung untuk memberi oksigen."
+    ],
+    [
+      "pulmonary edema",
+      "Akumulasi cairan yang tidak normal di paru-paru."
+    ],
+    [
+      "pulmonary edema",
+      "Cairan di kantung udara dan bronkiolus biasanya disebabkan oleh kegagalan jantung untuk memompa cukup darah ke dan dari"
+    ],
+    [
+      "pulmonary function tests",
+      "Tes yang mengukur mekanisme pernapasan."
+    ],
+    [
+      "pulmonary valve",
+      "Katup yang mengontrol aliran darah antara ventrikel kanan dan arteri pulmonalis."
+    ],
+    [
+      "pulmonary vein",
+      "Salah satu dari empat vena yang membawa darah beroksigen dari paru-paru ke atrium kiri."
+    ],
+    [
+      "pulp",
+      "Jaringan ikat, pembuluh darah, dan saraf yang mengisi rongga pulpa."
+    ],
+    [
+      "pulp cavity",
+      "Bagian tengah gigi."
+    ],
+    [
+      "pulse {pulso}",
+      "Ekspansi dan kontraksi ritme pembuluh darah, biasanya arteri."
+    ],
+    [
+      "pupil {pupila}",
+      "Pusat mata berbentuk lingkaran hitam; membuka dan menutup ketika otot di iris mengembang dan berkontraksi sebagai respon"
+    ],
+    [
+      "purpura {púrpura}",
+      "Kondisi kulit dengan perdarahan luas di bawah kulit menutupi area yang luas."
+    ],
+    [
+      "pustule {pústula}",
+      "Peninggian kecil pada kulit yang mengandung nanah."
+    ],
+    [
+      "pyelitis {pielitis}",
+      "Radang panggul ginjal."
+    ],
+    [
+      "pyeloplasty",
+      "Perbaikan bedah pelvis ginjal."
+    ],
+    [
+      "pyelotomy",
+      "Insisi ke pelvis ginjal."
+    ],
+    [
+      "pylorus {píloro}",
+      "Bagian perut bawah menyempit."
+    ],
+    [
+      "pyoderma {pioderma}",
+      "Setiap peradangan pada kulit yang menghasilkan nanah."
+    ],
+    [
+      "pyrogenic meningitis",
+      "Meningitis yang disebabkan oleh bakteri; bisa berakibat fatal; bakteri meningitis."
+    ],
+    [
+      "pyuria {piuria}",
+      "Nanah di urin."
+    ],
+    [
+      "rad (radiation absorbed dose)",
+      "Satuan zat radioaktif yang dapat diserap dalam jangka waktu tertentu."
+    ],
+    [
+      "radiation",
+      "Membombardir tumor dengan sinar yang merusak DNA sel."
+    ],
+    [
+      "radiation",
+      "Energi dibawa oleh aliran partikel dari suatu zat."
+    ],
+    [
+      "radiation therapy",
+      "Pengobatan kanker yang menggunakan radiasi pengion untuk menghancurkan sel-sel ganas."
+    ],
+    [
+      "radiculitis {radiculitis}",
+      "Peradangan pada akar saraf tulang belakang."
+    ],
+    [
+      "radioactive immunoassay (RIA)",
+      "Tes untuk mengukur kadar hormon dalam plasma; diambil setelah larutan radioaktif tertelan"
+    ],
+    [
+      "radioactive iodine therapy",
+      "Penggunaan yodium radioaktif untuk menghilangkan tumor tiroid."
+    ],
+    [
+      "radioactive iodine uptake",
+      "Uji seberapa cepat kelenjar tiroid menarik yodium yang tertelan."
+    ],
+    [
+      "radiography",
+      "Produksi gambar diagnostik."
+    ],
+    [
+      "radioimmunoassay (RIA)",
+      "Tes in vitro untuk mengetahui jumlah obat atau obat yang tersisa di dalam tubuh."
+    ],
+    [
+      "radiology",
+      "Spesialisasi medis dalam pencitraan diagnostik dan perawatan radiasi."
+    ],
+    [
+      "radiolucent",
+      "Mampu dengan mudah ditembus sinar-X."
+    ],
+    [
+      "radionuclide",
+      "Zat radioaktif."
+    ],
+    [
+      "radiopaque",
+      "Tidak dapat dengan mudah ditembus sinar-X."
+    ],
+    [
+      "radiopharmaceutical",
+      "Zat kimia yang mengandung bahan radioaktif."
+    ],
+    [
+      "radioresistant",
+      "Tidak terlalu terpengaruh oleh radiasi."
+    ],
+    [
+      "radiosensitive",
+      "Mudah terkena radiasi."
+    ],
+    [
+      "radius",
+      "Tulang lengan bawah lebih pendek."
+    ],
+    [
+      "rales {rales}",
+      "Lihat kresek."
+    ],
+    [
+      "Raynaud's phenomenon",
+      "Kejang di arteri jari menyebabkan mati rasa atau nyeri."
+    ],
+    [
+      "reabsorption",
+      "Proses pengembalian elemen penting ke aliran darah setelah filtrasi."
+    ],
+    [
+      "receptor {receptor}",
+      "Jaringan atau organ yang menerima impuls saraf; bagian dari sel target dengan sifat yang kompatibel dengan zat tertentu"
+    ],
+    [
+      "reconstructive",
+      "Dirancang untuk mengembalikan bagian tubuh ke keadaan atau penampilan aslinya."
+    ],
+    [
+      "rectum {recto}",
+      "Bagian bawah usus besar; terhubung ke saluran anal."
+    ],
+    [
+      "red blood cell",
+      "Salah satu bagian darah padat yang terbentuk dari sel induk dan memiliki hemoglobin di dalamnya; eritrosit."
+    ],
+    [
+      "red blood cell count",
+      "Pengukuran sel darah merah dalam milimeter kubik darah."
+    ],
+    [
+      "red blood cell morphology",
+      "Pengamatan bentuk sel darah merah."
+    ],
+    [
+      "reduction {reducción}",
+      "Pengembalian sebagian ke posisi normalnya."
+    ],
+    [
+      "reflex {reflejo}",
+      "Kontraksi otot yang tidak disengaja sebagai respons terhadap rangsangan."
+    ],
+    [
+      "reflux {reflujo}",
+      "Lihat regurgitasi."
+    ],
+    [
+      "refraction {refracción}",
+      "Proses pembengkokan sinar cahaya."
+    ],
+    [
+      "regurgitation {regurgitación}",
+      "Aliran mundur dari arah normal."
+    ],
+    [
+      "reiki",
+      "Terapi yang menggunakan sentuhan dari penyembuh."
+    ],
+    [
+      "relapse",
+      "Kambuhnya penyakit."
+    ],
+    [
+      "releasing factor",
+      "Zat dalam hormon yang memungkinkan sekresi hormon lain."
+    ],
+    [
+      "remission",
+      "Hilangnya penyakit untuk sementara waktu."
+    ],
+    [
+      "renal pelvis",
+      "Area pengumpulan urin di tengah ginjal."
+    ],
+    [
+      "renin {renina}",
+      "Enzim diproduksi di ginjal untuk mengatur laju filtrasi darah dengan cara meningkatkan tekanan darah seperlunya."
+    ],
+    [
+      "renogram {renograma}",
+      "Pencitraan radioaktif fungsi ginjal setelah pengenalan zat yang disaring melalui ginjal saat diamati."
+    ],
+    [
+      "repolarization {repolarización}",
+      "Status pengisian ulang; transisi dari kontraksi ke istirahat yang terjadi dalam sistem konduksi jantung."
+    ],
+    [
+      "reproductive system",
+      "Baik sistem tubuh pria maupun wanita yang mengontrol reproduksi."
+    ],
+    [
+      "resectioning",
+      "Pengangkatan tumor dan sejumlah besar jaringan di sekitarnya."
+    ],
+    [
+      "resectoscope {resectoscopio}",
+      "Jenis endoskopi untuk menghilangkan lesi."
+    ],
+    [
+      "respiratory system",
+      "Sistem tubuh yang meliputi paru-paru dan saluran udara serta melakukan pernapasan; sistem tubuh untuk bernapas."
+    ],
+    [
+      "respiratory tract",
+      "Jalan yang dilalui udara masuk dan keluar dari paru-paru."
+    ],
+    [
+      "reticular layer",
+      "Sublapisan bawah dermis yang mengandung retikula (jaringan struktur dengan jaringan ikat di antaranya)."
+    ],
+    [
+      "reticulocytosis {reticulocitosis}",
+      "Gangguan dengan jumlah eritrosit imatur yang abnormal."
+    ],
+    [
+      "retina {retina}",
+      "Membran oval dan peka cahaya di lapisan dalam mata; menerjemahkan gelombang cahaya dan mengirimkan informasi ke otak."
+    ],
+    [
+      "retinitis {retinitis}",
+      "Radang retina."
+    ],
+    [
+      "retinitis pigmentosa",
+      "Penyakit bawaan yang progresif dengan bintik berpigmen di retina dan penglihatan malam yang buruk."
+    ],
+    [
+      "retractor",
+      "Alat yang digunakan untuk menahan tepi belakang jaringan dan organ untuk mengekspos jaringan atau bagian tubuh lain; ter"
+    ],
+    [
+      "retroflexion {retroflexión}",
+      "Membungkuk ke belakang rahim."
+    ],
+    [
+      "retrograde pyelogram (RP)",
+      "X-ray dari kandung kemih dan ureter setelah media kontras disuntikkan ke dalam kandung kemih."
+    ],
+    [
+      "retroperitoneal {retroperitoneal}",
+      "Posterior ke peritoneum."
+    ],
+    [
+      "retroversion {retroversión}",
+      "Perputaran rahim ke belakang."
+    ],
+    [
+      "retrovirus {retrovirus}",
+      "Jenis virus yang menyebar dengan menggunakan DNA dalam tubuh untuk membantunya mereplikasi RNA-nya."
+    ],
+    [
+      "Rh factor",
+      "Jenis antigen dalam darah yang dapat menyebabkan reaksi transfusi."
+    ],
+    [
+      "rhabdomyoma {rabdomioma}",
+      "Tumor jinak pada otot lurik."
+    ],
+    [
+      "rhabdomyosarcoma {rabdomiosarcoma}",
+      "Tumor ganas pada otot lurik."
+    ],
+    [
+      "rheumatic heart disease",
+      "Katup jantung dan / atau kerusakan otot yang disebabkan oleh infeksi streptokokus yang tidak diobati."
+    ],
+    [
+      "rheumatoid arthritis",
+      "Gangguan autoimun yang mempengaruhi jaringan ikat."
+    ],
+    [
+      "rheumatoid factor test",
+      "Tes digunakan untuk mendeteksi rheumatoid arthritis."
+    ],
+    [
+      "rheumatologist {reumatólogo}",
+      "Dokter yang memeriksa, mendiagnosis, dan merawat gangguan pada persendian dan sistem muskuloskeletal."
+    ],
+    [
+      "rhinitis {rinitis}",
+      "Peradangan hidung."
+    ],
+    [
+      "rhinoplasty {rinoplastia}",
+      "Perbaikan bedah hidung."
+    ],
+    [
+      "rhinorrhea {rinorrea}",
+      "Keluarnya cairan dari hidung."
+    ],
+    [
+      "Rh-negative",
+      "Kekurangan faktor Rh pada permukaan sel darah."
+    ],
+    [
+      "rhonchi {ronquidos}",
+      "Lihat mengi."
+    ],
+    [
+      "Rh-positive",
+      "Memiliki faktor Rh pada permukaan sel darah."
+    ],
+    [
+      "rib {costilla}",
+      "Satu dari dua puluh empat tulang yang membentuk dinding dada."
+    ],
+    [
+      "rickets {raquitismo}",
+      "Penyakit pada sistem rangka, biasanya disebabkan oleh kekurangan vitamin D."
+    ],
+    [
+      "right atrium",
+      "Bilik kanan atas jantung."
+    ],
+    [
+      "right lower quadrant",
+      "Kuadran di sisi kanan bawah anterior tubuh pasien."
+    ],
+    [
+      "right upper quadrant",
+      "Kuadran di sisi kanan atas anterior tubuh pasien."
+    ],
+    [
+      "right ventricle",
+      "Bilik kanan bawah jantung."
+    ],
+    [
+      "rigidity {rigidez}",
+      "Kekakuan."
+    ],
+    [
+      "rigor {rigor}",
+      "Pengerasan."
+    ],
+    [
+      "ringworm {tiña}",
+      "Infeksi jamur; tinea."
+    ],
+    [
+      "risk factor",
+      "Salah satu dari berbagai faktor yang dianggap meningkatkan kemungkinan terjadinya suatu penyakit; Misalnya, tekanan dara"
+    ],
+    [
+      "rods {bastoncillos}",
+      "Sel reseptor khusus di retina yang melihat warna hitam ke putih."
+    ],
+    [
+      "roentgenology",
+      "Radiologi."
+    ],
+    [
+      "root",
+      "Porsi gigi yang terletak di bawah garis rahang."
+    ],
+    [
+      "root canal",
+      "Struktur tubular yang menahan pembuluh darah dan saraf antara rongga pulpa dan garis rahang."
+    ],
+    [
+      "rosacea {rosácea}",
+      "Penyakit pembuluh darah yang menyebabkan bercak merah pada kulit, terutama di hidung dan pipi."
+    ],
+    [
+      "roseola",
+      "Kulit meletus kecil, bercak kemerahan, biasanya disebabkan oleh virus."
+    ],
+    [
+      "rub {roce}",
+      "Suara gesekan terdengar di antara detak jantung, biasanya mengindikasikan murmur perikardial."
+    ],
+    [
+      "rubella {rubéola}",
+      "Penyakit yang menyebabkan ruam kulit karena virus; Campak jerman."
+    ],
+    [
+      "rubeola {rubéola}",
+      "Penyakit yang menyebabkan ruam kulit karena virus; campak."
+    ],
+    [
+      "rugae {rugae}",
+      "Lipatan di lapisan perut."
+    ],
+    [
+      "sacrum {sacro}",
+      "Vertebra tulang belakang terakhir terdiri dari lima tulang yang menyatu; vertebra yang merupakan bagian dari panggul."
+    ],
+    [
+      "sagittal plane",
+      "Garis imajiner yang membagi tubuh menjadi bagian kanan dan kiri."
+    ],
+    [
+      "saliva {saliva}",
+      "Cairan yang disekresikan oleh kelenjar ludah; mengandung amilase."
+    ],
+    [
+      "salivary glands",
+      "Kelenjar di mulut yang mengeluarkan cairan yang membantu memecah makanan."
+    ],
+    [
+      "salpingectomy {salpingectomía}",
+      "Pengangkatan tuba falopi."
+    ],
+    [
+      "salpingitis {salpingitis}",
+      "Radang saluran tuba."
+    ],
+    [
+      "salpingotomy",
+      "Insisi di tuba falopi."
+    ],
+    [
+      "saphenous vein",
+      "Salah satu kelompok vena yang mengangkut darah terdeoksigenasi dari kaki."
+    ],
+    [
+      "sarcoidosis {sarcoidosis}",
+      "Kondisi peradangan dengan lesi pada kelenjar getah bening dan organ lain."
+    ],
+    [
+      "sarcoma",
+      "Tumor yang relatif jarang yang berasal dari otot, jaringan ikat, dan getah bening."
+    ],
+    [
+      "scabies {sarna}",
+      "Letusan kulit yang disebabkan oleh tungau yang masuk ke dalam kulit."
+    ],
+    [
+      "scale {escala, costra}",
+      "Sepiring kecil kulit keras yang lepas."
+    ],
+    [
+      "scalpel",
+      "Pisau yang digunakan untuk pembedahan atau diseksi."
+    ],
+    [
+      "scan",
+      "Gambar didapat dari bagian dalam bodi."
+    ],
+    [
+      "scapula {escápula}",
+      "Tulang pipih besar yang membentuk tulang belikat."
+    ],
+    [
+      "Schick test",
+      "Tes difteri."
+    ],
+    [
+      "schizophrenia",
+      "Kondisi dengan psikosis berulang, seringkali disertai halusinasi."
+    ],
+    [
+      "sciatica {ciática}",
+      "1. Nyeri di punggung bawah, biasanya menjalar ke kaki, akibat hernia diskus atau cedera atau kondisi lainnya. 2. Radang"
+    ],
+    [
+      "scirrhous",
+      "Keras, padat."
+    ],
+    [
+      "sclera (pl., sclerae) {esclerótica}",
+      "Selaput tebal dan keras di lapisan luar mata; mendukung struktur bola mata."
+    ],
+    [
+      "scleritis {escleritis}",
+      "Peradangan sklera."
+    ],
+    [
+      "scleroderma {esclerodermia}",
+      "Penebalan kulit disebabkan oleh peningkatan pembentukan kolagen."
+    ],
+    [
+      "scoliosis {escolisis}",
+      "Kelengkungan lateral tulang belakang yang abnormal."
+    ],
+    [
+      "scotoma {escotoma}",
+      "Titik buta dalam penglihatan."
+    ],
+    [
+      "scratch test",
+      "Uji sensitivitas alergi di mana sejumlah kecil antigen tergores ke permukaan kulit."
+    ],
+    [
+      "scrotum {escroto}",
+      "Kantung di luar tubuh berisi buah zakar."
+    ],
+    [
+      "sebaceous cyst",
+      "Kista mengandung sebum kuning."
+    ],
+    [
+      "sebaceous glands",
+      "Kelenjar di dermis yang terbuka ke folikel rambut dan mengeluarkan sebum."
+    ],
+    [
+      "seborrhea {seborrea}",
+      "Produksi sebum berlebih oleh kelenjar sebaceous."
+    ],
+    [
+      "sebum {sebo}",
+      "Bahan berminyak, biasanya disekresikan ke dalam folikel rambut."
+    ],
+    [
+      "second bicuspid",
+      "Gigi kelima dari median garis rahang."
+    ],
+    [
+      "second molar",
+      "Gigi kedua dari terakhir di bagian belakang mulut."
+    ],
+    [
+      "secondary hypertension",
+      "Hipertensi diketahui penyebabnya, seperti penyakit ginjal."
+    ],
+    [
+      "secondary teeth",
+      "Gigi permanen."
+    ],
+    [
+      "second-degree burn",
+      "Luka bakar yang cukup parah yang mempengaruhi epidermis dan dermis; biasanya melibatkan lepuh."
+    ],
+    [
+      "sedative",
+      "Agen yang meredakan perasaan gelisah."
+    ],
+    [
+      "sedimentation rate (SR)",
+      "Lihat laju sedimentasi eritrosit."
+    ],
+    [
+      "sella turcica {silla turcica}",
+      "Depresi tulang di tulang sphenoid tempat kelenjar pituitari berada."
+    ],
+    [
+      "semen {semen}",
+      "Cairan kental berwarna keputihan yang mengandung spermatozoa dan sekresi dari vesikula seminalis, kelenjar Cowper, dan p"
+    ],
+    [
+      "semen analysis",
+      "Pengamatan air mani untuk kelangsungan hidup sperma."
+    ],
+    [
+      "semicircular canals",
+      "Struktur di telinga bagian dalam penting untuk keseimbangan."
+    ],
+    [
+      "semilunar valve",
+      "Salah satu dari dua katup yang mencegah aliran balik darah yang mengalir keluar dari jantung ke aorta dan arteri pulmona"
+    ],
+    [
+      "seminoma",
+      "Tumor ganas pada testis."
+    ],
+    [
+      "sensory receptors",
+      "Jaringan khusus yang mengandung sel yang dapat menerima rangsangan."
+    ],
+    [
+      "sensory system",
+      "Sistem tubuh yang mencakup mata dan telinga serta bagian dari sistem lain yang terlibat dalam reaksi panca indera; organ"
+    ],
+    [
+      "septal defect",
+      "Kelainan kongenital yang terdiri dari bukaan pada septum antara atrium atau ventrikel."
+    ],
+    [
+      "septoplasty {septoplastia}",
+      "Perbaikan bedah septum hidung."
+    ],
+    [
+      "septostomy {septostomía}",
+      "Penciptaan lubang di septum hidung."
+    ],
+    [
+      "septum (pl., septa) {tabique}",
+      "1. Partisi antara bilik kiri dan kanan jantung. 2. Pembelahan tulang rawan, seperti di hidung atau mediastinum."
+    ],
+    [
+      "sequestrum {secuestro}",
+      "Sepotong jaringan mati atau tulang terpisah dari daerah sekitarnya."
+    ],
+    [
+      "serum {suero}",
+      "Cairan tertinggal setelah darah menggumpal. Tes kalsium serum untuk kalsium dalam darah."
+    ],
+    [
+      "serum creatine phosphokinase",
+      "Enzim aktif dalam kontraksi otot; biasanya fosfokinase meningkat setelah infark miokard dan dengan adanya penyakit otot"
+    ],
+    [
+      "serum enzyme tests",
+      "Tes laboratorium dilakukan untuk mendeteksi enzim yang ada selama atau setelah infark miokard; studi enzim jantung."
+    ],
+    [
+      "serum phosphorus",
+      "Tes fosfor dalam darah."
+    ],
+    [
+      "sesamoid bone",
+      "Tulang terbentuk di tendon di atas sendi."
+    ],
+    [
+      "sessile polyp",
+      "Polip yang menjorok ke atas dari dasar yang luas."
+    ],
+    [
+      "shin {espinilla}",
+      "Tonjolan anterior tibia."
+    ],
+    [
+      "shingles {culebrilla}",
+      "Penyakit virus yang menyerang saraf tepi dan disebabkan oleh herpes zoster."
+    ],
+    [
+      "short bones",
+      "Tulang berbentuk persegi dengan dimensi yang kurang lebih sama di semua sisi."
+    ],
+    [
+      "sialoadenitis",
+      "Peradangan pada kelenjar ludah."
+    ],
+    [
+      "sight {vista}",
+      "Kemampuan untuk melihat."
+    ],
+    [
+      "sigmoid colon",
+      "Bagian usus besar berbentuk S yang menghubungkan di bagian bawah ke rektum."
+    ],
+    [
+      "sigmoidoscopy {sigmoidoscopia}",
+      "Pemeriksaan kolon sigmoid menggunakan sigmoidoscope."
+    ],
+    [
+      "silicosis",
+      "Kondisi paru-paru yang disebabkan oleh debu silika dari batu gerinda atau kaca atau bahan lain yang digunakan dalam pemb"
+    ],
+    [
+      "simple fracture",
+      "Fraktur tanpa luka kulit terbuka."
+    ],
+    [
+      "singultus {singulto}",
+      "Cegukan."
+    ],
+    [
+      "sinoatrial (SA) node",
+      "Wilayah atrium kanan yang mengandung jaringan khusus yang mengirimkan impuls listrik ke otot jantung, menyebabkannya ber"
+    ],
+    [
+      "sinus {seno}",
+      "1. Rongga berlubang, terutama salah satu dari dua rongga di sisi hidung. 2. Ruang antara duktus laktiferus dan puting su"
+    ],
+    [
+      "sinusitis {sinusitis}",
+      "Radang sinus."
+    ],
+    [
+      "sinusotomy {sinusotomía}",
+      "Insisi sinus."
+    ],
+    [
+      "sinus rhythm",
+      "Irama jantung normal."
+    ],
+    [
+      "skeleton {esqueleto}",
+      "Kerangka tulang tubuh."
+    ],
+    [
+      "skin graft",
+      "Penempatan kulit segar di atas area yang rusak."
+    ],
+    [
+      "SMA (sequential multiple analyzer)",
+      "Mesin kimia darah asli; sekarang sinonim untuk kimia darah."
+    ],
+    [
+      "small intestine",
+      "Tabung sepanjang dua puluh kaki yang melanjutkan proses pencernaan dimulai di perut; tempat di mana sebagian besar penye"
+    ],
+    [
+      "smell {olfacción, oler}",
+      "Kemampuan untuk merasakan bau."
+    ],
+    [
+      "smooth muscle",
+      "Otot berserat dari organ dalam yang bekerja tanpa disengaja"
+    ],
+    [
+      "social worker",
+      "Profesional nonmedis yang dilatih sebagai advokat untuk orang-orang (seperti orang tua atau anak-anak) dan mungkin juga"
+    ],
+    [
+      "sociopathy",
+      "Pengabaian yang sangat tidak berperasaan terhadap orang lain."
+    ],
+    [
+      "socket",
+      "Ruang di garis rahang tempat gigi tumbuh di atas garis rahang."
+    ],
+    [
+      "soft palate",
+      "Bagian posterior lunak dari langit-langit mulut; lembaran otot fleksibel yang memisahkan nasofaring dari bagian faring l"
+    ],
+    [
+      "solid tumor",
+      "Karsinoma; jenis tumor yang paling umum."
+    ],
+    [
+      "somatic nervous system",
+      "Bagian dari sistem saraf tepi yang menerima dan memproses masukan sensorik dari berbagai bagian tubuh."
+    ],
+    [
+      "somatoform disorders",
+      "Gangguan jiwa termasuk gejala fisik yang memiliki dasar psikologis."
+    ],
+    [
+      "somatotrophic hormone (STH)",
+      "Hormon disekresi oleh kelenjar hipofisis anterior; penting dalam pertumbuhan dan perkembangan."
+    ],
+    [
+      "somnambulism {sonambulismo}",
+      "Tidur berjalan."
+    ],
+    [
+      "somnolence {somnolencia}",
+      "Rasa kantuk yang ekstrim yang disebabkan oleh gangguan neurologis."
+    ],
+    [
+      "sonogram",
+      "Citra USG."
+    ],
+    [
+      "sonography {sonografía}",
+      "Produksi gambar berdasarkan gema gelombang suara terhadap struktur."
+    ],
+    [
+      "spasm {espasmo}",
+      "Kontraksi otot yang tiba-tiba dan tidak disengaja."
+    ],
+    [
+      "spastic",
+      "Cenderung mengalami kejang."
+    ],
+    [
+      "specific gravity",
+      "Pengukuran konsentrasi limbah, mineral, dan padatan dalam urin."
+    ],
+    [
+      "SPECT (single photon emission computed tomography) brain scan",
+      "Citra otak dihasilkan dengan menggunakan isotop radioaktif."
+    ],
+    [
+      "sperm {esperma}",
+      "Sel kelamin pria yang mengandung kromosom."
+    ],
+    [
+      "spermatogenesis",
+      "Produksi sperma."
+    ],
+    [
+      "spermatozoon(pl., spermatozoa) {espermatozoo}",
+      "Lihat sperma."
+    ],
+    [
+      "spermicide {espermicida}",
+      "Bahan kimia kontrasepsi yang menghancurkan sperma; biasanya dalam bentuk krim atau jeli."
+    ],
+    [
+      "sphenoid bone",
+      "Tulang yang membentuk dasar tengkorak."
+    ],
+    [
+      "sphenoid sinus",
+      "Sinus di atas dan di belakang hidung."
+    ],
+    [
+      "sphygmomanometer {esfigmomanómetro}",
+      "Alat untuk mengukur tekanan darah."
+    ],
+    [
+      "spina bifida {espina bífida}",
+      "Cacat bawaan dengan kelainan bentuk tulang belakang."
+    ],
+    [
+      "spinal cavity",
+      "Ruang tubuh yang berisi sumsum tulang belakang."
+    ],
+    [
+      "spinal column",
+      "Kolom vertebra di bagian belakang tubuh, dari leher sampai tulang ekor."
+    ],
+    [
+      "spinal cord",
+      "Jaringan seperti tali yang berada di dalam kolom tulang belakang dan dari mana saraf tulang belakang meluas."
+    ],
+    [
+      "spinal curvature",
+      "Kelengkungan tulang belakang yang tidak normal."
+    ],
+    [
+      "spinal nerves",
+      "Salah satu dari 31 pasang saraf yang membawa pesan ke dan dari sumsum tulang belakang serta batang tubuh dan ekstremitas"
+    ],
+    [
+      "spinous process",
+      "Tonjolan dari bagian tengah lengkung vertebralis."
+    ],
+    [
+      "spirometer {espirómetro}",
+      "Mesin penguji yang mengukur volume dan kapasitas paru-paru."
+    ],
+    [
+      "spleen {bazo}",
+      "Organ sistem getah bening yang menyaring, menyimpan, dan mengeluarkan darah, serta mengaktifkan limfosit."
+    ],
+    [
+      "splenectomy {esplenectomía}",
+      "Pengangkatan limpa."
+    ],
+    [
+      "splenomegaly",
+      "Limpa membesar."
+    ],
+    [
+      "splinting {ferulización}",
+      "Menerapkan bidai untuk melumpuhkan bagian tubuh."
+    ],
+    [
+      "spondylolisthesis {espondilolistesis}",
+      "Kondisi degeneratif di mana salah satu vertebra tidak sejajar dengan yang di bawahnya; disk tergelincir."
+    ],
+    [
+      "spondylolysis {espodilolisis}",
+      "Kondisi degeneratif bagian bergerak dari sebuah vertebra."
+    ],
+    [
+      "spondylosyndesis {espondilosindesis}",
+      "Perpaduan dua atau lebih tulang belakang."
+    ],
+    [
+      "sponge {esponja}",
+      "Alat kontrasepsi poliuretan yang diisi dengan spermisida dan diletakkan di vagina dekat leher rahim."
+    ],
+    [
+      "spongy bone",
+      "Tulang dengan kisi terbuka berisi jaringan ikat atau sumsum."
+    ],
+    [
+      "sprain",
+      "Cedera pada sendi tanpa dislokasi atau patah tulang."
+    ],
+    [
+      "spur",
+      "Proyeksi tulang tumbuh dari tulang; batu kapur."
+    ],
+    [
+      "sputum sample or culture",
+      "Kultur bahan yang dikeluarkan (atau dibawa kembali sebagai lendir)."
+    ],
+    [
+      "squamous cell carcinoma",
+      "Kanker epitel skuamosa."
+    ],
+    [
+      "squamous epithelium",
+      "Lapisan sel rata dan bersisik yang membentuk epidermis."
+    ],
+    [
+      "stage",
+      "Tingkat penyebaran tumor."
+    ],
+    [
+      "standard precautions",
+      "Pedoman yang dikeluarkan oleh Pusat Pengendalian Penyakit untuk mencegah penyebaran penyakit."
+    ],
+    [
+      "stapedectomy",
+      "Pengangkatan stapes untuk menyembuhkan otosklerosis."
+    ],
+    [
+      "stapes (pl., stapes, stapedes) {estribo}",
+      "Salah satu dari tiga tulang telinga pendengaran; sanggurdi."
+    ],
+    [
+      "staples",
+      "Perangkat logam yang digunakan untuk menjahit sayatan bedah."
+    ],
+    [
+      "statins",
+      "Kelas agen penurun lipid yang paling sering digunakan saat ini."
+    ],
+    [
+      "steatorrhea {esteatorrea}",
+      "Lemak di dalam darah."
+    ],
+    [
+      "stem cell",
+      "Sel yang belum matang terbentuk di sumsum tulang yang berdiferensiasi menjadi sel darah merah atau putih."
+    ],
+    [
+      "stenosis {estenosis}",
+      "Penyempitan, terutama pada pembuluh darah atau katup jantung."
+    ],
+    [
+      "stent",
+      "Alat yang ditanamkan secara bedah yang digunakan untuk menahan sesuatu (sebagai pembuluh darah) agar terbuka."
+    ],
+    [
+      "stereotactic frame",
+      "Tutup kepala yang dikenakan oleh pasien membutuhkan ketelitian yang tepat dalam pengobatan anomali otak."
+    ],
+    [
+      "stereotaxy STER-e-o-T0K t7k] surgery",
+      "Penghancuran struktur otak yang dalam menggunakan koordinat tiga dimensi untuk menemukan struktur tersebut."
+    ],
+    [
+      "sternum {esternón}",
+      "Tulang pipih panjang yang membentuk garis tengah anterior toraks."
+    ],
+    [
+      "steroid",
+      "Hormon atau zat kimia yang dilepaskan oleh beberapa kelenjar endokrin atau diproduksi dalam berbagai obat."
+    ],
+    [
+      "stimulus (pl., stimuli) {estimulo}",
+      "Apa pun yang membangkitkan respons."
+    ],
+    [
+      "stomach {estómago}",
+      "Kantung besar di antara kerongkongan dan usus kecil; tempat di mana makanan diuraikan."
+    ],
+    [
+      "stool {heces}",
+      "Kotoran."
+    ],
+    [
+      "strabismus {estrabismo}",
+      "Mata tidak sejajar."
+    ],
+    [
+      "strain {distender}",
+      "Cedera pada otot akibat penggunaan yang tidak benar atau penggunaan berlebihan."
+    ],
+    [
+      "stratified squamous epithelium",
+      "Lapisan sel epitel yang menyusun lapisan epitel epidermis."
+    ],
+    [
+      "stratum (pl., strata){estrato}",
+      "Lapisan jaringan, terutama lapisan kulit."
+    ],
+    [
+      "stratum corneum",
+      "Sublapisan atas epidermis."
+    ],
+    [
+      "stratum germinativum",
+      "Lapisan bawah epidermis."
+    ],
+    [
+      "stress test",
+      "Tes yang mengukur detak jantung, tekanan darah, dan fungsi tubuh lainnya saat pasien berolahraga di treadmill."
+    ],
+    [
+      "striae {estrías}",
+      "Stretch mark dibuat pada serat kolagen pada lapisan dermis."
+    ],
+    [
+      "striated muscle",
+      "Otot dengan penampilan bergaris yang dikendalikan sesuka hati."
+    ],
+    [
+      "stridor {estridor}",
+      "Suara kokok bernada tinggi terdengar pada kondisi pernafasan tertentu."
+    ],
+    [
+      "stroke {accidente cerebrovascular}",
+      "Lihat kecelakaan serebrovaskular (CVA)."
+    ],
+    [
+      "sty, stye {orzuelo}",
+      "Hordeolum."
+    ],
+    [
+      "styloid process",
+      "Penonjolan berbentuk pasak dari tulang."
+    ],
+    [
+      "subcutaneous",
+      "Disuntikkan ke lapisan lemak jaringan di bawah lapisan luar kulit."
+    ],
+    [
+      "subcutaneous layer",
+      "Lapisan bawah kulit mengandung jaringan lemak."
+    ],
+    [
+      "subdural space",
+      "Area antara duramater dan pia mater di mana arakhnoid berjalan."
+    ],
+    [
+      "sublingually",
+      "Di bawah lidah."
+    ],
+    [
+      "subluxation {subluxación}",
+      "Dislokasi parsial, seperti di antara permukaan sambungan."
+    ],
+    [
+      "sudden infant death syndrome (SIDS)",
+      "Kematian bayi, biasanya saat tidur, tanpa sebab yang jelas."
+    ],
+    [
+      "sulcus (pl., sulci) {surco}",
+      "Alur atau alur di permukaan tulang; lihat celah."
+    ],
+    [
+      "superficial",
+      "Di atau dekat permukaan (tubuh)."
+    ],
+    [
+      "superior",
+      "Di atas struktur tubuh lain."
+    ],
+    [
+      "superior lobe",
+      "Lobus paling atas dari setiap paru-paru."
+    ],
+    [
+      "superior vena cava",
+      "Vena besar yang mengangkut darah dikumpulkan dari bagian atas tubuh ke jantung."
+    ],
+    [
+      "supine",
+      "Berbaring telentang menghadap ke atas."
+    ],
+    [
+      "suppository {supositorio}",
+      "Obat yang dicampur dengan zat leleh setengah padat yang dimaksudkan untuk diberikan dengan cara dimasukkan ke dalam vagi"
+    ],
+    [
+      "suppressor cell",
+      "Sel T yang menekan sel B dan sel imun lainnya."
+    ],
+    [
+      "suprarenal gland",
+      "Kelenjar adrenal."
+    ],
+    [
+      "surgery",
+      "Pengangkatan, transplantasi, atau manipulasi jaringan."
+    ],
+    [
+      "surgical scissors",
+      "Gunting digunakan untuk memotong dan membedah jaringan selama operasi"
+    ],
+    [
+      "suture {sutura}",
+      "Bergabungnya dua bagian tulang dengan selaput fibrosa."
+    ],
+    [
+      "suture needles",
+      "Jarum digunakan untuk menutup luka bedah dengan menjahit."
+    ],
+    [
+      "sweat glands",
+      "Kelenjar melingkar pada kulit yang mengeluarkan keringat untuk mengatur suhu tubuh dan mengeluarkan produk limbah."
+    ],
+    [
+      "sweat test",
+      "Tes fibrosis kistik yang mengukur jumlah garam dalam keringat."
+    ],
+    [
+      "sympathetic nervous system",
+      "Bagian dari sistem saraf otonom yang beroperasi saat tubuh sedang stres."
+    ],
+    [
+      "sympathomimetic {simpatomimético}",
+      "Meniru fungsi sistem saraf simpatis."
+    ],
+    [
+      "symphysis {sinfisis}",
+      "Jenis sendi tulang rawan yang menyatukan dua tulang."
+    ],
+    [
+      "synapse {sinapsis}",
+      "Ruang tempat impuls saraf melompat dari satu neuron ke neuron lainnya."
+    ],
+    [
+      "synarthrosis {sinartrosis}",
+      "Sendi berserat tanpa gerakan."
+    ],
+    [
+      "syncope {síncope}",
+      "Kehilangan kesadaran karena tiba-tiba kekurangan oksigen di otak."
+    ],
+    [
+      "syndrome of inappropriate ADH (SIADH)",
+      "Sekresi hormon antidiuretik yang berlebihan."
+    ],
+    [
+      "synovectomy {sinovectomía}",
+      "Pengangkatan sebagian atau seluruh membran sinovial sendi."
+    ],
+    [
+      "synovial fluid",
+      "Cairan yang berfungsi untuk melumasi persendian."
+    ],
+    [
+      "synovial joint",
+      "Sendi yang bergerak."
+    ],
+    [
+      "synovial membrane",
+      "Jaringan ikat yang melapisi rongga persendian dan menghasilkan cairan sinovial."
+    ],
+    [
+      "syphilis {sífilis}",
+      "Infeksi menular seksual."
+    ],
+    [
+      "syringe {jeringa}",
+      "Instrumen yang digunakan untuk injeksi atau penarikan cairan."
+    ],
+    [
+      "system",
+      "Setiap kelompok organ dan bagian tambahan yang bekerja sama untuk menjalankan fungsi tubuh utama."
+    ],
+    [
+      "systemic lupus erythematosus (SLE)",
+      "Bentuk lupus yang paling parah, melibatkan organ dalam."
+    ],
+    [
+      "systole {systole}",
+      "Fase kontraksi detak jantung."
+    ],
+    [
+      "tachycardia {taquicardia}",
+      "Denyut jantung lebih dari 100 denyut per menit."
+    ],
+    [
+      "tachypnea {taquipnea}",
+      "Napas cepat yang tidak normal."
+    ],
+    [
+      "talipes calcaneus",
+      "Kelainan bentuk tumit akibat melemahnya otot betis."
+    ],
+    [
+      "talipes valgus",
+      "Deformitas kaki ditandai dengan eversi pada kaki."
+    ],
+    [
+      "talipes varus",
+      "Deformitas kaki ditandai dengan pembalikan kaki."
+    ],
+    [
+      "target cell",
+      "Sel dengan reseptor yang kompatibel dengan hormon tertentu."
+    ],
+    [
+      "tarsus, tarsal bones",
+      "Tujuh tulang punggung kaki (lengkung kaki)."
+    ],
+    [
+      "taste",
+      "Kemampuan untuk merasakan kualitas materi yang tertelan."
+    ],
+    [
+      "taste buds",
+      "Organ yang merasakan rasa makanan."
+    ],
+    [
+      "taste cells",
+      "Sel reseptor khusus di dalam indera perasa."
+    ],
+    [
+      "Tay-Sachs disease",
+      "Penyakit keturunan yang menyebabkan kerusakan pada sistem saraf pusat dan, akhirnya, kematian."
+    ],
+    [
+      "T cells",
+      "Sel khusus yang berkembang di timus dan bertanggung jawab atas imunitas seluler, dan membantu imunitas humoral."
+    ],
+    [
+      "tears {lágrimas}",
+      "Kelembaban disekresikan dari kelenjar lakrimal."
+    ],
+    [
+      "telangiectasia",
+      "Pelebaran permanen pembuluh darah kecil."
+    ],
+    [
+      "temporal bone",
+      "Tulang besar yang membentuk dasar dan sisi tengkorak."
+    ],
+    [
+      "temporal lobe",
+      "Salah satu dari empat bagian setiap belahan otak besar."
+    ],
+    [
+      "temporomandibular joint (TMJ)",
+      "Sendi rahang bawah antara tulang temporal dan mandibula."
+    ],
+    [
+      "temporomandibular joint (TMJ) dysfunction",
+      "Nyeri di garis rahang akibat dislokasi sendi."
+    ],
+    [
+      "tendinitis, tendonitis {tendonitis}",
+      "Peradangan tendon."
+    ],
+    [
+      "tendon {tendon}",
+      "Pita berserat yang menghubungkan otot ke tulang atau struktur lain."
+    ],
+    [
+      "tenotomy {tenotomía}",
+      "Pemotongan tendon secara bedah."
+    ],
+    [
+      "teratoma",
+      "Pertumbuhan mengandung beberapa jenis jaringan dan berbagai jenis sel."
+    ],
+    [
+      "terminal end fibers",
+      "Sekelompok serat di ujung akson yang melewati impuls meninggalkan neuron ke neuron berikutnya."
+    ],
+    [
+      "testicle {testículo}",
+      "See testis."
+    ],
+    [
+      "testis (pl., testes) TES-ti-kl] {testículo}",
+      "Organ laki-laki yang menghasilkan sperma dan terdapat di dalam skrotum; salah satu dari dua organ pria yang mengeluarkan"
+    ],
+    [
+      "testosterone {testosterona}",
+      "Hormon utama pria."
+    ],
+    [
+      "tetany {tetania}",
+      "Kontraksi otot panjang yang menyakitkan. Kelumpuhan otot, biasanya karena penurunan kadar kalsium terionisasi dalam dara"
+    ],
+    [
+      "tetralogy of Fallot",
+      "Kumpulan empat kelainan jantung bawaan yang muncul bersamaan yang menyebabkan darah terdeoksigenasi masuk ke sirkulasi s"
+    ],
+    [
+      "thalamus {tálamo}",
+      "Salah satu dari empat bagian diencephalon; berfungsi sebagai stasiun pemancar sensorik."
+    ],
+    [
+      "thalassemia {talasemia}",
+      "Gangguan keturunan yang ditandai dengan ketidakmampuan untuk menghasilkan hemoglobin yang cukup."
+    ],
+    [
+      "therapeutic drug monitoring (TDM)",
+      "Mengambil tes darah atau urin secara teratur untuk melacak penggunaan obat dan efektivitas pengobatan."
+    ],
+    [
+      "therapeutic massage",
+      "Merangsang kulit, otot, dan jaringan untuk mempercepat penyembuhan."
+    ],
+    [
+      "therapeutic touch",
+      "Penumpangan tangan untuk mempercepat penyembuhan."
+    ],
+    [
+      "therapist",
+      "Profesional nonmedis terlatih dalam pengobatan gangguan mental melalui terapi bicara."
+    ],
+    [
+      "third molar",
+      "Molar terjauh dari median garis rahang."
+    ],
+    [
+      "third-degree burn",
+      "Jenis luka bakar paling parah; melibatkan penghancuran total suatu area kulit."
+    ],
+    [
+      "thoracic cavity",
+      "Ruang tubuh di atas rongga perut yang berisi jantung, paru-paru, dan pembuluh darah utama."
+    ],
+    [
+      "thoracic surgeon",
+      "Ahli bedah yang mengkhususkan diri dalam pembedahan dada."
+    ],
+    [
+      "thoracic vertebrae",
+      "Dua belas ruas dada."
+    ],
+    [
+      "thoracocentesis {toracocentesis}",
+      "Tusukan bedah rongga dada."
+    ],
+    [
+      "thoracostomy {toracostomía}",
+      "Terbentuknya lubang di rongga dada."
+    ],
+    [
+      "thoracotomy {toracotomía}",
+      "Insisi ke rongga dada."
+    ],
+    [
+      "thorax {tórax}",
+      "Bagian batang antara leher dan perut; dada; rongga dada."
+    ],
+    [
+      "throat {garganta}",
+      "Lihat faring."
+    ],
+    [
+      "throat culture",
+      "Tes untuk infeksi streptokokus atau lainnya di mana usapan yang diambil pada permukaan tenggorokan ditempatkan dalam bia"
+    ],
+    [
+      "thrombectomy {trombectomia}",
+      "Operasi pengangkatan trombus."
+    ],
+    [
+      "thrombin {trombina}",
+      "Enzim yang membantu pembentukan gumpalan."
+    ],
+    [
+      "thrombocyte {trombocito}",
+      "Trombosit; fragmen sel yang menghasilkan trombin."
+    ],
+    [
+      "thrombocytopenia",
+      "Kondisi perdarahan dengan produksi trombosit yang tidak mencukupi."
+    ],
+    [
+      "thrombolytic",
+      "Agen yang melarutkan trombus; agen yang melarutkan gumpalan darah."
+    ],
+    [
+      "thrombophlebitis {tromboflebitis}",
+      "Peradangan vena dengan trombus."
+    ],
+    [
+      "thromboplastin",
+      "Protein yang membantu pembentukan bekuan fibrin."
+    ],
+    [
+      "thrombosis {trombosis}",
+      "Adanya trombus di pembuluh darah."
+    ],
+    [
+      "thrombotic stroke",
+      "Stroke yang disebabkan oleh trombus."
+    ],
+    [
+      "thrombotic occlusion",
+      "Penyempitan yang disebabkan oleh trombus."
+    ],
+    [
+      "thrombus {trombo}",
+      "Pembekuan darah; bekuan darah stasioner dalam sistem kardiovaskular, biasanya terbentuk dari materi yang ditemukan di da"
+    ],
+    [
+      "thymectomy {timectomía}",
+      "Pengangkatan kelenjar timus."
+    ],
+    [
+      "thymoma {timoma}",
+      "Tumor kelenjar timus."
+    ],
+    [
+      "thymosin {timosina}",
+      "Hormon disekresikan oleh kelenjar timus yang membantu distribusi timosit dan limfosit."
+    ],
+    [
+      "thymus gland",
+      "Kelenjar lunak dengan dua lobus yang terlibat dalam respon imun; terletak di mediastinum; kelenjar yang merupakan bagian"
+    ],
+    [
+      "thyroid gland",
+      "Kelenjar dengan dua lobus terletak di kedua sisi trakea; membantu mengontrol kadar kalsium darah dan fungsi metabolisme."
+    ],
+    [
+      "thyroid cartilage",
+      "Lihat jakun."
+    ],
+    [
+      "thyroid function test or study",
+      "Tes kadar TSH, T3, dan T4 dalam plasma darah untuk menentukan fungsi tiroid."
+    ],
+    [
+      "thyroid scan",
+      "Tes pencitraan untuk kelainan tiroid."
+    ],
+    [
+      "thyroidectomy {tiroidectomía}",
+      "Pengangkatan tiroid."
+    ],
+    [
+      "thyroid-stimulating hormone (TSH)",
+      "Hormon disekresi oleh kelenjar hipofisis anterior; merangsang pelepasan hormon tiroid."
+    ],
+    [
+      "thyrotoxicosis",
+      "Kelebihan kelenjar tiroid."
+    ],
+    [
+      "thyroxine",
+      "Senyawa yang ditemukan di atau diproduksi untuk kelenjar tiroid; membantu mengatur metabolisme."
+    ],
+    [
+      "tibia {tibia}",
+      "Lebih besar dari dua tulang kaki bagian bawah."
+    ],
+    [
+      "tic {tic}",
+      "Gerakan kedutan yang menyertai beberapa gangguan neurologis."
+    ],
+    [
+      "tine test, TB tine",
+      "Tes skrining untuk tuberkulosis di mana dosis kecil tuberkulin disuntikkan ke dalam serangkaian tempat dalam ruang kecil"
+    ],
+    [
+      "tinea {tiña}",
+      "Infeksi jamur; kurap."
+    ],
+    [
+      "Tinel's sign",
+      "Sensasi \"pin dan jarum\" terasa saat situs saraf yang cedera diketuk."
+    ],
+    [
+      "tinnitus {tinnitus}",
+      "Dering atau dengung yang konstan di telinga."
+    ],
+    [
+      "tissue",
+      "Grup sel apa pun yang bekerja sama untuk melakukan satu fungsi."
+    ],
+    [
+      "tissue-type plasminogen activator (tPA,TPA)",
+      "Agen yang mencegah pembentukan trombus."
+    ],
+    [
+      "T lymphocytes",
+      "Lihat sel T."
+    ],
+    [
+      "TNM system",
+      "Tumor, node, sistem metastasis untuk mengkategorikan tumor."
+    ],
+    [
+      "tocolytic agent",
+      "Hormon diberikan untuk menghentikan persalinan."
+    ],
+    [
+      "tomography",
+      "Jenis pencitraan yang menghasilkan gambar tiga dimensi."
+    ],
+    [
+      "tongue {lengua}",
+      "Bagian mulut yang berdaging yang menggerakkan makanan selama pengunyahan."
+    ],
+    [
+      "tonic-clonic seizure",
+      "Kejang epilepsi parah disertai kejang, kedutan, dan kehilangan kesadaran."
+    ],
+    [
+      "tonometry {tonometría}",
+      "Pengukuran ketegangan atau tekanan di dalam mata."
+    ],
+    [
+      "tonsillectomy {tonsilectomía}",
+      "Pengangkatan amandel."
+    ],
+    [
+      "tonsillitis {tonsillitis}",
+      "Radang amandel."
+    ],
+    [
+      "topical anesthetic",
+      "Anestesi dioleskan ke permukaan kulit."
+    ],
+    [
+      "topically",
+      "Di permukaan kulit."
+    ],
+    [
+      "touch {tacto}",
+      "Kemampuan merasakan sensasi pada kulit."
+    ],
+    [
+      "Tourette syndrome",
+      "Gangguan neurologis yang menyebabkan suara bicara dan tics yang tidak terkendali."
+    ],
+    [
+      "toxicology {toxicología}",
+      "Studi tentang efek berbahaya obat."
+    ],
+    [
+      "trabeculectomy",
+      "Pengangkatan sebagian trabekulum untuk memungkinkan aqueous humor mengalir bebas di sekitar mata."
+    ],
+    [
+      "tracer study",
+      "Gambar yang menelusuri perjalanan radiofarmasi melalui organ atau jaringan."
+    ],
+    [
+      "trachea {tráquea}",
+      "Jalan napas dari laring ke bronkus; batang tenggorok."
+    ],
+    [
+      "tracheitis",
+      "Peradangan pada trakea."
+    ],
+    [
+      "tracheoplasty {traqueoplastia}",
+      "Perbaikan trakea."
+    ],
+    [
+      "tracheostomy {traqueostomía}",
+      "Penciptaan bukaan buatan di trakea."
+    ],
+    [
+      "tracheotomy {traqueotomia}",
+      "Insisi ke dalam trakea."
+    ],
+    [
+      "traction {tracción}",
+      "Menyeret atau menarik atau meluruskan sesuatu, sebagai anggota badan, dengan memasang elastis atau alat lainnya."
+    ],
+    [
+      "trade name",
+      "Nama dilindungi hak cipta oleh produsen untuk versi obat tertentu."
+    ],
+    [
+      "traditional Chinese medicine",
+      "Beragam praktik yang mempromosikan keseimbangan antara yin dan yang untuk meningkatkan dan menjaga kesehatan."
+    ],
+    [
+      "tranquilizer",
+      "Obat yang digunakan untuk meredakan kecemasan."
+    ],
+    [
+      "transcranial sonogram",
+      "Gambar otak dihasilkan dengan menggunakan gelombang suara."
+    ],
+    [
+      "transfusion {transfusión}",
+      "Injeksi darah donor ke seseorang yang membutuhkan darah."
+    ],
+    [
+      "transient ischemic attack",
+      "Insiden neurologis yang singkat biasanya tidak mengakibatkan cedera permanen, tetapi biasanya menandakan bahwa stroke ya"
+    ],
+    [
+      "transverse plane",
+      "Garis imajiner yang memotong tubuh secara horizontal."
+    ],
+    [
+      "transverse process",
+      "Penonjolan di kedua sisi lengkung vertebralis."
+    ],
+    [
+      "tremor {tremblor}",
+      "Kontraksi otot yang berulang dan tidak normal."
+    ],
+    [
+      "trephination, trepanation",
+      "Sayatan melingkar ke tengkorak."
+    ],
+    [
+      "trichiasis",
+      "Pertumbuhan bulu mata yang tidak normal ke arah yang menyebabkannya bergesekan dengan mata."
+    ],
+    [
+      "tricuspid valve",
+      "Katup atrioventrikular di sisi kanan jantung."
+    ],
+    [
+      "tricuspid stenosis",
+      "Penyempitan abnormal pada pembukaan katup trikuspid."
+    ],
+    [
+      "triglyceride {triglicérido}",
+      "Zat lemak; lipid."
+    ],
+    [
+      "trigone {trígono}",
+      "Area segitiga di dasar kandung kemih tempat masuknya ureter dan uretra keluar dari kandung kemih."
+    ],
+    [
+      "triiodothyronine",
+      "(T3) Hormon tiroid yang merangsang pertumbuhan."
+    ],
+    [
+      "trochanter {trocánter}",
+      "Tonjolan tulang di ujung atas tulang paha."
+    ],
+    [
+      "true ribs",
+      "Tujuh rusuk atas dada yang menempel pada tulang dada."
+    ],
+    [
+      "tubercle {tubérculo}",
+      "Sedikit peninggian tulang tempat ligamen atau otot dapat menempel."
+    ],
+    [
+      "tuberculosis {tuberculosis}",
+      "Penyakit infeksi akut yang disebabkan oleh bakteri yang disebut basil."
+    ],
+    [
+      "tuberosity {tuberosidad}",
+      "Elevasi besar di permukaan tulang."
+    ],
+    [
+      "tumor {tumor}",
+      "Setiap massa jaringan; pembengkakan; pertumbuhan terdiri dari sel-sel yang berkembang biak secara tidak normal."
+    ],
+    [
+      "tylectomy",
+      "Operasi pengangkatan tumor terlokalisasi."
+    ],
+    [
+      "tympanic membrane",
+      "Gendang pendengar."
+    ],
+    [
+      "tympanitis",
+      "Radang gendang telinga."
+    ],
+    [
+      "tympanoplasty",
+      "Perbaikan gendang telinga."
+    ],
+    [
+      "Type I diabetes",
+      "Gangguan endokrin dengan kadar insulin rendah yang tidak normal; juga dikenal sebagai insulin-dependent diabetes mellitu"
+    ],
+    [
+      "Type II diabetes",
+      "Penyakit yang disebabkan oleh kegagalan tubuh untuk mengenali insulin yang ada atau oleh tingkat insulin yang sangat ren"
+    ],
+    [
+      "ulcer {úlcera}",
+      "Lesi terbuka, biasanya dengan hilangnya jaringan di permukaan."
+    ],
+    [
+      "ulcerating",
+      "Memiliki luka terbuka."
+    ],
+    [
+      "ulcerative colitis",
+      "Radang usus besar dengan bisul."
+    ],
+    [
+      "ulna {ulna}",
+      "Tulang lengan bawah yang lebih besar."
+    ],
+    [
+      "ultrasonography",
+      "Penggunaan gelombang suara untuk menghasilkan gambar interior suatu tubuh."
+    ],
+    [
+      "ultrasound",
+      "Gambar hasil ultrasonografi; diproduksi oleh gelombang suara."
+    ],
+    [
+      "ultraviolet light",
+      "Sinar matahari buatan digunakan untuk mengobati beberapa lesi kulit."
+    ],
+    [
+      "umbilical cord",
+      "Tali pusat yang menghubungkan plasenta di dalam rahim ibu ke pusar janin selama masa gestasi untuk memberi makan janin."
+    ],
+    [
+      "umbilical region",
+      "Area tubuh yang mengelilingi umbilikus."
+    ],
+    [
+      "undiffferentiated",
+      "Tidak memiliki struktur sel yang ditentukan."
+    ],
+    [
+      "upper respiratory infection",
+      "Infeksi pada seluruh atau sebagian saluran pernapasan bagian atas."
+    ],
+    [
+      "uptake",
+      "Kecepatan penyerapan radio-farmasi oleh organ atau bagian tubuh tertentu."
+    ],
+    [
+      "urea {urea}",
+      "Produk limbah metabolisme nitrogen diekskresikan dalam urin normal orang dewasa."
+    ],
+    [
+      "uremia {uremia}",
+      "Kelebihan urea dan limbah lainnya di dalam darah."
+    ],
+    [
+      "ureter {uréter}",
+      "Salah satu dari dua tabung yang mengalirkan air seni dari ginjal ke kandung kemih."
+    ],
+    [
+      "ureterectomy",
+      "Operasi pengangkatan semua atau sebagian ureter."
+    ],
+    [
+      "ureteroplasty",
+      "Perbaikan ureter secara bedah."
+    ],
+    [
+      "ureterorrhaphy",
+      "Menjahit ureter."
+    ],
+    [
+      "urethra {uretra}",
+      "Tabung tempat urin diangkut dari kandung kemih ke bagian luar tubuh."
+    ],
+    [
+      "urethrogram",
+      "Foto rontgen uretra dan prostat."
+    ],
+    [
+      "urethropexy",
+      "Memperbaiki uretra secara bedah."
+    ],
+    [
+      "urethroplasty",
+      "Perbaikan uretra secara bedah."
+    ],
+    [
+      "urethrorrhaphy",
+      "Menjahit uretra."
+    ],
+    [
+      "urethrostomy",
+      "Terbentuknya celah antara uretra dan bagian luar tubuh."
+    ],
+    [
+      "urethrotomy",
+      "Sayatan bedah untuk penyempitan uretra."
+    ],
+    [
+      "uric acid",
+      "Limbah nitrogen diekskresikan melalui urin."
+    ],
+    [
+      "uric acid test",
+      "Uji kandungan asam dalam urin; peningkatan kadar mungkin mengindikasikan gout."
+    ],
+    [
+      "urinalysis {análisis de orina}",
+      "Pemeriksaan sifat-sifat urin."
+    ],
+    [
+      "urinary bladder",
+      "Lihat kandung kemih."
+    ],
+    [
+      "urinary system",
+      "Sistem tubuh yang meliputi ginjal, ureter, kandung kemih, dan uretra serta membantu memelihara homeostasis dengan membua"
+    ],
+    [
+      "urinary tract infection (UTI)",
+      "Infeksi saluran kemih."
+    ],
+    [
+      "urine {orina}",
+      "Cairan dikeluarkan oleh sistem saluran kemih."
+    ],
+    [
+      "urine sugar",
+      "Tes untuk diabetes; ditentukan oleh adanya keton atau gula dalam urin."
+    ],
+    [
+      "urology {urología}",
+      "Spesialisasi medis yang mendiagnosis dan merawat sistem kemih dan sistem reproduksi pria."
+    ],
+    [
+      "urostomy",
+      "Terbentuknya lubang di perut bagian luar tubuh untuk keluarnya air seni."
+    ],
+    [
+      "urticaria {urticaria}",
+      "Sekelompok bintik kemerahan, biasanya disertai pruritus dan seringkali disebabkan oleh alergi."
+    ],
+    [
+      "uterine tube",
+      "Salah satu dari dua saluran yang dilalui sel telur dari ovarium ke rahim."
+    ],
+    [
+      "uterus {útero}",
+      "Organ reproduksi wanita; situs implantasi setelah pembuahan atau pelepasan lapisan selama menstruasi."
+    ],
+    [
+      "uvea {úvea}",
+      "Wilayah mata yang mengandung iris, membran koroid, dan badan siliaris."
+    ],
+    [
+      "uvula {uvula}",
+      "Proyeksi berbentuk kerucut tergantung ke bawah dari langit-langit lunak."
+    ],
+    [
+      "vaccination {vacunación}",
+      "Injeksi antigen dari organisme berbeda untuk menyebabkan kekebalan aktif."
+    ],
+    [
+      "vaccine {vacuna}",
+      "Antigen berkembang dari organisme berbeda yang menyebabkan kekebalan aktif di penerima."
+    ],
+    [
+      "vagina {vagina}",
+      "Saluran kelamin yang mengarah dari rahim ke vulva."
+    ],
+    [
+      "vaginitis {vaginitis}",
+      "Peradangan pada vagina."
+    ],
+    [
+      "vagotomy",
+      "Pemotongan saraf vagus secara bedah."
+    ],
+    [
+      "valve {válvula}",
+      "Salah satu dari berbagai struktur yang memperlambat atau mencegah fluida mengalir ke belakang atau ke depan."
+    ],
+    [
+      "valve replacement",
+      "Penggantian katup koroner secara bedah."
+    ],
+    [
+      "valvotomy",
+      "Insisi ke katup jantung untuk menghilangkan obstruksi."
+    ],
+    [
+      "valvulitis {valvulitis}",
+      "Peradangan katup jantung."
+    ],
+    [
+      "valvuloplasty {valvuloplastia}",
+      "Rekonstruksi bedah katup jantung."
+    ],
+    [
+      "varicella {varicela}",
+      "Penyakit kulit menular, biasanya terjadi pada masa kanak-kanak, dan sering disertai pembentukan pustula; cacar air."
+    ],
+    [
+      "varicocele {varicocele}",
+      "Pembesaran vena pada korda spermatika."
+    ],
+    [
+      "varicose vein",
+      "Vena melebar, membesar, atau bengkok, biasanya di kaki."
+    ],
+    [
+      "vas deferens",
+      "Tabung sempit tempat sperma meninggalkan epididimis dan berjalan ke vesikula seminalis dan masuk ke uretra."
+    ],
+    [
+      "vascular lesion",
+      "Lesi pada pembuluh darah yang terlihat melalui kulit."
+    ],
+    [
+      "vasectomy {vasectomía}",
+      "Pengangkatan sebagian vas deferens untuk mencegah pembuahan."
+    ],
+    [
+      "vasoconstrictor",
+      "Agen yang mempersempit pembuluh darah."
+    ],
+    [
+      "vasodilator",
+      "Agen yang melebarkan atau memperlebar pembuluh darah."
+    ],
+    [
+      "vasopressin",
+      "Hormon yang disekresikan oleh kelenjar pituitari; meningkatkan tekanan darah."
+    ],
+    [
+      "vasovasostomy {vasovasostomía}",
+      "Pembalikan vasektomi."
+    ],
+    [
+      "vegetation {vegetación}",
+      "Gumpalan pada katup atau bukaan jantung, biasanya disebabkan oleh infeksi."
+    ],
+    [
+      "vein {vena}",
+      "Salah satu dari berbagai pembuluh darah yang membawa darah terdeoksigenasi menuju jantung, kecuali vena pulmonalis."
+    ],
+    [
+      "vena cava (pl., venae cavae)",
+      "Lihat vena kava superior dan vena kava inferior."
+    ],
+    [
+      "venipuncture {venipuntura}",
+      "Tusukan kecil ke pembuluh darah, biasanya untuk mengambil darah atau menyuntikkan larutan; penyisipan jarum ke pembuluh"
+    ],
+    [
+      "venography {venografía}",
+      "Melihat vena dengan x-ray setelah injeksi media kontras."
+    ],
+    [
+      "ventilators",
+      "Alat bantu pernapasan mekanis."
+    ],
+    [
+      "ventral",
+      "Di atau ke arah depan (tubuh)."
+    ],
+    [
+      "ventral cavity",
+      "Rongga utama di bagian depan tubuh berisi rongga dada, perut, dan panggul."
+    ],
+    [
+      "ventral thalamus",
+      "Salah satu dari empat bagian diencephalon; berfungsi sebagai stasiun pemancar sensorik."
+    ],
+    [
+      "ventricle {ventrículo}",
+      "1. Salah satu dari dua ruang bawah jantung. 2. Rongga di otak untuk cairan serebrospinal."
+    ],
+    [
+      "ventriculogram",
+      "Foto rontgen ventrikel diambil setelah injeksi media kontras."
+    ],
+    [
+      "venule {vénula}",
+      "Vena kecil yang terhubung ke kapiler."
+    ],
+    [
+      "verruca (pl., verrucae)",
+      "Pertumbuhan berwarna daging, terkadang disebabkan oleh virus; kutil."
+    ],
+    [
+      "verrucous {verruga}",
+      "Penampilannya seperti kutil."
+    ],
+    [
+      "vertebra (pl., vertebrae) {vertebra, pl., vertebras}",
+      "Salah satu segmen tulang dari tulang belakang."
+    ],
+    [
+      "vertebral body",
+      "Bagian utama tulang belakang, terpisah dari lengkungan tulang belakang."
+    ],
+    [
+      "vertebral column",
+      "Kolom tulang belakang."
+    ],
+    [
+      "vertigo {vértigo}",
+      "Pusing."
+    ],
+    [
+      "vesicle {vesicular}",
+      "Kantung kecil dan menonjol di kulit yang berisi cairan."
+    ],
+    [
+      "vestibule {vestíbulo}",
+      "Ruang tulang antara kanal setengah lingkaran dan koklea."
+    ],
+    [
+      "vial {vial}",
+      "Wadah kecil untuk menyimpan obat cair atau pil."
+    ],
+    [
+      "villus (pl., villi) {vellosidad}",
+      "Proyeksi kecil seperti jari pada lapisan usus kecil dengan kapiler yang melaluinya nutrisi yang dicerna diserap ke dalam"
+    ],
+    [
+      "viral meningitis",
+      "Meningitis disebabkan oleh virus dan tidak separah meningitis pirogenik."
+    ],
+    [
+      "virilism {virilismo}",
+      "Kondisi dengan produksi androgen yang berlebihan, seringkali mengakibatkan munculnya ciri-ciri jantan dewasa pada usia m"
+    ],
+    [
+      "visceral muscle",
+      "Otot polos."
+    ],
+    [
+      "visceral pleura",
+      "Lapisan dalam pleura."
+    ],
+    [
+      "vitamin {vitamina}",
+      "Zat organik ditemukan dalam makanan."
+    ],
+    [
+      "vitamin D",
+      "Vitamin penting untuk pembentukan tulang."
+    ],
+    [
+      "vitiligo {vitiligo}",
+      "Kondisi di mana bercak putih muncul pada kulit yang biasanya berpigmen."
+    ],
+    [
+      "vocal cords",
+      "Strip jaringan epitel yang bergetar dan berperan besar dalam produksi suara."
+    ],
+    [
+      "voice box",
+      "Lihat laring."
+    ],
+    [
+      "voiding (urinating) cystourethrogram (VCU, VCUG)",
+      "Gambar sinar-X dibuat setelah pengenalan media kontras dan saat buang air kecil berlangsung."
+    ],
+    [
+      "voluntary muscle",
+      "Otot lurik."
+    ],
+    [
+      "volvulus {vólvulo}",
+      "Penyumbatan usus yang disebabkan oleh usus yang berputar dengan sendirinya."
+    ],
+    [
+      "vomer {vómer}",
+      "Tulang pipih membentuk septum hidung."
+    ],
+    [
+      "von Willebrand's disease",
+      "Gangguan hemoragik dengan kecenderungan berdarah dari selaput lendir."
+    ],
+    [
+      "vulva {vulva}",
+      "Alat kelamin wanita bagian luar."
+    ],
+    [
+      "wart {varruga}",
+      "Lihat veruka."
+    ],
+    [
+      "Western blot",
+      "Tes terutama digunakan untuk memeriksa antibodi terhadap HIV dalam serum."
+    ],
+    [
+      "wheal {roncha}",
+      "Bercak gatal pada kulit yang terangkat."
+    ],
+    [
+      "wheezes {sibilancias}",
+      "Bunyi siulan terdengar saat inspirasi pada gangguan pernapasan tertentu, terutama asma."
+    ],
+    [
+      "white blood cell",
+      "Salah satu bagian darah padat dari sel induk yang berperan dalam pertahanan melawan penyakit; leukosit."
+    ],
+    [
+      "whitehead {punto blanco}",
+      "Komedo tertutup yang tidak mengandung bakteri gelap yang ada di komedo."
+    ],
+    [
+      "whooping cough",
+      "Lihat pertusis."
+    ],
+    [
+      "Wilms' tumor",
+      "Tumor ginjal ganas ditemukan terutama pada anak kecil; nefroblastoma."
+    ],
+    [
+      "windpipe",
+      "Lihat trakea."
+    ],
+    [
+      "xenograft {xenoinjerto}",
+      "Lihat heterograft."
+    ],
+    [
+      "x-ray",
+      "Partikel radiasi berenergi tinggi dari bagian dalam suatu zat."
+    ],
+    [
+      "zygomatic",
+      "tulang Tulang yang membentuk pipi."
+    ],
+    [
+      "Psychologist",
+      "ahli ilmu jiwa"
+    ],
+    [
+      "Cardiologist",
+      "ahli jantung"
+    ],
+    [
+      "Pulmonologist",
+      "ahli paru-paru"
+    ],
+    [
+      "Neurologist",
+      "ahli urat saraf"
+    ],
+    [
+      "Ambulance",
+      "Ambulan"
+    ],
+    [
+      "Anatomy",
+      "Anatomi"
+    ],
+    [
+      "Pharmacist",
+      "Apoteker"
+    ],
+    [
+      "Essential fatty acids",
+      "Asam lemak asensial"
+    ],
+    [
+      "Oxalicacid",
+      "Asam oksalat"
+    ],
+    [
+      "Hypertension",
+      "Asma"
+    ],
+    [
+      "Cough",
+      "Batuk"
+    ],
+    [
+      "Bleedingtes",
+      "Berdarah"
+    ],
+    [
+      "Nutritious",
+      "Bergizi"
+    ],
+    [
+      "Checks up",
+      "berobat"
+    ],
+    [
+      "Midwife",
+      "Bidan"
+    ],
+    [
+      "Biology",
+      "Biologi"
+    ],
+    [
+      "Bronchities",
+      "bronkitis"
+    ],
+    [
+      "Color blind",
+      "Buta warna"
+    ],
+    [
+      "Chicken pox",
+      "Cacar air"
+    ],
+    [
+      "Blood",
+      "Darah"
+    ],
+    [
+      "Endurance",
+      "Daya tahan tubuh"
+    ],
+    [
+      "Fever",
+      "Demam"
+    ],
+    [
+      "diarrheea",
+      "diare"
+    ],
+    [
+      "Diptheria",
+      "dipteri"
+    ],
+    [
+      "Dysentery",
+      "disentri"
+    ],
+    [
+      "Doctor",
+      "dokter"
+    ],
+    [
+      "Pediatriacian",
+      "Dokter anak"
+    ],
+    [
+      "Dentist",
+      "dokter gigi"
+    ],
+    [
+      "Obstetrician",
+      "Dokter kandungan"
+    ],
+    [
+      "Dermatologist",
+      "dokter kulit"
+    ],
+    [
+      "Internist",
+      "dokter penyakit dalam"
+    ],
+    [
+      "Aurist",
+      "dokter telinga"
+    ],
+    [
+      "General Practitioner",
+      "dokter umum"
+    ],
+    [
+      "Physician",
+      "Dokter/tabib"
+    ],
+    [
+      "Blood donors",
+      "Donor darah"
+    ],
+    [
+      "Dose",
+      "Dosis"
+    ],
+    [
+      "Etiquette",
+      "Etiket"
+    ],
+    [
+      "Pharmacology",
+      "Farmakologi"
+    ],
+    [
+      "Pharmacopoeia",
+      "Farmakope"
+    ],
+    [
+      "Pharmacy",
+      "Farmasi"
+    ],
+    [
+      "Physiologi",
+      "Fisiologi"
+    ],
+    [
+      "Mentall disorders",
+      "Ganguan jiwa"
+    ],
+    [
+      "brain concusion",
+      "Geger otak"
+    ],
+    [
+      "Nutrient",
+      "Gigi"
+    ],
+    [
+      "Incisive",
+      "Gigi seri"
+    ],
+    [
+      "Caninus",
+      "Gigi taring"
+    ],
+    [
+      "Goiter",
+      "Gondok"
+    ],
+    [
+      "Hepatitis",
+      "hepatitis"
+    ],
+    [
+      "Immunization",
+      "Imunisasi"
+    ],
+    [
+      "Infusion",
+      "infus"
+    ],
+    [
+      "Herbal tonic",
+      "Jamu"
+    ],
+    [
+      "Heart disease",
+      "Jantungan"
+    ],
+    [
+      "Corpse",
+      "Jenazah"
+    ],
+    [
+      "Pinset",
+      "jepitan"
+    ],
+    [
+      "Pimple",
+      "Jerawat"
+    ],
+    [
+      "Bladder",
+      "Kantung kemih"
+    ],
+    [
+      "Capluse",
+      "Kapsul"
+    ],
+    [
+      "convulsion",
+      "Kejang"
+    ],
+    [
+      "Gland himofise",
+      "Kelenjar Himofise"
+    ],
+    [
+      "Diabetes",
+      "Kencing manis"
+    ],
+    [
+      "Health",
+      "kesehatan"
+    ],
+    [
+      "Clinic",
+      "klinik"
+    ],
+    [
+      "Chlorophyll",
+      "Klorofil"
+    ],
+    [
+      "Colera",
+      "kolera"
+    ],
+    [
+      "Cholesterol",
+      "Kolestrol"
+    ],
+    [
+      "Anemia",
+      "Kurang darah"
+    ],
+    [
+      "Laboratory",
+      "Laboraturium"
+    ],
+    [
+      "Neck Tulang",
+      "leher"
+    ],
+    [
+      "Injury",
+      "luka luka"
+    ],
+    [
+      "Carsick",
+      "mabuk darat"
+    ],
+    [
+      "Seasick",
+      "Mabuk laut"
+    ],
+    [
+      "Airsick",
+      "Mabuk udara"
+    ],
+    [
+      "Eye",
+      "Mata"
+    ],
+    [
+      "Oculist Dokter",
+      "dokter mata"
+    ],
+    [
+      "Medical",
+      "Medis"
+    ],
+    [
+      "Microscope",
+      "Mikroskop"
+    ],
+    [
+      "nosebleed",
+      "Mimisan"
+    ],
+    [
+      "Omega oils",
+      "Minyak omega"
+    ],
+    [
+      "Narcotics",
+      "Narkotika"
+    ],
+    [
+      "Medicine",
+      "obat"
+    ],
+    [
+      "eye drop",
+      "obat mata"
+    ],
+    [
+      "Drug",
+      "obat teguk"
+    ],
+    [
+      "Operation",
+      "Operasi"
+    ],
+    [
+      "Brain",
+      "Otak"
+    ],
+    [
+      "Muscle",
+      "Otot"
+    ],
+    [
+      "Muscle backs",
+      "Otot punggung"
+    ],
+    [
+      "Lungs",
+      "Paru-paru"
+    ],
+    [
+      "Medical Patient",
+      "Pasien Medis"
+    ],
+    [
+      "Patient",
+      "pasien"
+    ],
+    [
+      "Disease in",
+      "Penyakit dalam"
+    ],
+    [
+      "Beyong disease",
+      "Penyakit luar"
+    ],
+    [
+      "Infectious disease",
+      "Penyakit menular"
+    ],
+    [
+      "Nurse",
+      "Perawat"
+    ],
+    [
+      "Pill",
+      "Pil"
+    ],
+    [
+      "Cold",
+      "Pilek"
+    ],
+    [
+      "Fainting",
+      "Pingsan"
+    ],
+    [
+      "Psychiatrist",
+      "psikiater"
+    ],
+    [
+      "Psychotropic",
+      "psikotoropika"
+    ],
+    [
+      "scar",
+      "Punya bekas luka"
+    ],
+    [
+      "Dizzy",
+      "pusing"
+    ],
+    [
+      "Hospitalization",
+      "Rawat inap"
+    ],
+    [
+      "Outpatient",
+      "Rawat jalan"
+    ],
+    [
+      "Prescription",
+      "Resep"
+    ],
+    [
+      "Mouth cavity",
+      "Rongga Mulut"
+    ],
+    [
+      "Maternity house",
+      "Rumah bersalin"
+    ],
+    [
+      "Hospital",
+      "Rumah sakit"
+    ],
+    [
+      "Maternity hospital",
+      "Rumah sakit bersalin"
+    ],
+    [
+      "Influensa",
+      "Sakit flu"
+    ],
+    [
+      "heart trouble",
+      "Sakit jantung"
+    ],
+    [
+      "Headache",
+      "Sakit kepala"
+    ],
+    [
+      "Jaundice",
+      "Sakit kuning"
+    ],
+    [
+      "Eyeache",
+      "sakit mata"
+    ],
+    [
+      "Lumbago",
+      "Sakit pinggang"
+    ],
+    [
+      "Earache",
+      "sakit telinga"
+    ],
+    [
+      "Healthy",
+      "Sehat"
+    ],
+    [
+      "Knee joint",
+      "Sendi lutut"
+    ],
+    [
+      "X-ray",
+      "Sinar x"
+    ],
+    [
+      "Syndrome x",
+      "Sindrom x"
+    ],
+    [
+      "Kidney stones",
+      "Batu ginjal"
+    ],
+    [
+      "High temperature",
+      "Suhu badan tinggi"
+    ],
+    [
+      "Medulla",
+      "Sumsum belakang"
+    ],
+    [
+      "injection / Syringe",
+      "Suntikan"
+    ],
+    [
+      "Ear",
+      "Telinga"
+    ],
+    [
+      "stratch",
+      "Tergores"
+    ],
+    [
+      "Wound",
+      "Terluka"
+    ],
+    [
+      "Cut",
+      "Terpotong"
+    ],
+    [
+      "Chest",
+      "Tulang dada"
+    ],
+    [
+      "Heel bone",
+      "Tulang lutut"
+    ],
+    [
+      "Collar bone",
+      "Tulang selangka"
+    ],
+    [
+      "Knee capp",
+      "Tulang tempurung lut"
+    ],
+    [
+      "Emergency room",
+      "UGD"
+    ],
+    [
+      "Intensive Care",
+      "Unit ICU"
+    ],
+    [
+      "Gut flora Floro",
+      "usus"
+    ],
+    [
+      "Kidney",
+      "ginjal"
+    ]
+  ]
+}

@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
-  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff, ShieldAlert
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff, ShieldAlert, BookText
 } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
@@ -16,6 +16,7 @@ import { BookmarkView } from './components/BookmarkView';
 import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { AdminDashboard } from './components/AdminDashboard';
+import { KamusTerminologi } from './components/KamusTerminologi';
 import { FeedbackModal } from './components/FeedbackModal';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
@@ -695,6 +696,7 @@ const searchType = useMemo(() => {
       { name: 'Beranda', icon: <BookOpen className="w-5 h-5" />, action: () => handleTabClick('new_search') },
       { name: 'ICD-10', icon: <Search className="w-5 h-5" />, action: () => handleTabClick('icd10') },
       { name: 'ICD-9', icon: <Search className="w-5 h-5" />, action: () => handleTabClick('icd9') },
+      { name: 'Kamus', icon: <BookText className="w-5 h-5" />, action: () => handleTabClick('kamus') },
       { name: 'Klinik AI', icon: <Brain className="w-5 h-5" />, action: () => handleTabClick('case') },
       { name: 'Ekspor', icon: <FileText className="w-5 h-5" />, action: () => handleTabClick('history') },
       { name: 'Profil', icon: <User className="w-5 h-5" />, action: () => handleTabClick('profile') },
@@ -1203,6 +1205,7 @@ const searchType = useMemo(() => {
             <Route path="/settings" element={<SettingsView onAliasesUpdated={reloadAliases} />} />
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/help" element={<HelpView />} />
+            <Route path="/kamus" element={<KamusTerminologi />} />
             <Route path="/bookmark" element={<BookmarkView />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={
@@ -1276,19 +1279,35 @@ const searchType = useMemo(() => {
                             </button>
                           )}
                           {!loading && (
-                            <button
-                              type="button"
-                              onClick={toggleListening}
-                              aria-label={isListening ? "Hentikan Perekaman Suara" : "Mulai Pencarian Suara"}
-                              className={`p-1.5 rounded-full transition-all duration-300 focus:outline-none ${
-                                isListening 
-                                  ? 'bg-red-500 text-white shadow-md shadow-red-500/30 animate-pulse hover:bg-red-600' 
-                                  : 'text-slate-450 dark:text-slate-550 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
-                              }`}
-                              title="Pencarian Suara"
-                            >
-                              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                onClick={toggleListening}
+                                aria-label={isListening ? "Hentikan Perekaman Suara" : "Mulai Pencarian Suara"}
+                                className={`p-1.5 rounded-full transition-all duration-300 focus:outline-none shrink-0 ${
+                                  isListening 
+                                    ? 'bg-red-500 text-white shadow-md shadow-red-500/30 animate-pulse hover:bg-red-600' 
+                                    : 'text-slate-450 dark:text-slate-550 hover:text-[#2AA79B] hover:bg-slate-100 dark:hover:bg-slate-800'
+                                }`}
+                                title="Pencarian Suara"
+                              >
+                                {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                              </button>
+                              
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleTabClick('case');
+                                }}
+                                className="ml-1 sm:ml-2 flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full text-[11px] sm:text-xs font-semibold transition-all border border-slate-200 dark:border-slate-700 shrink-0 cursor-pointer"
+                                title="Tanya Klinik AI"
+                              >
+                                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2AA79B]" />
+                                <span className="hidden sm:inline">Klinik AI</span>
+                                <span className="sm:hidden">AI</span>
+                              </button>
+                            </>
                           )}
                           {loading && (
                             <div className="p-1 text-[#2AA79B]">
@@ -1314,27 +1333,7 @@ const searchType = useMemo(() => {
                         )}
                       </div>
 
-                      {/* 2 Tombol CTA */}
-                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md px-4">
-                        <button
-                          onClick={() => {
-                            if (inputValue.trim()) {
-                              handleSearchConfirm();
-                            }
-                          }}
-                          className="w-full sm:w-auto px-8 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:shadow-md active:scale-[0.98]"
-                        >
-                          Cari Kode ICD
-                        </button>
-                        <button
-                          onClick={() => {
-                            handleTabClick('case');
-                          }}
-                          className="w-full sm:w-auto px-8 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-all cursor-pointer hover:shadow-md active:scale-[0.98]"
-                        >
-                          Tanya Klinik AI
-                        </button>
-                      </div>
+
 
                     </div>
                   ) : (
