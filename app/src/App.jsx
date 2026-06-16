@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import Fuse from 'fuse.js';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 
 import { 
@@ -89,8 +90,15 @@ const searchType = useMemo(() => {
   const [suggestionsQuery, setSuggestionsQuery] = useState('');
 
   
-  const { searchResults: _rawSearchResults, isSearching, searchError, searchQuery, activeAlias } = useICDSearch(debouncedQuery, searchType, filterChapter, aliases);
+  const { searchResults: _rawSearchResults, isSearching, searchError, searchQuery, activeAlias, isUsingLocalSearch } = useICDSearch(debouncedQuery, searchType, filterChapter, aliases, icd10Data, icd9Data);
   const searchResults = _rawSearchResults;
+
+  // Toast notification when switching to offline mode
+  useEffect(() => {
+    if (isUsingLocalSearch && debouncedQuery) {
+      showToast('Beralih ke mode offline — menggunakan data lokal', 'warning');
+    }
+  }, [isUsingLocalSearch]);
 // Voice Search States
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = React.useRef(null);
@@ -423,11 +431,6 @@ const searchType = useMemo(() => {
   // [HOOK useICDData dipanggil di atas]
 
 
-  // Initialize Fuse instances
-  
-
-  
-
   const ICD10_UMBRELLA = useMemo(() => ({
     'DM': { target: 'Diabetes mellitus', label: 'E10-E14 (Diabetes Mellitus)' },
     'DM TIPE 2': { target: 'E11', label: 'E11 (DM Tipe 2)' },
@@ -475,10 +478,32 @@ const searchType = useMemo(() => {
   }), []);
 
   const suggestions = useMemo(() => {
-    // Saran autocomplete sementara dimatikan karena pencarian Supabase utama 
-    // sudah cukup cepat dan tidak membebani database dengan request per ketukan.
-    return [];
-  }, [suggestionsQuery]);
+    const q = suggestionsQuery.trim();
+    if (q.length < 2) return [];
+
+    const dataType = searchType === 'icd9' ? icd9Data : icd10Data;
+    if (!dataType || dataType.length === 0) return [];
+
+    const fuse = new Fuse(dataType, {
+      keys: [
+        { name: 'code', weight: 3 },
+        { name: 'title', weight: 2 },
+        { name: 'desc', weight: 2 }
+      ],
+      threshold: 0.4,
+      distance: 100,
+      minMatchCharLength: 2,
+      includeScore: true,
+      limit: 8
+    });
+
+    const results = fuse.search(q);
+    return results.map(r => {
+      const item = r.item;
+      const label = item.title || item.desc || '';
+      return `${label} (${item.code})`;
+    });
+  }, [suggestionsQuery, searchType, icd10Data, icd9Data]);
 
   const handleSelectSuggestion = (suggestion) => {
     const codeMatch = suggestion.match(/\(([^)]+)\)$/);
