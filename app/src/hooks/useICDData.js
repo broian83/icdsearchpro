@@ -42,11 +42,11 @@ export const useICDData = (isLoggedIn, user) => {
         const fetchDynamicAliases = async () => {
           if (!isLoggedIn || !user) return {};
           try {
-            const { data, error } = await supabase.from('custom_abbreviations').select('abbreviation, target_word, is_global, user_id');
+            const { data, error } = await supabase.from('custom_abbreviations').select('abbreviation, target_word, is_global');
             if (error) throw error;
             const custom = {};
             data.forEach(item => {
-              if (item.is_global || item.user_id === user.id) {
+              if (item.is_global) {
                 custom[item.abbreviation.toLowerCase()] = item.target_word;
               }
             });

@@ -73,13 +73,22 @@ export function BookmarkView() {
           {bookmarks.map((b) => (
             <div key={b.id} className="relative group">
               <ResultCard 
-                item={{ code: b.code, title: b.title, desc: b.desc }}
-                matches={[]}
-                searchType={b.search_type}
-                knowledgeText={""}
+                group={{
+                  categoryCode: b.code,
+                  categoryItem: { code: b.code, title: b.title, desc: b.desc || '' },
+                  matchedCodes: [b.code],
+                  matchedMatches: {},
+                  bestScore: 0,
+                  allSubcodes: [{ code: b.code, title: b.title, desc: b.desc || '' }],
+                  type: b.search_type || 'icd10'
+                }}
+                searchType={b.search_type || 'icd10'}
+                searchQuery=""
+                knowledgeText=""
                 daggerAsteriskData={null}
                 onRequireAuth={() => {}}
-                initialBookmarked={true}
+                onSelectDetail={() => {}}
+                selectedCode={null}
               />
               <button
                 onClick={() => handleRemove(b.id)}
