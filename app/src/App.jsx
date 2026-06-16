@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-
 import { 
   Search, Loader2, Database, AlertCircle, X, Clock, Brain, Filter, BookOpen, Menu, 
   Grid, Sun, Moon, Star, Cloud, Settings, HelpCircle, User, ArrowUpRight, LogOut,
-  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff, ShieldAlert, BookText
+  ChevronUp, ChevronDown, Copy, Check, Info, Sparkles, BookMarked, FileText, CheckCircle2, Plus, Mic, MicOff, ShieldAlert, BookText, Calculator
 } from 'lucide-react';
 import { ResultCard } from './components/ResultCard';
 import { CaseConsultation } from './components/CaseConsultation';
@@ -18,6 +18,7 @@ import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { AdminDashboard } from './components/AdminDashboard';
 import { KamusTerminologi } from './components/KamusTerminologi';
+import { TarifCalculator } from './components/TarifCalculator';
 import { FeedbackModal } from './components/FeedbackModal';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
@@ -794,6 +795,12 @@ const searchType = useMemo(() => {
                 <Star className="w-3.5 h-3.5 text-slate-400" /> Bookmark Saya
               </button>
               <button 
+                onClick={() => { handleTabClick('tarif'); setIsProfileDropdownOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Calculator className="w-3.5 h-3.5 text-emerald-500" /> Tarif INA-CBG
+              </button>
+              <button 
                 onClick={() => { handleTabClick('history'); setIsProfileDropdownOpen(false); }}
                 className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
@@ -1231,6 +1238,7 @@ const searchType = useMemo(() => {
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/help" element={<HelpView />} />
             <Route path="/kamus" element={<KamusTerminologi />} />
+            <Route path="/tarif" element={<TarifCalculator />} />
             <Route path="/bookmark" element={<BookmarkView />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={
