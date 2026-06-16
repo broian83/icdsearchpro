@@ -18,7 +18,7 @@ import { HistoryView } from './components/HistoryView';
 import { ProfileView } from './components/ProfileView';
 import { AdminDashboard } from './components/AdminDashboard';
 import { KamusTerminologi } from './components/KamusTerminologi';
-import { TarifCalculator } from './components/TarifCalculator';
+import { SimulasiKlaim } from './components/SimulasiKlaim';
 import { FeedbackModal } from './components/FeedbackModal';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
@@ -798,7 +798,7 @@ const searchType = useMemo(() => {
                 onClick={() => { handleTabClick('tarif'); setIsProfileDropdownOpen(false); }}
                 className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-655 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Calculator className="w-3.5 h-3.5 text-emerald-500" /> Tarif INA-CBG
+                <Calculator className="w-3.5 h-3.5 text-emerald-500" /> Simulasi Klaim
               </button>
               <button 
                 onClick={() => { handleTabClick('history'); setIsProfileDropdownOpen(false); }}
@@ -1238,7 +1238,7 @@ const searchType = useMemo(() => {
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/help" element={<HelpView />} />
             <Route path="/kamus" element={<KamusTerminologi />} />
-            <Route path="/tarif" element={<TarifCalculator />} />
+            <Route path="/tarif" element={<SimulasiKlaim />} />
             <Route path="/bookmark" element={<BookmarkView />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={

@@ -1,0 +1,452 @@
+[
+  {
+    "drgCode": "683",
+    "drgName": "Pneumonia & Pleurisy without CC/MCC",
+    "drgNameID": "Pneumonia & Pleurisy tanpa CC/MCC",
+    "mdc": "MDC05",
+    "mdcName": "Diseases and Disorders of the Respiratory System",
+    "principalDx": ["J18.9", "J15.9", "J12.9", "J13", "J14", "J16.8"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3500000, "tariffKelas2": 5200000, "tariffKelas1": 7800000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4550000, "tariffKelas2": 6760000, "tariffKelas1": 10140000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5600000, "tariffKelas2": 8320000, "tariffKelas1": 12480000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 7000000, "tariffKelas2": 10400000, "tariffKelas1": 15600000 }
+    },
+    "commonProcedures": ["96.71", "96.72", "99.04", "87.03"]
+  },
+  {
+    "drgCode": "291",
+    "drgName": "Heart Failure & Shock",
+    "drgNameID": "Gagal Jantung & Syok",
+    "mdc": "MDC05",
+    "mdcName": "Diseases and Disorders of the Circulatory System",
+    "principalDx": ["I50.9", "I50.0", "I50.1", "I50.2", "I50.3", "I50.4"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5500000, "tariffKelas2": 8200000, "tariffKelas1": 12300000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 7150000, "tariffKelas2": 10660000, "tariffKelas1": 15990000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8800000, "tariffKelas2": 13120000, "tariffKelas1": 19680000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 11000000, "tariffKelas2": 16400000, "tariffKelas1": 24600000 }
+    },
+    "commonProcedures": ["33.96", "37.22", "37.23", "99.60"]
+  },
+  {
+    "drgCode": "061",
+    "drgName": "Intracranial Hemorrhage",
+    "drgNameID": "Perdarahan Intrakranial",
+    "mdc": "MDC01",
+    "mdcName": "Diseases and Disorders of the Nervous System",
+    "principalDx": ["I62.0", "I62.1", "I62.9", "S06.5", "S06.6"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 18000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 10400000, "tariffKelas2": 15600000, "tariffKelas1": 23400000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 12800000, "tariffKelas2": 19200000, "tariffKelas1": 28800000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 16000000, "tariffKelas2": 24000000, "tariffKelas1": 36000000 }
+    },
+    "commonProcedures": ["01.31", "01.39", "39.95", "96.71"]
+  },
+  {
+    "drgCode": "065",
+    "drgName": "Ischemic Stroke",
+    "drgNameID": "Stroke Iskemik",
+    "mdc": "MDC01",
+    "mdcName": "Diseases and Disorders of the Nervous System",
+    "principalDx": ["I63.9", "I63.5", "I63.8", "I63.4", "I63.3"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 7500000, "tariffKelas2": 11200000, "tariffKelas1": 16800000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 9750000, "tariffKelas2": 14560000, "tariffKelas1": 21840000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 12000000, "tariffKelas2": 17920000, "tariffKelas1": 26880000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 15000000, "tariffKelas2": 22400000, "tariffKelas1": 33600000 }
+    },
+    "commonProcedures": ["99.10", "01.31", "87.03", "88.71"]
+  },
+  {
+    "drgCode": "280",
+    "drgName": "Acute Myocardial Infarction (AMI)",
+    "drgNameID": "Infark Miokard Akut (IMA)",
+    "mdc": "MDC05",
+    "mdcName": "Diseases and Disorders of the Circulatory System",
+    "principalDx": ["I21.9", "I21.0", "I21.1", "I21.2", "I21.3", "I21.4"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 9500000, "tariffKelas2": 14200000, "tariffKelas1": 21300000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 12350000, "tariffKelas2": 18460000, "tariffKelas1": 27690000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 15200000, "tariffKelas2": 22720000, "tariffKelas1": 34080000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 19000000, "tariffKelas2": 28400000, "tariffKelas1": 42600000 }
+    },
+    "commonProcedures": ["36.07", "36.09", "37.22", "99.10"]
+  },
+  {
+    "drgCode": "200",
+    "drgName": "Diabetes with Complications",
+    "drgNameID": "Diabetes dengan Komplikasi",
+    "mdc": "MDC10",
+    "mdcName": "Diseases and Disorders of the Endocrine, Nutritional, and Metabolic System",
+    "principalDx": ["E11.65", "E11.22", "E11.42", "E11.51", "E13.65"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 4500000, "tariffKelas2": 6700000, "tariffKelas1": 10000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 5850000, "tariffKelas2": 8710000, "tariffKelas1": 13000000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 7200000, "tariffKelas2": 10720000, "tariffKelas1": 16000000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 9000000, "tariffKelas2": 13400000, "tariffKelas1": 20000000 }
+    },
+    "commonProcedures": ["39.95", "87.03", "87.07", "89.14"]
+  },
+  {
+    "drgCode": "201",
+    "drgName": "Diabetes without Complications",
+    "drgNameID": "Diabetes tanpa Komplikasi",
+    "mdc": "MDC10",
+    "mdcName": "Diseases and Disorders of the Endocrine, Nutritional, and Metabolic System",
+    "principalDx": ["E11.9", "E10.9", "E13.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 2800000, "tariffKelas2": 4200000, "tariffKelas1": 6300000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 3640000, "tariffKelas2": 5460000, "tariffKelas1": 8190000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 4480000, "tariffKelas2": 6720000, "tariffKelas1": 10080000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 5600000, "tariffKelas2": 8400000, "tariffKelas1": 12600000 }
+    },
+    "commonProcedures": ["89.14", "87.03"]
+  },
+  {
+    "drgCode": "341",
+    "drgName": "Appendicitis with Peritonitis",
+    "drgNameID": "Appendisitis dengan Peritonitis",
+    "mdc": "MDC06",
+    "mdcName": "Diseases and Disorders of the Digestive System",
+    "principalDx": ["K35.80", "K35.81", "K35.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5500000, "tariffKelas2": 8200000, "tariffKelas1": 12300000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 7150000, "tariffKelas2": 10660000, "tariffKelas1": 15990000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8800000, "tariffKelas2": 13120000, "tariffKelas1": 19680000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 11000000, "tariffKelas2": 16400000, "tariffKelas1": 24600000 }
+    },
+    "commonProcedures": ["47.0", "47.01", "47.09", "54.0"]
+  },
+  {
+    "drgCode": "343",
+    "drgName": "Appendicitis without Peritonitis",
+    "drgNameID": "Appendisitis tanpa Peritonitis",
+    "mdc": "MDC06",
+    "mdcName": "Diseases and Disorders of the Digestive System",
+    "principalDx": ["K35.8", "K37"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 4800000, "tariffKelas2": 7200000, "tariffKelas1": 10800000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 6240000, "tariffKelas2": 9360000, "tariffKelas1": 14040000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 7680000, "tariffKelas2": 11520000, "tariffKelas1": 17280000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 9600000, "tariffKelas2": 14400000, "tariffKelas1": 21600000 }
+    },
+    "commonProcedures": ["47.0", "47.01", "47.09"]
+  },
+  {
+    "drgCode": "420",
+    "drgName": "Cholecystitis with Complications",
+    "drgNameID": "Kolesistitis dengan Komplikasi",
+    "mdc": "MDC06",
+    "mdcName": "Diseases and Disorders of the Digestive System",
+    "principalDx": ["K81.0", "K81.1"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 6000000, "tariffKelas2": 9000000, "tariffKelas1": 13500000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 7800000, "tariffKelas2": 11700000, "tariffKelas1": 17550000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 9600000, "tariffKelas2": 14400000, "tariffKelas1": 21600000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 12000000, "tariffKelas2": 18000000, "tariffKelas1": 27000000 }
+    },
+    "commonProcedures": ["51.22", "51.23", "51.24", "54.0"]
+  },
+  {
+    "drgCode": "682",
+    "drgName": "COPD with Complications",
+    "drgNameID": "PPOK dengan Komplikasi",
+    "mdc": "MDC05",
+    "mdcName": "Diseases and Disorders of the Respiratory System",
+    "principalDx": ["J44.1", "J44.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 4500000, "tariffKelas2": 6700000, "tariffKelas1": 10000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 5850000, "tariffKelas2": 8710000, "tariffKelas1": 13000000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 7200000, "tariffKelas2": 10720000, "tariffKelas1": 16000000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 9000000, "tariffKelas2": 13400000, "tariffKelas1": 20000000 }
+    },
+    "commonProcedures": ["96.71", "96.72", "99.04", "87.03"]
+  },
+  {
+    "drgCode": "681",
+    "drgName": "Asthma",
+    "drgNameID": "Asma",
+    "mdc": "MDC05",
+    "mdcName": "Diseases and Disorders of the Respiratory System",
+    "principalDx": ["J45.9", "J45.2", "J45.3", "J45.4", "J45.5"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3200000, "tariffKelas2": 4800000, "tariffKelas1": 7200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4160000, "tariffKelas2": 6240000, "tariffKelas1": 9360000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5120000, "tariffKelas2": 7680000, "tariffKelas1": 11520000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6400000, "tariffKelas2": 9600000, "tariffKelas1": 14400000 }
+    },
+    "commonProcedures": ["96.71", "99.04", "93.90", "87.03"]
+  },
+  {
+    "drgCode": "689",
+    "drgName": "Gastroesophageal Reflux Disease (GERD)",
+    "drgNameID": "Penyakit Refluks Gastroesofageal (GERD)",
+    "mdc": "MDC06",
+    "mdcName": "Diseases and Disorders of the Digestive System",
+    "principalDx": ["K21.0", "K21.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3200000, "tariffKelas2": 4800000, "tariffKelas1": 7200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4160000, "tariffKelas2": 6240000, "tariffKelas1": 9360000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5120000, "tariffKelas2": 7680000, "tariffKelas1": 11520000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6400000, "tariffKelas2": 9600000, "tariffKelas1": 14400000 }
+    },
+    "commonProcedures": ["44.15", "44.16", "87.03", "87.04"]
+  },
+  {
+    "drgCode": "714",
+    "drgName": "Chronic Kidney Disease with Dialysis",
+    "drgNameID": "Penyakit Ginjal Kronik dengan Dialisis",
+    "mdc": "MDC11",
+    "mdcName": "Diseases and Disorders of the Kidney and Urinary System",
+    "principalDx": ["N18.6", "N18.5"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 18000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 10400000, "tariffKelas2": 15600000, "tariffKelas1": 23400000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 12800000, "tariffKelas2": 19200000, "tariffKelas1": 28800000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 16000000, "tariffKelas2": 24000000, "tariffKelas1": 36000000 }
+    },
+    "commonProcedures": ["39.95", "39.42", "38.95", "99.04"]
+  },
+  {
+    "drgCode": "713",
+    "drgName": "Chronic Kidney Disease without Dialysis",
+    "drgNameID": "Penyakit Ginjal Kronik tanpa Dialisis",
+    "mdc": "MDC11",
+    "mdcName": "Diseases and Disorders of the Kidney and Urinary System",
+    "principalDx": ["N18.3", "N18.4", "N18.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5000000, "tariffKelas2": 7500000, "tariffKelas1": 11200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 6500000, "tariffKelas2": 9750000, "tariffKelas1": 14560000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 17920000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 10000000, "tariffKelas2": 15000000, "tariffKelas1": 22400000 }
+    },
+    "commonProcedures": ["87.03", "88.71", "89.14", "90.02"]
+  },
+  {
+    "drgCode": "392",
+    "drgName": "Urinary Tract Infection (UTI)",
+    "drgNameID": "Infeksi Saluran Kemih (ISK)",
+    "mdc": "MDC11",
+    "mdcName": "Diseases and Disorders of the Kidney and Urinary System",
+    "principalDx": ["N39.0", "N30.0", "N30.9", "N34.1"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 2200000, "tariffKelas2": 3300000, "tariffKelas1": 4900000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 2860000, "tariffKelas2": 4290000, "tariffKelas1": 6370000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 3520000, "tariffKelas2": 5280000, "tariffKelas1": 7840000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 4400000, "tariffKelas2": 6600000, "tariffKelas1": 9800000 }
+    },
+    "commonProcedures": ["89.14", "87.03", "87.08", "59.8"]
+  },
+  {
+    "drgCode": "870",
+    "drgName": "Sepsis",
+    "drgNameID": "Sepsis",
+    "mdc": "MDC18",
+    "mdcName": "Injuries, Poisoning, and Certain Other Consequences of External Causes",
+    "principalDx": ["A41.9", "A41.0", "A41.1", "A41.2", "A41.3", "A41.4", "A41.5"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 18000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 10400000, "tariffKelas2": 15600000, "tariffKelas1": 23400000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 12800000, "tariffKelas2": 19200000, "tariffKelas1": 28800000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 16000000, "tariffKelas2": 24000000, "tariffKelas1": 36000000 }
+    },
+    "commonProcedures": ["96.71", "96.72", "99.04", "99.61"]
+  },
+  {
+    "drgCode": "460",
+    "drgName": "Anemia",
+    "drgNameID": "Anemia",
+    "mdc": "MDC15",
+    "mdcName": "Diseases and Disorders of the Blood and Blood Forming Organs",
+    "principalDx": ["D64.9", "D50.9", "D51.9", "D52.9", "D53.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3500000, "tariffKelas2": 5200000, "tariffKelas1": 7800000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4550000, "tariffKelas2": 6760000, "tariffKelas1": 10140000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5600000, "tariffKelas2": 8320000, "tariffKelas1": 12480000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 7000000, "tariffKelas2": 10400000, "tariffKelas1": 15600000 }
+    },
+    "commonProcedures": ["99.02", "99.03", "99.04", "90.02"]
+  },
+  {
+    "drgCode": "560",
+    "drgName": "Hip Fracture",
+    "drgNameID": "Fraktur Panggul",
+    "mdc": "MDC08",
+    "mdcName": "Diseases and Disorders of the Musculoskeletal System and Connective Tissue",
+    "principalDx": ["S72.0", "S72.1", "S72.3", "S72.4"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 6000000, "tariffKelas2": 9000000, "tariffKelas1": 13500000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 7800000, "tariffKelas2": 11700000, "tariffKelas1": 17550000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 9600000, "tariffKelas2": 14400000, "tariffKelas1": 21600000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 12000000, "tariffKelas2": 18000000, "tariffKelas1": 27000000 }
+    },
+    "commonProcedures": ["79.35", "79.36", "81.51", "81.52"]
+  },
+  {
+    "drgCode": "510",
+    "drgName": "Fracture of Arm",
+    "drgNameID": "Fraktur Lengan",
+    "mdc": "MDC08",
+    "mdcName": "Diseases and Disorders of the Musculoskeletal System and Connective Tissue",
+    "principalDx": ["S52.5", "S52.3", "S42.3", "S42.4"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 4000000, "tariffKelas2": 6000000, "tariffKelas1": 9000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 5200000, "tariffKelas2": 7800000, "tariffKelas1": 11700000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 6400000, "tariffKelas2": 9600000, "tariffKelas1": 14400000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 18000000 }
+    },
+    "commonProcedures": ["79.32", "79.33", "79.12", "79.22"]
+  },
+  {
+    "drgCode": "480",
+    "drgName": "Diabetic Ketoacidosis (DKA)",
+    "drgNameID": "Ketoasidosis Diabetik (DKA)",
+    "mdc": "MDC10",
+    "mdcName": "Diseases and Disorders of the Endocrine, Nutritional, and Metabolic System",
+    "principalDx": ["E11.1", "E14.1", "E13.1"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5000000, "tariffKelas2": 7500000, "tariffKelas1": 11200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 6500000, "tariffKelas2": 9750000, "tariffKelas1": 14560000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 17920000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 10000000, "tariffKelas2": 15000000, "tariffKelas1": 22400000 }
+    },
+    "commonProcedures": ["99.61", "99.04", "89.14", "87.03"]
+  },
+  {
+    "drgCode": "180",
+    "drgName": "Hypertension",
+    "drgNameID": "Hipertensi",
+    "mdc": "MDC12",
+    "mdcName": "Diseases and Disorders of the Skin, Subcutaneous Tissue, and Breast",
+    "principalDx": ["I10", "I11.9", "I11.0", "I12.9", "I13.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 2200000, "tariffKelas2": 3300000, "tariffKelas1": 4900000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 2860000, "tariffKelas2": 4290000, "tariffKelas1": 6370000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 3520000, "tariffKelas2": 5280000, "tariffKelas1": 7840000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 4400000, "tariffKelas2": 6600000, "tariffKelas1": 9800000 }
+    },
+    "commonProcedures": ["89.14", "87.03", "93.00", "88.72"]
+  },
+  {
+    "drgCode": "594",
+    "drgName": "Laceration",
+    "drgNameID": "Luka Lepas",
+    "mdc": "MDC09",
+    "mdcName": "Diseases and Disorders of the Skin, Subcutaneous Tissue, and Breast",
+    "principalDx": ["S61.0", "S81.0", "S01.9", "S51.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3000000, "tariffKelas2": 4500000, "tariffKelas1": 6700000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 3900000, "tariffKelas2": 5850000, "tariffKelas1": 8710000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 4800000, "tariffKelas2": 7200000, "tariffKelas1": 10720000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6000000, "tariffKelas2": 9000000, "tariffKelas1": 13400000 }
+    },
+    "commonProcedures": ["83.41", "83.42", "83.43", "83.44"]
+  },
+  {
+    "drgCode": "602",
+    "drgName": "Skin Infection",
+    "drgNameID": "Infeksi Kulit",
+    "mdc": "MDC09",
+    "mdcName": "Diseases and Disorders of the Skin, Subcutaneous Tissue, and Breast",
+    "principalDx": ["L03.9", "L08.9", "L03.1", "L03.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3000000, "tariffKelas2": 4500000, "tariffKelas1": 6700000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 3900000, "tariffKelas2": 5850000, "tariffKelas1": 8710000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 4800000, "tariffKelas2": 7200000, "tariffKelas1": 10720000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6000000, "tariffKelas2": 9000000, "tariffKelas1": 13400000 }
+    },
+    "commonProcedures": ["83.09", "86.04", "86.22", "86.28"]
+  },
+  {
+    "drgCode": "783",
+    "drgName": "Normal Delivery",
+    "drgNameID": "Persalinan Normal",
+    "mdc": "MDC14",
+    "mdcName": "Pregnancy, Childbirth, and the Puerperium",
+    "principalDx": ["O80.9", "O80.0", "O80.1"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3200000, "tariffKelas2": 4800000, "tariffKelas1": 7200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4160000, "tariffKelas2": 6240000, "tariffKelas1": 9360000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5120000, "tariffKelas2": 7680000, "tariffKelas1": 11520000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6400000, "tariffKelas2": 9600000, "tariffKelas1": 14400000 }
+    },
+    "commonProcedures": ["73.6", "73.99", "75.1", "72.0"]
+  },
+  {
+    "drgCode": "784",
+    "drgName": "Caesarean Section (C-Section)",
+    "drgNameID": "Sectio Caesarea",
+    "mdc": "MDC14",
+    "mdcName": "Pregnancy, Childbirth, and the Puerperium",
+    "principalDx": ["O82.0", "O82.1", "O82.2"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5000000, "tariffKelas2": 7500000, "tariffKelas1": 11200000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 6500000, "tariffKelas2": 9750000, "tariffKelas1": 14560000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 17920000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 10000000, "tariffKelas2": 15000000, "tariffKelas1": 22400000 }
+    },
+    "commonProcedures": ["74.0", "74.1", "74.2", "74.4"]
+  },
+  {
+    "drgCode": "790",
+    "drgName": "Preterm Birth",
+    "drgNameID": "Persalinan Prematur",
+    "mdc": "MDC14",
+    "mdcName": "Pregnancy, Childbirth, and the Puerperium",
+    "principalDx": ["P07.3", "P07.1", "P07.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 5500000, "tariffKelas2": 8200000, "tariffKelas1": 12300000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 7150000, "tariffKelas2": 10660000, "tariffKelas1": 15990000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 8800000, "tariffKelas2": 13120000, "tariffKelas1": 19680000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 11000000, "tariffKelas2": 16400000, "tariffKelas1": 24600000 }
+    },
+    "commonProcedures": ["96.71", "96.72", "99.04", "99.61"]
+  },
+  {
+    "drgCode": "794",
+    "drgName": "Neonatal Jaundice",
+    "drgNameID": "Ikterus Neonatal",
+    "mdc": "MDC15",
+    "mdcName": "Diseases and Disorders of the Blood and Blood Forming Organs",
+    "principalDx": ["P59.9", "P59.0"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3000000, "tariffKelas2": 4500000, "tariffKelas1": 6700000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 3900000, "tariffKelas2": 5850000, "tariffKelas1": 8710000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 4800000, "tariffKelas2": 7200000, "tariffKelas1": 10720000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 6000000, "tariffKelas2": 9000000, "tariffKelas1": 13400000 }
+    },
+    "commonProcedures": ["99.83", "99.84", "99.04", "96.71"]
+  },
+  {
+    "drgCode": "015",
+    "drgName": "Cataract",
+    "drgNameID": "Katarak",
+    "mdc": "MDC02",
+    "mdcName": "Diseases and Disorders of the Eye and Adnexa",
+    "principalDx": ["H25.9", "H25.0", "H26.9"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 4000000, "tariffKelas2": 6000000, "tariffKelas1": 9000000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 5200000, "tariffKelas2": 7800000, "tariffKelas1": 11700000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 6400000, "tariffKelas2": 9600000, "tariffKelas1": 14400000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 8000000, "tariffKelas2": 12000000, "tariffKelas1": 18000000 }
+    },
+    "commonProcedures": ["14.21", "14.22", "14.23", "14.24"]
+  },
+  {
+    "drgCode": "350",
+    "drgName": "Hernia",
+    "drgNameID": "Hernia",
+    "mdc": "MDC06",
+    "mdcName": "Diseases and Disorders of the Digestive System",
+    "principalDx": ["K40.9", "K40.2", "K41.9", "K41.2"],
+    "severity": {
+      "0": { "multiplier": 1.0, "tariffKelas3": 3500000, "tariffKelas2": 5200000, "tariffKelas1": 7800000 },
+      "I": { "multiplier": 1.3, "tariffKelas3": 4550000, "tariffKelas2": 6760000, "tariffKelas1": 10140000 },
+      "II": { "multiplier": 1.6, "tariffKelas3": 5600000, "tariffKelas2": 8320000, "tariffKelas1": 12480000 },
+      "III": { "multiplier": 2.0, "tariffKelas3": 7000000, "tariffKelas2": 10400000, "tariffKelas1": 15600000 }
+    },
+    "commonProcedures": ["53.05", "53.06", "53.15", "53.17"]
+  }
+]

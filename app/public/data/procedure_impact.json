@@ -1,0 +1,254 @@
+{
+  "procedures": [
+    {
+      "code": "96.71",
+      "title": "Continuous invasive mechanical ventilation for 96 hours or more",
+      "titleID": "Ventilasi mekanikal invasif kontinu >= 96 jam",
+      "drgShift": "684",
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 5000000, "kelas2": 7500000, "kelas1": 11250000 },
+      "category": "respiratory",
+      "commonWith": ["683", "682"]
+    },
+    {
+      "code": "96.72",
+      "title": "Continuous invasive mechanical ventilation for less than 96 hours",
+      "titleID": "Ventilasi mekanikal invasif <96 jam",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 3000000, "kelas2": 4500000, "kelas1": 6750000 },
+      "category": "respiratory",
+      "commonWith": ["682", "681"]
+    },
+    {
+      "code": "39.95",
+      "title": "Hemodialysis",
+      "titleID": "Hemodialisis",
+      "drgShift": null,
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 8000000, "kelas2": 12000000, "kelas1": 18000000 },
+      "category": "renal",
+      "commonWith": ["682", "683"]
+    },
+    {
+      "code": "99.04",
+      "title": "Transfusion of packed red blood cells",
+      "titleID": "Transfusi sel darah merah",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 1500000, "kelas2": 2250000, "kelas1": 3375000 },
+      "category": "hematologic",
+      "commonWith": ["682", "683"]
+    },
+    {
+      "code": "37.22",
+      "title": "Cardiac catheterization",
+      "titleID": "Kateterisasi jantung",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 4000000, "kelas2": 6000000, "kelas1": 9000000 },
+      "category": "cardiac",
+      "commonWith": ["480", "481", "482"]
+    },
+    {
+      "code": "37.23",
+      "title": "Percutaneous coronary intervention (PCI)",
+      "titleID": "PCI (Percutaneous Coronary Intervention)",
+      "drgShift": "483",
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 12000000, "kelas2": 18000000, "kelas1": 27000000 },
+      "category": "cardiac",
+      "commonWith": ["480", "481", "483"]
+    },
+    {
+      "code": "36.07",
+      "title": "Percutaneous transluminal coronary angioplasty (PTCA)",
+      "titleID": "PTCA (Percutaneous Transluminal Coronary Angioplasty)",
+      "drgShift": "483",
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 10000000, "kelas2": 15000000, "kelas1": 22500000 },
+      "category": "cardiac",
+      "commonWith": ["480", "481", "483"]
+    },
+    {
+      "code": "47.0",
+      "title": "Appendectomy",
+      "titleID": "Apendektomi",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 5000000, "kelas2": 7500000, "kelas1": 11250000 },
+      "category": "gi",
+      "commonWith": ["338", "339"]
+    },
+    {
+      "code": "51.22",
+      "title": "Laparoscopic cholecystectomy",
+      "titleID": "Kolesistektomi laparoskopi",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 6000000, "kelas2": 9000000, "kelas1": 13500000 },
+      "category": "gi",
+      "commonWith": ["342", "343"]
+    },
+    {
+      "code": "81.51",
+      "title": "Total knee replacement (arthroplasty)",
+      "titleID": "Arthroplasty lutut",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 8000000, "kelas2": 12000000, "kelas1": 18000000 },
+      "category": "musculoskeletal",
+      "commonWith": ["468", "469"]
+    },
+    {
+      "code": "79.35",
+      "title": "Open reduction of femur fracture",
+      "titleID": "Open reduction fracture femur",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 5000000, "kelas2": 7500000, "kelas1": 11250000 },
+      "category": "musculoskeletal",
+      "commonWith": ["460", "461"]
+    },
+    {
+      "code": "78.60",
+      "title": "Removal of internal fixation device",
+      "titleID": "Pengangkatan implant",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 3000000, "kelas2": 4500000, "kelas1": 6750000 },
+      "category": "musculoskeletal",
+      "commonWith": ["460", "461"]
+    },
+    {
+      "code": "87.03",
+      "title": "CT scan of head",
+      "titleID": "CT scan kepala",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 1500000, "kelas2": 2250000, "kelas1": 3375000 },
+      "category": "diagnostic",
+      "commonWith": ["010", "011"]
+    },
+    {
+      "code": "88.72",
+      "title": "Echocardiography",
+      "titleID": "Ekokardiografi",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 2000000, "kelas2": 3000000, "kelas1": 4500000 },
+      "category": "diagnostic",
+      "commonWith": ["480", "481"]
+    },
+    {
+      "code": "00.50",
+      "title": "Implantation of cardiac pacemaker",
+      "titleID": "Implantasi pacemaker jantung",
+      "drgShift": "484",
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 15000000, "kelas2": 22500000, "kelas1": 33750000 },
+      "category": "cardiac",
+      "commonWith": ["480", "484"]
+    },
+    {
+      "code": "39.61",
+      "title": "Intra-arterial tube assist for continuous monitoring",
+      "titleID": "Kateterisasi intra-arteri (monitoring ICU)",
+      "drgShift": null,
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 8000000, "kelas2": 12000000, "kelas1": 18000000 },
+      "category": "icu",
+      "commonWith": ["682", "683", "684"]
+    },
+    {
+      "code": "54.91",
+      "title": "Paracentesis (abdominal)",
+      "titleID": "Parasentesis abdomen",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 2000000, "kelas2": 3000000, "kelas1": 4500000 },
+      "category": "gi",
+      "commonWith": ["329", "330"]
+    },
+    {
+      "code": "31.1",
+      "title": "Tracheostomy",
+      "titleID": "Trakeostomi",
+      "drgShift": "684",
+      "severityBoost": 1,
+      "tariffAdd": { "kelas3": 4000000, "kelas2": 6000000, "kelas1": 9000000 },
+      "category": "respiratory",
+      "commonWith": ["682", "683", "684"]
+    },
+    {
+      "code": "96.04",
+      "title": "Insertion of nasogastric tube",
+      "titleID": "Pemasukan sonde nasogastrik",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 500000, "kelas2": 750000, "kelas1": 1125000 },
+      "category": "nutritional",
+      "commonWith": ["682", "683"]
+    },
+    {
+      "code": "99.15",
+      "title": "Intravenous medication administration",
+      "titleID": "Pemberian obat intravena",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 1000000, "kelas2": 1500000, "kelas1": 2250000 },
+      "category": "pharmacy",
+      "commonWith": ["682", "683"]
+    },
+    {
+      "code": "0.83",
+      "title": "Blood culture",
+      "titleID": "Kultur darah",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 800000, "kelas2": 1200000, "kelas1": 1800000 },
+      "category": "diagnostic",
+      "commonWith": ["682", "683"]
+    },
+    {
+      "code": "87.04",
+      "title": "CT scan of thorax",
+      "titleID": "CT scan thorax",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 1500000, "kelas2": 2250000, "kelas1": 3375000 },
+      "category": "diagnostic",
+      "commonWith": ["100", "101"]
+    },
+    {
+      "code": "74.1",
+      "title": "Cesarean section",
+      "titleID": "Cesarean section",
+      "drgShift": "787",
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 4000000, "kelas2": 6000000, "kelas1": 9000000 },
+      "category": "obstetric",
+      "commonWith": ["787", "788"]
+    },
+    {
+      "code": "73.4",
+      "title": "Induced vaginal delivery",
+      "titleID": "Induced vaginal delivery",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 2000000, "kelas2": 3000000, "kelas1": 4500000 },
+      "category": "obstetric",
+      "commonWith": ["783", "784"]
+    },
+    {
+      "code": "59.8",
+      "title": "Dilation and curettage of uterus",
+      "titleID": "Dilation & curettage",
+      "drgShift": null,
+      "severityBoost": 0,
+      "tariffAdd": { "kelas3": 1500000, "kelas2": 2250000, "kelas1": 3375000 },
+      "category": "gynecologic",
+      "commonWith": ["734", "735"]
+    }
+  ]
+}

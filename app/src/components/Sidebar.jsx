@@ -163,7 +163,7 @@ export function Sidebar({
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all cursor-pointer"
                 >
                   <Calculator className="w-4 h-4 text-emerald-500" />
-                  Tarif INA-CBG
+                  Simulasi Klaim
                 </button>
                 <button
                   onClick={() => handleTabClick('kamus')}
