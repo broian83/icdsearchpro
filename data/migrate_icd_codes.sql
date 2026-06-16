@@ -80,7 +80,7 @@ begin
             +
             case when ic."desc" % search_term then 2.0
                  else 0.0 end
-        ) as score
+        )::real as score
     from public.icd_codes ic
     where ic.icd_version = search_category
         and (search_chapter = 'all'
