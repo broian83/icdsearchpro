@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus, Menu, ChevronLeft } from 'lucide-react';
+import { X, Lock, LogIn, LogOut, Brain, Star, Cloud, Settings, HelpCircle, User, Clock, Plus, Menu, ChevronLeft, Calculator } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export function Sidebar({ 
@@ -156,6 +156,44 @@ export function Sidebar({
         <div className="flex-1 overflow-y-auto py-2">
           {isMobileOrExpanded && (
             <div className="pt-2">
+              {/* Menu Navigasi */}
+              <div className="px-3 mb-3 space-y-1">
+                <button
+                  onClick={() => handleTabClick('tarif')}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all cursor-pointer"
+                >
+                  <Calculator className="w-4 h-4 text-emerald-500" />
+                  Tarif INA-CBG
+                </button>
+                <button
+                  onClick={() => handleTabClick('kamus')}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all cursor-pointer"
+                >
+                  <Brain className="w-4 h-4 text-purple-500" />
+                  Kamus Terminologi
+                </button>
+                {isLoggedIn && (
+                  <button
+                    onClick={() => handleTabClick('bookmark')}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all cursor-pointer"
+                  >
+                    <Star className="w-4 h-4 text-yellow-500" />
+                    Bookmark Saya
+                  </button>
+                )}
+                {isLoggedIn && (
+                  <button
+                    onClick={() => handleTabClick('profile')}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all cursor-pointer"
+                  >
+                    <User className="w-4 h-4 text-blue-500" />
+                    Profil Saya
+                  </button>
+                )}
+              </div>
+
+              <div className="border-t border-slate-200 dark:border-slate-800 mx-4 mb-3"></div>
+
               <div className="px-6 flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                   Terbaru
