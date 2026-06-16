@@ -146,8 +146,15 @@ export const useICDSearch = (debouncedQuery, searchType, filterChapter, aliases,
         console.warn('Supabase search failed, using local:', err.message);
         if (!isMounted) return;
 
-        const dataType = searchType === 'icd9' ? icd9Data : icd10Data;
-        const localResults = localSearch(searchQuery, dataType, filterChapter, searchType);
+        let localResults;
+        if (searchType === 'all') {
+          const r10 = localSearch(searchQuery, icd10Data, filterChapter, 'icd10');
+          const r9 = localSearch(searchQuery, icd9Data, filterChapter, 'icd9');
+          localResults = [...r10, ...r9];
+        } else {
+          const dataType = searchType === 'icd9' ? icd9Data : icd10Data;
+          localResults = localSearch(searchQuery, dataType, filterChapter, searchType);
+        }
 
         let results = localResults.map(r => ({
           item: r.item,
@@ -158,7 +165,7 @@ export const useICDSearch = (debouncedQuery, searchType, filterChapter, aliases,
         results.sort((a, b) => a.clinicalScore - b.clinicalScore);
         setSearchResults(results.slice(0, LOCAL_SEARCH_LIMIT));
         setIsUsingLocalSearch(true);
-        setSearchError(null); // Clear error since local search succeeded
+        setSearchError(null);
       } finally {
         if (isMounted) setIsSearching(false);
       }
